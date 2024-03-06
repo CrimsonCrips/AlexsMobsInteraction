@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:piglin",
+    "minecraft:piglin_brute",
+    "minecraft:villager",
+    "minecraft:hoglin"
+  ]
+}

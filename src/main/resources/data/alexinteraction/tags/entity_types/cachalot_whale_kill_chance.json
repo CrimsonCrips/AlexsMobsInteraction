@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cod",
+    "minecraft:tropical_fish",
+    "minecraft:salmon",
+    "alexsmobs:flying_fish",
+    "alexsmobs:catfish",
+    "alexsmobs:devils_hole_pupfish"
+  ]
+}

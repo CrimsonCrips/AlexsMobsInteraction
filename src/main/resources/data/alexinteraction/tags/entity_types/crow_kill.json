@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "alexsmobs:banana_slug",
+    "alexsmobs:fly",
+    "alexsmobs:jerboa",
+    "alexsmobs:mudskipper",
+    "alexsmobs:rain_frog",
+    "alexsmobs:rattlesnake",
+    "alexsmobs:sugar_glider",
+    "alexsmobs:terrapin",
+    "alexsmobs:triops",
+    "minecraft:rabbit",
+    "minecraft:frog"
+  ]
+}

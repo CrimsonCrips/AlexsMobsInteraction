@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "alexsmobs:alligator_snapping_turtle",
+    "alexsmobs:bald_eagle",
+    "alexsmobs:anaconda",
+    "alexsmobs:crocodile",
+    "alexsmobs:grizzly_bear",
+    "alexsmobs:crow",
+    "alexsmobs:blue_jay",
+    "minecraft:fox",
+    "alexsmobs:caiman",
+    "minecraft:cat",
+    "minecraft:ocelot",
+    "minecraft:polar_bear",
+    "alexsmobs:tiger",
+    "alexsmobs:raccoon"
+  ]
+}
