@@ -14,7 +14,7 @@ public class AInteractionConfig {
     public static boolean caimanaggresive = true;
     public static boolean capuchinhunt = true;
     public static boolean catfishcannibalize = true;
-    public static boolean catfisheatstupid = true;
+    public static boolean catfisheatstupid = false;
     public static boolean centipedelightfear = true;
     public static boolean crimsonnostraddler = true;
     public static boolean crowcannibalize = true;
@@ -73,10 +73,12 @@ public class AInteractionConfig {
     public static boolean enderioimmunity = true;
     public static boolean fluttersheared = true;
     public static boolean geladahunt = true;
+    public static boolean orcahunt = true;
 
 
     public static void bake(ModConfig config) {
         try {
+            orcahunt = ConfigHolder.INTERACT.orcahunt.get();
             flypester = ConfigHolder.INTERACT.flypester.get();
             geladahunt = ConfigHolder.INTERACT.geladahunt.get();
             seagullsombrero = ConfigHolder.INTERACT.seagullsombrero.get();

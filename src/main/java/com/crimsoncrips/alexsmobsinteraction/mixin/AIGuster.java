@@ -42,11 +42,11 @@ public class AIGuster extends Mob {
         super(p_21368_, p_21369_);
     }
     EntityGuster guster = (EntityGuster)(Object)this;
-    @Shadow @Final private int maxLiftTime;
+    @Shadow private int maxLiftTime;
 
-    @Shadow @Final private int liftingTime;
+    @Shadow private int liftingTime;
 
-    @Shadow @Final
+    @Shadow
     private int shootingTicks;
 
 

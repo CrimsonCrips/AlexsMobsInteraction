@@ -41,7 +41,23 @@
     "AIKomodoDragon",
     "AILobster",
     "AIMantisShrimp",
-    "AIMudskipper"
+    "AIMudskipper",
+    "AIMurmur",
+    "AIOrca",
+    "AIPotoo",
+    "AIRaccoon",
+    "AIRainfrog",
+    "AIRattlesnake",
+    "AIRoadrunner",
+    "AISeagull",
+    "AISnowLeopard",
+    "AISoulVulture",
+    "AIStraddler",
+    "AIStradpole",
+    "AISugarGlider",
+    "AITasmanianDevil",
+    "AITerrapin",
+    "AITiger"
   ],
 
   "client": [

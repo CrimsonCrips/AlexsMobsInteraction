@@ -14,6 +14,7 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue catfishcannibalize;
     public final ForgeConfigSpec.BooleanValue catfisheatstupid;
     public final ForgeConfigSpec.BooleanValue centipedelightfear;
+    public final ForgeConfigSpec.BooleanValue orcahunt;
     public final ForgeConfigSpec.BooleanValue crimsonnostraddler;
     public final ForgeConfigSpec.BooleanValue crowcannibalize;
     public final ForgeConfigSpec.BooleanValue elephantattack;
@@ -197,6 +198,9 @@ public class InteractConfig {
         builder.pop();
         builder.push("Murmur");
         this.murmurbodykill = buildBoolean(builder, "murmurbodykill", " ", true, "Whether Murmur has to has its body to be killed");
+        builder.pop();
+        builder.push("Orca");
+        this.orcahunt = buildBoolean(builder, "orcahunt", " ", true, "Whether Orca's hunt fish");
         builder.pop();
         builder.push("Raccoon");
         this.raccoonhunt = buildBoolean(builder, "raccoonhunt", " ", true, "Whether Raccoons hunt for food");
