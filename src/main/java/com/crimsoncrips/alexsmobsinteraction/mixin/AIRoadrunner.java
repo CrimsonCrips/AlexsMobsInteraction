@@ -31,8 +31,9 @@ public class AIRoadrunner extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
+    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void RoadrunnerGoals(CallbackInfo ci) {
+        ci.cancel();
         EntityRoadrunner roadrunner = (EntityRoadrunner) (Object) this;
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(roadrunner, 1.1D));

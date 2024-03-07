@@ -2,16 +2,21 @@ package com.crimsoncrips.alexsmobsinteraction.mixin;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
-import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
+import com.github.alexthe666.alexsmobs.entity.ai.StraddlerAIShoot;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.hoglin.Hoglin;
+import net.minecraft.world.entity.monster.Strider;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -22,6 +27,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static com.github.alexthe666.alexsmobs.entity.EntityStraddler.ANIMATION_LAUNCH;
 
@@ -38,20 +44,46 @@ public class AIStraddler extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void SoulVultureGoals(CallbackInfo ci){
+    @Inject(method = "shouldShoot", at = @At("HEAD"), cancellable = true,remap = false)
+    private void injected(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(doSomething4());
+    }
+
+
+    private boolean doSomething4() {
+        if (AInteractionConfig.straddlershots != 0) {
+            if (!(shootshots <= 0)) return true;
+            else return false;
+        }else {
+            return true;
+        }
+    }
+
+    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
+    private void StraddlerGoals(CallbackInfo ci){
+        ci.cancel();
+        EntityStraddler straddler = (EntityStraddler)(Object)this;
+        this.goalSelector.addGoal(1, new StraddlerAIShoot(straddler, 0.5, 30, 16.0F));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(straddler, 1.0, 60));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Strider.class, 8.0F));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(straddler, new Class[0]));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, AbstractVillager.class, true));
         if(AInteractionConfig.stradllervengeance) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EntityBoneSerpent.class, true));
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EntityCrimsonMosquito.class, true));
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EntityWarpedMosco.class, true));
         }
     }
     public void tick() {
-        EntityStraddler straddler = (EntityStraddler) (Object) this;
+        EntityStraddler straddler = (EntityStraddler)(Object)this;
         if (AInteractionConfig.straddlershots != 0) {
-            if (shootshots == 0) {
+            if (shootshots <= 0) {
                 shootcooldown--;
             }
-            if (shootcooldown <= 0) {
+            if (shootcooldown <= 0 && shootshots <= 0) {
                 shootshots = AInteractionConfig.straddlershots;
                 shootcooldown = 100;
             }
@@ -124,4 +156,5 @@ public class AIStraddler extends Mob {
         }
 
     }
+
 }

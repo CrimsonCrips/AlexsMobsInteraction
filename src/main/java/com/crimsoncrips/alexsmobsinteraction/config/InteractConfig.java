@@ -18,6 +18,8 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue crimsonnostraddler;
     public final ForgeConfigSpec.BooleanValue crowcannibalize;
     public final ForgeConfigSpec.BooleanValue elephantattack;
+
+    public final ForgeConfigSpec.BooleanValue crimsontransform;
     public final ForgeConfigSpec.BooleanValue emurangedattack;
     public final ForgeConfigSpec.BooleanValue emuscuffle;
 
@@ -85,6 +87,8 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue enderioimmunity;
 
+    public final ForgeConfigSpec.BooleanValue enderioadaption;
+
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
@@ -136,6 +140,7 @@ public class InteractConfig {
         this.skittishcockroaches = buildBoolean(builder, "skittishcockroaches", " ", true, "Whether Cockroaches fear any living entity");
         builder.pop();
         builder.push("Crimson Mosquito");
+        this.crimsontransform = buildBoolean(builder, "crimsontransform", " ", true, "Whether Crimson Mosquitoes can be turned into Warped Moscos by feeding them Mungus Spores");
         this.crimsonnostraddler = buildBoolean(builder, "crimsonnostraddler", " ", true, "Whether Crimson Mosquitoes cant attack Straddlers, unless with blood inside");
         this.bloodedmosquitoes = buildBoolean(builder, "bloodedmosquitoes", " ", true, "Whether Crimson Mosquitoes can spawn with blood");
         builder.pop();
@@ -153,6 +158,8 @@ public class InteractConfig {
         builder.push("Enderiophage");
         this.enderiophageplayer = buildBoolean(builder, "enderiophageplayer", " ", true, "Whether Enderiophages attack players when below 40%");
         this.enderioimmunity = buildBoolean(builder, "enderioimmunity", " ", true, "Whether Enderiophages attack depending on if they have resistance or not");
+        this.enderioadaption = buildBoolean(builder, "enderioadaption", " ", true, "Whether Enderiophages adapt to their environment when built");
+
         builder.pop();
         builder.push("Farseer");
         this.farseeralter = buildBoolean(builder, "farseeralter", " ", true, "Whether Farseer will have new effects when attacking the player");

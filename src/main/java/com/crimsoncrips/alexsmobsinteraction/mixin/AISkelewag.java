@@ -32,7 +32,7 @@ public class AISkelewag extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"),cancellable = true)
+    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void ShoebillGoals(CallbackInfo ci){
         ci.cancel();
         EntitySkelewag skelewag = (EntitySkelewag) (Object) this;
@@ -42,20 +42,20 @@ public class AISkelewag extends Mob {
         this.goalSelector.addGoal(1, new TryFindWaterGoal(skelewag));
         Object aiAttackGoal = ReflectionUtil.createInstance(
                 "com.github.alexthe666.alexsmobs.entity.EntitySkelewag$AttackGoal",
-                new Class[] {EntitySkelewag.class},
-                new Object[]    {skelewag}
+                new Class[] {EntitySkelewag.class,EntitySkelewag.class},
+                new Object[]    {skelewag,this}
         );
         this.goalSelector.addGoal(2,(Goal)aiAttackGoal);
         this.goalSelector.addGoal(3, new AnimalAIRandomSwimming(skelewag, 1F, 12, 5));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(skelewag, Drowned.class, EntitySkelewag.class));
         if (AInteractionConfig.scourgingseas){
-            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, LivingEntity.class, 300, true, false, NOT_TARGET));
+            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, LivingEntity.class, 100, true, false, NOT_TARGET));
         } else {
             this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Player.class, true));
             this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, Dolphin.class, true));
         }
 
-        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, Player.class, 0, true, false,null));
+        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, Player.class, 1, true, false,null));
 
     }
 }

@@ -3,7 +3,9 @@ package com.crimsoncrips.alexsmobsinteraction;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.config.ConfigHolder;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
+import com.crimsoncrips.alexsmobsinteraction.event.InteractionEvents;
 import com.github.alexthe666.alexsmobs.enchantment.AMEnchantmentRegistry;
+import com.github.alexthe666.alexsmobs.event.ServerEvents;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -32,6 +34,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.apache.commons.logging.Log;
+import org.apache.logging.log4j.LogManager;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -45,6 +49,7 @@ public class AlexsMobsInteraction {
     // Create a Deferred Register to hold Blocks which will all be registered under the "alexsmobsinteraction" namespace
 
     public AlexsMobsInteraction() {
+        MinecraftForge.EVENT_BUS.register(new InteractionEvents());
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         AIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
@@ -58,7 +63,7 @@ public class AlexsMobsInteraction {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
-        LOGGER.info("THE CRIMSON SHALL GUIDE YOU.");
+        LOGGER.info("ENEMIES OF THE CRIMSON SHALL BURN.");
         LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
 
     }
@@ -75,8 +80,8 @@ public class AlexsMobsInteraction {
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+        LOGGER.info("SUBMIT YOURSELF.");
+        LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -86,9 +91,8 @@ public class AlexsMobsInteraction {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
             LOGGER.info("THE CRIMSON SHALL GUIDE YOU.");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
         }
     }
 }

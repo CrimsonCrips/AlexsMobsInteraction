@@ -45,9 +45,10 @@ public class AIKomodoDragon extends Mob {
     protected AIKomodoDragon(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
-    EntityKomodoDragon komodoDragon = (EntityKomodoDragon)(Object)this;
-    @Inject(method = "registerGoals", at = @At("TAIL"))
+    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void BlobFishGoals(CallbackInfo ci){
+        EntityKomodoDragon komodoDragon = (EntityKomodoDragon)(Object)this;
+        ci.cancel();
         this.goalSelector.addGoal(0, new FloatGoal(komodoDragon));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(komodoDragon));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(komodoDragon, 2D, false));

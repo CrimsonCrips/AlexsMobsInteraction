@@ -33,7 +33,7 @@ public class AIRaccoon extends Mob {
             this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.RACCOON_KILL)) {
                 @Override
                 public boolean canUse() {
-                    return super.canUse() && !raccoon.isTame();
+                    return super.canUse() && !raccoon.isTame() && level().isNight();
                 }
 
                 protected AABB getTargetSearchArea(double targetDistance) {

@@ -76,8 +76,6 @@ public class AInteractionTagRegistry {
     public static final TagKey<EntityType<?>> CAVE_CENTIPEDE_KILL = registerEntityTag("cave_centipede_kill");
     public static final TagKey<EntityType<?>> EMU_KILL = registerEntityTag("emu_kill");
 
-    public static final TagKey<EntityType<?>> SQUID_KILL = registerEntityTag("squid_kill");
-
     public static final TagKey<EntityType<?>> HAMMERHEAD_KILL = registerEntityTag("hammerhead_kill");
 
     public static final TagKey<EntityType<?>> GRIZZLY_TERRITORIAL = registerEntityTag("grizzly_territorial");

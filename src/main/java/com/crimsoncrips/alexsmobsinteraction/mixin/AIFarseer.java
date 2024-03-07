@@ -86,22 +86,22 @@ public class AIFarseer extends Mob {
                     int something = getRandom().nextInt(6);
                     switch (something) {
                         case 0:
-                            player.sendSystemMessage(Component.translatable("alexinteraction.farseerspeech0"));
+                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech0"));
                             break;
                         case 1:
-                            player.sendSystemMessage(Component.translatable("alexinteraction.farseerspeech1"));
+                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech1"));
                             break;
                         case 2:
-                            player.sendSystemMessage(Component.translatable("alexinteraction.farseerspeech2"));
+                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech2"));
                             break;
                         case 3:
-                            player.sendSystemMessage(Component.translatable("alexinteraction.farseerspeech3"));
+                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech3"));
                             break;
                         case 4:
-                            player.sendSystemMessage(Component.translatable("alexinteraction.farseerspeech4"));
+                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech4"));
                             break;
                         case 5:
-                            player.sendSystemMessage(Component.translatable("alexinteraction.farseerspeech5"));
+                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech5"));
                             break;
                     }
                     lastTickTarget = currentTarget;

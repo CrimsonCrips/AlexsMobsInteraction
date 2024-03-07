@@ -30,7 +30,9 @@ public class AISoulVulture extends Mob {
     private void SoulVultureGoals(CallbackInfo ci){
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Hoglin.class, true));
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, EntityDropBear.class, true));
-        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, EntityBoneSerpent.class, 0, true, false, Entity::isInLava));
+        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, EntityBoneSerpent.class, 0, true, false, (entity) -> {
+           return !entity.isInLava();
+        }));
 
 }
     }

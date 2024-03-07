@@ -4,6 +4,8 @@ import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -25,9 +27,9 @@ public class AIBoneSerpent extends Mob {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void BoneSerpentGoals(CallbackInfo ci){
-        targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.BONESERPENT_KILL)));
+        targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.BONESERPENT_KILL)));
         if(AInteractionConfig.boneserpentfear) {
-            goalSelector.addGoal(3, new AvoidEntityGoal((EntityBoneSerpent) (Object) this, EntityLaviathan.class, 5.0F, 1.6, 2));
+            goalSelector.addGoal(7, new AvoidEntityGoal((EntityBoneSerpent) (Object) this, EntityLaviathan.class, 10.0F, 1.6, 2));
         }
     }
 }

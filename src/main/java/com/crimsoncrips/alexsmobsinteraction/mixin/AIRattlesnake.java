@@ -34,16 +34,16 @@ public class AIRattlesnake extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void RattlesnakeGoals(CallbackInfo ci){
         Predicate<LivingEntity> rattlesnakecannibalism = (livingEntity) -> {
-            return (livingEntity.getHealth() <= 0.70F * livingEntity.getMaxHealth() && livingEntity.isBaby()) && ate >= 5000;
+            return (livingEntity.getHealth() <= 0.70F * livingEntity.getMaxHealth() || livingEntity.isBaby()) && ate >= 10;
         };
-        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.RATTLESNAKE_KILL)) {
+        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.RATTLESNAKE_KILL)) {
             public void start(){
                 super.start();
                 ate = 0;
             }
         });
         if (AInteractionConfig.rattlesnakecannibalize) {
-            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, EntityRattlesnake.class, 200, true, true, rattlesnakecannibalism) {
+            this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, EntityRattlesnake.class, 10, true, true, rattlesnakecannibalism) {
                 public void start() {
                     super.start();
                     ate = 200;
@@ -53,7 +53,7 @@ public class AIRattlesnake extends Mob {
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        if (AInteractionConfig.anacondacanibalize) ate++;
+        if (AInteractionConfig.rattlesnakecannibalize) ate++;
     }
 
 

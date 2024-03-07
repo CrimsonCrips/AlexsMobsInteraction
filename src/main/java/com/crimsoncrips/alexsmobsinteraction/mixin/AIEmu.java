@@ -41,7 +41,7 @@ public class AIEmu extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void EmuGoals(CallbackInfo ci){
         Predicate<LivingEntity> emuHoldEgg = (livingEntity) -> {
-            return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get()));
+            return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get())) || livingEntity.isHolding( Ingredient.of(AMItemRegistry.BOILED_EMU_EGG.get()));
         };
         Predicate<LivingEntity> emuTrifle = (livingEntity) -> {
             return livingEntity.isHolding(Ingredient.of(AInteractionTagRegistry.EMU_TRIGGER));
@@ -66,12 +66,15 @@ public class AIEmu extends Mob {
 
         this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.EMU_KILL)));
         if(AInteractionConfig.emuscuffle){
-            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, EntityEmu.class, 1000, false, true, null) {
+            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, EntityEmu.class, 700, false, true, null) {
                 public boolean canUse() {
                     return !isLeashed() && super.canUse() && level().isDay() && !isBaby();
                 }
             });
         }
+    }
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source.getDirectEntity() instanceof EntityEmu;
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {

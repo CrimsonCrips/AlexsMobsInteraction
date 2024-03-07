@@ -74,10 +74,14 @@ public class AInteractionConfig {
     public static boolean fluttersheared = true;
     public static boolean geladahunt = true;
     public static boolean orcahunt = true;
+    public static boolean crimsontransform = true;
+    public static boolean enderioadaption = true;
 
 
     public static void bake(ModConfig config) {
         try {
+            enderioadaption = ConfigHolder.INTERACT.enderioadaption.get();
+            crimsontransform = ConfigHolder.INTERACT.crimsontransform.get();
             orcahunt = ConfigHolder.INTERACT.orcahunt.get();
             flypester = ConfigHolder.INTERACT.flypester.get();
             geladahunt = ConfigHolder.INTERACT.geladahunt.get();

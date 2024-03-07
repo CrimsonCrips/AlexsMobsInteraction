@@ -21,7 +21,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,7 +31,9 @@ import java.util.function.Predicate;
 
 
 @Mixin(EntityAlligatorSnappingTurtle.class)
-public class AIAlligatorSnappingTurtle extends Mob {
+public abstract class AIAlligatorSnappingTurtle extends Mob {
+    @Shadow public abstract void setTarget(@Nullable LivingEntity entitylivingbaseIn);
+
     protected AIAlligatorSnappingTurtle(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
@@ -37,11 +41,11 @@ public class AIAlligatorSnappingTurtle extends Mob {
     @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void SnappingTurtleGoals(CallbackInfo ci){
         ci.cancel();
+        EntityAlligatorSnappingTurtle snapping = (EntityAlligatorSnappingTurtle)(Object)this;
         Predicate<LivingEntity> TARGET_PRED = (animal) -> {
-            return !(animal instanceof EntityAlligatorSnappingTurtle) && !(animal instanceof ArmorStand) && !(animal instanceof Player) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(animal) && animal.isAlive();
+            return !(animal instanceof EntityAlligatorSnappingTurtle) && !(animal instanceof ArmorStand) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(animal) && animal.isAlive();
         };
 
-        EntityAlligatorSnappingTurtle snapping = (EntityAlligatorSnappingTurtle)(Object)this;
         this.goalSelector.addGoal(1, new MeleeAttackGoal((EntityAlligatorSnappingTurtle)(Object)this, 1.3D, false));
         this.goalSelector.addGoal(2, new AnimalAIFindWater((EntityAlligatorSnappingTurtle)(Object)this));
         this.goalSelector.addGoal(2, new AnimalAILeaveWater((EntityAlligatorSnappingTurtle)(Object)this){
@@ -69,14 +73,7 @@ public class AIAlligatorSnappingTurtle extends Mob {
                 else { return super.canUse();}
             }});
 
-        if (AInteractionConfig.snappingturtlealert) {
-            this.targetSelector.addGoal(1, new HurtByTargetGoal((EntityAlligatorSnappingTurtle)(Object)this) {
-                public void start() {super.start(); this.alertOthers();}
-                protected void alertOther(Mob mobIn, LivingEntity targetIn) {
-                    if (mobIn instanceof EntityAlligatorSnappingTurtle && !isBaby()) { super.alertOther(mobIn, targetIn); }
-                }});
-
-        } else this.targetSelector.addGoal(1, new HurtByTargetGoal((EntityAlligatorSnappingTurtle)(Object)this, new Class[0]));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal((EntityAlligatorSnappingTurtle)(Object)this, new Class[0]));
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, LivingEntity.class, 2, false, true, TARGET_PRED) {
             protected AABB getTargetSearchArea(double targetDistance) {
                 return this.mob.getBoundingBox().inflate(0.5D, 2D, 0.5D);
@@ -85,20 +82,6 @@ public class AIAlligatorSnappingTurtle extends Mob {
                 return snapping.chaseTime >= 0 && super.canUse();
             }
 
-        });
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Player.class, 2, false, true,null) {
-            protected AABB getTargetSearchArea(double targetDistance) {
-                return this.mob.getBoundingBox().inflate(0.5D, 2D, 0.5D);
-            }
-            public boolean canUse () {
-                if (AInteractionConfig.weakened) {
-                    return snapping.chaseTime >= 0 && super.canUse() && !(getHealth() <= 0.10F * getMaxHealth());
-                } else {
-                    return snapping.chaseTime >= 0 && super.canUse();}
-            }
-            public boolean canContinueToUse () {
-                return canUse();
-            }
         });
 
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.SNAPPING_TURTLE_KILL)){
@@ -110,14 +93,13 @@ public class AIAlligatorSnappingTurtle extends Mob {
                 return this.mob.getBoundingBox().inflate(10D, 1D, 10D);
             }});
     }
-    public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(entity instanceof LivingEntity living){
-            final CompoundTag emptyNbt = new CompoundTag();
-            living.addAdditionalSaveData(emptyNbt);
-            emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
-            living.readAdditionalSaveData(emptyNbt);
-
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void AlexInteraction$tick(CallbackInfo ci) {
+        EntityAlligatorSnappingTurtle snapping = (EntityAlligatorSnappingTurtle)(Object)this;
+        if (AInteractionConfig.weakened) {
+            if(!(snapping.getHealth() <= 0.10F * getMaxHealth()) && snapping.getTarget() instanceof Player){
+                setTarget(null);
+            }
         }
-        super.awardKillScore(entity, score, src);
     }
 }

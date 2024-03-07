@@ -2,16 +2,15 @@ package com.crimsoncrips.alexsmobsinteraction.mixin;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityBananaSlug;
-import com.github.alexthe666.alexsmobs.entity.EntityStraddler;
-import com.github.alexthe666.alexsmobs.entity.EntityStradpole;
+import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -42,16 +41,24 @@ public class AIStradpole extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void BlobFishGoals(CallbackInfo ci) {
         if (AInteractionConfig.preyfear)
-            this.goalSelector.addGoal(3, new AvoidEntityGoal((EntityBananaSlug) (Object) this, LivingEntity.class, 2.0F, 1.2, 1.5, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.SMALLINSECTFEAR)));
+            this.goalSelector.addGoal(3, new AvoidEntityGoal((EntityStradpole) (Object) this, LivingEntity.class, 2.0F, 1.2, 1.5, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.SMALLINSECTFEAR)));
     }
+    double y2;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         if (AInteractionConfig.stradpolebobup) {
             bobup++;
-            if (bobup >= 500 + random.nextInt(600) && this.isInLava()) this.setDeltaMovement(0, 0.1, 0);
-            if (!this.isInLava()) bobup = 0;
+            y2 = 0.01 + y2;
+            if (bobup >= 10 + random.nextInt(600) && this.isInLava()) this.setDeltaMovement(0, y2, 0);
+            if (!this.isInLava()) {
+                bobup = 0;
+                y2 = 0;
+            }
         }
+    }
+    public boolean isInvulnerableTo(DamageSource damageSource) {
+        return damageSource.is(DamageTypes.FALL);
     }
 
     @Override

@@ -7,6 +7,7 @@
   "mixins": [
     "AIAlligatorSnappingTurtle",
     "AIAnaconda",
+    "AIBaldEagle",
     "AIBananaSlug",
     "AIBlobFish",
     "AIBlueJay",
@@ -30,6 +31,7 @@
     "AIFly",
     "AIFlyingFish",
     "AIFrilledShark",
+    "AIFroststalker",
     "AIGeladaMonkey",
     "AIGiantSquid",
     "AIGorilla",
@@ -50,6 +52,8 @@
     "AIRattlesnake",
     "AIRoadrunner",
     "AISeagull",
+    "AIShoebill",
+    "AISkelewag",
     "AISnowLeopard",
     "AISoulVulture",
     "AIStraddler",
@@ -57,9 +61,11 @@
     "AISugarGlider",
     "AITasmanianDevil",
     "AITerrapin",
-    "AITiger"
+    "AITiger",
+    "AITusklin",
+    "AIWarpedMosco",
+    "AIWarpedToad"
   ],
-
   "client": [
   ],
   "injectors": {

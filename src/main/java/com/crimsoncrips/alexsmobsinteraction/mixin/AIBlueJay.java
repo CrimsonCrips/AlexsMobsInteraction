@@ -2,10 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixin;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityBlueJay;
-import com.github.alexthe666.alexsmobs.entity.EntityBoneSerpent;
-import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
+import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

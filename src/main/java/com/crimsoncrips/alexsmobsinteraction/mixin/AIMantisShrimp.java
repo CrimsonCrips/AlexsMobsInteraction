@@ -60,7 +60,7 @@ public class AIMantisShrimp extends Mob {
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(mantisShrimp));
 
         if(AInteractionConfig.mantisaggresive) {
-            this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, Player.class, 150, true, true, null) {
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, 150, true, true, null) {
                 public boolean canUse() {
                     if (AInteractionConfig.weakened) {
                         return !mantisShrimp.isTame() && !isBaby() && !(getHealth() <= 0.15F * getMaxHealth()) && !mantisShrimp.isInLove() && super.canUse();

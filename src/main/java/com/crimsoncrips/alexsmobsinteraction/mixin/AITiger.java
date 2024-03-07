@@ -37,8 +37,9 @@ public class AITiger extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
+    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void TigerGoals(CallbackInfo ci){
+        ci.cancel();
         EntityTiger tiger = (EntityTiger)(Object)this;
         Predicate<LivingEntity> NOBLESSING = (livingEntity) -> {
                 return !livingEntity.hasEffect(AMEffectRegistry.TIGERS_BLESSING.get());

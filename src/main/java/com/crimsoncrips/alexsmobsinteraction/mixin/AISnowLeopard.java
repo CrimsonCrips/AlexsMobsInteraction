@@ -35,7 +35,7 @@ public class AISnowLeopard extends Mob {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void BlobFishGoals(CallbackInfo ci){
+    private void SnowleopardGoals(CallbackInfo ci){
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.SNOW_KILL)));
     }
 

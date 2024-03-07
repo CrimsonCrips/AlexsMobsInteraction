@@ -42,14 +42,14 @@ public class AIBaldEagle extends Mob {
         EntityBaldEagle baldEagle = (EntityBaldEagle)(Object)this;
         this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, LivingEntity.class, 100, true, false, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.BALD_EAGLE_KILL)) {
             public boolean canUse() {
-                return super.canUse() && !level().isNight() && !baldEagle.isLaunched() && baldEagle.getCommand() == 0 && !baldEagle.isTame() ;
+                return super.canUse() && !baldEagle.isLaunched() && baldEagle.getCommand() == 0 && !baldEagle.isTame() ;
             }
         });
         if (AInteractionConfig.baldeaglecannibalize)
         {
-            this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, EntityBaldEagle.class, 1000, true, false, weakEnough) {
+            this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, EntityBaldEagle.class, 0, true, false, weakEnough) {
                 public boolean canUse() {
-                    return super.canUse() && !level().isNight() && !baldEagle.isLaunched() && baldEagle.getCommand() == 0 && !baldEagle.isTame();
+                    return super.canUse() && !baldEagle.isTame();
                 }
             });
         }
