@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.crimsoncrips.alexsmobsinteraction.mixin",
+  "package": "com.crimsoncrips.alexsmobsinteraction.mixins",
   "compatibilityLevel": "JAVA_8",
   "refmap": "alexsmobsinteraction.refmap.json",
   "mixins": [
