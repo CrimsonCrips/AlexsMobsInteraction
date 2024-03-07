@@ -9,7 +9,7 @@ it adds new interactions between the mobs.
 Special Thanks to
 -
 -Reimnop, for helping me code\
--Alex and Carro for the great mod
+-[Alex](whttps://modrinth.com/user/AlexModGuy) and [Carro](whttps://modrinth.com/user/Carro1001) for the great mod
 
 
 
