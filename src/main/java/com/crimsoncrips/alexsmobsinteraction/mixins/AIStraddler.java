@@ -37,7 +37,7 @@ public class AIStraddler extends Mob {
 
     int shootcooldown = 0;
 
-    int shootshots = AInteractionConfig.straddlershots;
+    int shootshots = 0;
 
 
     protected AIStraddler(EntityType<? extends Mob> p_21368_, Level p_21369_) {

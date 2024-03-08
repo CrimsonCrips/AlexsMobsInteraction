@@ -6,6 +6,8 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue anacondaattackbabies;
     public final ForgeConfigSpec.BooleanValue anacondacannibalize;
     public final ForgeConfigSpec.BooleanValue baldeaglecannibalize;
+
+    public final ForgeConfigSpec.BooleanValue frogtransform;
     public final ForgeConfigSpec.BooleanValue bananaslugsheared;
     public final ForgeConfigSpec.BooleanValue bloodedmosquitoes;
     public final ForgeConfigSpec.BooleanValue bluejayhunt;
@@ -101,6 +103,8 @@ public class InteractConfig {
         this.spidereats = buildBoolean(builder, "spidereats", " ", true, "Whether Spiders eat silverfish,cockroaches,flies and bees");
         this.cavespidereats = buildBoolean(builder, "cavespidereats", " ", true, "Whether Cave Spiders eat silverfish,cockroaches,flies and bees");
         this.frogeatflies = buildBoolean(builder, "frogeatflies", " ", true, "Whether frogs eat flies");
+        this.frogtransform = buildBoolean(builder, "frogtransform", " ", true, "Whether frogs can be transformed into Warped Toads");
+
         builder.pop();
         builder.push("Alligator Snapping Turtle");
         this.snappingturtlealert = buildBoolean(builder, "snappingturtlealert", " ", true, "Whether Snapping Turtles alert others when attacked");

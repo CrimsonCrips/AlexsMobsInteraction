@@ -76,10 +76,12 @@ public class AInteractionConfig {
     public static boolean orcahunt = true;
     public static boolean crimsontransform = true;
     public static boolean enderioadaption = true;
+    public static boolean frogtransform = true;
 
 
     public static void bake(ModConfig config) {
         try {
+            frogtransform = ConfigHolder.INTERACT.frogtransform.get();
             enderioadaption = ConfigHolder.INTERACT.enderioadaption.get();
             crimsontransform = ConfigHolder.INTERACT.crimsontransform.get();
             orcahunt = ConfigHolder.INTERACT.orcahunt.get();
