@@ -56,4 +56,13 @@ public class AICaveCentipede extends Mob {
             }));
         }
     }
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void AlexInteraction$tick(CallbackInfo ci) {
+        if (AInteractionConfig.centipedelightfear) {
+            LivingEntity livingEntity = getTarget();
+            if (livingEntity != null && livingEntity.isHolding(Ingredient.of(AInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR))) {
+                setTarget(null);
+            }
+        }
+    }
 }

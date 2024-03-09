@@ -38,22 +38,22 @@ public class AIStradpole extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void BlobFishGoals(CallbackInfo ci) {
-        if (AInteractionConfig.preyfear)
-            this.goalSelector.addGoal(3, new AvoidEntityGoal((EntityStradpole) (Object) this, LivingEntity.class, 2.0F, 1.2, 1.5, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.SMALLINSECTFEAR)));
-    }
     double y2;
+    boolean hopable = false;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         if (AInteractionConfig.stradpolebobup) {
             bobup++;
-            y2 = 0.01 + y2;
-            if (bobup >= 10 + random.nextInt(600) && this.isInLava()) this.setDeltaMovement(0, y2, 0);
+            if (bobup >= 200 + random.nextInt(600) && this.isInLava()) hopable = true;
+            if (hopable) {
+                y2 = 0.05 + y2;
+                this.setDeltaMovement(0, y2, 0);
+            }
             if (!this.isInLava()) {
                 bobup = 0;
                 y2 = 0;
+                hopable = false;
             }
         }
     }

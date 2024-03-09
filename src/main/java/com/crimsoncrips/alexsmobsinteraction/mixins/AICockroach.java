@@ -43,6 +43,11 @@ public class AICockroach extends Mob {
         this.goalSelector.addGoal(3, new AvoidBlockGoal(cockroach, 4,1,1.2,(pos) -> {
             BlockState state = level().getBlockState(pos);
             return state.is(AInteractionTagRegistry.CENTIPEDE_BLOCK_FEAR);
-        }));
+        }){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !cockroach.isBreaded();
+            }
+        });
     }
 }

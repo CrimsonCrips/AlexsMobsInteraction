@@ -1,8 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins;
 
-import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.FlyMosquitoGoal;
-import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -13,21 +11,20 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,8 +39,6 @@ import java.util.function.Predicate;
 public abstract class AICrimsonMosquito extends Mob {
 
     @Shadow private int sickTicks;
-
-    @Shadow public abstract boolean isFlying();
 
     @Shadow public abstract void setFlying(boolean flying);
 
@@ -112,28 +107,60 @@ public abstract class AICrimsonMosquito extends Mob {
         }
 
     }
-    @Inject(method = "mobInteract", at = @At("TAIL"))
-    private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
-        ItemStack stack = player.getItemInHand(hand);
-        if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AInteractionConfig.crimsontransform && !(sporeFed >= 3) && pacified) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+        InteractionResult type = super.mobInteract(player, hand);
+        if (item == AMItemRegistry.WARPED_MIXTURE.get() && !crimsonMosquito.isSick()) {
+            this.spawnAtLocation(item.getCraftingRemainingItem(itemstack));
+            if (!player.isCreative()) {
+                itemstack.shrink(1);
+            }
+
+            crimsonMosquito.setSick(true);
+            return InteractionResult.SUCCESS;
+        }
+        if (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AInteractionConfig.crimsontransform && !(sporeFed >= 3) && pacified) {
             gameEvent(GameEvent.ENTITY_INTERACT);
-            stack.shrink(1);
+            itemstack.shrink(1);
             this.playSound(SoundEvents.GENERIC_EAT);
             sporeFed++;
+            return InteractionResult.SUCCESS;
         }
-        if (stack.getItem() == Items.DIAMOND_AXE && AInteractionConfig.crimsontransform && !pacified) {
+        if (itemstack.getItem() == Items.DIAMOND_AXE && AInteractionConfig.crimsontransform && !pacified) {
             gameEvent(GameEvent.ENTITY_INTERACT);
-            stack.hurtAndBreak(1, this, (p_233654_0_) -> {
+            itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
             pacified = true;
+            return InteractionResult.SUCCESS;
 
         }
-        if (stack.getItem() == Items.WARPED_FUNGUS && AInteractionConfig.crimsontransform && !(warpedFed >= 10) && pacified) {
+        if (itemstack.getItem() == Items.WARPED_FUNGUS && AInteractionConfig.crimsontransform && !(warpedFed >= 10) && pacified) {
             gameEvent(GameEvent.ENTITY_INTERACT);
-            stack.shrink(1);
+            itemstack.shrink(1);
             this.playSound(SoundEvents.GENERIC_EAT);
             warpedFed++;
+            return InteractionResult.SUCCESS;
         }
+        return type;
+
+    }
+    @OnlyIn(Dist.CLIENT)
+    public void handleEntityEvent(byte id) {
+        EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
+        if (id == 79) {
+            for(int i = 0; i < 100; ++i) {
+                double d0 = this.random.nextGaussian() * 0.02;
+                double d1 = this.random.nextGaussian() * 0.02;
+                double d2 = this.random.nextGaussian() * 0.02;
+                this.level().addParticle(ParticleTypes.CRIMSON_SPORE, this.getRandomX(1.6), this.getY() + (double)(this.random.nextFloat() * 3.4F), this.getRandomZ(1.6), d0, d1, d2);
+            }
+            crimsonMosquito.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
+        } else {
+            super.handleEntityEvent(id);
+        }
+
     }
 
 }

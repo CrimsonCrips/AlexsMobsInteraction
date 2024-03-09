@@ -44,7 +44,7 @@ public class AIBananaSlug extends Mob {
             stack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
             this.discard();
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else return null;
     }
 }

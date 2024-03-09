@@ -7,6 +7,10 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue anacondacannibalize;
     public final ForgeConfigSpec.BooleanValue baldeaglecannibalize;
 
+    public final ForgeConfigSpec.BooleanValue snappingturtlemossincrease;
+    public final ForgeConfigSpec.BooleanValue skelewagcircle;
+
+    public final ForgeConfigSpec.BooleanValue stunnablecharge;
     public final ForgeConfigSpec.BooleanValue frogtransform;
     public final ForgeConfigSpec.BooleanValue bananaslugsheared;
     public final ForgeConfigSpec.BooleanValue bloodedmosquitoes;
@@ -92,11 +96,14 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue enderioadaption;
 
 
+
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
         this.nodropsforpredators = buildBoolean(builder, "nodropsforpredators", " ", true, "Whether some predators cause to not drop any items for their prey");
         this.preyfear = buildBoolean(builder, "preyfear", " ", true, "Whether some Prey fear their predators");
         this.weakened = buildBoolean(builder, "weakened", " ", true, "Whether Mobs that are aggresive to the player will not do so if below a certain amount of health");
+        this.stunnablecharge = buildBoolean(builder, "stunnablecharge", " ", true, "Whether Charging Mobs can get stunned when holding up a shield");
+
         builder.pop();
         builder.push("Mobs");
         builder.push("Vanilla Mob Tweaks");
@@ -109,6 +116,8 @@ public class InteractConfig {
         builder.push("Alligator Snapping Turtle");
         this.snappingturtlealert = buildBoolean(builder, "snappingturtlealert", " ", true, "Whether Snapping Turtles alert others when attacked");
         this.snappingturtledormant = buildBoolean(builder, "snappingturtledormant", " ", true, "Whether Alligator Snapping Turtles lay dormant at day and hunt at night");
+        this.snappingturtlemossincrease = buildBoolean(builder, "snappingturtlemossincrease", " ", true, "Whether Alligator Snapping Turtles has their moss accumulation affected by rain");
+
         builder.pop();
         builder.push("Anaconda");
         this.anacondaattackbabies = buildBoolean(builder, "anacondaattackbabies", " ", true, "Whether Anacona's hunt babies of some predators");
@@ -229,6 +238,8 @@ public class InteractConfig {
         builder.pop();
         builder.push("Skelewag");
         this.scourgingseas = buildBoolean(builder, "scourgingseas", " ", true, "Whether Skelewag's attack all entities apart from their allies");
+        this.skelewagcircle = buildBoolean(builder, "skelewagcircle", " ", true, "Whether Skelewags circle prey like Hammerhead sharks");
+
         builder.pop();
         builder.push("Straddler");
         this.straddlershots = buildInt(builder, "straddlershots", " ", AInteractionConfig.straddlershots, 0, Integer.MAX_VALUE, "Amount of shots a Straddler has before reloading to fire again (0 Disables this feature)");

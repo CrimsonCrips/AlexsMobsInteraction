@@ -31,6 +31,8 @@ import java.util.function.Predicate;
 public abstract class AIAlligatorSnappingTurtle extends Mob {
     @Shadow public abstract void setTarget(@Nullable LivingEntity entitylivingbaseIn);
 
+    int mossTime = 0;
+
     protected AIAlligatorSnappingTurtle(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
@@ -96,6 +98,16 @@ public abstract class AIAlligatorSnappingTurtle extends Mob {
         if (AInteractionConfig.weakened) {
             if(!(snapping.getHealth() <= 0.10F * getMaxHealth()) && snapping.getTarget() instanceof Player){
                 setTarget(null);
+            }
+        }
+        if(AInteractionConfig.snappingturtlemossincrease){
+            mossTime++;
+            if (level().isRaining() && random.nextDouble() < 0.0001) {
+                snapping.setMoss(Math.min(10, snapping.getMoss() + 1));
+            }
+            if (this.isInWater() && this.mossTime > 12000) {
+                this.mossTime = 0;
+                snapping.setMoss(Math.min(10, snapping.getMoss() + 1));
             }
         }
     }

@@ -77,10 +77,16 @@ public class AInteractionConfig {
     public static boolean crimsontransform = true;
     public static boolean enderioadaption = true;
     public static boolean frogtransform = true;
+    public static boolean snappingturtlemossincrease = true;
+    public static boolean skelewagcircle = true;
+    public static boolean stunnablecharge = true;
 
 
-    public static void bake(ModConfig config) {
+    public static void bake() {
         try {
+            stunnablecharge = ConfigHolder.INTERACT.stunnablecharge.get();
+            skelewagcircle = ConfigHolder.INTERACT.skelewagcircle.get();
+            snappingturtlemossincrease = ConfigHolder.INTERACT.snappingturtlemossincrease.get();
             frogtransform = ConfigHolder.INTERACT.frogtransform.get();
             enderioadaption = ConfigHolder.INTERACT.enderioadaption.get();
             crimsontransform = ConfigHolder.INTERACT.crimsontransform.get();

@@ -72,14 +72,14 @@ public class AIAnaconda extends Mob {
             }
         });
         this.targetSelector.addGoal(3, new HurtByTargetGoal(anaconda, new Class[]{EntityAnaconda.class}));
-        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 50, true, false, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.ANACONDA_KILL)){
+        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 400, true, false, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.ANACONDA_KILL)){
             public void start() {super.start(); ate = 0;}
             protected AABB getTargetSearchArea(double targetDistance) {
                 return anaconda.getBoundingBox().inflate(25D, 1D, 25D);
             }
         });
         if (AInteractionConfig.anacondaattackbabies){
-            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 4000, true, false, anacondaBaby) {
+            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 1000, true, false, anacondaBaby) {
                 public void start() {
                     super.start();
                     ate = 0;
@@ -92,7 +92,7 @@ public class AIAnaconda extends Mob {
 
 
         if (AInteractionConfig.anacondacanibalize) {
-            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 200, true, false, ancaondacannibalism) {
+            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 10, true, false, ancaondacannibalism) {
                 public void start() {super.start(); ate = 0;}
             });
         }

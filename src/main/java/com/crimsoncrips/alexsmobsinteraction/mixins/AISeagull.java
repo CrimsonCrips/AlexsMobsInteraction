@@ -1,11 +1,13 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins;
 
-import com.crimsoncrips.alexsmobsinteraction.AISeagullAIStealFromPlayers;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIRevealTreasure;
+import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
@@ -32,7 +34,7 @@ public class AISeagull extends Mob {
         EntitySeagull seagull = (EntitySeagull) (Object) this;
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.targetSelector.addGoal(1, new SeagullAIRevealTreasure(seagull));
-        this.targetSelector.addGoal(2, new AISeagullAIStealFromPlayers(seagull){
+        this.targetSelector.addGoal(2, new SeagullAIStealFromPlayers(seagull){
             @Override
             public boolean canUse() {
                 if (AInteractionConfig.seagullnotsnatch) {
@@ -71,5 +73,20 @@ public class AISeagull extends Mob {
         this.goalSelector.addGoal(2,(Goal)aiTargetItems);
 
     }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void AlexInteraction$tick(CallbackInfo ci) {
+        if (AInteractionConfig.seagullbuff){
+            if (this.getMainHandItem().is(Items.ENCHANTED_GOLDEN_APPLE)) {
+                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1000, 0));
+                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 3000, 0));
+            }
+            if (this.getMainHandItem().is(Items.GOLDEN_APPLE)) {
+                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1));
+                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 1000, 2));
+            }
+        }
+    }
+
 
 }
