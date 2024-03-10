@@ -37,6 +37,7 @@ public class AIBananaSlug extends Mob {
     }
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
         if (stack.getItem() == Items.SHEARS && AInteractionConfig.bananaslugsheared) {
             this.gameEvent(GameEvent.ENTITY_INTERACT);
             this.playSound(SoundEvents.SHEEP_SHEAR, this.getSoundVolume(), this.getVoicePitch());
@@ -45,6 +46,7 @@ public class AIBananaSlug extends Mob {
             });
             this.discard();
             return InteractionResult.SUCCESS;
-        } else return null;
+        }
+        return type;
     }
 }

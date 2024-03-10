@@ -40,6 +40,7 @@ public class AISugarGlider extends Mob {
     @Inject(method = "mobInteract", at = @At("TAIL"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
+
         if (AInteractionConfig.sugarrush && (itemstack.getItem() == Items.SUGAR || itemstack.getItem() == Items.SUGAR_CANE)) {
             itemstack.shrink(1);
             this.gameEvent(GameEvent.EAT);
