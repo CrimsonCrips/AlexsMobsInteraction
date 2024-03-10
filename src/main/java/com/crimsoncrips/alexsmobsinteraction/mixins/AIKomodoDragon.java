@@ -37,8 +37,8 @@ public class AIKomodoDragon extends Mob {
     }
     @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void BlobFishGoals(CallbackInfo ci){
-        EntityKomodoDragon komodoDragon = (EntityKomodoDragon)(Object)this;
         ci.cancel();
+        EntityKomodoDragon komodoDragon = (EntityKomodoDragon)(Object)this;
         this.goalSelector.addGoal(0, new FloatGoal(komodoDragon));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(komodoDragon));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(komodoDragon, 2D, false));
@@ -66,13 +66,11 @@ public class AIKomodoDragon extends Mob {
             }
         });
         targetSelector.addGoal(4, new EntityAINearestTarget3D<>(komodoDragon, LivingEntity.class, 55, true, false, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.KOMODODRAGON_KILL)){
-            protected AABB getTargetSearchArea(double targetDistance) {
-                return komodoDragon.getBoundingBox().inflate(10D, 1D, 10D);
-            }
+
 
 
             public boolean canUse() {
-                return super.canUse() && level().isNight() && !komodoDragon.isTame();
+                return super.canUse()  && !komodoDragon.isTame();
             }
         });
     }

@@ -50,7 +50,6 @@ public class AIFrog extends Mob {
             if (mungusFed >= 1 && warpedFed >= 2 && maggotFed >= 10 && AInteractionConfig.frogtransform) {
                 transforming=true;
                 frogWarped++;
-                frog.moveTo(this.getX(), this.getY(), this.getZ());
                 frog.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0));
                 if (frogWarped > 60) {
                     this.setDeltaMovement(0, 0.01, 0);

@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins;
 
 import com.crimsoncrips.alexsmobsinteraction.FlyMosquitoGoal;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -30,7 +31,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
@@ -128,7 +128,7 @@ public abstract class AICrimsonMosquito extends Mob {
             sporeFed++;
             return InteractionResult.SUCCESS;
         }
-        if (itemstack.getItem() == Items.DIAMOND_AXE && AInteractionConfig.crimsontransform && !pacified) {
+        if (itemstack.getItem() == AIItemRegistry.SWATTER.get() && AInteractionConfig.crimsontransform && !pacified) {
             gameEvent(GameEvent.ENTITY_INTERACT);
             itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });

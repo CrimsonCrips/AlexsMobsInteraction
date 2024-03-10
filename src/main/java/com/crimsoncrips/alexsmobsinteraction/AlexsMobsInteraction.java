@@ -4,7 +4,9 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.config.ConfigHolder;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.event.InteractionEvents;
+import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
 import com.mojang.logging.LogUtils;
+import misc.AICreativeTab;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,10 +35,12 @@ public class AlexsMobsInteraction {
 
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+        AIItemRegistry.DEF_REG.register(modEventBus);
+        AICreativeTab.DEF_REG.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(new InteractionEvents());
         AIEnchantmentRegistry.DEF_REG.register(modEventBus);
+        modEventBus.addListener(this::onModConfigEvent);
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
 

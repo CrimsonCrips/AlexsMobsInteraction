@@ -6,8 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -43,7 +41,7 @@ import java.util.EnumSet;
     public void start() {
         RandomSource random = skelewag.getRandom();
         this.circlingTime = 0.0F;
-        this.maxCirclingTime = (float)(100 + random.nextInt(80));
+        this.maxCirclingTime = (float)(20 + random.nextInt(80));
         this.circleDistance = 5.0F + random.nextFloat() * 5.0F;
         this.clockwise = random.nextBoolean();
     }
@@ -51,7 +49,7 @@ import java.util.EnumSet;
     public void stop() {
         RandomSource random = skelewag.getRandom();
         this.circlingTime = 0.0F;
-        this.maxCirclingTime = (float)(100 + random.nextInt(80));
+        this.maxCirclingTime = (float)(20 + random.nextInt(80));
         this.circleDistance = 5.0F + random.nextFloat() * 5.0F;
         this.clockwise = random.nextBoolean();
     }

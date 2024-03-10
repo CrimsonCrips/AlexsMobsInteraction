@@ -4,6 +4,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue anacondaattackbabies;
+
+    public final ForgeConfigSpec.BooleanValue tusklinfulltrust;
     public final ForgeConfigSpec.BooleanValue anacondacannibalize;
     public final ForgeConfigSpec.BooleanValue baldeaglecannibalize;
 
@@ -37,6 +39,10 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue flyfearall;
     public final ForgeConfigSpec.BooleanValue flyfearcandles;
     public final ForgeConfigSpec.BooleanValue frogeatflies;
+
+    public final ForgeConfigSpec.BooleanValue flyconvert;
+
+    public final ForgeConfigSpec.BooleanValue crimsonbloodprot;
     public final ForgeConfigSpec.BooleanValue giantsquidcannibalize;
     public final ForgeConfigSpec.BooleanValue grizzlyattackfriendly;
     public final ForgeConfigSpec.BooleanValue gusterweighed;
@@ -156,6 +162,8 @@ public class InteractConfig {
         this.crimsontransform = buildBoolean(builder, "crimsontransform", " ", true, "Whether Crimson Mosquitoes can be turned into Warped Moscos by feeding them Mungus Spores");
         this.crimsonnostraddler = buildBoolean(builder, "crimsonnostraddler", " ", true, "Whether Crimson Mosquitoes cant attack Straddlers, unless with blood inside");
         this.bloodedmosquitoes = buildBoolean(builder, "bloodedmosquitoes", " ", true, "Whether Crimson Mosquitoes can spawn with blood");
+        this.crimsonbloodprot = buildBoolean(builder, "crimsonbloodprot", " ", true, "Whether Crimson Mosquitoes take no damage from Blood Sprayer");
+
         builder.pop();
         builder.push("Crow");
         this.crowcannibalize = buildBoolean(builder, "crowcannibalize", " ", true, "Whether Crows cannibalize on other crows in certain conditions");
@@ -184,6 +192,7 @@ public class InteractConfig {
         builder.pop();
         builder.push("Fly");
         this.flypester = buildBoolean(builder, "flypester", " ", true, "Whether flies pester specific mobs");
+        this.flyconvert = buildBoolean(builder, "flyconvert", " ", true, "Whether flies can be converted to a Crimson Mosquito");
         this.flyfearcandles = buildBoolean(builder, "flysfearcandles", " ", true, "Whether flies fear candles");
         this.flyfearall = buildBoolean(builder, "frogeatflies", " ", true, "Whether flies fear all (except for mobs they pester)");
         builder.pop();
@@ -259,6 +268,8 @@ public class InteractConfig {
         builder.pop();
         builder.push("Tusklin");
         this.fleewarped = buildBoolean(builder, "fleewarped", " ", true, "Whether Tusklins flee warped fungus like their predecessors");
+        this.tusklinfulltrust = buildBoolean(builder, "tusklinfulltrust", " ", true, "Whether Tusklins can be perm trusted with mushroom stew");
+
         builder.pop();
         builder.push("Warped Mosco");
         this.warpedcannibalism = buildBoolean(builder, "warpedcannibalism", " ", true, "Whether Warped Moscos eat Crimson Mosquitoes rarely");
@@ -273,10 +284,6 @@ public class InteractConfig {
     }
 
     private static ForgeConfigSpec.IntValue buildInt(ForgeConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment){
-        return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
-    }
-
-    private static ForgeConfigSpec.DoubleValue buildDouble(ForgeConfigSpec.Builder builder, String name, String catagory, double defaultValue, double min, double max, String comment){
         return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
     }
 }

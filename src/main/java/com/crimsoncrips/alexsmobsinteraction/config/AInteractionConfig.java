@@ -80,10 +80,16 @@ public class AInteractionConfig {
     public static boolean snappingturtlemossincrease = true;
     public static boolean skelewagcircle = true;
     public static boolean stunnablecharge = true;
+    public static boolean tusklinfulltrust = true;
+    public static boolean flyconvert = true;
+    public static boolean crimsonbloodprot = true;
 
 
     public static void bake() {
         try {
+            crimsonbloodprot = ConfigHolder.INTERACT.crimsonbloodprot.get();
+            flyconvert = ConfigHolder.INTERACT.flyconvert.get();
+            tusklinfulltrust = ConfigHolder.INTERACT.tusklinfulltrust.get();
             stunnablecharge = ConfigHolder.INTERACT.stunnablecharge.get();
             skelewagcircle = ConfigHolder.INTERACT.skelewagcircle.get();
             snappingturtlemossincrease = ConfigHolder.INTERACT.snappingturtlemossincrease.get();
