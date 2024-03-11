@@ -21,7 +21,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.EnumSet;
 
-public class AIHammerheadCircleGoalReplace extends Goal {
+public class AIHammerCircleReplace extends Goal {
   EntityHammerheadShark hammerhead;
   float speed;
   float circlingTime = 0.0F;
@@ -36,7 +36,7 @@ public class AIHammerheadCircleGoalReplace extends Goal {
 
 
 
-  public AIHammerheadCircleGoalReplace(EntityHammerheadShark hammerhead, float speed) {
+  public AIHammerCircleReplace(EntityHammerheadShark hammerhead, float speed) {
       this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
       this.hammerhead = hammerhead;
       this.speed = speed;

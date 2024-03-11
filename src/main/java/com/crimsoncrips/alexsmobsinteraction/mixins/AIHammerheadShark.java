@@ -1,9 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins;
 
-import com.crimsoncrips.alexsmobsinteraction.AIHammerheadCircleGoalReplace;
-import com.crimsoncrips.alexsmobsinteraction.AISkelewagCircleGoal;
+import com.crimsoncrips.alexsmobsinteraction.AIHammerCircleReplace;
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -43,7 +41,7 @@ public class AIHammerheadShark extends Mob {
         ci.cancel();
         EntityHammerheadShark hammerheadShark = (EntityHammerheadShark)(Object)this;
         this.goalSelector.addGoal(1, new TryFindWaterGoal(hammerheadShark));
-        this.goalSelector.addGoal(1, new AIHammerheadCircleGoalReplace(hammerheadShark, 1.0F));
+        this.goalSelector.addGoal(1, new AIHammerCircleReplace(hammerheadShark, 1.0F));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(hammerheadShark, 0.6000000238418579, 7));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new FollowBoatGoal(hammerheadShark));

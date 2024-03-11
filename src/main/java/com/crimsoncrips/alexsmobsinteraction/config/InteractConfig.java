@@ -89,6 +89,8 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue cavespidereats;
 
+    public final ForgeConfigSpec.BooleanValue soulbuff;
+
     public final ForgeConfigSpec.BooleanValue hummingfollowflutter;
 
     public final ForgeConfigSpec.BooleanValue geladahunt;
@@ -100,6 +102,8 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue enderioimmunity;
 
     public final ForgeConfigSpec.BooleanValue enderioadaption;
+
+    public final ForgeConfigSpec.BooleanValue snowluck;
 
 
 
@@ -248,7 +252,12 @@ public class InteractConfig {
         builder.push("Skelewag");
         this.scourgingseas = buildBoolean(builder, "scourgingseas", " ", true, "Whether Skelewag's attack all entities apart from their allies");
         this.skelewagcircle = buildBoolean(builder, "skelewagcircle", " ", true, "Whether Skelewags circle prey like Hammerhead sharks");
-
+        builder.pop();
+        builder.push("Snow Leopard");
+        this.snowluck = buildBoolean(builder, "snowluck", " ", true, "Whether Snow Leopards can get rare items when killing specific mobs");
+        builder.pop();
+        builder.push("Soul Vulture");
+        this.soulbuff = buildBoolean(builder, "soulbuff", " ", true, "Whether Soul Vultures increase soul level no matter what when attacking");
         builder.pop();
         builder.push("Straddler");
         this.straddlershots = buildInt(builder, "straddlershots", " ", AInteractionConfig.straddlershots, 0, Integer.MAX_VALUE, "Amount of shots a Straddler has before reloading to fire again (0 Disables this feature)");

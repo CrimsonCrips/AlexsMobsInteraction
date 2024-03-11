@@ -46,16 +46,7 @@ public class AIFarseer extends Mob {
             this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, WanderingTrader.class, 3, false, true, null));
         }
     }
-    public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(entity instanceof LivingEntity living){
-            final CompoundTag emptyNbt = new CompoundTag();
-            living.addAdditionalSaveData(emptyNbt);
-            emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
-            living.readAdditionalSaveData(emptyNbt);
 
-        }
-        super.awardKillScore(entity, score, src);
-    }
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         if (AInteractionConfig.farseeralter){

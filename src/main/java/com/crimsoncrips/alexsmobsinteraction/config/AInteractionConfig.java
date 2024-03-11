@@ -83,10 +83,14 @@ public class AInteractionConfig {
     public static boolean tusklinfulltrust = true;
     public static boolean flyconvert = true;
     public static boolean crimsonbloodprot = true;
+    public static boolean snowluck = true;
+    public static boolean soulbuff = true;
 
 
     public static void bake() {
         try {
+            soulbuff = ConfigHolder.INTERACT.soulbuff.get();
+            snowluck = ConfigHolder.INTERACT.snowluck.get();
             crimsonbloodprot = ConfigHolder.INTERACT.crimsonbloodprot.get();
             flyconvert = ConfigHolder.INTERACT.flyconvert.get();
             tusklinfulltrust = ConfigHolder.INTERACT.tusklinfulltrust.get();
