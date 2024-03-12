@@ -33,7 +33,7 @@ Every Single Feature in this mod is Configurable and is located in config/alexsm
 
 
 
-![Features](https://cdn.discordapp.com/attachments/1113796208335527998/1167314412521148498/Features.png?ex=65fd04c3&is=65ea8fc3&hm=cd56322149a554cffcf5c8a72b1b2c237acd35a82f6417271f754a6e2e468a4d&)
+![Features](https://cdn.discordapp.com/attachments/1113796208335527998/1171930839500726334/changelog.png?ex=65fb5b25&is=65e8e625&hm=0ea01cf0ddabcf758c3d1c7a4995f28be6846e52b733463de9adb625486c5a44&)
 
 
 -Entity Tags are now cleaned
