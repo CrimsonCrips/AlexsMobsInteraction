@@ -48,4 +48,6 @@ Every Single Feature in this mod is Configurable and is located in config/alexsm
 
 -Removed Crocodiles not attacking anymore when weak
 
+-Actually added a recipe for the Swatter
+
 -Skreecher souls can be interacted into a Sculk Scriecher to allow it to spawn Wardens
