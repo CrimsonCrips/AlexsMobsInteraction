@@ -1,10 +1,11 @@
 {
   "__comment": "all non-player targets of the cachalot whale mob.",
-  "replace": false,
+  "replace": true,
   "values": [
     "alexsmobs:mimic_octopus",
-    "alexsmobs:giant_squid",
     "minecraft:squid",
-    "minecraft:glow_squid"
+    "minecraft:glow_squid",
+    "alexsmobs:giant_squid",
+    "alexsmobs:seal"
   ]
 }

@@ -85,10 +85,12 @@ public class AInteractionConfig {
     public static boolean crimsonbloodprot = true;
     public static boolean snowluck = true;
     public static boolean soulbuff = true;
+    public static boolean skreecherward = true;
 
 
     public static void bake() {
         try {
+            skreecherward = ConfigHolder.INTERACT.skreecherward.get();
             soulbuff = ConfigHolder.INTERACT.soulbuff.get();
             snowluck = ConfigHolder.INTERACT.snowluck.get();
             crimsonbloodprot = ConfigHolder.INTERACT.crimsonbloodprot.get();

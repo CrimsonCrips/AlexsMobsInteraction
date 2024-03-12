@@ -105,6 +105,8 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue snowluck;
 
+    public final ForgeConfigSpec.BooleanValue skreecherward;
+
 
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
@@ -252,6 +254,9 @@ public class InteractConfig {
         builder.push("Skelewag");
         this.scourgingseas = buildBoolean(builder, "scourgingseas", " ", true, "Whether Skelewag's attack all entities apart from their allies");
         this.skelewagcircle = buildBoolean(builder, "skelewagcircle", " ", true, "Whether Skelewags circle prey like Hammerhead sharks");
+        builder.pop();
+        builder.push("Skreecher");
+        this.skreecherward = buildBoolean(builder, "skreecherward", " ", true, "Whether Skreecher's soul can be used on a Screacher to allow it to spawn wardens");
         builder.pop();
         builder.push("Snow Leopard");
         this.snowluck = buildBoolean(builder, "snowluck", " ", true, "Whether Snow Leopards can get rare items when killing specific mobs");

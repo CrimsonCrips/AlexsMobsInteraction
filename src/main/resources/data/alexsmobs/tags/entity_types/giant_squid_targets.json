@@ -1,6 +1,6 @@
 {
   "__comment": "all non-player, non-guardian targets of the giant squid mob.",
-  "replace": false,
+  "replace": true,
   "values": [
     "alexsmobs:blobfish",
     "minecraft:cod",
@@ -9,6 +9,8 @@
     "alexsmobs:catfish",
     "alexsmobs:flying_fish",
     "alexsmobs:devils_hole_pupfish",
-    "alexsmobs:triops"
+    "alexsmobs:triops",
+    "minecraft:glow_squid",
+    "minecraft:squid"
   ]
 }

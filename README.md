@@ -24,7 +24,28 @@ Special Thanks to
 
 **Refer to the [wiki](https://github.com/CrimsonCrips/AlexsMobsInteraction/wiki) for all changes**
 
+Every Single Feature in this mod is Configurable and is located in config/alexsmobsinteraction.toml
+
 
 ### IMPORTANT NOTICE
 
 ##  DO NOT REPORT ANY ISSUES SPECIFIC TO THE MOD TO ALEX'S TEAM GITHUB REPORT THEM IN-[HERE](https://github.com/CrimsonCrips/AlexsMobsInteraction/issues)
+
+
+
+![Features](https://cdn.discordapp.com/attachments/1113796208335527998/1167314412521148498/Features.png?ex=65fd04c3&is=65ea8fc3&hm=cd56322149a554cffcf5c8a72b1b2c237acd35a82f6417271f754a6e2e468a4d&)
+
+
+-Entity Tags are now cleaned
+
+-Snow Leopards can get rare items when killing specific mobs
+
+-Soul Vultures can now gain Soul Levels no matter what when attacking
+
+-Snow leopards can now hunt banana slugs too
+
+-Fixed baby crocodiles hunting baby prey
+
+-Removed Crocodiles not attacking anymore when weak
+
+-Skreecher souls can be interacted into a Sculk Scriecher to allow it to spawn Wardens
