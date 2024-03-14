@@ -77,7 +77,7 @@ public class AIFly extends Mob {
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-        if (AInteractionConfig.flyconvert && (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get())) {
+     if (AInteractionConfig.flyconvert && (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get()) && !mungusAte) {
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
             mungusAte = true;

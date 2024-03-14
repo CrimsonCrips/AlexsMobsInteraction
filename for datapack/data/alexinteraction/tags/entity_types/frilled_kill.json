@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "alexsmobs:blobfish",
+    "alexsmobs:catfish",
+    "alexsmobs:flying_fish",
+    "alexsmobs:devils_hole_pupfish",
+    "minecraft:cod",
+    "minecraft:salmon",
+    "minecraft:tropical_fish",
+    "alexsmobs:mimic_octopus",
+    "minecraft:squid",
+    "minecraft:glow_squid",
+    "minecraft:drowned"
+  ]
+}

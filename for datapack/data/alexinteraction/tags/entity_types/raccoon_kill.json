@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "alexsmobs:banana_slug",
+    "alexsmobs:catfish",
+    "alexsmobs:cockroach",
+    "alexsmobs:fly",
+    "alexsmobs:crow",
+    "alexsmobs:devils_hole_pupfish",
+    "alexsmobs:flying_fish",
+    "alexsmobs:hummingbird",
+    "alexsmobs:rain_frog",
+    "alexsmobs:skunk",
+    "alexsmobs:sugar_glider",
+    "alexsmobs:triops",
+    "minecraft:chicken",
+    "minecraft:cod",
+    "minecraft:frog",
+    "minecraft:rabbit",
+    "minecraft:salmon"
+  ]
+}

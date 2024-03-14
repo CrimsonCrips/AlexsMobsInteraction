@@ -1,0 +1,13 @@
+{
+  "__comment": "all non-player targets of the orca mob.",
+  "replace": false,
+  "values": [
+    "alexsmobs:moose",
+    "alexsmobs:seal",
+    "minecraft:polar_bear",
+    "minecraft:turtle",
+    "minecraft:drowned",
+    "minecraft:guardian",
+    "minecraft:elder_guardian"
+  ]
+}
