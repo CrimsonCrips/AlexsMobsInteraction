@@ -7,6 +7,7 @@ import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -133,6 +134,8 @@ public abstract class AICrimsonMosquito extends Mob {
             itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
             pacified = true;
+            this.playSound(AMSoundRegistry.MOSQUITO_DIE.get(), 2F, 1F);
+            this.setHealth(this.getHealth() / 2);
             return InteractionResult.SUCCESS;
 
         }

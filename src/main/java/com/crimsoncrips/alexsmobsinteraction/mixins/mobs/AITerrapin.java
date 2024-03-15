@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
 import net.minecraft.world.entity.EntityType;
@@ -20,7 +21,6 @@ public class AITerrapin extends Mob {
 
     boolean spinStomp = false;
 
-    private LivingEntity lastLauncher = null;
 
 
     protected AITerrapin(EntityType<? extends Mob> pEntityType, Level pLevel) {
@@ -33,11 +33,10 @@ public class AITerrapin extends Mob {
             EntityTerrapin terrapin = (EntityTerrapin)(Object)this;
             if (terrapin.hasRetreated() && !retreatStomp){
                 retreatStomp = true;
-                hurt(damageSources().generic(), 4);
+                hurt(damageSources().generic(), 2);
             }
-            if (!terrapin.hasRetreated()) {
-                retreatStomp = false;
-                spinStomp = true;
+            if (!terrapin.hasRetreated() && !terrapin.isSpinning()) {
+               retreatStomp = false;
             }
         }
     }

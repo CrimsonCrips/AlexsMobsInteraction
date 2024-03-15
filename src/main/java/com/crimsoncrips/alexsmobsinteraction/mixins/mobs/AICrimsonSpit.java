@@ -46,16 +46,16 @@ public class AICrimsonSpit extends Entity {
             if (!(hitEntity instanceof EntityFly) && !(hitEntity instanceof EntityCrimsonMosquito)) {
                 hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 4.0F);
             }
-            if (hitEntity instanceof EntityFly fly && fly.getHealth() == fly.getMaxHealth()){
-                hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 1.0F);
+            if (hitEntity instanceof EntityFly){
+                hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 0.0F);
             }
         } else {
             if (AInteractionConfig.flyconvert && entity instanceof LivingEntity) { //flyconvert is on and crimsonbloodprot is off
                 if (!(hitEntity instanceof EntityFly)) {
                     hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 4.0F);
                 }
-                if (hitEntity instanceof EntityFly fly && fly.getHealth() == fly.getMaxHealth()){
-                    hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 1.0F);
+                if (hitEntity instanceof EntityFly){
+                    hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 0.0F);
                 }
             } else if (AInteractionConfig.crimsonbloodprot && entity instanceof LivingEntity) { //flyconvert is off and crimsonbloodprot is on
                 if (!(hitEntity instanceof EntityCrimsonMosquito)) {

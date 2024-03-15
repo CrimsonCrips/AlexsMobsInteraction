@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "alexsmobsinteraction.refmap.json",
   "mixins": [
-    "misc.AILavaBottle",
     "misc.AISculkShrieker",
     "mobs.AIAlligatorSnappingTurtle",
     "mobs.AIAnaconda",

@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -87,6 +88,7 @@ public class AIFly extends Mob {
             itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
             pacify = true;
+            this.playSound(AMSoundRegistry.FLY_HURT.get(), 2F, 1F);
 
         }
 
