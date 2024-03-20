@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.Block;
 
 public class AInteractionTagRegistry {
     public static final TagKey<Block> CENTIPEDE_BLOCK_FEAR = registerBlockTag("centipede_block_fear");
+
+    public static final TagKey<Item> LAVITHAN_PICKAXES = registerItemTag("lavithan_pickaxes");
     public static final TagKey<EntityType<?>> ANACONDA_BABY_KILL = registerEntityTag("anaconda_kill_baby");
     public static final TagKey<EntityType<?>> BIGCATFISHCANNOTEAT = registerEntityTag("bigcatfish_cannotkill");
     public static final TagKey<EntityType<?>> BLUEJAYKILL = registerEntityTag("bluejay_kill");

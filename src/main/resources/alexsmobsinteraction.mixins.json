@@ -45,6 +45,7 @@
     "mobs.AIHummingBird",
     "mobs.AIJerboa",
     "mobs.AIKomodoDragon",
+    "mobs.AILavithan",
     "mobs.AILobster",
     "mobs.AIMantisShrimp",
     "mobs.AIMudskipper",
@@ -68,10 +69,10 @@
     "mobs.AITiger",
     "mobs.AITusklin",
     "mobs.AIWarpedMosco",
-    "mobs.AIWarpedToad",
-    "mobs.AILavithan"
+    "mobs.AIWarpedToad"
   ],
   "client": [
+    "mobs.fly.AIFlyRendering",
     "mobs.lavithan.AILavithanRendering",
     "mobs.lavithan.AILayerOverlays"
   ],

@@ -4,10 +4,14 @@ import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.goal.FollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.interfaces.AIFlyInterface;
 import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -34,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityFly.class)
-public class AIFly extends Mob {
+public class AIFly extends Mob implements AIFlyInterface {
 
     private boolean noFollow = false;
 
@@ -105,30 +109,47 @@ public class AIFly extends Mob {
                 y2 = -0.05 + y2;
                 this.setDeltaMovement(0, y2, 0);
            }
+        if (pacify && mungusAte && blooded) flySetSick(true);
         if(AInteractionConfig.flypester){
             if (random.nextDouble() < 0.001 && !noFollow || level().isNight()) noFollow = true;
             if (random.nextDouble() < 0.05 && noFollow && level().isDay()) noFollow = false;
         }
-        if (pacify && blooded && mungusAte) {
+
+        if (flyIsSick()) {
             flyConvert++;
-            this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0));
-            if (flyConvert > 60) {
-                this.setDeltaMovement(0, 0.01, 0);
-            }
+
             if (flyConvert > 160) {
                 EntityCrimsonMosquito crimsonMosquito = AMEntityRegistry.CRIMSON_MOSQUITO.get().create(level());
                 crimsonMosquito.copyPosition(this);
                 if (!this.level().isClientSide) {
                     crimsonMosquito.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
                 }
+                crimsonMosquito.onSpawnFromFly();
 
                 if (!this.level().isClientSide) {
                     this.level().broadcastEntityEvent(this, (byte) 79);
                     level().addFreshEntity(crimsonMosquito);
                 }
+
                 this.remove(RemovalReason.DISCARDED);
 
             }
         }
+    }
+
+    private static final EntityDataAccessor<Boolean> FLYSICK = SynchedEntityData.defineId(EntityFly.class, EntityDataSerializers.BOOLEAN);
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(FLYSICK, false);
+    }
+
+
+    public boolean flyIsSick() {
+        return this.entityData.get(FLYSICK);
+    }
+
+    public void flySetSick(boolean flysick) {
+        this.entityData.set(FLYSICK, flysick);
     }
 }
