@@ -1,6 +1,6 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
+package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.lavithan;
 
-import com.crimsoncrips.alexsmobsinteraction.interfaces.AILavithanInterface;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AILavithanInterface;
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;

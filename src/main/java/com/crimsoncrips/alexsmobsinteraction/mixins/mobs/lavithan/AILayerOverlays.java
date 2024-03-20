@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.lavithan;
 
 
-import com.crimsoncrips.alexsmobsinteraction.interfaces.AILavithanInterface;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AILavithanInterface;
 import com.github.alexthe666.alexsmobs.client.model.ModelLaviathan;
 import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
 import com.mojang.blaze3d.vertex.PoseStack;

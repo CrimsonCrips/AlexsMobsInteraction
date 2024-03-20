@@ -32,10 +32,8 @@
     "mobs.AIEnderiophage",
     "mobs.AIFarseer",
     "mobs.AIFlutter",
-    "mobs.AIFly",
     "mobs.AIFlyingFish",
     "mobs.AIFrilledShark",
-    "mobs.AIFrog",
     "mobs.AIGeladaMonkey",
     "mobs.AIGiantSquid",
     "mobs.AIGorilla",
@@ -45,7 +43,6 @@
     "mobs.AIHummingBird",
     "mobs.AIJerboa",
     "mobs.AIKomodoDragon",
-    "mobs.AILavithan",
     "mobs.AILobster",
     "mobs.AIMantisShrimp",
     "mobs.AIMudskipper",
@@ -69,11 +66,13 @@
     "mobs.AITiger",
     "mobs.AITusklin",
     "mobs.AIWarpedMosco",
-    "mobs.AIWarpedToad"
+    "mobs.AIWarpedToad",
+    "mobs.fly.AIFly",
+    "mobs.lavithan.AILavithan",
+    "mobs.vanillamob.AIFrog"
   ],
   "client": [
     "mobs.fly.AIFlyRendering",
-    "mobs.fly.AIFrogRendering",
     "mobs.lavithan.AILavithanRendering",
     "mobs.lavithan.AILayerOverlays"
   ],

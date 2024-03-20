@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.interfaces;
+package com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces;
 
 public interface AITransform {
     boolean isTransforming();

@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.fly;
 
 
-import com.crimsoncrips.alexsmobsinteraction.interfaces.AITransform;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AITransform;
 import com.github.alexthe666.alexsmobs.client.model.ModelFly;
 import com.github.alexthe666.alexsmobs.client.render.RenderFly;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.Shadow;
 public class AIFlyRendering  extends MobRenderer<EntityFly, ModelFly> {
 
 
-    public AIFlyRendering(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new ModelFly(), 0.2F);
+    public AIFlyRendering(EntityRendererProvider.Context pContext, ModelFly pModel, float pShadowRadius) {
+        super(pContext, pModel, pShadowRadius);
     }
 
     @Override
@@ -38,10 +38,11 @@ public class AIFlyRendering  extends MobRenderer<EntityFly, ModelFly> {
     protected void setupRotations(EntityFly entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         if (this.isShaking(entityLiving)) {
             rotationYaw += (float)(Math.cos((double)entityLiving.tickCount * 7.0) * Math.PI * 0.8999999761581421);
-            float vibrate = 10F;
+            float vibrate = 0.05F;
             matrixStackIn.translate((entityLiving.getRandom().nextFloat() - 0.5F) * vibrate, (entityLiving.getRandom().nextFloat() - 0.5F) * vibrate, (entityLiving.getRandom().nextFloat() - 0.5F) * vibrate);
         }
 
         super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
     }
+
 }

@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.ConfigHolder;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.event.InteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
+import com.github.alexthe666.alexsmobs.CommonProxy;
 import com.mojang.logging.LogUtils;
 import misc.AICreativeTab;
 import net.minecraft.world.level.block.Blocks;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -27,6 +29,10 @@ import org.slf4j.Logger;
 @Mod(AlexsMobsInteraction.MODID)
 public class AlexsMobsInteraction {
 
+
+    public static final CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+
+
     // Define mod id in a common place for everything to reference
     public static final String MODID = "alexsmobsinteraction";
     // Directly reference a slf4j logger
@@ -36,8 +42,9 @@ public class AlexsMobsInteraction {
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         AIItemRegistry.DEF_REG.register(modEventBus);
+        modEventBus.addListener(this::setupClient);
         AICreativeTab.DEF_REG.register(modEventBus);
-
+        PROXY.init();
         MinecraftForge.EVENT_BUS.register(new InteractionEvents());
         AIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::onModConfigEvent);
@@ -82,5 +89,8 @@ public class AlexsMobsInteraction {
             LOGGER.info("THE CRIMSON SHALL GUIDE YOU.");
             LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
         }
+    }
+    private void setupClient(FMLClientSetupEvent event) {
+        PROXY.clientInit();
     }
 }

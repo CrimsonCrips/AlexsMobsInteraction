@@ -1,37 +1,35 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.fly;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
+package com.crimsoncrips.alexsmobsinteraction.mobmodification.mobrendering;
 
-import com.crimsoncrips.alexsmobsinteraction.interfaces.AITransform;
-import com.github.alexthe666.alexsmobs.client.model.ModelFly;
-import com.github.alexthe666.alexsmobs.client.render.RenderFly;
-import com.github.alexthe666.alexsmobs.entity.EntityFly;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AITransform;
+import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.FrogModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.FrogRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.frog.Frog;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@Mixin(FrogRenderer.class)
-
+@OnlyIn(Dist.CLIENT)
 public class AIFrogRendering extends MobRenderer<Frog, FrogModel<Frog>> {
     public AIFrogRendering(EntityRendererProvider.Context p_234619_) {
         super(p_234619_, new FrogModel(p_234619_.bakeLayer(ModelLayers.FROG)), 0.3F);
     }
 
-    @Shadow
     public ResourceLocation getTextureLocation(Frog p_234623_) {
         return p_234623_.getVariant().texture();
     }
 
     protected boolean isShaking(Frog frog) {
         AITransform myAccessor = (AITransform) frog;
-        boolean isTransforming = myAccessor.isTransforming();
-        return isTransforming;
+        return myAccessor.isTransforming();
     }
 
     protected void setupRotations(Frog entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {

@@ -1,10 +1,10 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
+package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.fly;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.goal.FollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.interfaces.AITransform;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AITransform;
 import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
