@@ -69,7 +69,7 @@
     "mobs.AITusklin",
     "mobs.AIWarpedMosco",
     "mobs.AIWarpedToad",
-    "mobs.lavithan.AILavithan"
+    "mobs.AILavithan"
   ],
   "client": [
     "mobs.lavithan.AILavithanRendering",
