@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "alexsmobsinteraction.refmap.json",
   "mixins": [
+    "misc.AIPocketSand",
     "misc.AISculkShrieker",
     "mobs.AIAlligatorSnappingTurtle",
     "mobs.AIAnaconda",
@@ -67,9 +68,12 @@
     "mobs.AITiger",
     "mobs.AITusklin",
     "mobs.AIWarpedMosco",
-    "mobs.AIWarpedToad"
+    "mobs.AIWarpedToad",
+    "mobs.lavithan.AILavithan"
   ],
   "client": [
+    "mobs.lavithan.AILavithanRendering",
+    "mobs.lavithan.AILayerOverlays"
   ],
   "injectors": {
     "defaultRequire": 1

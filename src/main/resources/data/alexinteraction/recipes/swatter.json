@@ -1,23 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "G": {
-      "item": "minecraft:grass"
-    },
-    "R": {
-      "item": "minecraft:red_dye"
+    "s": {
+      "item": "minecraft:stick"
     },
     "S": {
       "item": "minecraft:string"
     },
-    "W": {
-      "item": "minecraft:wheat"
+    "P": {
+      "item": "alexsmobs:mosquito_proboscis"
     }
   },
   "pattern": [
-    "SW ",
-    "WRG",
-    " GW"
+    "Ss ",
+    "ss ",
+    "  P"
   ],
   "result": {
     "count": 1,

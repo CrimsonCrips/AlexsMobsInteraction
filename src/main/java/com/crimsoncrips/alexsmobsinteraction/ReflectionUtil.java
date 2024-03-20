@@ -6,9 +6,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 public class ReflectionUtil {
-    public static Object createInstance(String className,
-                                        Class<?>[] argTypes,
-                                        Object[] args) {
+    public static Object createInstance(String className, Class<?>[] argTypes, Object[] args) {
         try {
             // Get the class object for the specified class name
             Class<?> clazz = Class.forName(className);

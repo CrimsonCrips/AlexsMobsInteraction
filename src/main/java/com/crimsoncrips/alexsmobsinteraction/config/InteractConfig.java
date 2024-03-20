@@ -107,6 +107,10 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue skreecherward;
 
+    public final ForgeConfigSpec.BooleanValue sandnoammo;
+
+    public final ForgeConfigSpec.BooleanValue lavaithanobsidianremove;
+
 
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
@@ -115,7 +119,9 @@ public class InteractConfig {
         this.preyfear = buildBoolean(builder, "preyfear", " ", true, "Whether some Prey fear their predators");
         this.weakened = buildBoolean(builder, "weakened", " ", true, "Whether Mobs that are aggresive to the player will not do so if below a certain amount of health");
         this.stunnablecharge = buildBoolean(builder, "stunnablecharge", " ", true, "Whether Charging Mobs can get stunned when holding up a shield");
-
+        builder.pop();
+        builder.push("Items");
+        this.sandnoammo = buildBoolean(builder, "sandnoammo", " ", true, "Whether Sand requires no sand");
         builder.pop();
         builder.push("Mobs");
         builder.push("Vanilla Mob Tweaks");
@@ -220,6 +226,9 @@ public class InteractConfig {
         builder.push("Hummingbird");
         this.hummingfollowflutter = buildBoolean(builder, "hummingfollowflutter", " ", true, "Whether Hummingbirds follow Flutters");
         this.hummingbirdpolinate = buildBoolean(builder, "hummingbirdpolinate", " ", true, "Whether Hummingbirds only pollinate at day");
+        builder.pop();
+        builder.push("Lavithan");
+        this.lavaithanobsidianremove = buildBoolean(builder, "lavaithanobsidianremove", " ", true, "Whether Lavithan can be reconverted from Obsidian to Normal");
         builder.pop();
         builder.push("Lobster");
         this.lobsternight = buildBoolean(builder, "lobsternight", " ", true, "Whether Lobsters only spawn at night");
