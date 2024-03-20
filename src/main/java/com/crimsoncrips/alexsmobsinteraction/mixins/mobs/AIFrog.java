@@ -2,9 +2,13 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.interfaces.AITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(Frog.class)
-public class AIFrog extends Mob {
+public class AIFrog extends Mob implements AITransform {
     int maggotFed,mungusFed,warpedFed,frogWarped;
 
     boolean transforming = false;
@@ -47,8 +51,8 @@ public class AIFrog extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         Frog frog = (Frog)(Object)this;
-            if (mungusFed >= 1 && warpedFed >= 2 && maggotFed >= 10 && AInteractionConfig.frogtransform) {
-                transforming=true;
+            if (mungusFed >= 1 && warpedFed >= 2 && maggotFed >= 10) {
+                setTransforming(true);
                 frogWarped++;
                 frog.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0));
                 if (frogWarped > 60) {
@@ -74,27 +78,48 @@ public class AIFrog extends Mob {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (stack.getItem() == AMItemRegistry.MAGGOT.get() && AInteractionConfig.frogtransform && !(maggotFed >= 10)) {
+        if(AInteractionConfig.frogtransform){
+            if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(maggotFed >= 10)) {
 
-            gameEvent(GameEvent.ENTITY_INTERACT);
-            stack.shrink(1);
-            this.playSound(SoundEvents.GENERIC_EAT);
-            maggotFed++;
-            return InteractionResult.SUCCESS;
-        }
-        if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AInteractionConfig.frogtransform && !(mungusFed >= 1)) {
-            gameEvent(GameEvent.ENTITY_INTERACT);
-            stack.shrink(1);
-            this.playSound(SoundEvents.GENERIC_EAT);
-            mungusFed++;
-            return InteractionResult.SUCCESS;
-        }
-        if (stack.getItem() == Items.WARPED_FUNGUS && AInteractionConfig.frogtransform && !(warpedFed >= 2)) {
-            gameEvent(GameEvent.ENTITY_INTERACT);
-            stack.shrink(1);
-            this.playSound(SoundEvents.GENERIC_EAT);
-            warpedFed++;
-            return InteractionResult.SUCCESS;
-        } else return type;
+                gameEvent(GameEvent.ENTITY_INTERACT);
+                stack.shrink(1);
+                this.playSound(SoundEvents.GENERIC_EAT);
+                maggotFed++;
+                return InteractionResult.SUCCESS;
+            }
+            if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && !(mungusFed >= 1)) {
+                gameEvent(GameEvent.ENTITY_INTERACT);
+                stack.shrink(1);
+                this.playSound(SoundEvents.GENERIC_EAT);
+                mungusFed++;
+                return InteractionResult.SUCCESS;
+            }
+            if (stack.getItem() == Items.WARPED_FUNGUS && !(warpedFed >= 2)) {
+                gameEvent(GameEvent.ENTITY_INTERACT);
+                stack.shrink(1);
+                this.playSound(SoundEvents.GENERIC_EAT);
+                warpedFed++;
+                return InteractionResult.SUCCESS;
+            }
+        } return type;
     }
+
+    private static final EntityDataAccessor<Boolean> FROGSICK = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.BOOLEAN);
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(FROGSICK, false);
+    }
+
+    @Override
+    public boolean isTransforming() {
+        return this.entityData.get(FROGSICK);
+    }
+
+    @Override
+    public void setTransforming(boolean transforming) {
+        this.entityData.set(FROGSICK, transforming);
+    }
+
+
 }

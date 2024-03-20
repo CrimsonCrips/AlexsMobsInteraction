@@ -4,7 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.goal.FollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.interfaces.AIFlyInterface;
+import com.crimsoncrips.alexsmobsinteraction.interfaces.AITransform;
 import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -17,8 +17,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -38,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityFly.class)
-public class AIFly extends Mob implements AIFlyInterface {
+public class AIFly extends Mob implements AITransform {
 
     private boolean noFollow = false;
 
@@ -109,13 +107,13 @@ public class AIFly extends Mob implements AIFlyInterface {
                 y2 = -0.05 + y2;
                 this.setDeltaMovement(0, y2, 0);
            }
-        if (pacify && mungusAte && blooded) flySetSick(true);
+        if (pacify && mungusAte && blooded) setTransforming(true);
         if(AInteractionConfig.flypester){
             if (random.nextDouble() < 0.001 && !noFollow || level().isNight()) noFollow = true;
             if (random.nextDouble() < 0.05 && noFollow && level().isDay()) noFollow = false;
         }
 
-        if (flyIsSick()) {
+        if (isTransforming()) {
             flyConvert++;
 
             if (flyConvert > 160) {
@@ -145,11 +143,11 @@ public class AIFly extends Mob implements AIFlyInterface {
     }
 
 
-    public boolean flyIsSick() {
+    public boolean isTransforming() {
         return this.entityData.get(FLYSICK);
     }
 
-    public void flySetSick(boolean flysick) {
-        this.entityData.set(FLYSICK, flysick);
+    public void setTransforming(boolean transforming) {
+        this.entityData.set(FLYSICK, transforming);
     }
 }

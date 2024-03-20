@@ -73,6 +73,7 @@
   ],
   "client": [
     "mobs.fly.AIFlyRendering",
+    "mobs.fly.AIFrogRendering",
     "mobs.lavithan.AILavithanRendering",
     "mobs.lavithan.AILayerOverlays"
   ],
