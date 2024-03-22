@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.mobrendering.AIFrogRendering;
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.mobrendering.AIRainfrogRendering;
+
 import com.github.alexthe666.alexsmobs.CommonProxy;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -16,7 +16,6 @@ public class ClientProxy extends CommonProxy {
 
 
     public void clientInit() {
-        EntityRenderers.register(AMEntityRegistry.RAIN_FROG.get(), AIRainfrogRendering::new);
         EntityRenderers.register(EntityType.FROG, AIFrogRendering::new);
     }
 

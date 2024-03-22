@@ -50,7 +50,7 @@
     "mobs.AIOrca",
     "mobs.AIPotoo",
     "mobs.AIRaccoon",
-    "mobs.AIRainfrog",
+    "mobs.rainfrog.AIRainfrog",
     "mobs.AIRattlesnake",
     "mobs.AIRoadrunner",
     "mobs.AISeagull",
@@ -65,6 +65,7 @@
     "mobs.AITerrapin",
     "mobs.AITiger",
     "mobs.AITusklin",
+    "mobs.AIVoidWorm",
     "mobs.AIWarpedMosco",
     "mobs.AIWarpedToad",
     "mobs.fly.AIFly",
@@ -74,7 +75,8 @@
   "client": [
     "mobs.fly.AIFlyRendering",
     "mobs.lavithan.AILavithanRendering",
-    "mobs.lavithan.AILayerOverlays"
+    "mobs.lavithan.AILayerOverlays",
+    "mobs.rainfrog.AIRainfrogRendering"
   ],
   "injectors": {
     "defaultRequire": 1
