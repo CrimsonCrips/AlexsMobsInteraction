@@ -95,7 +95,7 @@ public class AIAnaconda extends Mob {
                 return !anaconda.isBaby() && (int) ReflectionUtil.getField(anaconda, "passiveFor") == 0 && anaconda.level().getDifficulty() != Difficulty.PEACEFUL && !anaconda.isInLove() && super.canUse();
             }
         });
-        this.targetSelector.addGoal(3, new HurtByTargetGoal(anaconda, new Class[0]));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(anaconda, EntityAnaconda.class));
 
 
         Predicate<LivingEntity> ANACONDA_BABY_TARGETS = AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.ANACONDA_BABY_KILL);
