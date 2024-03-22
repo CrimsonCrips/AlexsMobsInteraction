@@ -9,9 +9,11 @@ import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -37,14 +39,71 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityFly.class)
 public class AIFly extends Mob implements AITransform {
+    private static final EntityDataAccessor<Boolean> BLOODED;
+    private static final EntityDataAccessor<Boolean> MUNGUS;
+    private static final EntityDataAccessor<Boolean> PACIFIED;
+    private static final EntityDataAccessor<Boolean> FLYSICK;
 
+    static {
+        BLOODED = SynchedEntityData.defineId(AIFly.class, EntityDataSerializers.BOOLEAN);
+        MUNGUS = SynchedEntityData.defineId(AIFly.class, EntityDataSerializers.BOOLEAN);
+        PACIFIED = SynchedEntityData.defineId(AIFly.class, EntityDataSerializers.BOOLEAN);
+        FLYSICK = SynchedEntityData.defineId(AIFly.class, EntityDataSerializers.BOOLEAN);
+    }
+
+    int flyConvert;
+    double y2 = 0;
     private boolean noFollow = false;
-
-    boolean blooded = false;
-
     protected AIFly(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
+
+
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(FLYSICK, false);
+        this.entityData.define(BLOODED, false);
+        this.entityData.define(MUNGUS, false);
+        this.entityData.define(PACIFIED, false);
+    }
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putBoolean("FlySick", this.isTransforming());
+        compound.putBoolean("Blooded", this.isBlooded());
+        compound.putBoolean("Mungused", this.isMungused());
+        compound.putBoolean("Pacified", this.isPacified());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setTransforming(compound.getBoolean("FlySick"));
+        this.setBlooded(compound.getBoolean("Blooded"));
+        this.setMungused(compound.getBoolean("Mungused"));
+        this.setPacified(compound.getBoolean("Pacified"));
+    }
+
+    public boolean isBlooded() {
+        return this.entityData.get(BLOODED);
+    }
+
+    public void setBlooded(boolean relava) {
+        this.entityData.set(BLOODED, relava);
+    }
+    public boolean isMungused() {
+        return this.entityData.get(MUNGUS);
+    }
+
+    public void setMungused(boolean relava) {
+        this.entityData.set(MUNGUS, relava);
+    }
+    public boolean isPacified() {
+        return this.entityData.get(PACIFIED);
+    }
+
+    public void setPacified(boolean relava) {
+        this.entityData.set(PACIFIED, relava);
+    }
+
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void FlyGoals(CallbackInfo ci){
@@ -68,46 +127,41 @@ public class AIFly extends Mob implements AITransform {
         }
     }
 
-    boolean mungusAte = false;
     public boolean hurt(DamageSource source, float amount) {
         boolean prev = super.hurt(source, amount);
         if (source.getDirectEntity() instanceof EntityMosquitoSpit && AInteractionConfig.flyconvert) {
-            blooded = true;
+            setBlooded(true);
         }
 
         return prev;
     }
+
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-     if (AInteractionConfig.flyconvert && (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get()) && !mungusAte) {
+     if (AInteractionConfig.flyconvert && (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get()) && !isMungused()) {
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
-            mungusAte = true;
+            setMungused(true);
         }
-        if (itemstack.getItem() == AIItemRegistry.SWATTER.get() && AInteractionConfig.flyconvert && !pacify) {
+        if (itemstack.getItem() == AIItemRegistry.SWATTER.get() && AInteractionConfig.flyconvert && !isPacified()) {
             gameEvent(GameEvent.ENTITY_INTERACT);
             itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
-            pacify = true;
+            setPacified(true);
             this.playSound(AMSoundRegistry.FLY_HURT.get(), 2F, 1F);
 
         }
 
     }
-    boolean pacify = false;
-
-    int flyConvert;
-    double y2 = 0;
-
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void Test(CallbackInfo ci) {
-        if (pacify){
+        if (isPacified()){
                 y2 = -0.05 + y2;
                 this.setDeltaMovement(0, y2, 0);
            }
-        if (pacify && mungusAte && blooded) setTransforming(true);
+        if (isPacified() && isMungused() && isBlooded()) setTransforming(true);
         if(AInteractionConfig.flypester){
             if (random.nextDouble() < 0.001 && !noFollow || level().isNight()) noFollow = true;
             if (random.nextDouble() < 0.05 && noFollow && level().isDay()) noFollow = false;
@@ -133,14 +187,10 @@ public class AIFly extends Mob implements AITransform {
 
             }
         }
+
     }
 
-    private static final EntityDataAccessor<Boolean> FLYSICK = SynchedEntityData.defineId(EntityFly.class, EntityDataSerializers.BOOLEAN);
 
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(FLYSICK, false);
-    }
 
 
     public boolean isTransforming() {

@@ -6,6 +6,9 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -35,8 +38,33 @@ public abstract class AIGrizzlyBear extends Mob {
 
     @Shadow public abstract boolean isHoneyed();
 
-    int noHoney = 0;
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.SALMON, Items.HONEYCOMB, Items.HONEY_BOTTLE);
+    static{
+        HUNGER = SynchedEntityData.defineId(EntityGrizzlyBear.class, EntityDataSerializers.INT);
+    }
+    private static final EntityDataAccessor<Integer> HUNGER;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(HUNGER, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putInt("Hunger", this.getHunger());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setHunger(compound.getInt("Hunger"));
+
+    }
+
+    public int getHunger() {
+        return (Integer)this.entityData.get(HUNGER);
+    }
+
+    public void setHunger(int hunger) {
+        this.entityData.set(HUNGER, hunger);
+    }
 
     protected AIGrizzlyBear(EntityType<? extends Mob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -100,7 +128,7 @@ public abstract class AIGrizzlyBear extends Mob {
 
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 300, true, false, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_KILL)){
             public boolean canUse() {
-                return  super.canUse() && (noHoney >= 5000) || !grizzlyBear.isTame() && level().isDay();
+                return  super.canUse() && getHunger() >= 5000 || !grizzlyBear.isTame() && level().isDay();
             }
         });
         this.targetSelector.addGoal(7, new ResetUniversalAngerTargetGoal<>(grizzlyBear, false));
@@ -117,10 +145,10 @@ public abstract class AIGrizzlyBear extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         if(isHoneyed()) {
-            noHoney = 0;
+            this.setHunger(0);
         }
         else {
-            noHoney++;
+            this.setHunger(this.getHunger() + 1);
         }
     }
 

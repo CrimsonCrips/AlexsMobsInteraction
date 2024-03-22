@@ -111,6 +111,10 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue lavaithanobsidianremove;
 
+    public final ForgeConfigSpec.BooleanValue tusklintrample;
+
+    public final ForgeConfigSpec.BooleanValue tusklinremoveequipment;
+
 
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
@@ -292,6 +296,8 @@ public class InteractConfig {
         builder.push("Tusklin");
         this.fleewarped = buildBoolean(builder, "fleewarped", " ", true, "Whether Tusklins flee warped fungus like their predecessors");
         this.tusklinfulltrust = buildBoolean(builder, "tusklinfulltrust", " ", true, "Whether Tusklins can be perm trusted with mushroom stew");
+        this.tusklintrample = buildBoolean(builder, "tusklintrample", " ", true, "Whether Tusklins with the new Trample enchantment can trample when ridden");
+        this.tusklinremoveequipment = buildBoolean(builder, "tusklinremoveequipment", " ", true, "Whether Tusklins can have their equipment removed with shears");
 
         builder.pop();
         builder.push("Warped Mosco");

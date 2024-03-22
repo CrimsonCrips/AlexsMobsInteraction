@@ -4,6 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,7 +31,64 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Frog.class)
 public class AIFrog extends Mob implements AITransform {
-    int maggotFed,mungusFed,warpedFed,frogWarped;
+    int frogWarped;
+
+    static {
+        FROGSICK = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.BOOLEAN);
+        MAGGOTFED = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.INT);
+        MUNGUSFED = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.INT);
+        WARPEDFED = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.INT);
+    }
+
+    private static final EntityDataAccessor<Boolean> FROGSICK;
+    private static final EntityDataAccessor<Integer> MAGGOTFED;
+    private static final EntityDataAccessor<Integer> MUNGUSFED;
+    private static final EntityDataAccessor<Integer> WARPEDFED;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(FROGSICK, false);
+        this.entityData.define(MAGGOTFED, 0);
+        this.entityData.define(MUNGUSFED, 0);
+        this.entityData.define(WARPEDFED, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putBoolean("FrogSick", this.isTransforming());
+        compound.putInt("MaggotFed", this.getMaggotFed());
+        compound.putInt("MungusFed", this.getMungusFed());
+        compound.putInt("WarpedFed", this.getWarpedFed());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setTransforming(compound.getBoolean("FrogSick"));
+        this.setMaggotFed(compound.getInt("MaggotFed"));
+        this.setMungusFed(compound.getInt("MungusFed"));
+        this.setWarpedFed(compound.getInt("WarpedFed"));
+    }
+
+    public int getMaggotFed() {
+        return (Integer)this.entityData.get(MAGGOTFED);
+    }
+
+    public void setMaggotFed(int maggot) {
+        this.entityData.set(MAGGOTFED, maggot);
+    }
+    public int getMungusFed() {
+        return (Integer)this.entityData.get(MUNGUSFED);
+    }
+
+    public void setMungusFed(int mungus) {
+        this.entityData.set(MUNGUSFED, mungus);
+    }
+    public int getWarpedFed() {
+        return (Integer)this.entityData.get(WARPEDFED);
+    }
+
+    public void setWarpedFed(int warped) {
+        this.entityData.set(WARPEDFED, warped);
+    }
 
 
 
@@ -42,7 +100,7 @@ public class AIFrog extends Mob implements AITransform {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         Frog frog = (Frog)(Object)this;
-            if (mungusFed >= 1 && warpedFed >= 2 && maggotFed >= 10)  setTransforming(true);
+            if (this.getMungusFed() >= 1 && this.getWarpedFed() >= 2 && this.getMaggotFed() >= 10)  setTransforming(true);
             if (isTransforming()){
                 frogWarped++;
                 if (frogWarped > 160) {
@@ -66,36 +124,29 @@ public class AIFrog extends Mob implements AITransform {
         ItemStack stack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
         if(AInteractionConfig.frogtransform){
-            if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(maggotFed >= 10)) {
+            if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(getMaggotFed() >= 10)) {
 
                 gameEvent(GameEvent.ENTITY_INTERACT);
                 stack.shrink(1);
                 this.playSound(SoundEvents.GENERIC_EAT);
-                maggotFed++;
+                this.setMaggotFed(this.getMaggotFed() + 1);
                 return InteractionResult.SUCCESS;
             }
-            if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && !(mungusFed >= 1)) {
+            if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && !(getMungusFed() >= 1)) {
                 gameEvent(GameEvent.ENTITY_INTERACT);
                 stack.shrink(1);
                 this.playSound(SoundEvents.GENERIC_EAT);
-                mungusFed++;
+                this.setMungusFed(this.getMungusFed() + 1);
                 return InteractionResult.SUCCESS;
             }
-            if (stack.getItem() == Items.WARPED_FUNGUS && !(warpedFed >= 2)) {
+            if (stack.getItem() == Items.WARPED_FUNGUS && !(getWarpedFed() >= 2)) {
                 gameEvent(GameEvent.ENTITY_INTERACT);
                 stack.shrink(1);
                 this.playSound(SoundEvents.GENERIC_EAT);
-                warpedFed++;
+                this.setWarpedFed(this.getWarpedFed() + 1);
                 return InteractionResult.SUCCESS;
             }
         } return type;
-    }
-
-    private static final EntityDataAccessor<Boolean> FROGSICK = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.BOOLEAN);
-
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(FROGSICK, false);
     }
 
     @Override

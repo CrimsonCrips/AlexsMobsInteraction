@@ -56,7 +56,7 @@ public class AIEmu extends Mob {
 
         this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.EMU_KILL)));
         if(AInteractionConfig.emuscuffle){
-            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, EntityEmu.class, 700, false, true, null) {
+            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, EntityEmu.class, 1000, false, true, null) {
                 public boolean canUse() {
                     return !isLeashed() && super.canUse() && level().isDay() && !isBaby();
                 }

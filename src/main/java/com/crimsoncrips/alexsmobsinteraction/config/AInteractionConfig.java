@@ -88,10 +88,14 @@ public class AInteractionConfig {
     public static boolean skreecherward = true;
     public static boolean sandnoammo = true;
     public static boolean lavaithanobsidianremove = true;
+    public static boolean tusklintrample = true;
+    public static boolean tusklinremoveequipment = true;
 
 
     public static void bake() {
         try {
+            tusklinremoveequipment = ConfigHolder.INTERACT.tusklinremoveequipment.get();
+            tusklintrample = ConfigHolder.INTERACT.tusklintrample.get();
             lavaithanobsidianremove = ConfigHolder.INTERACT.lavaithanobsidianremove.get();
             sandnoammo = ConfigHolder.INTERACT.sandnoammo.get();
             skreecherward = ConfigHolder.INTERACT.skreecherward.get();

@@ -4,6 +4,10 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.StraddlerAIShoot;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -35,9 +39,47 @@ import static com.github.alexthe666.alexsmobs.entity.EntityStraddler.ANIMATION_L
 @Mixin(EntityStraddler.class)
 public class AIStraddler extends Mob {
 
-    int shootcooldown = 0;
 
-    int shootshots = 0;
+    static{
+        SHOOTCOOLDOWN = SynchedEntityData.defineId(EntityStraddler.class, EntityDataSerializers.INT);
+        SHOOTSHOTS = SynchedEntityData.defineId(EntityStraddler.class, EntityDataSerializers.INT);
+    }
+    private static final EntityDataAccessor<Integer> SHOOTCOOLDOWN;
+
+    private static final EntityDataAccessor<Integer> SHOOTSHOTS;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(SHOOTCOOLDOWN, 0);
+        this.entityData.define(SHOOTSHOTS, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putInt("ShootCooldown", this.getShootCooldown());
+        compound.putInt("ShootShots", this.getShootShots());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setShootCooldown(compound.getInt("ShootCooldown"));
+        this.setShootShots(compound.getInt("ShootShots"));
+    }
+
+    public int getShootCooldown() {
+        return (Integer)this.entityData.get(SHOOTCOOLDOWN);
+    }
+
+    public void setShootCooldown(int shootcooldown) {
+        this.entityData.set(SHOOTCOOLDOWN, shootcooldown);
+    }
+
+    public int getShootShots() {
+        return (Integer)this.entityData.get(SHOOTSHOTS);
+    }
+
+    public void setShootShots(int shootshots) {
+        this.entityData.set(SHOOTSHOTS, shootshots);
+    }
 
 
     protected AIStraddler(EntityType<? extends Mob> p_21368_, Level p_21369_) {
@@ -52,8 +94,7 @@ public class AIStraddler extends Mob {
 
     private boolean doSomething4() {
         if (AInteractionConfig.straddlershots != 0) {
-            if (!(shootshots <= 0)) return true;
-            else return false;
+            return !(getShootShots() <= 0);
         }else {
             return true;
         }
@@ -80,12 +121,12 @@ public class AIStraddler extends Mob {
     public void tick() {
         EntityStraddler straddler = (EntityStraddler)(Object)this;
         if (AInteractionConfig.straddlershots != 0) {
-            if (shootshots <= 0) {
-                shootcooldown--;
+            if (getShootShots() <= 0) {
+                setShootCooldown(getShootCooldown() - 1);
             }
-            if (shootcooldown <= 0 && shootshots <= 0) {
-                shootshots = AInteractionConfig.straddlershots;
-                shootcooldown = 100;
+            if (getShootCooldown() <= 0 && getShootShots() <= 0) {
+                setShootShots(AInteractionConfig.straddlershots);
+                setShootCooldown(100);
             }
         }
         super.tick();
@@ -97,7 +138,7 @@ public class AIStraddler extends Mob {
             }
         }
         if (AInteractionConfig.straddlershots != 0) {
-            if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null && !(shootshots == 0)) {
+            if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null && !(getShootShots() <= 0)) {
                 EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
                 pole.setParentId(this.getUUID());
                 pole.setPos(this.getX(), this.getEyeY(), this.getZ());
@@ -114,7 +155,7 @@ public class AIStraddler extends Mob {
                 if (!this.level().isClientSide) {
                     this.level().addFreshEntity(pole);
                 }
-                shootshots--;
+                setShootShots(getShootShots() - 1);
             }
         } else {
             if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null) {

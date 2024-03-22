@@ -10,6 +10,10 @@ import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,6 +23,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,13 +48,73 @@ public abstract class AICrimsonMosquito extends Mob {
 
     @Shadow public abstract void setFlying(boolean flying);
 
-    public boolean given = false;
+    @Shadow public abstract int getBloodLevel();
 
-    int sporeFed = 0;
 
-    int warpedFed = 0;
+    static {
+        PACIFIED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.BOOLEAN);
+        BLOODED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.BOOLEAN);
+        MUNGUSFED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.INT);
+        WARPEDFED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.INT);
+    }
 
-    boolean pacified = false;
+    private static final EntityDataAccessor<Boolean> PACIFIED;
+    private static final EntityDataAccessor<Boolean> BLOODED;
+    private static final EntityDataAccessor<Integer> MUNGUSFED;
+    private static final EntityDataAccessor<Integer> WARPEDFED;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(PACIFIED, false);
+        this.entityData.define(BLOODED, false);
+        this.entityData.define(MUNGUSFED, 0);
+        this.entityData.define(WARPEDFED, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putBoolean("Pacified", this.isPacified());
+        compound.putBoolean("Blooded", this.isBlooded());
+        compound.putInt("MungusFed", this.getMungusFed());
+        compound.putInt("WarpedFed", this.getWarpedFed());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setPacified(compound.getBoolean("Pacified"));
+        this.setBlooded(compound.getBoolean("Blooded"));
+        this.setMungusFed(compound.getInt("MungusFed"));
+        this.setWarpedFed(compound.getInt("WarpedFed"));
+    }
+
+    public boolean isPacified() {
+        return this.entityData.get(PACIFIED);
+    }
+
+    public void setPacified(boolean pacified) {
+        this.entityData.set(PACIFIED, pacified);
+    }
+    public boolean isBlooded() {
+        return this.entityData.get(BLOODED);
+    }
+
+    public void setBlooded(boolean blooded) {
+        this.entityData.set(BLOODED, blooded);
+    }
+    public int getWarpedFed() {
+        return (Integer)this.entityData.get(WARPEDFED);
+    }
+
+    public void setWarpedFed(int warped) {
+        this.entityData.set(WARPEDFED, warped);
+    }
+
+    public int getMungusFed() {
+        return (Integer)this.entityData.get(MUNGUSFED);
+    }
+
+    public void setMungusFed(int mungus) {
+        this.entityData.set(MUNGUSFED, mungus);
+    }
 
 
 
@@ -82,16 +147,16 @@ public abstract class AICrimsonMosquito extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
-        if (pacified){
+        if (this.isPacified()){
             this.setFlying(false);
             this.jumping = false;
             if (onGround()) this.setNoAi(true);
         }
-        if(AInteractionConfig.bloodedmosquitoes && !given){
-            crimsonMosquito.setBloodLevel(random.nextInt(2));
-            given = true;
+        if(AInteractionConfig.bloodedmosquitoes && !this.isBlooded() && random.nextDouble() < 0.05){
+            crimsonMosquito.setBloodLevel(this.getBloodLevel() + 1);
+            setBlooded(true);
         }
-        if (sporeFed >= 3 && warpedFed >= 10) {
+        if (this.getMungusFed() >= 3 && this.getWarpedFed() >= 10) {
             crimsonMosquito.setSick(true);
             if (sickTicks > 159){
                 for (int i = 0; i < 100; ++i) {
@@ -122,28 +187,28 @@ public abstract class AICrimsonMosquito extends Mob {
             crimsonMosquito.setSick(true);
             return InteractionResult.SUCCESS;
         }
-        if (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AInteractionConfig.crimsontransform && !(sporeFed >= 3) && pacified) {
+        if (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AInteractionConfig.crimsontransform && !(this.getMungusFed() >= 3) && isPacified()) {
             gameEvent(GameEvent.ENTITY_INTERACT);
             itemstack.shrink(1);
             this.playSound(SoundEvents.GENERIC_EAT);
-            sporeFed++;
+            this.setMungusFed(this.getMungusFed() + 1);
             return InteractionResult.SUCCESS;
         }
-        if (itemstack.getItem() == AIItemRegistry.SWATTER.get() && AInteractionConfig.crimsontransform && !pacified) {
+        if (itemstack.getItem() == AIItemRegistry.SWATTER.get() && AInteractionConfig.crimsontransform && !isPacified()) {
             gameEvent(GameEvent.ENTITY_INTERACT);
             itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
-            pacified = true;
+            this.setPacified(true);
             this.playSound(AMSoundRegistry.MOSQUITO_DIE.get(), 2F, 1F);
             this.setHealth(this.getHealth() / 2);
             return InteractionResult.SUCCESS;
 
         }
-        if (itemstack.getItem() == Items.WARPED_FUNGUS && AInteractionConfig.crimsontransform && !(warpedFed >= 10) && pacified) {
+        if (itemstack.getItem() == Items.WARPED_FUNGUS && AInteractionConfig.crimsontransform && !(this.getWarpedFed() >= 10) && isPacified()) {
             gameEvent(GameEvent.ENTITY_INTERACT);
             itemstack.shrink(1);
             this.playSound(SoundEvents.GENERIC_EAT);
-            warpedFed++;
+           this.setWarpedFed(this.getWarpedFed() + 1);
             return InteractionResult.SUCCESS;
         }
         return type;

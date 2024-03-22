@@ -19,7 +19,6 @@ public class AITerrapin extends Mob {
 
     boolean retreatStomp = false;
 
-    boolean spinStomp = false;
 
 
 

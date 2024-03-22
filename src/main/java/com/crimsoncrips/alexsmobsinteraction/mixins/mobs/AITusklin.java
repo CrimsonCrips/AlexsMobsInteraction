@@ -1,11 +1,19 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
+import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
 import com.github.alexthe666.alexsmobs.entity.EntityTusklin;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -14,10 +22,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -26,6 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -33,25 +39,71 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 
 import static com.github.alexthe666.alexsmobs.entity.EntityTusklin.*;
 
 
 @Mixin(EntityTusklin.class)
-public class AITusklin extends Mob {
+public abstract class AITusklin extends Mob {
+
+    @Shadow @Nullable public abstract LivingEntity getControllingPassenger();
 
     private int ridingTime = 0;
     private int entityToLaunchId = -1;
     private int conversionTime = 0;
 
 
-    public boolean permTrusted = false;
+
+
+    static{
+        CANTRAMPLE = SynchedEntityData.defineId(EntityTusklin.class, EntityDataSerializers.BOOLEAN);
+        PERMTRUSTED = SynchedEntityData.defineId(EntityTusklin.class, EntityDataSerializers.BOOLEAN);
+    }
+
+    private static final EntityDataAccessor<Boolean> CANTRAMPLE;
+    private static final EntityDataAccessor<Boolean> PERMTRUSTED;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(CANTRAMPLE, false);
+        this.entityData.define(PERMTRUSTED, false);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putBoolean("CanTrample", this.isTusklinTrample());
+        compound.putBoolean("PermTrusted", this.isPermTrusted());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setTusklinTrample(compound.getBoolean("CanTrample"));
+        this.setPermTrusted(compound.getBoolean("PermTrusted"));
+
+    }
+
+    public boolean isTusklinTrample() {
+        return this.entityData.get(CANTRAMPLE);
+    }
+
+    public void setTusklinTrample(boolean tusklinTrample) {
+        this.entityData.set(CANTRAMPLE, tusklinTrample);
+    }
+
+    public boolean isPermTrusted() {
+        return this.entityData.get(PERMTRUSTED);
+    }
+
+    public void setPermTrusted(boolean permTrusted) {
+        this.entityData.set(PERMTRUSTED, permTrusted);
+    }
 
     protected AITusklin(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
@@ -91,7 +143,7 @@ public class AITusklin extends Mob {
     public boolean hurt(DamageSource source, float amount) {
         boolean prev = super.hurt(source, amount);
         if (source.getDirectEntity() instanceof Player) {
-            permTrusted = false;
+            setPermTrusted(false);
         }
 
         return prev;
@@ -103,7 +155,7 @@ public class AITusklin extends Mob {
     public boolean canAttack(LivingEntity entity) {
         EntityTusklin tusklin = (EntityTusklin)(Object)this;
         boolean prev = super.canAttack(entity);
-        return !(entity instanceof Player) ||  this.getLastHurtByMob() != null && this.getLastHurtByMob().equals(entity) || (tusklin.getPassiveTicks() <= 0 && !permTrusted) && !this.isMushroom(entity.getItemInHand(InteractionHand.MAIN_HAND)) && !tusklin.isMushroom(entity.getItemInHand(InteractionHand.OFF_HAND)) ? prev : false;
+        return !(entity instanceof Player) ||  this.getLastHurtByMob() != null && this.getLastHurtByMob().equals(entity) || (tusklin.getPassiveTicks() <= 0 && !isPermTrusted()) && !this.isMushroom(entity.getItemInHand(InteractionHand.MAIN_HAND)) && !tusklin.isMushroom(entity.getItemInHand(InteractionHand.OFF_HAND)) ? prev : false;
     }
     public boolean isMushroom(ItemStack stack) {
         return stack.is(Items.BROWN_MUSHROOM) || stack.is(Items.MUSHROOM_STEW);
@@ -122,6 +174,18 @@ public class AITusklin extends Mob {
                     this.level().addFreshEntity(hoglin);
                     this.remove(RemovalReason.DISCARDED);
                 }
+            }
+        }
+        Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.30000001192092896)).iterator();
+
+        if(AInteractionConfig.tusklintrample && this.isVehicle() && isTusklinTrample()){
+            while (var4.hasNext()) {
+                Entity entity = (Entity) var4.next();
+                if (entity != this && entity != this.getControllingPassenger()) {
+                    entity.hurt(this.damageSources().mobAttack((LivingEntity) this), 4.0F);
+                }
+
+
             }
         }
 
@@ -153,7 +217,7 @@ public class AITusklin extends Mob {
 
         if (!this.level().isClientSide) {
             if (AInteractionConfig.tusklinfulltrust) {
-                if (this.isVehicle() && !permTrusted) {
+                if (this.isVehicle() && !isPermTrusted()) {
                     ++this.ridingTime;
                     if (this.ridingTime >= this.getMaxRidingTime() && tusklin.getAnimation() != ANIMATION_BUCK) {
                         tusklin.setAnimation(ANIMATION_BUCK);
@@ -248,13 +312,20 @@ public class AITusklin extends Mob {
     }
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
-        EntityTusklin tusklin = (EntityTusklin)(Object)this;
         ItemStack itemstack = player.getItemInHand(hand);
-        if (AInteractionConfig.tusklinfulltrust && (itemstack.getItem() == Items.MUSHROOM_STEW)) {
+        if (AInteractionConfig.tusklinfulltrust && itemstack.getItem() == Items.MUSHROOM_STEW) {
             itemstack.shrink(1);
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
-            permTrusted = true;
+            setPermTrusted(true);
+        }
+        if (AInteractionConfig.tusklinfulltrust && itemstack.getEnchantmentLevel(AIEnchantmentRegistry.TRAMPLE.get()) > 0) {
+            setTusklinTrample(true);
+        }
+        if (AInteractionConfig.tusklinremoveequipment && itemstack.getItem() == Items.SHEARS) {
+            setTusklinTrample(false);
+            this.playSound(SoundEvents.SHEEP_SHEAR, this.getSoundVolume(), this.getVoicePitch());
+            this.dropEquipment();
         }
     }
 }

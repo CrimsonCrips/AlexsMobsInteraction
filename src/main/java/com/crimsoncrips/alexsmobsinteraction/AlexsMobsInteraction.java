@@ -30,7 +30,6 @@ import org.slf4j.Logger;
 public class AlexsMobsInteraction {
 
 
-    public static final CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
 
     // Define mod id in a common place for everything to reference
@@ -42,9 +41,7 @@ public class AlexsMobsInteraction {
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         AIItemRegistry.DEF_REG.register(modEventBus);
-        modEventBus.addListener(this::setupClient);
         AICreativeTab.DEF_REG.register(modEventBus);
-        PROXY.init();
         MinecraftForge.EVENT_BUS.register(new InteractionEvents());
         AIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::onModConfigEvent);
@@ -89,8 +86,5 @@ public class AlexsMobsInteraction {
             LOGGER.info("THE CRIMSON SHALL GUIDE YOU.");
             LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
         }
-    }
-    private void setupClient(FMLClientSetupEvent event) {
-        PROXY.clientInit();
     }
 }

@@ -4,10 +4,15 @@ import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
+import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAIFindWater;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAILeaveWater;
 import com.github.alexthe666.alexsmobs.entity.ai.BottomFeederAIWander;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -29,13 +34,40 @@ import java.util.function.Predicate;
 
 @Mixin(EntityAlligatorSnappingTurtle.class)
 public abstract class AIAlligatorSnappingTurtle extends Mob {
-    @Shadow public abstract void setTarget(@Nullable LivingEntity entitylivingbaseIn);
 
-    int mossTime = 0;
+    static{
+        RAINMOSS = SynchedEntityData.defineId(EntityAlligatorSnappingTurtle.class, EntityDataSerializers.INT);
+    }
+    private static final EntityDataAccessor<Integer> RAINMOSS;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(RAINMOSS, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putInt("RainMoss", this.getRainMossTime());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setRainMossTime(compound.getInt("RainMoss"));
+
+    }
+
+    public int getRainMossTime() {
+        return (Integer)this.entityData.get(RAINMOSS);
+    }
+
+    public void setRainMossTime(int rainmoss) {
+        this.entityData.set(RAINMOSS, rainmoss);
+    }
 
     protected AIAlligatorSnappingTurtle(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
+
+    @Shadow public abstract void setTarget(@Nullable LivingEntity entitylivingbaseIn);
 
     @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void SnappingTurtleGoals(CallbackInfo ci){
@@ -101,12 +133,12 @@ public abstract class AIAlligatorSnappingTurtle extends Mob {
             }
         }
         if(AInteractionConfig.snappingturtlemossincrease){
-            mossTime++;
+            this.setRainMossTime(this.getRainMossTime() + 1);
             if (level().isRaining() && random.nextDouble() < 0.0001) {
                 snapping.setMoss(Math.min(10, snapping.getMoss() + 1));
             }
-            if (this.isInWater() && this.mossTime > 12000) {
-                this.mossTime = 0;
+            if (this.isInWater() && this.getRainMossTime() > 12000) {
+                this.setRainMossTime(0);
                 snapping.setMoss(Math.min(10, snapping.getMoss() + 1));
             }
         }

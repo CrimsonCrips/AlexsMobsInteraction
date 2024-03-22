@@ -5,6 +5,10 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -32,28 +36,51 @@ import javax.annotation.Nonnull;
 @Mixin(EntityStradpole.class)
 public class AIStradpole extends Mob {
 
-    int bobup = 0;
+    static{
+        HOPUPTICK = SynchedEntityData.defineId(EntityStradpole.class, EntityDataSerializers.INT);
+    }
+    private static final EntityDataAccessor<Integer> HOPUPTICK;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(HOPUPTICK, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putInt("HopUpTick", this.getHopUpTick());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setHopUpTick(compound.getInt("HopUpTick"));
+
+    }
+
+    public int getHopUpTick() {
+        return (Integer)this.entityData.get(HOPUPTICK);
+    }
+
+    public void setHopUpTick(int hopUpTick) {
+        this.entityData.set(HOPUPTICK, hopUpTick);
+    }
 
     protected AIStradpole(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
 
     double y2;
-    boolean hopable = false;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         if (AInteractionConfig.stradpolebobup) {
-            bobup++;
-            if (bobup >= 200 + random.nextInt(600) && this.isInLava()) hopable = true;
-            if (hopable) {
+            setHopUpTick(getHopUpTick() + 1);
+            if (getHopUpTick() >= 200 + random.nextInt(600) && this.isInLava()){
                 y2 = 0.05 + y2;
                 this.setDeltaMovement(0, y2, 0);
             }
             if (!this.isInLava()) {
-                bobup = 0;
+                setHopUpTick(0);
                 y2 = 0;
-                hopable = false;
             }
         }
     }

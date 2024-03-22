@@ -53,7 +53,7 @@ public class AICrocodile extends Mob {
         });
     }
     public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(entity instanceof LivingEntity living){
+        if(entity instanceof LivingEntity living && AInteractionConfig.nodropsforpredators){
             final CompoundTag emptyNbt = new CompoundTag();
             living.addAdditionalSaveData(emptyNbt);
             emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());

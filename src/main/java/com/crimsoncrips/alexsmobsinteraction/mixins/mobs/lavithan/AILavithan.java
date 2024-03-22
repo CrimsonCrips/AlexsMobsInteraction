@@ -8,6 +8,7 @@ import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.util.Maths;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,9 +35,41 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityLaviathan.class)
 public abstract class AILavithan extends Animal implements ISemiAquatic, IHerdPanic , AILavithanInterface {
 
-    private static final EntityDataAccessor<Boolean> RELAVA = SynchedEntityData.defineId(EntityLaviathan.class, EntityDataSerializers.BOOLEAN);
 
-    private int relavaTime = 0;
+    static{
+        RELAVA = SynchedEntityData.defineId(EntityLaviathan.class, EntityDataSerializers.BOOLEAN);
+        RELAVATICK = SynchedEntityData.defineId(EntityLaviathan.class, EntityDataSerializers.INT);
+    }
+
+    private static final EntityDataAccessor<Boolean> RELAVA;
+    private static final EntityDataAccessor<Integer> RELAVATICK;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(RELAVA, false);
+        this.entityData.define(RELAVATICK, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putBoolean("Relava", this.isRelava());
+        compound.putInt("RelavaTicks", this.getRelavaTicks());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setRelava(compound.getBoolean("Relava"));
+        this.setRelavaTicks(compound.getInt("RelavaTicks"));
+
+    }
+
+    public int getRelavaTicks() {
+        return (Integer)this.entityData.get(RELAVATICK);
+    }
+
+    public void setRelavaTicks(int relavaTime) {
+        this.entityData.set(RELAVATICK, relavaTime);
+    }
+
 
     private boolean hasObsidianArmor;
 
@@ -49,10 +82,6 @@ public abstract class AILavithan extends Animal implements ISemiAquatic, IHerdPa
     protected AILavithan(EntityType<? extends Animal> pEntityType, Level pLevel, EntityLaviathanPart[] allParts, EntityLaviathanPart[] allParts1) {
         super(pEntityType, pLevel);
         this.allParts = allParts1;
-    }
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(RELAVA, false);
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -164,11 +193,11 @@ public abstract class AILavithan extends Animal implements ISemiAquatic, IHerdPa
 
             }
             if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && this.isRelava() && AInteractionConfig.lavaithanobsidianremove) {
-                if (relavaTime < 2000) {
-                    relavaTime++;
+                if (getRelavaTicks() < 5000) {
+                    this.setRelavaTicks(getRelavaTicks() + 1);
                 } else {
                     this.setRelava(false);
-                    relavaTime = 0;
+                    this.setRelavaTicks(0);
                 }
 
 

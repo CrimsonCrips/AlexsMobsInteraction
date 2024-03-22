@@ -31,9 +31,6 @@ public class AIFarseer extends Mob {
 
     private LivingEntity lastTickTarget;
 
-    private void StaticScreen() {
-        renderStaticScreenFor = 20;
-    }
     protected AIFarseer(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
@@ -53,7 +50,7 @@ public class AIFarseer extends Mob {
             LivingEntity currentTarget = getTarget();
             if (currentTarget instanceof Player player && loop >= 0) {
                 loop--;
-                StaticScreen();
+                renderStaticScreenFor = 20;
                 Inventory inv = player.getInventory();
                 if (!(player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AIEnchantmentRegistry.STABILIZER.get()) > 0)) {
                     for (int i = 0; i < 9 - 1; i++) {

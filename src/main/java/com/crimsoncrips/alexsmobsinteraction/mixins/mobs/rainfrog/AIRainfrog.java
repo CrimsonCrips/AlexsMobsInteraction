@@ -4,9 +4,11 @@ import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AITransform;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
+import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
 import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
 import com.github.alexthe666.alexsmobs.entity.EntityWarpedToad;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,7 +36,64 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityRainFrog.class)
 public class AIRainfrog extends Mob implements AITransform {
 
-    int maggotFed,mungusFed,warpedFed,frogWarped;
+    int frogWarped;
+
+    static {
+        RAINFROGSICK = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.BOOLEAN);
+        MAGGOTFED = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.INT);
+        MUNGUSFED = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.INT);
+        WARPEDFED = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.INT);
+    }
+
+    private static final EntityDataAccessor<Boolean> RAINFROGSICK;
+    private static final EntityDataAccessor<Integer> MAGGOTFED;
+    private static final EntityDataAccessor<Integer> MUNGUSFED;
+    private static final EntityDataAccessor<Integer> WARPEDFED;
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(RAINFROGSICK, false);
+        this.entityData.define(MAGGOTFED, 0);
+        this.entityData.define(MUNGUSFED, 0);
+        this.entityData.define(WARPEDFED, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putBoolean("RainfrogSick", this.isTransforming());
+        compound.putInt("MaggotFed", this.getMaggotFed());
+        compound.putInt("MungusFed", this.getMungusFed());
+        compound.putInt("WarpedFed", this.getWarpedFed());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setTransforming(compound.getBoolean("RainfrogSick"));
+        this.setMaggotFed(compound.getInt("MaggotFed"));
+        this.setMungusFed(compound.getInt("MungusFed"));
+        this.setWarpedFed(compound.getInt("WarpedFed"));
+    }
+
+    public int getMaggotFed() {
+        return (Integer)this.entityData.get(MAGGOTFED);
+    }
+
+    public void setMaggotFed(int maggot) {
+        this.entityData.set(MAGGOTFED, maggot);
+    }
+    public int getMungusFed() {
+        return (Integer)this.entityData.get(MUNGUSFED);
+    }
+
+    public void setMungusFed(int mungus) {
+        this.entityData.set(MUNGUSFED, mungus);
+    }
+    public int getWarpedFed() {
+        return (Integer)this.entityData.get(WARPEDFED);
+    }
+
+    public void setWarpedFed(int warped) {
+        this.entityData.set(WARPEDFED, warped);
+    }
 
 
     protected AIRainfrog(EntityType<? extends Mob> p_21368_, Level p_21369_) {
@@ -51,7 +110,7 @@ public class AIRainfrog extends Mob implements AITransform {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityRainFrog frog = (EntityRainFrog)(Object)this;
-        if (mungusFed >= 1 && warpedFed >= 2 && maggotFed >= 5) setTransforming(true);
+        if (this.getMungusFed() >= 1 && this.getWarpedFed() >= 2 && this.getMaggotFed() >= 5) setTransforming(true);
         if (isTransforming()){
             frogWarped++;
             if (frogWarped > 160) {
@@ -77,37 +136,30 @@ public class AIRainfrog extends Mob implements AITransform {
         {
             if (AInteractionConfig.frogtransform){
                 ItemStack stack = player.getItemInHand(hand);
-                if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(maggotFed >= 5)) {
+                if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(getMaggotFed() >= 5)) {
 
                     gameEvent(GameEvent.ENTITY_INTERACT);
                     if (!player.isCreative()) stack.shrink(1);
                     this.playSound(SoundEvents.GENERIC_EAT);
-                    maggotFed++;
-
-                }
-                if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && !(mungusFed >= 1)) {
-                    gameEvent(GameEvent.ENTITY_INTERACT);
-                    if (!player.isCreative()) stack.shrink(1);
-                    this.playSound(SoundEvents.GENERIC_EAT);
-                    mungusFed++;
+                    this.setMaggotFed(this.getMaggotFed() + 1);
 
                 }
-                if (stack.getItem() == Items.WARPED_FUNGUS && !(warpedFed >= 2)) {
+                if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && !(getMungusFed() >= 1)) {
                     gameEvent(GameEvent.ENTITY_INTERACT);
                     if (!player.isCreative()) stack.shrink(1);
                     this.playSound(SoundEvents.GENERIC_EAT);
-                    warpedFed++;
+                    this.setMungusFed(this.getMungusFed() + 1);
+
+                }
+                if (stack.getItem() == Items.WARPED_FUNGUS && !(this.getWarpedFed() >= 2)) {
+                    gameEvent(GameEvent.ENTITY_INTERACT);
+                    if (!player.isCreative()) stack.shrink(1);
+                    this.playSound(SoundEvents.GENERIC_EAT);
+                    this.setWarpedFed(this.getWarpedFed() + 1);
 
                 }
             }
         }
-    }
-
-    private static final EntityDataAccessor<Boolean> RAINFROGSICK = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.BOOLEAN);
-
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(RAINFROGSICK, false);
     }
 
     @Override
