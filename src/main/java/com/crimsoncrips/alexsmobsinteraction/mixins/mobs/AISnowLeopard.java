@@ -35,23 +35,21 @@ public class AISnowLeopard extends Mob {
         super(p_21368_, p_21369_);
     }
     public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(entity instanceof Goat && AInteractionConfig.snowluck && random.nextDouble() < 0.5){
-            entity.spawnAtLocation(Items.GOAT_HORN);
-            if (random.nextDouble() < 0.05) entity.spawnAtLocation(Items.GOAT_HORN);
-        }
-        else if(entity instanceof Turtle && AInteractionConfig.snowluck && random.nextDouble() < 0.2){
-            entity.spawnAtLocation(Items.SCUTE);
-        }
-        else if(entity instanceof EntityFrilledShark && AInteractionConfig.snowluck && random.nextDouble() < 0.08){
-            entity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
-            if (random.nextDouble() < 0.01) entity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
-        }
-        else if(entity instanceof EntityBananaSlug && AInteractionConfig.snowluck && random.nextDouble() < 0.2){
-            entity.spawnAtLocation(AMItemRegistry.BANANA_SLUG_SLIME.get());
-        }
-        else if(entity instanceof Rabbit && AInteractionConfig.snowluck){
-            entity.spawnAtLocation(Items.RABBIT_FOOT);
-            if (random.nextDouble() < 0.02) entity.spawnAtLocation(Items.RABBIT_FOOT);
+        if(AInteractionConfig.snowluck){
+            if (entity instanceof Goat && random.nextDouble() < 0.5) {
+                entity.spawnAtLocation(Items.GOAT_HORN);
+                if (random.nextDouble() < 0.05) entity.spawnAtLocation(Items.GOAT_HORN);
+            } else if (entity instanceof Turtle && random.nextDouble() < 0.2) {
+                entity.spawnAtLocation(Items.SCUTE);
+            } else if (entity instanceof EntityFrilledShark && random.nextDouble() < 0.08) {
+                entity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
+                if (random.nextDouble() < 0.01) entity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
+            } else if (entity instanceof EntityBananaSlug && random.nextDouble() < 0.2) {
+                entity.spawnAtLocation(AMItemRegistry.BANANA_SLUG_SLIME.get());
+            } else if (entity instanceof Rabbit) {
+                entity.spawnAtLocation(Items.RABBIT_FOOT);
+                if (random.nextDouble() < 0.02) entity.spawnAtLocation(Items.RABBIT_FOOT);
+            }
         }
         super.awardKillScore(entity, score, src);
     }

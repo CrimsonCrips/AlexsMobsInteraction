@@ -176,13 +176,20 @@ public abstract class AITusklin extends Mob {
                 }
             }
         }
-        Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.30000001192092896)).iterator();
+        Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.2,-2,0.2)).iterator();
 
         if(AInteractionConfig.tusklintrample && this.isVehicle() && isTusklinTrample()){
             while (var4.hasNext()) {
                 Entity entity = (Entity) var4.next();
-                if (entity != this && entity != this.getControllingPassenger()) {
-                    entity.hurt(this.damageSources().mobAttack((LivingEntity) this), 4.0F);
+                if (entity != this && entity != this.getControllingPassenger() && entity.getBbHeight() <= 2.1F && this.isVehicle()) {
+                    entity.hurt(this.damageSources().mobAttack((LivingEntity) this), 3.0F + this.random.nextFloat() * 2.0F);
+                    if (entity.onGround()) {
+                        double d0 = entity.getX() - this.getX();
+                        double d1 = entity.getZ() - this.getZ();
+                        double d2 = Math.max(d0 * d0 + d1 * d1, 0.001);
+                        float f = 0.5F;
+                        entity.push(d0 / d2 * (double)f, (double)f, d1 / d2 * (double)f);
+                    }
                 }
 
 
@@ -232,28 +239,6 @@ public abstract class AITusklin extends Mob {
                 }
             } else {
                 this.ridingTime = 0;
-            }
-
-            if (this.isAlive() && this.ridingTime > 0 && this.getDeltaMovement().horizontalDistanceSqr() > 0.1) {
-                Iterator var12 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0)).iterator();
-
-                while(var12.hasNext()) {
-                    Entity entity = (Entity)var12.next();
-                    if (!(entity instanceof EntityTusklin) && !entity.isPassengerOfSameVehicle(this)) {
-                        entity.hurt(this.damageSources().mobAttack(this), 4.0F + this.random.nextFloat() * 3.0F);
-                        if (entity.onGround()) {
-                            double d0 = entity.getX() - this.getX();
-                            double d1 = entity.getZ() - this.getZ();
-                            double d2 = Math.max(d0 * d0 + d1 * d1, 0.001);
-                            float f = 0.5F;
-                            entity.push(d0 / d2 * (double)f, (double)f, d1 / d2 * (double)f);
-                        }
-                    }
-                }
-
-                this.setMaxUpStep(2.0F);
-            } else {
-                this.setMaxUpStep(1.1F);
             }
 
             if (this.getTarget() != null && this.hasLineOfSight(this.getTarget()) && this.distanceTo(this.getTarget()) < this.getTarget().getBbWidth() + this.getBbWidth() + 1.8F) {
@@ -328,4 +313,5 @@ public abstract class AITusklin extends Mob {
             this.dropEquipment();
         }
     }
+
 }

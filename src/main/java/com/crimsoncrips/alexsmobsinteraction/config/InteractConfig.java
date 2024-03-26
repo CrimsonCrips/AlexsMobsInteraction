@@ -5,6 +5,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue anacondaattackbabies;
 
+    public final ForgeConfigSpec.BooleanValue gusterprojectileprot;
+
     public final ForgeConfigSpec.BooleanValue tusklinfulltrust;
     public final ForgeConfigSpec.BooleanValue anacondacannibalize;
     public final ForgeConfigSpec.BooleanValue baldeaglecannibalize;
@@ -115,6 +117,8 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue tusklinremoveequipment;
 
+    public final ForgeConfigSpec.BooleanValue elephanttrample;
+
 
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
@@ -186,6 +190,8 @@ public class InteractConfig {
         builder.pop();
         builder.push("Elephant");
         this.elephantattack = buildBoolean(builder, "elephantattack", " ", true, "Whether Tusked Elephants will attack players if staying with them for too long,(Unless if holding a acasia blossom)");
+        this.elephanttrample = buildBoolean(builder, "elephanttrample", " ", true, "Whether Elephants can trample mobs");
+
         builder.pop();
         builder.push("Emu");
         this.emurangedattack = buildBoolean(builder, "emurangedattack", " ", true, "Whether Emus attack ANY entity that is holding a ranged weapon");
@@ -223,6 +229,8 @@ public class InteractConfig {
         builder.pop();
         builder.push("Guster");
         this.gusterweighed = buildBoolean(builder, "gusterweighed", " ", true, "Whether Guster's Tornado effect is based on armor of the player");
+        this.gusterprojectileprot = buildBoolean(builder, "gusterprojectileprot", " ", true, "Whether Gusters are immune to projectiles");
+
         builder.pop();
         builder.push("Hammerhead Shark");
         this.hammerheadhuntmantisshrimp = buildBoolean(builder, "hammerheadhuntmantisshrimp", " ", true, "Whether Hammerhead Sharks hunts more aquatic creatures");

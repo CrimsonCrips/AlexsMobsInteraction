@@ -151,4 +151,8 @@ public class AIGuster extends Mob {
         this.entityData.set(LIFT_ENTITY, p_175463_1_);
     }
 
+    @Override
+    public boolean canBeHitByProjectile() {
+        return !AInteractionConfig.gusterprojectileprot;
+    }
 }

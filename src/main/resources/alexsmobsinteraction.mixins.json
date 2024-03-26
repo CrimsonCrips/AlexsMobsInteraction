@@ -15,7 +15,6 @@
     "mobs.AIBlobFish",
     "mobs.AIBlueJay",
     "mobs.AIBoneSerpent",
-    "mobs.AICachalotWhale",
     "mobs.AICaiman",
     "mobs.AICapuchinMonkey",
     "mobs.AICatfish",
@@ -67,12 +66,14 @@
     "mobs.AIVoidWorm",
     "mobs.AIWarpedMosco",
     "mobs.AIWarpedToad",
+    "mobs.cachalot.AICachalotWhale",
     "mobs.fly.AIFly",
     "mobs.lavithan.AILavithan",
     "mobs.rainfrog.AIRainfrog",
     "mobs.vanillamob.AIFrog"
   ],
   "client": [
+    "mobs.cachalot.AICachalotRendering",
     "mobs.fly.AIFlyRendering",
     "mobs.lavithan.AILavithanRendering",
     "mobs.lavithan.AILayerOverlays",

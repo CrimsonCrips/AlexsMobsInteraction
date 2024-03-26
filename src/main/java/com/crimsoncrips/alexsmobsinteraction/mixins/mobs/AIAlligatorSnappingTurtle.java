@@ -128,7 +128,7 @@ public abstract class AIAlligatorSnappingTurtle extends Mob {
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityAlligatorSnappingTurtle snapping = (EntityAlligatorSnappingTurtle)(Object)this;
         if (AInteractionConfig.weakened) {
-            if(!(snapping.getHealth() <= 0.10F * getMaxHealth()) && snapping.getTarget() instanceof Player){
+            if((snapping.getHealth() <= 0.10F * getMaxHealth()) && snapping.getTarget() instanceof Player){
                 setTarget(null);
             }
         }

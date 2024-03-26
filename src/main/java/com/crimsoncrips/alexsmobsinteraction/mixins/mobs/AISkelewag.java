@@ -1,15 +1,23 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AISkelewagCircleGoal;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAIRandomSwimming;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -72,9 +80,32 @@ public class AISkelewag extends Mob {
 
     }
 
-    int stunned;
-
     boolean stun = false;
+
+    private static final EntityDataAccessor<Integer> STUNTICK = SynchedEntityData.defineId(EntityElephant.class, EntityDataSerializers.INT);
+
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(STUNTICK, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+        compound.putInt("StunTicks", this.getStunTicks());
+    }
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+        this.setStunTicks(compound.getInt("StunTicks"));
+
+    }
+
+    public int getStunTicks() {
+        return (Integer)this.entityData.get(STUNTICK);
+    }
+
+    public void setStunTicks(int stuntick) {
+        this.entityData.set(STUNTICK, stuntick);
+    }
 
     protected boolean isImmobile() {
         return stun;
@@ -84,54 +115,44 @@ public class AISkelewag extends Mob {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         if (AInteractionConfig.stunnablecharge) {
-            stunned--;
+            setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
-            if (stunned > 0 && target != null) {
+            if (getStunTicks() > 0 && target != null) {
                 setTarget(null);
             }
-            if (stunned < 1) {
+            if (getStunTicks() < 1) {
                 stun = false;
                 setTarget(target);
             }
 
-            if (this.getTarget() instanceof Player) {
+            if (this.getTarget() instanceof Player player && (player.getItemBySlot(EquipmentSlot.OFFHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0 || player.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0)) {
                 if (this.distanceTo(this.getTarget()) < 3F && this.hasLineOfSight(this.getTarget()) && this.getTarget().isBlocking() && !stun) {
-                    stunned = 100;
+                    setStunTicks(200);
                     stun = true;
-                    if (target instanceof Player) {
-                        Player player = (Player)target;
-                        this.damageShieldFor(player, (float)this.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
-                        this.playSound(SoundEvents.SHIELD_BLOCK, 2F, 1F);
-                    }
+                    this.playSound(SoundEvents.SHIELD_BLOCK, 2F, 1F);
+                    target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
+                    target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 150, 1));
                 }
             }
 
         }
-    }
-    protected void damageShieldFor(Player holder, float damage) {
-        if (holder.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
-            if (!this.level().isClientSide) {
-                holder.awardStat(Stats.ITEM_USED.get(holder.getUseItem().getItem()));
-            }
+        float angle;
 
-            if (damage >= 3.0F) {
-                int i = 4 + Mth.floor(damage);
-                InteractionHand hand = holder.getUsedItemHand();
-                holder.getUseItem().hurtAndBreak(i, holder, (p_213833_1_) -> {
-                    p_213833_1_.broadcastBreakEvent(hand);
-                    ForgeEventFactory.onPlayerDestroyItem(holder, holder.getUseItem(), hand);
-                });
-                if (holder.getUseItem().isEmpty()) {
-                    if (hand == InteractionHand.MAIN_HAND) {
-                        holder.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                    } else {
-                        holder.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
-                    }
 
-                    holder.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level().random.nextFloat() * 0.4F);
+        if (this.getStunTicks() > 0) {
+            if (this.level().isClientSide) {
+                angle = 0.017453292F * this.yBodyRot;
+                double headX = (double)(1.5F * this.getScale() * Mth.sin(3.1415927F + angle));
+                double headZ = (double)(1.5F * this.getScale() * Mth.cos(angle));
+
+                for(int i = 0; i < 5; ++i) {
+                    float innerAngle = 0.017453292F * (this.yBodyRot + (float)(this.tickCount * 5)) * (float)(i + 1);
+                    double extraX = (double)(0.5F * Mth.sin((float)(Math.PI + (double)innerAngle)));
+                    double extraZ = (double)(0.5F * Mth.cos(innerAngle));
+                    this.level().addParticle(ParticleTypes.CRIT, true, this.getX() + headX + extraX, this.getEyeY() + 0.5, this.getZ() + headZ + extraZ, 0.0, 0.0, 0.0);
                 }
             }
         }
-
     }
+
 }

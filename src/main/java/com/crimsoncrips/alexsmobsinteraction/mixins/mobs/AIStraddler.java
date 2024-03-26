@@ -175,6 +175,7 @@ public class AIStraddler extends Mob {
                 if (!this.level().isClientSide) {
                     this.level().addFreshEntity(pole);
                 }
+                setShootShots(getShootShots() - 1);
             }
         }
         AnimationHandler.INSTANCE.updateAnimations(straddler);

@@ -158,6 +158,8 @@ dependencies {
     implementation fg.deobf("maven.modrinth:alexs-mobs:1.22.8")
     implementation fg.deobf("maven.modrinth:citadel:2.5.4")
     runtimeOnly fg.deobf("maven.modrinth:jade:11.7.1")
+    runtimeOnly fg.deobf("maven.modrinth:bookshelf-lib:dH6uJvm7")
+    runtimeOnly fg.deobf("maven.modrinth:enchantment-descriptions:H9lpjTvf")
     runtimeOnly fg.deobf("maven.modrinth:nbt-autocomplete:36dElHpR")
 
 
