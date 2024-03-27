@@ -92,10 +92,12 @@ public class AInteractionConfig {
     public static boolean tusklinremoveequipment = true;
     public static boolean gusterprojectileprot = true;
     public static boolean elephanttrample = true;
+    public static boolean voidwormstun = true;
 
 
     public static void bake() {
         try {
+            voidwormstun = ConfigHolder.INTERACT.voidwormstun.get();
             elephanttrample = ConfigHolder.INTERACT.elephanttrample.get();
             gusterprojectileprot = ConfigHolder.INTERACT.gusterprojectileprot.get();
             tusklinremoveequipment = ConfigHolder.INTERACT.tusklinremoveequipment.get();

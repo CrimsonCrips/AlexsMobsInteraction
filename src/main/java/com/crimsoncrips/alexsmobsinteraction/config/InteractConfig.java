@@ -119,6 +119,8 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue elephanttrample;
 
+    public final ForgeConfigSpec.BooleanValue voidwormstun;
+
 
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
@@ -306,6 +308,10 @@ public class InteractConfig {
         this.tusklinfulltrust = buildBoolean(builder, "tusklinfulltrust", " ", true, "Whether Tusklins can be perm trusted with mushroom stew");
         this.tusklintrample = buildBoolean(builder, "tusklintrample", " ", true, "Whether Tusklins with the new Trample enchantment can trample when ridden");
         this.tusklinremoveequipment = buildBoolean(builder, "tusklinremoveequipment", " ", true, "Whether Tusklins can have their equipment removed with shears");
+
+        builder.pop();
+        builder.push("Tusklin");
+        this.voidwormstun = buildBoolean(builder, "voidwormstun", " ", true, "Whether Void Worm can be stunned when dealt enough damage");
 
         builder.pop();
         builder.push("Warped Mosco");

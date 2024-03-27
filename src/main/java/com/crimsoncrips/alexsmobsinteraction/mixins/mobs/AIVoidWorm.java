@@ -134,25 +134,27 @@ public abstract class AIVoidWorm extends Monster {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        EntityVoidWorm voidWorm = (EntityVoidWorm)(Object)this;
+        if(AInteractionConfig.voidwormstun){
+            EntityVoidWorm voidWorm = (EntityVoidWorm) (Object) this;
 
-        if (getDamageRetain() > 0)  setDamageRetain(getDamageRetain() - 1);
-        else setDamageRetain(0);
+            if (getDamageRetain() > 0) setDamageRetain(getDamageRetain() - 1);
+            else setDamageRetain(0);
 
-        if (getDamageTaken() > 50) {
-            setStunned(true);
-            setDamageTaken(0);
-        }
-        if (isStunned() && !(getStunTicks() <= 0)) {
-            ReflectionUtil.setField(voidWorm, "stillTicks", 0);
-            setStunTicks(getStunTicks() - 1);
+            if (getDamageTaken() > 50) {
+                setStunned(true);
+                setDamageTaken(0);
+            }
+            if (isStunned() && !(getStunTicks() <= 0)) {
+                ReflectionUtil.setField(voidWorm, "stillTicks", 0);
+                setStunTicks(getStunTicks() - 1);
 
-        } else {
-            setStunTicks(100);
-        }
+            } else {
+                setStunTicks(100);
+            }
 
-        if (getStunTicks() <= 0) {
-            setStunned(false);
+            if (getStunTicks() <= 0) {
+                setStunned(false);
+            }
         }
 
     }
