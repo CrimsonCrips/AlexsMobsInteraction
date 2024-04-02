@@ -29,6 +29,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Objects;
+
 import static com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry.GRIZZLY_KILL;
 import static com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry.GRIZZLY_TERRITORIAL;
 
@@ -144,6 +146,14 @@ public abstract class AIGrizzlyBear extends Mob {
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
+        EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear)(Object)this;
+        String freddy = "Freddy Fazbear";
+            if (this.getName().getString().equals(freddy)) {
+                grizzlyBear.setAprilFoolsFlag(2);
+            }
+
+
+
         if(isHoneyed()) {
             this.setHunger(0);
         }

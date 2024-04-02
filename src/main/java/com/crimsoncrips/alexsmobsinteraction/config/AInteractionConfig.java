@@ -99,6 +99,7 @@ public class AInteractionConfig {
     public static boolean stradpoleflame = true;
 
 
+
     public static void bake() {
         try {
             stradpoleflame = ConfigHolder.INTERACT.stradpoleflame.get();

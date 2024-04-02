@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,7 +20,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -29,7 +33,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.HitResult;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -38,7 +45,12 @@ import javax.annotation.Nonnull;
 
 
 @Mixin(EntityStradpole.class)
-public class AIStradpole extends Mob {
+public abstract class AIStradpole extends Mob {
+
+    @Shadow @Final private static EntityDataAccessor<Boolean> LAUNCHED;
+    private int despawnTimer = 0;
+
+    @Shadow public abstract boolean isDespawnSoon();
 
     static{
         HOPUPTICK = SynchedEntityData.defineId(EntityStradpole.class, EntityDataSerializers.INT);
@@ -76,7 +88,6 @@ public class AIStradpole extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        Block block = this.getFeetBlockState().getBlock();
         if (AInteractionConfig.stradpolebobup) {
             setHopUpTick(getHopUpTick() + 1);
             if (getHopUpTick() >= 200 + random.nextInt(600) && this.isInLava()){
@@ -88,10 +99,20 @@ public class AIStradpole extends Mob {
                 y2 = 0;
             }
         }
-        if (AInteractionConfig.straddlertroll && block instanceof AirBlock){
-
+        if (AInteractionConfig.straddlertroll && isDespawnSoon()){
+            int x = this.getBlockX();
+            int y = this.getBlockY();
+            int z = this.getBlockZ();
+                ++this.despawnTimer;
+                if (this.despawnTimer > 80) {
+                    this.despawnTimer = 0;
+                    this.spawnAnim();
+                    this.level().explode(this, x + 1,y + 2,z + 1,10, Level.ExplosionInteraction.MOB);
+                    this.remove(RemovalReason.DISCARDED);
+                }
         }
     }
+
     public boolean isInvulnerableTo(DamageSource damageSource) {
         return damageSource.is(DamageTypes.FALL);
     }
