@@ -93,10 +93,17 @@ public class AInteractionConfig {
     public static boolean gusterprojectileprot = true;
     public static boolean elephanttrample = true;
     public static boolean voidwormstun = true;
+    public static boolean straddlertroll = true;
+    public static boolean aprilfools = true;
+
+    public static boolean stradpoleflame = true;
 
 
     public static void bake() {
         try {
+            stradpoleflame = ConfigHolder.INTERACT.stradpoleflame.get();
+            aprilfools = ConfigHolder.INTERACT.aprilfools.get();
+            straddlertroll = ConfigHolder.INTERACT.straddlertroll.get();
             voidwormstun = ConfigHolder.INTERACT.voidwormstun.get();
             elephanttrample = ConfigHolder.INTERACT.elephanttrample.get();
             gusterprojectileprot = ConfigHolder.INTERACT.gusterprojectileprot.get();

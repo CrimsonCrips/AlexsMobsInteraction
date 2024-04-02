@@ -24,6 +24,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AirBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -72,6 +76,7 @@ public class AIStradpole extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
+        Block block = this.getFeetBlockState().getBlock();
         if (AInteractionConfig.stradpolebobup) {
             setHopUpTick(getHopUpTick() + 1);
             if (getHopUpTick() >= 200 + random.nextInt(600) && this.isInLava()){
@@ -83,10 +88,15 @@ public class AIStradpole extends Mob {
                 y2 = 0;
             }
         }
+        if (AInteractionConfig.straddlertroll && block instanceof AirBlock){
+
+        }
     }
     public boolean isInvulnerableTo(DamageSource damageSource) {
         return damageSource.is(DamageTypes.FALL);
     }
+
+
 
     @Override
     @Nonnull

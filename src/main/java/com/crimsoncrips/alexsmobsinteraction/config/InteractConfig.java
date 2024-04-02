@@ -120,11 +120,17 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue elephanttrample;
 
     public final ForgeConfigSpec.BooleanValue voidwormstun;
+    public final ForgeConfigSpec.BooleanValue stradpoleflame;
+
+    public final ForgeConfigSpec.BooleanValue aprilfools;
+
+    public final ForgeConfigSpec.BooleanValue straddlertroll;
 
 
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
+        this.aprilfools = buildBoolean(builder, "aprilfools", " ", true, "Triggers April Fools content");
         this.nodropsforpredators = buildBoolean(builder, "nodropsforpredators", " ", true, "Whether some predators cause to not drop any items for their prey");
         this.preyfear = buildBoolean(builder, "preyfear", " ", true, "Whether some Prey fear their predators");
         this.weakened = buildBoolean(builder, "weakened", " ", true, "Whether Mobs that are aggresive to the player will not do so if below a certain amount of health");
@@ -293,6 +299,8 @@ public class InteractConfig {
         builder.pop();
         builder.push("Stradpole");
         this.stradpolebobup = buildBoolean(builder, "stradpolebobup", " ", true, "Whether Stradpoles bob up in the lava");
+        this.stradpoleflame = buildBoolean(builder, "stradpoleflame", " ", true, "Whether launched stradpoles have a chance to inflict flame");
+
         builder.pop();
         builder.push("Sugar Glider");
         this.sugarrush = buildBoolean(builder, "sugarrush", " ", true, "Whether Sugar Gliders can be fed sugar to speed up");
@@ -320,6 +328,10 @@ public class InteractConfig {
         builder.push("Warped Toad");
         this.warpedtarantula = buildBoolean(builder, "warpedtarantula", " ", true, "Whether Warped Toads dont eat Tarantula Hawks when tamed");
         this.moscoconsume = buildBoolean(builder, "moscoconsume", " ", true, "Whether Warped Toads cant impossibly eat Warped Moscos");
+   builder.pop(2);
+        builder.push("April Fools");
+        this.straddlertroll = buildBoolean(builder, "straddlertroll", " ", true, "April Fools Straddler Effects");
+
     }
 
     private static ForgeConfigSpec.BooleanValue buildBoolean(ForgeConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment){
