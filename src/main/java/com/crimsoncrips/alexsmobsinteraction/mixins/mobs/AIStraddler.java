@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.StraddlerAIShoot;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -141,7 +142,7 @@ public class AIStraddler extends Mob {
             if (AInteractionConfig.straddlershots != 0) {
                 if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null && !(getShootShots() <= 0)) {
                     for (int i = 0; i < 15; i++) {
-                        int spread = random.nextInt(100);
+                        int spread = random.nextInt(10);
                         EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
                         pole.setParentId(this.getUUID());
                         pole.setPos(this.getX(), this.getEyeY(), this.getZ());
@@ -163,6 +164,29 @@ public class AIStraddler extends Mob {
                 }
             } else {
                 if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null) {
+                    for (int i = 0; i < 15; i++) {
+                        int spread = random.nextInt(100);
+                        EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
+                        pole.setParentId(this.getUUID());
+                        pole.setPos(this.getX(), this.getEyeY(), this.getZ());
+                        final double d0 = this.getTarget().getEyeY() - (double) 1.1F;
+                        final double d1 = this.getTarget().getX() - this.getX();
+                        final double d2 = d0 - pole.getY();
+                        final double d3 = this.getTarget().getZ() - this.getZ();
+                        final float f3 = Mth.sqrt((float) (d1 * d1 + d2 * d2 + d3 * d3)) * 0.2F;
+                        this.gameEvent(GameEvent.PROJECTILE_SHOOT);
+                        this.playSound(SoundEvents.CROSSBOW_LOADING_END, 2F, 1F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                        pole.shoot(d1, d2 + (double) f3, d3, 2F, 0F + spread);
+                        pole.setYRot(this.getYRot() % 360.0F);
+                        pole.setXRot(Mth.clamp(this.getYRot(), -90.0F, 90.0F) % 360.0F);
+                        if (!this.level().isClientSide) {
+                            this.level().addFreshEntity(pole);
+                        }
+                    }
+                }
+            }
+        } else if (AInteractionConfig.straddlershots != 0) {
+            if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null && !(getShootShots() <= 0)) {
                     EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
                     pole.setParentId(this.getUUID());
                     pole.setPos(this.getX(), this.getEyeY(), this.getZ());
@@ -179,6 +203,25 @@ public class AIStraddler extends Mob {
                     if (!this.level().isClientSide) {
                         this.level().addFreshEntity(pole);
                     }
+                    setShootShots(getShootShots() - 1);
+            }
+        } else {
+            if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null) {
+                EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
+                pole.setParentId(this.getUUID());
+                pole.setPos(this.getX(), this.getEyeY(), this.getZ());
+                final double d0 = this.getTarget().getEyeY() - (double) 1.1F;
+                final double d1 = this.getTarget().getX() - this.getX();
+                final double d2 = d0 - pole.getY();
+                final double d3 = this.getTarget().getZ() - this.getZ();
+                final float f3 = Mth.sqrt((float) (d1 * d1 + d2 * d2 + d3 * d3)) * 0.2F;
+                this.gameEvent(GameEvent.PROJECTILE_SHOOT);
+                this.playSound(SoundEvents.CROSSBOW_LOADING_END, 2F, 1F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                pole.shoot(d1, d2 + (double) f3, d3, 2F, 0F);
+                pole.setYRot(this.getYRot() % 360.0F);
+                pole.setXRot(Mth.clamp(this.getYRot(), -90.0F, 90.0F) % 360.0F);
+                if (!this.level().isClientSide) {
+                    this.level().addFreshEntity(pole);
                 }
             }
         }

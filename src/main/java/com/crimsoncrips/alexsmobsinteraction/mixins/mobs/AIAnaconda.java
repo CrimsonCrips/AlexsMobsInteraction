@@ -120,7 +120,7 @@ public class AIAnaconda extends Mob {
 
         if (AInteractionConfig.anacondacanibalize) {
             this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 10, true, false, ancaondacannibalism) {
-                public void start() {super.start(); setHunger(0);;}
+                public void start() {super.start(); setHunger(0);}
             });
         }
     }
@@ -129,5 +129,7 @@ public class AIAnaconda extends Mob {
     private void AlexInteraction$tick(CallbackInfo ci) {
         if (AInteractionConfig.anacondacanibalize) this.setHunger(getHunger() + 1);;
     }
+
+
 
 }

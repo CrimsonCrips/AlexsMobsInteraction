@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -107,7 +108,7 @@ public abstract class AIStradpole extends Mob {
                 if (this.despawnTimer > 80) {
                     this.despawnTimer = 0;
                     this.spawnAnim();
-                    this.level().explode(this, x + 1,y + 2,z + 1,10, Level.ExplosionInteraction.MOB);
+                    this.level().explode(this, x + 1,y + 2,z + 1,3, Level.ExplosionInteraction.NONE);
                     this.remove(RemovalReason.DISCARDED);
                 }
         }

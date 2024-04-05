@@ -161,6 +161,7 @@ dependencies {
     runtimeOnly fg.deobf("maven.modrinth:bookshelf-lib:dH6uJvm7")
     runtimeOnly fg.deobf("maven.modrinth:enchantment-descriptions:H9lpjTvf")
     runtimeOnly fg.deobf("maven.modrinth:nbt-autocomplete:36dElHpR")
+    runtimeOnly fg.deobf("maven.modrinth:jei:PeYsGsQy")
 
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'

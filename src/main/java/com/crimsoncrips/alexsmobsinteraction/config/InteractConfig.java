@@ -122,15 +122,20 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue voidwormstun;
     public final ForgeConfigSpec.BooleanValue stradpoleflame;
 
-    public final ForgeConfigSpec.BooleanValue aprilfools;
+    public final ForgeConfigSpec.BooleanValue grizzlyfreddy;
 
     public final ForgeConfigSpec.BooleanValue straddlertroll;
+
+    public final ForgeConfigSpec.BooleanValue aprilfools;
+
+    public final ForgeConfigSpec.BooleanValue bananaslip;
+
+    public final ForgeConfigSpec.BooleanValue cosmawweakness;
 
 
 
     public InteractConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
-        this.aprilfools = buildBoolean(builder, "aprilfools", " ", true, "Triggers April Fools content");
         this.nodropsforpredators = buildBoolean(builder, "nodropsforpredators", " ", true, "Whether some predators cause to not drop any items for their prey");
         this.preyfear = buildBoolean(builder, "preyfear", " ", true, "Whether some Prey fear their predators");
         this.weakened = buildBoolean(builder, "weakened", " ", true, "Whether Mobs that are aggresive to the player will not do so if below a certain amount of health");
@@ -186,6 +191,9 @@ public class InteractConfig {
         builder.push("Cockroach");
         this.skittishcockroaches = buildBoolean(builder, "skittishcockroaches", " ", true, "Whether Cockroaches fear any living entity");
         builder.pop();
+        builder.push("Cosmaw");
+        this.cosmawweakness = buildBoolean(builder, "cosmawweakness", " ", true, "Whether Cosmaw can get weak based on their owner's armor when carrying");
+        builder.pop();
         builder.push("Crimson Mosquito");
         this.crimsontransform = buildBoolean(builder, "crimsontransform", " ", true, "Whether Crimson Mosquitoes can be turned into Warped Moscos by feeding them Mungus Spores");
         this.crimsonnostraddler = buildBoolean(builder, "crimsonnostraddler", " ", true, "Whether Crimson Mosquitoes cant attack Straddlers, unless with blood inside");
@@ -234,6 +242,8 @@ public class InteractConfig {
         builder.pop();
         builder.push("Grizzly Bear");
         this.grizzlyattackfriendly = buildBoolean(builder, "grizzlyattackfriendly", " ", true, "Whether Grizzlies will not attack players when untamed");
+        this.grizzlyfreddy = buildBoolean(builder, "grizzlyfreddy", " ", true, "Whether Grizzlies named 'Freddy Fazbear' will turn into Freddy from April Fools ");
+
         builder.pop();
         builder.push("Guster");
         this.gusterweighed = buildBoolean(builder, "gusterweighed", " ", true, "Whether Guster's Tornado effect is based on armor of the player");
@@ -330,6 +340,9 @@ public class InteractConfig {
         this.moscoconsume = buildBoolean(builder, "moscoconsume", " ", true, "Whether Warped Toads cant impossibly eat Warped Moscos");
    builder.pop(2);
         builder.push("April Fools");
+        this.aprilfools = buildBoolean(builder, "aprilfools", " ", true, "AMI April Fools Activation");
+        this.bananaslip = buildBoolean(builder, "bananaslip", " ", true, "April Fools Banana Slug and Banana Effects");
+
         this.straddlertroll = buildBoolean(builder, "straddlertroll", " ", true, "April Fools Straddler Effects");
 
     }

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "alexsmobsinteraction.refmap.json",
   "mixins": [
+    "misc.AIPlayer",
     "misc.AIPocketSand",
     "misc.AISculkShrieker",
     "mobs.AIAlligatorSnappingTurtle",
@@ -20,6 +21,7 @@
     "mobs.AICatfish",
     "mobs.AICaveCentipede",
     "mobs.AICockroach",
+    "mobs.AICosmaw",
     "mobs.AICrimsonMosquito",
     "mobs.AICrimsonSpit",
     "mobs.AICrocodile",

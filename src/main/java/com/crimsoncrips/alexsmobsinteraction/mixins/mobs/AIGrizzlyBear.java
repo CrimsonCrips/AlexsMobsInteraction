@@ -3,6 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import net.minecraft.nbt.CompoundTag;
@@ -147,13 +148,12 @@ public abstract class AIGrizzlyBear extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear)(Object)this;
-        String freddy = "Freddy Fazbear";
+        if(AInteractionConfig.grizzlyfreddy && AMConfig.superSecretSettings){
+            String freddy = "Freddy Fazbear";
             if (this.getName().getString().equals(freddy)) {
                 grizzlyBear.setAprilFoolsFlag(2);
             }
-
-
-
+        }
         if(isHoneyed()) {
             this.setHunger(0);
         }

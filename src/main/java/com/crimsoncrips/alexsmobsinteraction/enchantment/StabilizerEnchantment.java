@@ -25,7 +25,7 @@ public class StabilizerEnchantment extends Enchantment {
     }
 
     public boolean isDiscoverable() {
-        return super.isDiscoverable();
+        return false;
     }
 
     public boolean isAllowedOnBooks() {
