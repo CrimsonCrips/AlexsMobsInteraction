@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AICosmawOwner;
 import com.crimsoncrips.alexsmobsinteraction.goal.AIRandomFly;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AICosmawInterface;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAITemptDistance;
 import com.github.alexthe666.alexsmobs.entity.ai.CreatureAITargetItems;
@@ -13,9 +14,13 @@ import com.github.alexthe666.alexsmobs.entity.ai.FlyingAIFollowOwner;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.google.common.base.Predicates;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -25,18 +30,21 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityCosmaw.class)
-public class AICosmaw extends Mob {
+public class AICosmaw extends Mob implements AICosmawInterface {
 
     static{
         WEAKTIMER = SynchedEntityData.defineId(EntityCosmaw.class, EntityDataSerializers.INT);
@@ -89,26 +97,7 @@ public class AICosmaw extends Mob {
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(cosmaw));
         this.goalSelector.addGoal(3, new FlyingAIFollowOwner(cosmaw, 1.3, 8.0F, 4.0F, false));
         if (AInteractionConfig.cosmawweakness) {
-            this.goalSelector.addGoal(4, new AICosmawOwner(cosmaw){
-
-               /* @Override
-                public void stop() {
-                    if (armor > 10) {
-                        setweakTimer(getweakTimer() + armor * 100);
-                        cosmaw.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, armor * 100, 0));
-                    }
-                } */
-
-                @Override
-                public boolean canUse() {
-                    return getweakTimer() <= 0 || cosmaw.getOwner().getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AIEnchantmentRegistry.LIGHTWEIGHT.get()) > 0;
-                }
-
-                @Override
-                public boolean canContinueToUse() {
-                    return canUse();
-                }
-            });
+            this.goalSelector.addGoal(4, new AICosmawOwner(cosmaw));
         } else {
             Object aiAIPickupOwner = ReflectionUtil.createInstance(
                     "com.github.alexthe666.alexsmobs.entity.EntityCosmaw$AIPickupOwner",
@@ -140,12 +129,26 @@ public class AICosmaw extends Mob {
         this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, EntityCosmicCod.class, 80, true, false, Predicates.alwaysTrue()));
     }
 
+    boolean delayweak = false;
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
+        setweakTimer(getweakTimer() - 1);
+
+
+
         if(cosmaw.getOwner() != null){
             armor = cosmaw.getOwner().getArmorValue();
+            LivingEntity owner = cosmaw.getOwner();
+            if (cosmaw.hasPassenger(owner) && armor > 5 && !delayweak && !(owner.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AIEnchantmentRegistry.LIGHTWEIGHT.get()) > 0)){
+                delayweak = true;
+            }
+            if (!cosmaw.isVehicle() && delayweak) {
+                delayweak = false;
+                setweakTimer(getweakTimer() + armor * 100);
+                cosmaw.addEffect(new MobEffectInstance(MobEffects.WEAKNESS,armor * 100, 0));
+            }
         }
        }
-
 }

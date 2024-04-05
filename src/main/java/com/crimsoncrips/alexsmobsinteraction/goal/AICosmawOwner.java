@@ -1,6 +1,10 @@
 package com.crimsoncrips.alexsmobsinteraction.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AICosmawInterface;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AILavithanInterface;
 import com.github.alexthe666.alexsmobs.entity.EntityCosmaw;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -14,8 +18,11 @@ public class AICosmawOwner extends Goal {
         this.cosmaw = cosmaw;
     }
 
+
     public boolean canUse() {
-        if (cosmaw.isTame() && cosmaw.getOwner() != null && !cosmaw.isSitting() && !cosmaw.getOwner().isPassenger() && !cosmaw.getOwner().onGround() && cosmaw.getOwner().fallDistance > 4.0F) {
+        AICosmawInterface myAccessor = (AICosmawInterface) cosmaw;
+        int getweaktimer = myAccessor.getweakTimer();
+        if (cosmaw.isTame() && cosmaw.getOwner() != null && !cosmaw.isSitting() && !cosmaw.getOwner().isPassenger() && !cosmaw.getOwner().onGround() && cosmaw.getOwner().fallDistance > 4.0F && getweaktimer <= 0) {
             this.owner = cosmaw.getOwner();
             return true;
         } else {
