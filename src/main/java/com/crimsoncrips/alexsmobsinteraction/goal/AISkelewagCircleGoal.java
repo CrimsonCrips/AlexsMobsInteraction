@@ -1,5 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AICosmawInterface;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AISkelewagInterface;
 import com.github.alexthe666.alexsmobs.entity.EntitySkelewag;
 import com.github.alexthe666.alexsmobs.misc.AMBlockPos;
 import net.minecraft.core.BlockPos;
@@ -30,7 +32,9 @@ import java.util.EnumSet;
     }
 
     public boolean canUse() {
-        return skelewag.getTarget() != null;
+        AISkelewagInterface myAccessor = (AISkelewagInterface) skelewag;
+        int stunTicks = myAccessor.getStunTicks();
+        return skelewag.getTarget() != null && !(stunTicks <= 0);
     }
 
     public boolean canContinueToUse() {
