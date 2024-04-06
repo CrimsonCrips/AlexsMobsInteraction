@@ -209,7 +209,6 @@ public class InteractConfig {
         builder.push("Elephant");
         this.elephantattack = buildBoolean(builder, "elephantattack", " ", true, "Whether Tusked Elephants will attack players if staying with them for too long,(Unless if holding a acasia blossom)");
         this.elephanttrample = buildBoolean(builder, "elephanttrample", " ", true, "Whether Elephants can trample mobs");
-
         builder.pop();
         builder.push("Emu");
         this.emurangedattack = buildBoolean(builder, "emurangedattack", " ", true, "Whether Emus attack ANY entity that is holding a ranged weapon");
