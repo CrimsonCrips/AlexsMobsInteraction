@@ -214,7 +214,7 @@ public abstract class AILavithan extends Animal implements ISemiAquatic, IHerdPa
 
             ReflectionUtil.callMethod(
                     collideWithNearbyEntities(),
-                    "foo",
+                    "collideWithNearbyEntities",
                     new Class[] { Integer.class, Float.class },
                     new Object[] { 42, 64.0F });
 
