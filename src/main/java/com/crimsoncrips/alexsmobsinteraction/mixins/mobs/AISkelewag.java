@@ -4,6 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AISkelewagCircleGoal;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AISkelewagInterface;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAIRandomSwimming;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -43,7 +44,7 @@ import java.util.function.Predicate;
 
 
 @Mixin(EntitySkelewag.class)
-public class AISkelewag extends Mob {
+public class AISkelewag extends Mob implements AISkelewagInterface {
 
     protected AISkelewag(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
