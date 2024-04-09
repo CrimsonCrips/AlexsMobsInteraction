@@ -83,7 +83,7 @@ public class AISkelewag extends Mob implements AISkelewagInterface {
 
     boolean stun = false;
 
-    private static final EntityDataAccessor<Integer> STUNTICK = SynchedEntityData.defineId(EntityElephant.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> STUNTICK = SynchedEntityData.defineId(EntitySkelewag.class, EntityDataSerializers.INT);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
@@ -121,14 +121,13 @@ public class AISkelewag extends Mob implements AISkelewagInterface {
             if (getStunTicks() > 0 && target != null) {
                 setTarget(null);
             }
-            if (getStunTicks() < 1) {
+            if (getStunTicks() < 50) {
                 stun = false;
-                setTarget(target);
             }
 
             if (this.getTarget() instanceof Player player && (player.getItemBySlot(EquipmentSlot.OFFHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0 || player.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0)) {
                 if (this.distanceTo(this.getTarget()) < 3F && this.hasLineOfSight(this.getTarget()) && this.getTarget().isBlocking() && !stun) {
-                    setStunTicks(200);
+                    setStunTicks(100);
                     stun = true;
                     this.playSound(SoundEvents.SHIELD_BLOCK, 2F, 1F);
                     target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
@@ -136,23 +135,6 @@ public class AISkelewag extends Mob implements AISkelewagInterface {
                 }
             }
 
-        }
-        float angle;
-
-
-        if (this.getStunTicks() > 0) {
-            if (this.level().isClientSide) {
-                angle = 0.017453292F * this.yBodyRot;
-                double headX = (double)(1.5F * this.getScale() * Mth.sin(3.1415927F + angle));
-                double headZ = (double)(1.5F * this.getScale() * Mth.cos(angle));
-
-                for(int i = 0; i < 5; ++i) {
-                    float innerAngle = 0.017453292F * (this.yBodyRot + (float)(this.tickCount * 5)) * (float)(i + 1);
-                    double extraX = (double)(0.5F * Mth.sin((float)(Math.PI + (double)innerAngle)));
-                    double extraZ = (double)(0.5F * Mth.cos(innerAngle));
-                    this.level().addParticle(ParticleTypes.CRIT, true, this.getX() + headX + extraX, this.getEyeY() + 0.5, this.getZ() + headZ + extraZ, 0.0, 0.0, 0.0);
-                }
-            }
         }
     }
 

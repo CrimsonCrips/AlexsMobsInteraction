@@ -112,7 +112,7 @@ public abstract class AIBison extends Mob {
             }
             if (getStunTicks() < 1) {
                 stun = false;
-                setTarget(target);
+
             }
 
         }

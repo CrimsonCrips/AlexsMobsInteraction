@@ -132,7 +132,7 @@ public class AIElephant extends Mob {
             }
             if (getStunTicks() < 1) {
                 stun = false;
-                setTarget(target);
+
             }
 
             if (this.getTarget() instanceof Player player && charging && (player.getItemBySlot(EquipmentSlot.OFFHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0 || player.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0)) {

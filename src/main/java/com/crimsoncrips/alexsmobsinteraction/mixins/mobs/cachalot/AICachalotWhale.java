@@ -105,7 +105,7 @@ public abstract class AICachalotWhale extends Mob implements AICachalotInterface
             }
             if (getStunTicks() < 1) {
                 stun = false;
-                setTarget(target);
+
             }
 
             if (this.getTarget() instanceof Player player && (player.getItemBySlot(EquipmentSlot.OFFHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0 || player.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(AIEnchantmentRegistry.FINAL_STAND.get()) > 0)) {

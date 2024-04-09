@@ -32,9 +32,7 @@ import java.util.EnumSet;
     }
 
     public boolean canUse() {
-        AISkelewagInterface myAccessor = (AISkelewagInterface) skelewag;
-        int stunTicks = myAccessor.getStunTicks();
-        return skelewag.getTarget() != null && !(stunTicks <= 0);
+        return skelewag.getTarget() != null;
     }
 
     public boolean canContinueToUse() {
@@ -59,6 +57,11 @@ import java.util.EnumSet;
     }
 
     public void tick() {
+        AISkelewagInterface myAccessor = (AISkelewagInterface) skelewag;
+        int stunTicks = myAccessor.getStunTicks();
+        if (stunTicks > 0) circlingTime = 0;
+
+
         LivingEntity prey = skelewag.getTarget();
         if (prey != null) {
             double dist = (double)skelewag.distanceTo(prey);
