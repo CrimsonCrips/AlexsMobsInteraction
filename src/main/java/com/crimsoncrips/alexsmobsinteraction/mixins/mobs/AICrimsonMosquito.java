@@ -17,9 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -29,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -152,9 +151,13 @@ public abstract class AICrimsonMosquito extends Mob {
             this.jumping = false;
             if (onGround()) this.setNoAi(true);
         }
-        if(AInteractionConfig.bloodedmosquitoes && !this.isBlooded() && random.nextDouble() < 0.05){
-            crimsonMosquito.setBloodLevel(this.getBloodLevel() + 1);
-            setBlooded(true);
+        if(AInteractionConfig.bloodedmosquitoes){
+            if (!this.isBlooded() && random.nextDouble() < 0.05) {
+                crimsonMosquito.setBloodLevel(this.getBloodLevel() + 1);
+                setBlooded(true);
+            } else {
+                setBlooded(true);
+            }
         }
         if (this.getMungusFed() >= 3 && this.getWarpedFed() >= 10) {
             crimsonMosquito.setSick(true);
@@ -167,12 +170,29 @@ public abstract class AICrimsonMosquito extends Mob {
                 }
             }
         }
-        
-        if (crimsonMosquito.getTarget() instanceof EntityStraddler && !(crimsonMosquito.getBloodLevel() > 0)){
-            setTarget(null);
+
+        Entity attach = this.getVehicle();
+
+        if ((AInteractionConfig.goofymode && AInteractionConfig.crimsonmultiply &&  attach != null && this.getBloodLevel() > 1)) {
+            if (!(attach instanceof Player)){
+                EntityCrimsonMosquito crimsonMosquito1 = AMEntityRegistry.CRIMSON_MOSQUITO.get().create(level());
+                crimsonMosquito1.copyPosition(this);
+                if (!this.level().isClientSide) {
+                    crimsonMosquito1.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                }
+
+                if (!this.level().isClientSide) {
+                    this.level().broadcastEntityEvent(this, (byte) 79);
+                    level().addFreshEntity(crimsonMosquito1);
+                }
+                attach.remove(RemovalReason.DISCARDED);
+            }
+
         }
 
     }
+
+
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
         ItemStack itemstack = player.getItemInHand(hand);

@@ -6,7 +6,7 @@
 The Murmur is a tortured soul that can only be found deep in the bowels of the overworld, even deeper than Cave Centipedes.
 What appears to be a harmless person is actually an undead monster with a serpentine neck, which it can extend further than 50 blocks.
 When a Murmur spots prey, it will extend its neck upwards to get a good look, then sweep forwards quickly to bite its prey and quickly retreat.
-If a Murmur's head is hit rather than its body, it will only receive half of the damage.
+It should be known that the murmur's head is seperate from the body and killing the head will only cause it to grow back
 <NEWLINE>
 If slain, a Murmur can drop red wool, an Elastic Tendon or, rarely, a Unsettling Kimono.
 The Elastic Tendons can be combined with Dropbear claws to create the Tendon Whip.

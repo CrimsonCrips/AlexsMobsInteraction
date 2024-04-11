@@ -3,7 +3,7 @@
 <NEWLINE>
 <NEWLINE>
 Tigers are big cats that can be found inside and around Bamboo Jungles. They are naturally weary of outsiders and will attack if approached.
-A tiger is an excellent hunter, and is extremely strong, capable of leaping from many blocks away to crush its prey, and also capable of slashing with its claws.
+A tiger is an excellent hunter, and is extremely strong, capable of leaping from many blocks away to crush its prey,this pouncing however can be stunned when holding up a shield with the 'Final Stand' enchant.
 They are also masters of stealth, as they often are capable of becoming nearly invisible when stalking prey from far away. They are also extremely fast.
 To top it all off, they are so terrifying that their prey are literally frozen in fear for a few seconds when the tiger makes its appearance and intent known.
 <NEWLINE>

@@ -12,14 +12,14 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
@@ -34,7 +34,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -100,7 +103,7 @@ public abstract class AIStradpole extends Mob {
                 y2 = 0;
             }
         }
-        if (AInteractionConfig.straddlertroll && isDespawnSoon()){
+        if (AInteractionConfig.straddlertroll && AInteractionConfig.goofymode && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();
             int z = this.getBlockZ();
@@ -157,5 +160,59 @@ public abstract class AIStradpole extends Mob {
         }
         return super.mobInteract(player, hand);
     }
+
+    @Inject(method = "onEntityHit", at = @At("HEAD"),cancellable = true,remap = false)
+    private void entityhit(EntityHitResult raytraceresult, CallbackInfo ci) {
+        ci.cancel();
+        EntityStradpole stradpole = (EntityStradpole)(Object)this;
+        Entity entity = stradpole.getParent();
+        if (entity instanceof LivingEntity && !this.level().isClientSide) {
+            Entity var4 = raytraceresult.getEntity();
+            if (var4 instanceof LivingEntity) {
+                LivingEntity target = (LivingEntity)var4;
+                if (random.nextDouble() < 0.2)target.setSecondsOnFire(2);
+                if (!target.isBlocking()) {
+                    target.hurt(this.damageSources().mobProjectile(this, (LivingEntity)entity), 3.0F);
+                    target.knockback(0.699999988079071, entity.getX() - this.getX(), entity.getZ() - this.getZ());
+                } else if (this.getTarget() instanceof Player) {
+                    this.damageShieldFor((Player)this.getTarget(), 3.0F);
+                }
+
+                this.entityData.set(LAUNCHED, false);
+            }
+        }
+
+
+    }
+
+    protected void damageShieldFor(Player holder, float damage) {
+        if (holder.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
+            if (!this.level().isClientSide) {
+                holder.awardStat(Stats.ITEM_USED.get(holder.getUseItem().getItem()));
+            }
+
+            if (damage >= 3.0F) {
+                int i = 1 + Mth.floor(damage);
+                InteractionHand hand = holder.getUsedItemHand();
+                holder.getUseItem().hurtAndBreak(i, holder, (p_213833_1_) -> {
+                    p_213833_1_.broadcastBreakEvent(hand);
+                    ForgeEventFactory.onPlayerDestroyItem(holder, holder.getUseItem(), hand);
+                });
+                if (holder.getUseItem().isEmpty()) {
+                    if (hand == InteractionHand.MAIN_HAND) {
+                        holder.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                    } else {
+                        holder.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                    }
+
+                    holder.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level().random.nextFloat() * 0.4F);
+                }
+            }
+        }
+
+    }
+
+
+
 
 }

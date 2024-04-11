@@ -52,7 +52,7 @@ public abstract class AIMurmurBody extends Mob {
         this.yHeadRot = Mth.clamp(this.yHeadRot, this.yBodyRot - 70.0F, this.yBodyRot + 70.0F);
         if (!this.level().isClientSide) {
             Entity head = murmur.getHead();
-            if (head == null && !(AInteractionConfig.murmurdecapitate && AInteractionConfig.aprilfools)) {
+            if (head == null && !(AInteractionConfig.murmurdecapitate && AInteractionConfig.goofymode)) {
                 LivingEntity created;
                 ReflectionUtil.callMethod(created = this, "createHead", new Class[0], new Object[0]);
                 murmur.setHeadUUID(created.getUUID());

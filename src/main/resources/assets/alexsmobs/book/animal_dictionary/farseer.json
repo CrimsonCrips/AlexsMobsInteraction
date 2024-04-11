@@ -12,8 +12,8 @@
     {
       "recipe": "alexsmobs:transmutation_table",
       "shapeless": false,
-      "x": 20,
-      "y": 100,
+      "x": 210,
+      "y": 40,
       "page": 2,
       "scale": 1
     }

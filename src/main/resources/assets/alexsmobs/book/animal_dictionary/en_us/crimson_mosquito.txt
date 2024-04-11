@@ -9,6 +9,8 @@ target.
 <NEWLINE>
 If slain while inflated with blood, the Crimson Mosquito can drop a Blood Sac. It also can drop its proboscis. Both of
 these materials can be used to craft the Blood Sprayer, a unique weapon that uses Mosquito Spit to deal area of effect
-damage. The Blood Sprayer uses Blood Sacs as ammunition.
+damage. The Blood Sprayer uses Blood Sacs as ammunition, this weapon however does not deal damage to Crimson Mosquitoes
+<NEWLINE>
+The proboscis can also be used to craft a 'Swatter' that can be used to 'weaken' certain mobs.
 <NEWLINE>
 If an overworld, garden variety fly happens to find itself in the nether, it can transform into a Crimson Mosquito.

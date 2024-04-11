@@ -34,7 +34,7 @@ public abstract class AIPlayer extends LivingEntity implements IForgePlayer {
         Player player = (Player)(Object)this;
         Block block = player.getFeetBlockState().getBlock();
 
-        if(AInteractionConfig.bananaslip && AInteractionConfig.aprilfools){
+        if(AInteractionConfig.bananaslip && AInteractionConfig.goofymode){
             if (block instanceof BlockBananaPeel){
                 player.kill();
             }

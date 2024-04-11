@@ -8,6 +8,7 @@ Sugar Gliders can be tamed by feeding them sweet berries, their favorite food.
 Tamed Sugar Gliders can be made to stay, follow or wander.
 They can also be placed on one's head by sneaking and interacting with them.
 When a Sugar Glider is on its owner's head, they will experience slow falling.
+They can also be fed any sugar-related item to boost them.
 <NEWLINE>
 Occasionally, tamed Sugar Gliders will forage through leaf blocks for items.
 Usually these are junk such as saplings or sticks, but sometimes valuable items like arrows, Hair of Bear, or Moose Antlers can be found.

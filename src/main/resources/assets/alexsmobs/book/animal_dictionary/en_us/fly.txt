@@ -1,9 +1,14 @@
 <NEWLINE>
 <NEWLINE>
 <NEWLINE>
-Flies are small, annoying insects common in the overworld. Naturally attracted to dead and dying things, they can be found
-chasing and biting zombies nearly to death. Flies can be breed with rotten flesh, and on death have a possibility to drop
-maggots. Fly Maggots can be used to breed other creatures, like Roadrunners and Capuchin Monkeys, and, in a pinch, used as
-a light snack.
+Flies are small, annoying insects common in the overworld. They are observed to be naturally attracted to odorous things, be it dead or smelly things,
+however they seem to be deterred from the smell of the waxy candles as it seems to irritate their senses.
+Flies can be bred with rotten flesh, and on death have a possibility to drop maggots.
+Fly Maggots can be used to breed other creatures, like Roadrunners and Capuchin Monkeys, and, in a pinch, used as
+a revolting light snack.
 <NEWLINE>
-If a fly happens to find itself in the nether, the diminutive little creature will transform into the monstrous Crimson Mosquito.
+The fly seems to have an anomalous feature where it can transform into a Crimson Mosquito under certain conditions, the first is when it happens to find itself upon the Nether Dimension,
+its body mutates upon the nether's atmosphere and transmogrify into one
+<NEWLINE>
+The second is a more intentional transformation where one must first weaken the fly to weaken its immune system,
+then it is to be bathed in blood, then finally is to be fed a fungal ingredient, and will then cause it to transform into such.

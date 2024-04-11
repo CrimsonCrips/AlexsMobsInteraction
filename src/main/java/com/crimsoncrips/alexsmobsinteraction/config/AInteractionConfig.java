@@ -14,7 +14,7 @@ public class AInteractionConfig {
     public static boolean caimanaggresive = true;
     public static boolean capuchinhunt = true;
     public static boolean catfishcannibalize = true;
-    public static boolean catfisheatstupid = true;
+    public static boolean catfisheatstupid = false;
     public static boolean centipedelightfear = true;
     public static boolean crimsonnostraddler = true;
     public static boolean crowcannibalize = true;
@@ -97,18 +97,20 @@ public class AInteractionConfig {
     public static boolean grizzlyfreddy = true;
 
     public static boolean stradpoleflame = true;
-    public static boolean aprilfools = true;
+    public static boolean goofymode = true;
     public static boolean bananaslip = true;
     public static boolean cosmawweakness = true;
     public static boolean murmurdecapitate = true;
+    public static boolean crimsonmultiply = true;
 
 
     public static void bake() {
         try {
+            crimsonmultiply = ConfigHolder.INTERACT.crimsonmultiply.get();
             murmurdecapitate = ConfigHolder.INTERACT.murmurdecapitate.get();
             cosmawweakness = ConfigHolder.INTERACT.cosmawweakness.get();
             bananaslip = ConfigHolder.INTERACT.bananaslip.get();
-            aprilfools = ConfigHolder.INTERACT.aprilfools.get();
+            goofymode = ConfigHolder.INTERACT.goofymode.get();
             stradpoleflame = ConfigHolder.INTERACT.stradpoleflame.get();
             grizzlyfreddy = ConfigHolder.INTERACT.grizzlyfreddy.get();
             straddlertroll = ConfigHolder.INTERACT.straddlertroll.get();

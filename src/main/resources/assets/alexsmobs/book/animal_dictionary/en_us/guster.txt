@@ -3,7 +3,7 @@
 <NEWLINE>
 <NEWLINE>
 Gusters are vengeful desert spirits that only manifest during storms in deserts.
-These creatures are inherently hostile, and will seek to throw their targets high up into the air, or shoot a stream of sand at them.
+These creatures are inherently hostile, and will seek to shoot a stream of sand at them, or throw their targets high up into the air,though the strength is determined by their target's weight.
 Gusters can also lift up any dropped item and toss it, making gathering monster drops difficult.
 Gusters are formed out of local sands, and if in an area with soul sand or red sand, they will appearance will take the colors of these sediments.
 Although powerful, Gusters are not very fortified creatures. However, their almost ethereal presence makes them more resistant to projectile attacks than most monsters.

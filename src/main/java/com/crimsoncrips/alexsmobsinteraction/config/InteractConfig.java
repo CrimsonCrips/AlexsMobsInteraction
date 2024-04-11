@@ -126,13 +126,15 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue straddlertroll;
 
-    public final ForgeConfigSpec.BooleanValue aprilfools;
+    public final ForgeConfigSpec.BooleanValue goofymode;
 
     public final ForgeConfigSpec.BooleanValue bananaslip;
 
     public final ForgeConfigSpec.BooleanValue cosmawweakness;
 
     public final ForgeConfigSpec.BooleanValue murmurdecapitate;
+
+    public final ForgeConfigSpec.BooleanValue crimsonmultiply;
 
 
 
@@ -341,9 +343,10 @@ public class InteractConfig {
         this.moscoconsume = buildBoolean(builder, "moscoconsume", " ", true, "Whether Warped Toads cant impossibly eat Warped Moscos");
    builder.pop(2);
         builder.push("April Fools");
-        this.aprilfools = buildBoolean(builder, "aprilfools", " ", false, "AMI April Fools Activation");
+        this.goofymode = buildBoolean(builder, "goofymode", " ", false, "AMI April Fools Activation");
         this.bananaslip = buildBoolean(builder, "bananaslip", " ", true, "April Fools Banana Slug and Banana Effects");
         this.murmurdecapitate = buildBoolean(builder, "murmurdecapitate", " ", true, "April Fools Murmur Effects");
+        this.crimsonmultiply = buildBoolean(builder, "crimsonmultiply", " ", true, "April Fools Crimson Mosquito Effects");
 
         this.straddlertroll = buildBoolean(builder, "straddlertroll", " ", true, "April Fools Straddler Effects");
 

@@ -61,7 +61,7 @@ public class AIBananaSlug extends Mob {
     private void tick(CallbackInfo ci){
         Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5,0.2,0.5)).iterator();
 
-        if(AInteractionConfig.bananaslip && AInteractionConfig.aprilfools){
+        if(AInteractionConfig.bananaslip && AInteractionConfig.goofymode){
             while (var4.hasNext()) {
                 Entity entity = (Entity) var4.next();
                 if (entity instanceof Player) {
