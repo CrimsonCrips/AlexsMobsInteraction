@@ -43,7 +43,7 @@ public class AInteractionConfig {
     public static boolean raccoonhunt = true;
     public static boolean rattlesnakecannibalize = true;
     public static boolean roadrunnerday = true;
-    public static boolean scourgingseas = true;
+    public static boolean mightupgrade = true;
     public static boolean seagullbuff = true;
     public static boolean seagullnotsnatch = true;
     public static boolean skittishcockroaches = true;
@@ -93,7 +93,7 @@ public class AInteractionConfig {
     public static boolean gusterprojectileprot = true;
     public static boolean elephanttrample = true;
     public static boolean voidwormstun = true;
-    public static boolean straddlertroll = true;
+    public static boolean straddlerexplosivespread = true;
     public static boolean grizzlyfreddy = true;
 
     public static boolean stradpoleflame = true;
@@ -102,10 +102,20 @@ public class AInteractionConfig {
     public static boolean cosmawweakness = true;
     public static boolean murmurdecapitate = true;
     public static boolean crimsonmultiply = true;
+    public static boolean rainfrogspawnage = true;
+    public static boolean tigersstealth = true;
+    public static boolean sunbirdupgrade = true;
+    public static boolean leoparddesires = true;
+    public static boolean capuchinbomb = true;
 
 
     public static void bake() {
         try {
+            capuchinbomb = ConfigHolder.INTERACT.capuchinbomb.get();
+            leoparddesires = ConfigHolder.INTERACT.leoparddesires.get();
+            sunbirdupgrade = ConfigHolder.INTERACT.sunbirdupgrade.get();
+            tigersstealth = ConfigHolder.INTERACT.tigersstealth.get();
+            rainfrogspawnage = ConfigHolder.INTERACT.rainfrogspawnage.get();
             crimsonmultiply = ConfigHolder.INTERACT.crimsonmultiply.get();
             murmurdecapitate = ConfigHolder.INTERACT.murmurdecapitate.get();
             cosmawweakness = ConfigHolder.INTERACT.cosmawweakness.get();
@@ -113,7 +123,7 @@ public class AInteractionConfig {
             goofymode = ConfigHolder.INTERACT.goofymode.get();
             stradpoleflame = ConfigHolder.INTERACT.stradpoleflame.get();
             grizzlyfreddy = ConfigHolder.INTERACT.grizzlyfreddy.get();
-            straddlertroll = ConfigHolder.INTERACT.straddlertroll.get();
+            straddlerexplosivespread = ConfigHolder.INTERACT.straddlerexplosivespread.get();
             voidwormstun = ConfigHolder.INTERACT.voidwormstun.get();
             elephanttrample = ConfigHolder.INTERACT.elephanttrample.get();
             gusterprojectileprot = ConfigHolder.INTERACT.gusterprojectileprot.get();
@@ -178,7 +188,7 @@ public class AInteractionConfig {
             raccoonhunt = ConfigHolder.INTERACT.raccoonhunt.get();
             rattlesnakecannibalize = ConfigHolder.INTERACT.rattlesnakecannibalize.get();
             roadrunnerday = ConfigHolder.INTERACT.roadrunnerday.get();
-            scourgingseas = ConfigHolder.INTERACT.scourgingseas.get();
+            mightupgrade = ConfigHolder.INTERACT.mightupgrade.get();
             seagullbuff = ConfigHolder.INTERACT.seagullbuff.get();
             seagullnotsnatch = ConfigHolder.INTERACT.seagullnotsnatch.get();
             skittishcockroaches = ConfigHolder.INTERACT.skittishcockroaches.get();

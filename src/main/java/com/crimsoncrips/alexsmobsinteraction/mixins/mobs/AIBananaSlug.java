@@ -59,9 +59,9 @@ public class AIBananaSlug extends Mob {
     }
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci){
-        Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5,0.2,0.5)).iterator();
-
         if(AInteractionConfig.bananaslip && AInteractionConfig.goofymode){
+            Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5,0.2,0.5)).iterator();
+
             while (var4.hasNext()) {
                 Entity entity = (Entity) var4.next();
                 if (entity instanceof Player) {

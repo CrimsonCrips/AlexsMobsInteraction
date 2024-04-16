@@ -196,10 +196,9 @@ public abstract class AICrimsonMosquito extends Mob {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
         InteractionResult type = super.mobInteract(player, hand);
-        if (item == AMItemRegistry.WARPED_MIXTURE.get() && !crimsonMosquito.isSick()) {
-            this.spawnAtLocation(item.getCraftingRemainingItem(itemstack));
+        if (itemstack.getItem() == AMItemRegistry.WARPED_MIXTURE.get() && !crimsonMosquito.isSick()) {
+            this.spawnAtLocation(itemstack.getCraftingRemainingItem());
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
@@ -208,9 +207,7 @@ public abstract class AICrimsonMosquito extends Mob {
             return InteractionResult.SUCCESS;
         }
         if (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AInteractionConfig.crimsontransform && !(this.getMungusFed() >= 3) && isPacified()) {
-            gameEvent(GameEvent.ENTITY_INTERACT);
-            itemstack.shrink(1);
-            this.playSound(SoundEvents.GENERIC_EAT);
+            feed(itemstack);
             this.setMungusFed(this.getMungusFed() + 1);
             return InteractionResult.SUCCESS;
         }
@@ -225,9 +222,7 @@ public abstract class AICrimsonMosquito extends Mob {
 
         }
         if (itemstack.getItem() == Items.WARPED_FUNGUS && AInteractionConfig.crimsontransform && !(this.getWarpedFed() >= 10) && isPacified()) {
-            gameEvent(GameEvent.ENTITY_INTERACT);
-            itemstack.shrink(1);
-            this.playSound(SoundEvents.GENERIC_EAT);
+            feed(itemstack);
            this.setWarpedFed(this.getWarpedFed() + 1);
             return InteractionResult.SUCCESS;
         }
@@ -249,6 +244,12 @@ public abstract class AICrimsonMosquito extends Mob {
             super.handleEntityEvent(id);
         }
 
+    }
+
+    public void feed(ItemStack itemStack){
+        gameEvent(GameEvent.ENTITY_INTERACT);
+        itemStack.shrink(1);
+        this.playSound(SoundEvents.GENERIC_EAT);
     }
 
 }

@@ -2,22 +2,20 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityBananaSlug;
-import com.github.alexthe666.alexsmobs.entity.EntityFrilledShark;
-import com.github.alexthe666.alexsmobs.entity.EntitySnowLeopard;
+import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
+import com.github.alexthe666.alexsmobs.entity.*;
+import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -27,9 +25,23 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.function.Predicate;
+
 
 @Mixin(EntitySnowLeopard.class)
 public class AISnowLeopard extends Mob {
+
+    @Inject(method = "registerGoals", at = @At("HEAD"))
+    private void SnowLeopardGoals(CallbackInfo ci){
+        if(AInteractionConfig.leoparddesires){
+            this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, EntityMoose.class, 1, true, false, (livingEntity) -> {
+                return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
+            }));
+            this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, Player.class, 1, true, false, (livingEntity) -> {
+                return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth() && livingEntity.getItemBySlot(EquipmentSlot.HEAD).is((Item)AMItemRegistry.MOOSE_HEADGEAR.get());
+            }));
+        }
+    }
 
     protected AISnowLeopard(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);

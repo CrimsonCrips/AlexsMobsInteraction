@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
+package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.capuchin;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;

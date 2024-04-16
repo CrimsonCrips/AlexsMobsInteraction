@@ -1,17 +1,22 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.rainfrog;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
+import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AISkelewagInterface;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AITransform;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
-import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
-import com.github.alexthe666.alexsmobs.entity.EntityWarpedToad;
+import com.github.alexthe666.alexsmobs.config.AMConfig;
+import com.github.alexthe666.alexsmobs.config.BiomeConfig;
+import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
+import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,6 +30,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -162,7 +169,32 @@ public class AIRainfrog extends Mob implements AITransform {
         }
     }
 
-    @Override
+    @Inject(method = "changeWeather", at = @At("HEAD"),cancellable = true,remap = false)
+    private void weatherChange(CallbackInfo ci) {
+            ci.cancel();
+            EntityRainFrog rainFrog = (EntityRainFrog) (Object) this;
+            int time = 24000 + 1200 * this.random.nextInt(10);
+            int type = 0;
+            if (!this.level().isRaining()) {
+                type = this.random.nextInt(1) + 1;
+            }
+
+            Level var4 = this.level();
+            if (var4 instanceof ServerLevel serverLevel) {
+                if (type == 0) {
+                    serverLevel.setWeatherParameters(time, 0, false, false);
+                    spawnGusters();
+                } else {
+                    serverLevel.setWeatherParameters(0, time, true, type == 2);
+                    BlockPos pos = BlockPos.containing(this.getPosition(1));
+                    spawnGusters();
+                }
+            }
+            ReflectionUtil.setField(rainFrog, "weatherCooldown", time + 24000);
+    }
+
+
+        @Override
     public boolean isTransforming() {
         return this.entityData.get(RAINFROGSICK);
     }
@@ -170,5 +202,15 @@ public class AIRainfrog extends Mob implements AITransform {
     @Override
     public void setTransforming(boolean transforming) {
         this.entityData.set(RAINFROGSICK, transforming);
+    }
+
+    public void spawnGusters(){
+        if (AInteractionConfig.rainfrogspawnage && AInteractionConfig.goofymode) {
+            for (int i = 0; i < 10; i++) {
+                EntityGuster guster = AMEntityRegistry.GUSTER.get().create(level());
+                guster.copyPosition(this);
+                level().addFreshEntity(guster);
+            }
+        }
     }
 }

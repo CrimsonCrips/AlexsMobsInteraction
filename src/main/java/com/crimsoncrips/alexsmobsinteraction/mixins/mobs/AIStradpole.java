@@ -103,7 +103,7 @@ public abstract class AIStradpole extends Mob {
                 y2 = 0;
             }
         }
-        if (AInteractionConfig.straddlertroll && AInteractionConfig.goofymode && isDespawnSoon()){
+        if (AInteractionConfig.straddlerexplosivespread && AInteractionConfig.goofymode && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();
             int z = this.getBlockZ();

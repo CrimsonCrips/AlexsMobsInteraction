@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.enchantment;
 
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.enchantment.StraddleEnchantment;
 import com.github.alexthe666.alexsmobs.enchantment.StraddleJumpEnchantment;
 import com.github.alexthe666.alexsmobs.item.ItemPigshoes;

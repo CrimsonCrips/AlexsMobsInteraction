@@ -82,7 +82,9 @@ public class AICosmaw extends Mob implements AICosmawInterface {
 
     int armor = 0;
 
-    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true,remap = false)
+    boolean delayweak = false;
+
+    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void test(CallbackInfo ci) {
         ci.cancel();
         EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
@@ -126,10 +128,8 @@ public class AICosmaw extends Mob implements AICosmawInterface {
                 return livingentity != null && cosmaw.isOwnedBy(livingentity) ? false : super.canUse();
             }
         });
-        this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, EntityCosmicCod.class, 80, true, false, Predicates.alwaysTrue()));
+        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, EntityCosmicCod.class, 80, true, false, Predicates.alwaysTrue()));
     }
-
-    boolean delayweak = false;
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
@@ -150,5 +150,5 @@ public class AICosmaw extends Mob implements AICosmawInterface {
                 cosmaw.addEffect(new MobEffectInstance(MobEffects.WEAKNESS,armor * 100, 0));
             }
         }
-       }
+    }
 }

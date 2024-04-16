@@ -148,10 +148,17 @@ public abstract class AIGrizzlyBear extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear)(Object)this;
-        if(AInteractionConfig.grizzlyfreddy && AMConfig.superSecretSettings){
+        if (grizzlyBear.isHoneyed()){
+            this.setTarget(null);
+        }
+        if(AInteractionConfig.grizzlyfreddy){
             String freddy = "Freddy Fazbear";
             if (this.getName().getString().equals(freddy)) {
                 grizzlyBear.setAprilFoolsFlag(2);
+                if(!AInteractionConfig.goofymode){
+                    grizzlyBear.setTame(false);
+                    grizzlyBear.setOwnerUUID(null);
+                }
             }
         }
         if(isHoneyed()) {

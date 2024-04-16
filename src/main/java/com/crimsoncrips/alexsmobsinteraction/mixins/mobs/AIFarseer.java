@@ -4,9 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityFarseer;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
@@ -15,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,9 +24,7 @@ import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderSt
 @Mixin(EntityFarseer.class)
 public class AIFarseer extends Mob {
 
-    int loop = 10;
-
-    private LivingEntity lastTickTarget;
+    int loop;
 
     protected AIFarseer(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
@@ -47,8 +42,7 @@ public class AIFarseer extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         if (AInteractionConfig.farseeralter){
-            LivingEntity currentTarget = getTarget();
-            if (currentTarget instanceof Player player && loop >= 0) {
+            if (this.getTarget() instanceof Player player && loop >= 0) {
                 loop--;
                 renderStaticScreenFor = 20;
                 Inventory inv = player.getInventory();
@@ -63,7 +57,7 @@ public class AIFarseer extends Mob {
                         inv.setItem(i, to);
                     }
                 }
-                if (lastTickTarget != currentTarget) {
+                if (loop == 9) {
                     int something = getRandom().nextInt(6);
                     switch (something) {
                         case 0:
@@ -85,12 +79,9 @@ public class AIFarseer extends Mob {
                             player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech5"));
                             break;
                     }
-                    lastTickTarget = currentTarget;
                 }
+                }
+            if (this.getTarget() == null && loop <= 0) loop = 10;
             }
-            if (currentTarget == null && loop <= 0) loop = 10;
         }
     }
-
-
-}

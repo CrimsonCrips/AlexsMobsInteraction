@@ -155,4 +155,5 @@ public class AIGuster extends Mob {
     public boolean canBeHitByProjectile() {
         return !AInteractionConfig.gusterprojectileprot;
     }
+
 }

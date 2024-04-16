@@ -138,7 +138,7 @@ public class AIStraddler extends Mob {
                 this.playSound(SoundEvents.CROSSBOW_LOADING_MIDDLE, 2F, 1F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             }
         }
-        if (AInteractionConfig.goofymode && AInteractionConfig.straddlertroll){
+        if (AInteractionConfig.goofymode && AInteractionConfig.straddlerexplosivespread){
             if (AInteractionConfig.straddlershots != 0) {
                 if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null && !(getShootShots() <= 0)) {
                     for (int i = 0; i < 15; i++) {

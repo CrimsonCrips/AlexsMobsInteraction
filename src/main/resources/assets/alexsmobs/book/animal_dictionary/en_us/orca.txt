@@ -9,4 +9,4 @@ these whales are not so friendly - hurting one of them could make the entire pod
 <NEWLINE>
 The color and appearance of an orca can vary based off of whether its pod is from the south, north, east or west.
 <NEWLINE>
-Swimming with a pod of orcas can grant one the Orca's Might effect. This effect grants increased attack speed. Orca often use their native strength against Drowned and Guardians.
+Swimming with a pod of orcas can grant one the Orca's Might effect. This effect grants increased attack speed, and will cause scourging Skelewags to become neutral. Orca often use their native strength against Drowned and Guardians.

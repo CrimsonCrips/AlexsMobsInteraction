@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.goal.AISkelewagCircleGoal;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AISkelewagInterface;
+import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAIRandomSwimming;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -54,8 +55,8 @@ public class AISkelewag extends Mob implements AISkelewagInterface {
     private void ShoebillGoals(CallbackInfo ci){
         ci.cancel();
         EntitySkelewag skelewag = (EntitySkelewag) (Object) this;
-        Predicate<LivingEntity> NOT_TARGET = (livingEntity) -> {
-            return !(livingEntity instanceof Monster) && !(livingEntity instanceof Player);
+        Predicate<LivingEntity> MIGHT = (livingEntity) -> {
+            return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT.get());
         };
         this.goalSelector.addGoal(1, new TryFindWaterGoal(skelewag));
         if (AInteractionConfig.skelewagcircle){
@@ -70,14 +71,10 @@ public class AISkelewag extends Mob implements AISkelewagInterface {
         }
         this.goalSelector.addGoal(3, new AnimalAIRandomSwimming(skelewag, 1F, 12, 5));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(skelewag, Drowned.class, EntitySkelewag.class));
-        if (AInteractionConfig.scourgingseas){
-            this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, LivingEntity.class, 500, true, false, NOT_TARGET));
-        } else {
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Player.class, true));
-            this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, Dolphin.class, true));
+        if(AInteractionConfig.mightupgrade){
+            this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, 100, true, false, MIGHT));
         }
-
-        this.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(this, Player.class, 1, true, false,null));
+        this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, Dolphin.class, true));
 
     }
 

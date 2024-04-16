@@ -57,10 +57,14 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue murmurbodykill;
     public final ForgeConfigSpec.BooleanValue nodropsforpredators;
     public final ForgeConfigSpec.BooleanValue preyfear;
+
+    public final ForgeConfigSpec.BooleanValue sunbirdupgrade;
+
+    public final ForgeConfigSpec.BooleanValue tigersstealth;
     public final ForgeConfigSpec.BooleanValue raccoonhunt;
     public final ForgeConfigSpec.BooleanValue rattlesnakecannibalize;
     public final ForgeConfigSpec.BooleanValue roadrunnerday;
-    public final ForgeConfigSpec.BooleanValue scourgingseas;
+    public final ForgeConfigSpec.BooleanValue mightupgrade;
     public final ForgeConfigSpec.BooleanValue seagullbuff;
     public final ForgeConfigSpec.BooleanValue seagullnotsnatch;
     public final ForgeConfigSpec.BooleanValue skittishcockroaches;
@@ -107,6 +111,8 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue snowluck;
 
+    public final ForgeConfigSpec.BooleanValue capuchinbomb;
+
     public final ForgeConfigSpec.BooleanValue skreecherward;
 
     public final ForgeConfigSpec.BooleanValue sandnoammo;
@@ -124,7 +130,7 @@ public class InteractConfig {
 
     public final ForgeConfigSpec.BooleanValue grizzlyfreddy;
 
-    public final ForgeConfigSpec.BooleanValue straddlertroll;
+    public final ForgeConfigSpec.BooleanValue straddlerexplosivespread;
 
     public final ForgeConfigSpec.BooleanValue goofymode;
 
@@ -135,6 +141,10 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue murmurdecapitate;
 
     public final ForgeConfigSpec.BooleanValue crimsonmultiply;
+
+    public final ForgeConfigSpec.BooleanValue rainfrogspawnage;
+
+    public final ForgeConfigSpec.BooleanValue leoparddesires;
 
 
 
@@ -277,6 +287,7 @@ public class InteractConfig {
         this.murmurbodykill = buildBoolean(builder, "murmurbodykill", " ", true, "Whether Murmur has to has its body to be killed");
         builder.pop();
         builder.push("Orca");
+        this.mightupgrade = buildBoolean(builder, "mightupgrade", " ", true, "Whether Orcas Might allows temporary neutrality with Skelewags");
         this.orcahunt = buildBoolean(builder, "orcahunt", " ", true, "Whether Orca's hunt fish");
         builder.pop();
         builder.push("Raccoon");
@@ -294,7 +305,6 @@ public class InteractConfig {
         this.seagullnotsnatch = buildBoolean(builder, "seagullnotsnatch", " ", true, "Whether Seagulls don't snatch food if below 40% health");
         builder.pop();
         builder.push("Skelewag");
-        this.scourgingseas = buildBoolean(builder, "scourgingseas", " ", true, "Whether Skelewag's attack all entities apart from their allies");
         this.skelewagcircle = buildBoolean(builder, "skelewagcircle", " ", true, "Whether Skelewags circle prey like Hammerhead sharks");
         builder.pop();
         builder.push("Skreecher");
@@ -302,6 +312,7 @@ public class InteractConfig {
         builder.pop();
         builder.push("Snow Leopard");
         this.snowluck = buildBoolean(builder, "snowluck", " ", true, "Whether Snow Leopards can get rare items when killing specific mobs");
+        this.leoparddesires = buildBoolean(builder, "leoparddesires", " ", true, "Whether Snow Leopards can hunt weak Mooses, but also mistakenly attack weak players wearing a Antler Headgear");
         builder.pop();
         builder.push("Soul Vulture");
         this.soulbuff = buildBoolean(builder, "soulbuff", " ", true, "Whether Soul Vultures increase soul level no matter what when attacking");
@@ -318,10 +329,14 @@ public class InteractConfig {
         builder.push("Sugar Glider");
         this.sugarrush = buildBoolean(builder, "sugarrush", " ", true, "Whether Sugar Gliders can be fed sugar to speed up");
         builder.pop();
+        builder.push("Sunbird");
+        this.sunbirdupgrade = buildBoolean(builder, "sunbirdupgrade", " ", true, "Whether Sunbirds's effects are upgraded for the better and worse");
+        builder.pop();
         builder.push("Terrapin");
         this.terrapinstomp = buildBoolean(builder, "terrapinstomp", " ", true, "Whether Terrapins take damage when jumped on");
         builder.pop();
         builder.push("Tiger");
+        this.tigersstealth = buildBoolean(builder, "tigersstealthtigersstealth", " ", true, "Whether Tigers Blessing gives players that sneak, invisibility as well");
         this.tigerhuntnight = buildBoolean(builder, "tigerhuntnight", " ", true, "Whether Tigers only hunt at night");
         builder.pop();
         builder.push("Tusklin");
@@ -347,8 +362,10 @@ public class InteractConfig {
         this.bananaslip = buildBoolean(builder, "bananaslip", " ", true, "April Fools Banana Slug and Banana Effects");
         this.murmurdecapitate = buildBoolean(builder, "murmurdecapitate", " ", true, "April Fools Murmur Effects");
         this.crimsonmultiply = buildBoolean(builder, "crimsonmultiply", " ", true, "April Fools Crimson Mosquito Effects");
+        this.rainfrogspawnage = buildBoolean(builder, "rainfrogspawnage", " ", true, "April Fools Rain Frog Effects");
+        this.capuchinbomb = buildBoolean(builder, "capuchinbomb", " ", true, "April Fools Capuchin Monkey Effects");
 
-        this.straddlertroll = buildBoolean(builder, "straddlertroll", " ", true, "April Fools Straddler Effects");
+        this.straddlerexplosivespread = buildBoolean(builder, "straddlerexplosivespread", " ", true, "April Fools Straddler Effects");
 
     }
 
