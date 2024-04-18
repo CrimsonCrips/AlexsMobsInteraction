@@ -2,6 +2,8 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AIIsRolling;
+import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AILavithanInterface;
 import com.github.alexthe666.alexsmobs.block.BlockBananaPeel;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,6 +12,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.FluidState;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -58,6 +62,13 @@ public abstract class AIPlayer extends LivingEntity {
             addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 20, 0));
         }
 
+
+
+
     }
 
+    @Override
+    public boolean canStandOnFluid(FluidState pFluidState) {
+        return super.canStandOnFluid(pFluidState);
+    }
 }

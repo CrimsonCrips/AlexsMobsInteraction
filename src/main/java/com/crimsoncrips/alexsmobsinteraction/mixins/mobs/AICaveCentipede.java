@@ -49,7 +49,7 @@ public class AICaveCentipede extends Mob {
             this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, Player.class, 1, true, false,null));
         }
         if(AInteractionConfig.centipedelightfear) {
-            this.goalSelector.addGoal(3, new AvoidBlockGoal(centipede, 4,1,1.2,(pos) -> {
+            this.goalSelector.addGoal(1, new AvoidBlockGoal(centipede, 4,1,1.2,(pos) -> {
                 BlockState state = level().getBlockState(pos);
                 return state.is(AInteractionTagRegistry.CENTIPEDE_BLOCK_FEAR);
             }));

@@ -55,6 +55,8 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue mantiscannibalize;
     public final ForgeConfigSpec.BooleanValue moscoconsume;
     public final ForgeConfigSpec.BooleanValue murmurbodykill;
+
+    public final ForgeConfigSpec.BooleanValue dimensionallodestone;
     public final ForgeConfigSpec.BooleanValue nodropsforpredators;
     public final ForgeConfigSpec.BooleanValue preyfear;
 
@@ -346,8 +348,9 @@ public class InteractConfig {
         this.tusklinremoveequipment = buildBoolean(builder, "tusklinremoveequipment", " ", true, "Whether Tusklins can have their equipment removed with shears");
 
         builder.pop();
-        builder.push("Tusklin");
+        builder.push("Void Worm");
         this.voidwormstun = buildBoolean(builder, "voidwormstun", " ", true, "Whether Void Worm can be stunned when dealt enough damage");
+        this.dimensionallodestone = buildBoolean(builder, "dimensionallodestone", " ", true, "Whether Dimensional Carver can be used to teleport to a linked lodestone compass");
 
         builder.pop();
         builder.push("Warped Mosco");

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "alexsmobsinteraction.refmap.json",
   "mixins": [
+    "misc.AIDimensionalCarver",
     "misc.AIPlayer",
     "misc.AIPocketSand",
     "misc.AISculkShrieker",

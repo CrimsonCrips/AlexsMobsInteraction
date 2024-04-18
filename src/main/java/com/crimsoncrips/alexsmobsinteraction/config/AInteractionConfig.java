@@ -107,10 +107,12 @@ public class AInteractionConfig {
     public static boolean sunbirdupgrade = true;
     public static boolean leoparddesires = true;
     public static boolean capuchinbomb = true;
+    public static boolean dimensionallodestone = true;
 
 
     public static void bake() {
         try {
+            dimensionallodestone = ConfigHolder.INTERACT.dimensionallodestone.get();
             capuchinbomb = ConfigHolder.INTERACT.capuchinbomb.get();
             leoparddesires = ConfigHolder.INTERACT.leoparddesires.get();
             sunbirdupgrade = ConfigHolder.INTERACT.sunbirdupgrade.get();
