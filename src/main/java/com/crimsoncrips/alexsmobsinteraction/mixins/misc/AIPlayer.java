@@ -31,8 +31,6 @@ public abstract class AIPlayer extends LivingEntity {
 
     int rollingtime = 0;
 
-    int rollingthunderLevel = 1;
-
     protected AIPlayer(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -74,45 +72,43 @@ public abstract class AIPlayer extends LivingEntity {
         double x = this.getLookAngle().x;
 
 
+        if(AInteractionConfig.rollingthunder){
+            if (!(rollingtime <= 0) && this.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0 && this.getItemBySlot(EquipmentSlot.CHEST).is((Item) AMItemRegistry.ROCKY_CHESTPLATE.get())) {
+                this.setGlowingTag(true);
+                if (isRolling()) {
+                    if (!isInLiquid()) {
+                        canRollInFluid = true;
+                    }
 
+                    if (this.getFeetBlockState().is(Blocks.WATER)) {
+                        rollingtime--;
+                        double d1 = this.random.nextGaussian() * 0.02;
+                        this.level().addParticle(ParticleTypes.SPLASH, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1), x * -2 * random.nextInt(2), 0.1 + d1, z * -2 * random.nextInt(2));
+                        this.level().addParticle(ParticleTypes.SPLASH, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1), x * -2 * random.nextInt(2), 0.1 + d1, z * -2 * random.nextInt(2));
+                        for (int i = 0; i < 5; i++) {
+                            this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(2), this.getY() + 0.5, this.getRandomZ(2), 0, 0, 0);
+                        }
+                    }
+                    if (this.getFeetBlockState().is(Blocks.LAVA)) {
+                        rollingtime--;
+                        this.setSecondsOnFire(3);
+                        double d1 = this.random.nextGaussian() * 0.02;
+                        double d2 = this.random.nextGaussian() * 0.02;
+                        double d3 = this.random.nextGaussian() * 0.02;
+                        this.level().addParticle(ParticleTypes.LAVA, this.getX(), this.getY() + 1, this.getZ(), x * -2 + d1, 0.1 + d2, z * -2 + d3);
 
-
-
-        if (AInteractionConfig.rollingthunder && !(rollingtime <= 0) && this.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0 && this.getItemBySlot(EquipmentSlot.CHEST).is((Item) AMItemRegistry.ROCKY_CHESTPLATE.get())){
-            this.setGlowingTag(true);
-            if (isRolling()){
-                if(!isInLiquid()){
-                    canRollInFluid = true;
-                }
-
-                if (this.getFeetBlockState().is(Blocks.WATER)){
-                    rollingtime--;
-                    double d1 = this.random.nextGaussian() * 0.02;
-                    this.level().addParticle(ParticleTypes.SPLASH, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1),x * -2 * random.nextInt(2), 0.1 + d1, z * -2 * random.nextInt(2));
-                    this.level().addParticle(ParticleTypes.SPLASH, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1),x * -2 * random.nextInt(2), 0.1 + d1, z * -2 * random.nextInt(2));
-                    for (int i = 0; i < 5; i ++) {
-                        this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(2), this.getY() + 0.5, this.getRandomZ(2), 0, 0, 0);
                     }
                 }
-                if (this.getFeetBlockState().is(Blocks.LAVA)){
-                    rollingtime--;
-                    this.setSecondsOnFire(3);
-                    double d1 = this.random.nextGaussian() * 0.02;
-                    double d2 = this.random.nextGaussian() * 0.02;
-                    double d3 = this.random.nextGaussian() * 0.02;
-                    this.level().addParticle(ParticleTypes.LAVA, this.getX(), this.getY() + 1, this.getZ(),x * -2 + d1, 0.1 + d2, z * -2 + d3);
-
+                if (rollingtime <= 1 || !isRolling()) {
+                    canRollInFluid = false;
                 }
-            }
-            if (rollingtime <= 1 || !isRolling()) {
-                canRollInFluid = false;
-            }
 
-        } else {
-            this.setGlowingTag(false);
-        }
-        if (!isInLiquid() && this.onGround()){
-            rollingtime = 100 * rollingthunderLevel;
+            } else {
+                this.setGlowingTag(false);
+            }
+            if (!isInLiquid() && this.onGround()) {
+                rollingtime = 100;
+            }
         }
 
 

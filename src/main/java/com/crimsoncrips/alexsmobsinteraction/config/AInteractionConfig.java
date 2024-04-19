@@ -109,12 +109,10 @@ public class AInteractionConfig {
     public static boolean capuchinbomb = true;
     public static boolean dimensionallodestone = true;
     public static boolean rollingthunder = true;
-    public static boolean mossfeed = true;
 
 
     public static void bake() {
         try {
-            mossfeed = ConfigHolder.INTERACT.mossfeed.get();
             rollingthunder = ConfigHolder.INTERACT.rollingthunder.get();
             dimensionallodestone = ConfigHolder.INTERACT.dimensionallodestone.get();
             capuchinbomb = ConfigHolder.INTERACT.capuchinbomb.get();
