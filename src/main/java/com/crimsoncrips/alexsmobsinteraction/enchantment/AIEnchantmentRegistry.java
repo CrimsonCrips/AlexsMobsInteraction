@@ -5,10 +5,13 @@ import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.enchantment.StraddleEnchantment;
 import com.github.alexthe666.alexsmobs.enchantment.StraddleJumpEnchantment;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.item.ItemPigshoes;
 import com.github.alexthe666.alexsmobs.item.ItemShieldOfTheDeep;
 import com.github.alexthe666.alexsmobs.item.ItemStraddleboard;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -23,6 +26,8 @@ public class AIEnchantmentRegistry {
 
     public static final EnchantmentCategory SHIELD;
 
+    public static final EnchantmentCategory ROLLER;
+
     public static final RegistryObject<Enchantment> STABILIZER;
 
     public static final RegistryObject<Enchantment> LIGHTWEIGHT;
@@ -31,15 +36,22 @@ public class AIEnchantmentRegistry {
 
     public static final RegistryObject<Enchantment> TRAMPLE;
 
+    public static final RegistryObject<Enchantment> ROLLING_THUNDER;
+
     public AIEnchantmentRegistry() {
     }
+
+    static ItemStack itemStack;
 
     static {
         DEF_REG = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, "alexsmobsinteraction");
         SHIELD = EnchantmentCategory.create("shield", (item) -> {
             return item instanceof ItemShieldOfTheDeep || item instanceof ShieldItem;
         });
+        ROLLER  = EnchantmentCategory.create("teleport_staff", item -> item == AMItemRegistry.ROCKY_CHESTPLATE.get());
+
         LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new LightweightEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
+        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new RollingThunderEnchantment(Enchantment.Rarity.VERY_RARE, ROLLER,EquipmentSlot.CHEST));
 
         STABILIZER = DEF_REG.register("stabilizer", () -> new StabilizerEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
         TRAMPLE = DEF_REG.register("trample", () -> {

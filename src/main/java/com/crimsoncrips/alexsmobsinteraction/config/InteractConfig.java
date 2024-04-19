@@ -50,6 +50,10 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue gusterweighed;
     public final ForgeConfigSpec.BooleanValue hammerheadhuntmantisshrimp;
     public final ForgeConfigSpec.BooleanValue hummingbirdpolinate;
+
+    public final ForgeConfigSpec.BooleanValue rollingthunder;
+
+    public final ForgeConfigSpec.BooleanValue mossfeed;
     public final ForgeConfigSpec.BooleanValue lobsternight;
     public final ForgeConfigSpec.BooleanValue mantisaggresive;
     public final ForgeConfigSpec.BooleanValue mantiscannibalize;
@@ -220,6 +224,9 @@ public class InteractConfig {
         builder.push("Crow");
         this.crowcannibalize = buildBoolean(builder, "crowcannibalize", " ", true, "Whether Crows cannibalize on other crows in certain conditions");
         builder.pop();
+        builder.push("Devils Hole Pupfish");
+        this.mossfeed = buildBoolean(builder, "mossfeed", " ", true, "Whether Devil Hole Pupfish can be fed with moss to make them breed");
+        builder.pop();
         builder.push("Elephant");
         this.elephantattack = buildBoolean(builder, "elephantattack", " ", true, "Whether Tusked Elephants will attack players if staying with them for too long,(Unless if holding a acasia blossom)");
         this.elephanttrample = buildBoolean(builder, "elephanttrample", " ", true, "Whether Elephants can trample mobs");
@@ -300,6 +307,9 @@ public class InteractConfig {
         builder.pop();
         builder.push("Roadrunner");
         this.roadrunnerday = buildBoolean(builder, "roadrunnerday", " ", true, "Whether Roadrunners only hunt at day");
+        builder.pop();
+        builder.push("Rocky Roller");
+        this.rollingthunder = buildBoolean(builder, "rollingthunder", " ", true, "Whether Rocky Roller Chestplate allows one to temporarily float in water with the 'Rolling Thunder' enchantment");
         builder.pop();
         builder.push("Seagull");
         this.seagullsombrero = buildBoolean(builder, "seagullsombrero", " ", true, "Whether Seagulls cannot snatch food if wearing a sombrero");

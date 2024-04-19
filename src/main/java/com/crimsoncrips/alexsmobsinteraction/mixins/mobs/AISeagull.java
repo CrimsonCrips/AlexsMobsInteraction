@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.goal.AISeagullSteal;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIRevealTreasure;
 import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
@@ -34,7 +35,7 @@ public class AISeagull extends Mob {
         EntitySeagull seagull = (EntitySeagull) (Object) this;
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.targetSelector.addGoal(1, new SeagullAIRevealTreasure(seagull));
-        this.targetSelector.addGoal(2, new SeagullAIStealFromPlayers(seagull){
+        this.targetSelector.addGoal(2, new AISeagullSteal(seagull){
             @Override
             public boolean canUse() {
                 if (AInteractionConfig.seagullnotsnatch) {
