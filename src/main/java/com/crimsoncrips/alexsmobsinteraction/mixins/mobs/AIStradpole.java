@@ -122,45 +122,6 @@ public abstract class AIStradpole extends Mob {
     }
 
 
-
-    @Override
-    @Nonnull
-    protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
-        EntityStradpole stradpole = (EntityStradpole) (Object) this;
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.getItem() == AMItemRegistry.MOSQUITO_LARVA.get()) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            if (random.nextFloat() < 0.45F) {
-                EntityStraddler straddler = AMEntityRegistry.STRADDLER.get().create(level());
-                straddler.copyPosition(this);
-                this.playSound(SoundEvents.BASALT_BREAK, 2F, 1F);
-                if (!this.level().isClientSide && level().addFreshEntity(straddler)) {
-                    this.remove(RemovalReason.DISCARDED);
-
-                }
-            }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        }
-        if (itemstack.getItem() == Items.LAVA_BUCKET && this.isAlive()) {
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            this.playSound(stradpole.getPickupSound(), 1.0F, 1.0F);
-            ItemStack itemstack1 = stradpole.getBucketItemStack();
-            stradpole.saveToBucketTag(itemstack1);
-            ItemStack itemstack2 = ItemUtils.createFilledResult(itemstack, player, itemstack1, false);
-            player.setItemInHand(hand, itemstack2);
-            Level level = this.level();
-            if (!level.isClientSide) {
-                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
-            }
-
-            this.discard();
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
-        return super.mobInteract(player, hand);
-    }
-
     @Inject(method = "onEntityHit", at = @At("HEAD"),cancellable = true,remap = false)
     private void entityhit(EntityHitResult raytraceresult, CallbackInfo ci) {
         ci.cancel();

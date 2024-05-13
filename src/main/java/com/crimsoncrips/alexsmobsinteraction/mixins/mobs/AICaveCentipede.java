@@ -29,37 +29,11 @@ public class AICaveCentipede extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void CentipedeGoals(CallbackInfo ci){
-        EntityCentipedeHead centipede = (EntityCentipedeHead)(Object)this;
-        Predicate<LivingEntity> lightHold = (livingEntity) -> {
-            return livingEntity.isHolding(Ingredient.of(AInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR));
-        };
-        Predicate<LivingEntity> lightNotHold = (livingEntity) -> {
-            return !livingEntity.isHolding(Ingredient.of(AInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR));
-        };
-        if(AInteractionConfig.centipedelightfear) {
-            this.goalSelector.addGoal(1, new AvoidEntityGoal(centipede, LivingEntity.class, 4.0F, 1.5, 2, lightHold));
-        }
-        this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, LivingEntity.class, 55, true, false, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.CAVE_CENTIPEDE_KILL)));
-        if(AInteractionConfig.centipedelightfear) {
-            this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, Player.class, 1, true, false,lightNotHold));
-
-        } else {
-            this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, Player.class, 1, true, false,null));
-        }
-        if(AInteractionConfig.centipedelightfear) {
-            this.goalSelector.addGoal(1, new AvoidBlockGoal(centipede, 4,1,1.2,(pos) -> {
-                BlockState state = level().getBlockState(pos);
-                return state.is(AInteractionTagRegistry.CENTIPEDE_BLOCK_FEAR);
-            }));
-        }
-    }
     @Inject(method = "tick", at = @At("HEAD"))
-    private void AlexInteraction$tick(CallbackInfo ci) {
+    private void tickCaveCentipede(CallbackInfo ci) {
         if (AInteractionConfig.centipedelightfear) {
             LivingEntity livingEntity = getTarget();
-            if (livingEntity != null && livingEntity.isHolding(Ingredient.of(AInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR))) {
+            if (livingEntity != null && livingEntity.isHolding(Ingredient.of(AInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) && this.getLastHurtByMob() != livingEntity) {
                 setTarget(null);
             }
         }

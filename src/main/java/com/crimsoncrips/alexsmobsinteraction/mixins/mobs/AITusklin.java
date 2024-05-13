@@ -109,37 +109,6 @@ public abstract class AITusklin extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
-    private void CentipedeGoals(CallbackInfo ci){
-        ci.cancel();
-        EntityTusklin tusklin = (EntityTusklin)(Object)this;
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new AnimalAIMeleeNearby(this, 15, 1.25));
-        this.goalSelector.addGoal(3, new TameableAIRide(tusklin, 2.0, false) {
-            public boolean shouldMoveForward() {
-                return true;
-            }
-
-            public boolean shouldMoveBackwards() {
-                return false;
-            }
-        });
-        this.goalSelector.addGoal(4, new AnimalAIPanicBaby(tusklin, 1.25));
-        this.goalSelector.addGoal(5, new BreedGoal(tusklin, 1.0));
-        this.goalSelector.addGoal(6, new FollowParentGoal(tusklin, 1.1));
-        this.goalSelector.addGoal(7, new AnimalAIWanderRanged(tusklin, 120, 0.6000000238418579, 14, 7));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 15.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, (new AnimalAIHurtByTargetNotBaby(tusklin, new Class[0])).setAlertOthers(new Class[0]));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, 1, true, false, this::isAngryAt));
-
-        if (AInteractionConfig.fleewarped) {
-            this.goalSelector.addGoal(3, new AvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
-                BlockState state = level().getBlockState(pos);
-                return state.is(BlockTags.HOGLIN_REPELLENTS);
-            }));
-        }
-    }
     public boolean hurt(DamageSource source, float amount) {
         boolean prev = super.hurt(source, amount);
         if (source.getDirectEntity() instanceof Player) {

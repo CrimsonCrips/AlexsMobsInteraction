@@ -92,7 +92,7 @@ public abstract class AIBison extends Mob {
 
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tick(CallbackInfo ci) {
+    private void tickBison(CallbackInfo ci) {
         if (AInteractionConfig.stunnablecharge) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();

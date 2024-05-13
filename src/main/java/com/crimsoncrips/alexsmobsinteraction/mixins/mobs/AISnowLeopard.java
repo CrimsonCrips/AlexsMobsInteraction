@@ -31,18 +31,6 @@ import java.util.function.Predicate;
 @Mixin(EntitySnowLeopard.class)
 public class AISnowLeopard extends Mob {
 
-    @Inject(method = "registerGoals", at = @At("HEAD"))
-    private void SnowLeopardGoals(CallbackInfo ci){
-        if(AInteractionConfig.leoparddesires){
-            this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, EntityMoose.class, 1, true, false, (livingEntity) -> {
-                return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
-            }));
-            this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, Player.class, 1, true, false, (livingEntity) -> {
-                return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth() && livingEntity.getItemBySlot(EquipmentSlot.HEAD).is((Item)AMItemRegistry.MOOSE_HEADGEAR.get());
-            }));
-        }
-    }
-
     protected AISnowLeopard(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }

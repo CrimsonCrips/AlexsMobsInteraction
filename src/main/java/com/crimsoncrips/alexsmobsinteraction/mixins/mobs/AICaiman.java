@@ -33,32 +33,6 @@ public class AICaiman extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void CaimanGoals(CallbackInfo ci){
-        EntityCaiman caiman = (EntityCaiman)(Object)this;
-        Predicate<LivingEntity> caimanHoldEgg = (livingEntity) -> {
-            return livingEntity.isHolding( Ingredient.of(AMBlockRegistry.CAIMAN_EGG.get()));
-        };
-        if(AInteractionConfig.caimanaggresive) {
-            this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, Player.class, 150, true, true, null) {
-                public boolean canUse() {
-                    if (AInteractionConfig.weakened) {
-                        return !caiman.isTame() && !isBaby() && !(getHealth() <= 0.15F * getMaxHealth()) && !caiman.isInLove() && super.canUse();
-                    } else {
-                        return !caiman.isTame() && !isBaby() && !caiman.isInLove() && super.canUse();
-                    }
-                }
-            });
-        }
-        this.targetSelector.addGoal(5, new EntityAINearestTarget3D(this, EntityFly.class, 500, false, true,null));
-        if (AInteractionConfig.caimaneggattack) {
-            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, LivingEntity.class, 0, true, false, caimanHoldEgg) {
-                public boolean canUse() {
-                    return super.canUse() && !this.mob.isBaby();
-                }
-            });
-        }
-    }
     public void awardKillScore(Entity entity, int score, DamageSource src) {
         if(entity instanceof LivingEntity living && AInteractionConfig.nodropsforpredators){
             final CompoundTag emptyNbt = new CompoundTag();

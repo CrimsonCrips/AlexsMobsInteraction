@@ -71,15 +71,6 @@ public abstract class AICachalotWhale extends Mob implements AICachalotInterface
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void CachalotWhaleGoals(CallbackInfo ci){
-        EntityCachalotWhale cachalotWhale = (EntityCachalotWhale)(Object)this;
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 300, true, false, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.CACHALOT_WHALE_KILL_CHANCE)) {
-            public boolean canUse() {
-                return !isSleeping() && !cachalotWhale.isBeached() && super.canUse();
-            }
-        });
-    }
     public void awardKillScore(Entity entity, int score, DamageSource src) {
         if(entity instanceof LivingEntity living && AInteractionConfig.nodropsforpredators){
             final CompoundTag emptyNbt = new CompoundTag();

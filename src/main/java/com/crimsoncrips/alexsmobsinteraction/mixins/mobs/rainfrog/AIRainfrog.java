@@ -107,13 +107,6 @@ public class AIRainfrog extends Mob implements AITransform {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void BlobFishGoals(CallbackInfo ci) {
-        if (AInteractionConfig.preyfear)
-            this.goalSelector.addGoal(3, new AvoidEntityGoal((EntityRainFrog)(Object)this, LivingEntity.class, 10.0F, 1.2, 1.5,AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.RAINFROG_FEAR)));
-
-    }
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityRainFrog frog = (EntityRainFrog)(Object)this;

@@ -39,40 +39,16 @@ public class AIBananaSlug extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void BlobFishGoals(CallbackInfo ci){
-        if(AInteractionConfig.preyfear)
-            this.goalSelector.addGoal(3, new AvoidEntityGoal((EntityBananaSlug)(Object)this, LivingEntity.class, 2.0F, 1.2, 1.5, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.SMALLINSECTFEAR)));
-    }
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        InteractionResult type = super.mobInteract(player, hand);
-        if (stack.getItem() == Items.SHEARS && AInteractionConfig.bananaslugsheared) {
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            this.playSound(SoundEvents.SHEEP_SHEAR, this.getSoundVolume(), this.getVoicePitch());
-            this.spawnAtLocation(AMItemRegistry.BANANA.get());
-            stack.hurtAndBreak(1, this, (p_233654_0_) -> {
-            });
-            this.discard();
-            return InteractionResult.SUCCESS;
-        }
-        return type;
-    }
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tick(CallbackInfo ci){
+    private void tickBananaSlug(CallbackInfo ci){
         if(AInteractionConfig.bananaslip && AInteractionConfig.goofymode){
-            Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5,0.2,0.5)).iterator();
-
-            while (var4.hasNext()) {
-                Entity entity = (Entity) var4.next();
+            for (LivingEntity livingEntity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
+                Entity entity = (Entity) livingEntity;
                 if (entity instanceof Player) {
                     entity.kill();
-
                 }
-
-
             }
         }
-        }
+    }
 
 }

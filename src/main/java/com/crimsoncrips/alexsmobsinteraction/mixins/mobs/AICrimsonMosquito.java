@@ -121,28 +121,6 @@ public abstract class AICrimsonMosquito extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
-    private void CrimsonGoals(CallbackInfo ci){
-        ci.cancel();
-        EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
-        Predicate<LivingEntity> NO_REPELLENT = (mob) -> {
-            return !mob.hasEffect(AMEffectRegistry.MOSQUITO_REPELLENT.get());
-
-        };
-
-            this.goalSelector.addGoal(2, new EntityCrimsonMosquito.FlyTowardsTarget(crimsonMosquito));
-            this.goalSelector.addGoal(2, new EntityCrimsonMosquito.FlyAwayFromTarget(crimsonMosquito));
-            this.goalSelector.addGoal(3, new FlyMosquitoGoal(crimsonMosquito));
-
-            this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-            this.targetSelector.addGoal(1, new HurtByTargetGoal(crimsonMosquito, new Class[]{EntityCrimsonMosquito.class, EntityWarpedMosco.class}));
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Player.class, 20, true, false, NO_REPELLENT));
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, LivingEntity.class, 50, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.CRIMSON_MOSQUITO_TARGETS)));
-            this.goalSelector.addGoal(3, new AvoidEntityGoal(crimsonMosquito, EntityTriops.class, 16.0F, 1.3, 1.0));
-
-    }
-
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;

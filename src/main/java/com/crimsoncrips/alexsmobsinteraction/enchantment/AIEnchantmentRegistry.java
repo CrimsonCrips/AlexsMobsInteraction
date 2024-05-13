@@ -1,16 +1,9 @@
 package com.crimsoncrips.alexsmobsinteraction.enchantment;
 
 
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
-import com.github.alexthe666.alexsmobs.enchantment.StraddleEnchantment;
-import com.github.alexthe666.alexsmobs.enchantment.StraddleJumpEnchantment;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.alexsmobs.item.ItemPigshoes;
 import com.github.alexthe666.alexsmobs.item.ItemShieldOfTheDeep;
-import com.github.alexthe666.alexsmobs.item.ItemStraddleboard;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -50,14 +43,14 @@ public class AIEnchantmentRegistry {
         });
         ROLLER  = EnchantmentCategory.create("teleport_staff", item -> item == AMItemRegistry.ROCKY_CHESTPLATE.get());
 
-        LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new LightweightEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
-        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new RollingThunderEnchantment(Enchantment.Rarity.VERY_RARE, ROLLER,EquipmentSlot.CHEST));
+        LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
+        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, ROLLER,EquipmentSlot.CHEST));
 
-        STABILIZER = DEF_REG.register("stabilizer", () -> new StabilizerEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
+        STABILIZER = DEF_REG.register("stabilizer", () -> new AMIBasicEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
         TRAMPLE = DEF_REG.register("trample", () -> {
-            return new TrampleEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[]{EquipmentSlot.FEET});
+            return new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[]{EquipmentSlot.FEET});
         });
-        FINAL_STAND = DEF_REG.register("final_stand", () -> new FinalStandEnchantment(Enchantment.Rarity.VERY_RARE, SHIELD,EquipmentSlot.OFFHAND));
+        FINAL_STAND = DEF_REG.register("final_stand", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, SHIELD,EquipmentSlot.OFFHAND));
 
     }
 }

@@ -34,11 +34,7 @@ import java.util.function.Predicate;
 
 @Mixin(EntityAlligatorSnappingTurtle.class)
 public abstract class AIAlligatorSnappingTurtle extends Mob {
-
-    static{
-        RAINMOSS = SynchedEntityData.defineId(EntityAlligatorSnappingTurtle.class, EntityDataSerializers.INT);
-    }
-    private static final EntityDataAccessor<Integer> RAINMOSS;
+    private static final EntityDataAccessor<Integer> RAINMOSS = SynchedEntityData.defineId(EntityAlligatorSnappingTurtle.class, EntityDataSerializers.INT);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
@@ -67,7 +63,6 @@ public abstract class AIAlligatorSnappingTurtle extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Shadow public abstract void setTarget(@Nullable LivingEntity entitylivingbaseIn);
 
     @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
     private void SnappingTurtleGoals(CallbackInfo ci){
@@ -125,12 +120,10 @@ public abstract class AIAlligatorSnappingTurtle extends Mob {
             }});
     }
     @Inject(method = "tick", at = @At("HEAD"))
-    private void AlexInteraction$tick(CallbackInfo ci) {
+    private void tickSnappingTurtle(CallbackInfo ci) {
         EntityAlligatorSnappingTurtle snapping = (EntityAlligatorSnappingTurtle)(Object)this;
-        if (AInteractionConfig.weakened) {
-            if((snapping.getHealth() <= 0.10F * getMaxHealth()) && snapping.getTarget() instanceof Player){
+        if (AInteractionConfig.weakened && snapping.getHealth() <= 0.10F * getMaxHealth() && snapping.getTarget() instanceof Player) {
                 setTarget(null);
-            }
         }
         if(AInteractionConfig.snappingturtlemossincrease){
             this.setRainMossTime(this.getRainMossTime() + 1);

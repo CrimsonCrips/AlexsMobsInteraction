@@ -30,15 +30,6 @@ public class AIFarseer extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void FarseerGoals(CallbackInfo ci){
-        if (AInteractionConfig.farseerhumanlikeattack) {
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Raider.class, 3, false, true, null));
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Villager.class, 3, false, true, null));
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, WanderingTrader.class, 3, false, true, null));
-        }
-    }
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         if (AInteractionConfig.farseeralter){

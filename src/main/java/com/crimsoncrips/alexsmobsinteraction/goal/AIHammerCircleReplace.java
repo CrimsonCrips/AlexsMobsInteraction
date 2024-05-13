@@ -93,12 +93,7 @@ public class AIHammerCircleReplace extends Goal {
       if (AInteractionConfig.stunnablecharge) {
           stunned--;
           LivingEntity target = hammerhead.getTarget();
-          if (stunned > 0 && target != null) {
-              hammerhead.setTarget(null);
-          }
-          if (stunned < 1) {
-              hammerhead.setTarget(target);
-          }
+
 
           if (hammerhead.getTarget() instanceof Player) {
               if (hammerhead.distanceTo(hammerhead.getTarget()) < 3F && hammerhead.hasLineOfSight(hammerhead.getTarget()) && hammerhead.getTarget().isBlocking() && !stun && circlingTime >= maxCirclingTime) {

@@ -5,6 +5,7 @@
 
 package com.crimsoncrips.alexsmobsinteraction.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.EntitySeagull;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -43,10 +44,15 @@ public class AISeagullSteal extends Goal {
             if ((this.seagull.getRandom().nextInt(12) == 0 || worldTime == 0L) && this.seagull.stealCooldown <= 0) {
                 if (this.seagull.getMainHandItem().isEmpty()) {
                     Player valid = this.getClosestValidPlayer();
-                    if (valid != null && !valid.getItemBySlot(EquipmentSlot.HEAD).is((Item) AMItemRegistry.SOMBRERO.get())) {
-                        this.target = valid;
-                        return true;
-                    }
+                    if(AInteractionConfig.seagullsombrero){
+                        if (valid != null && !valid.getItemBySlot(EquipmentSlot.HEAD).is((Item) AMItemRegistry.SOMBRERO.get())){{
+                                this.target = valid;
+                                return true;
+                            }}
+                    } else if (valid != null){{
+                            this.target = valid;
+                            return true;
+                        }}
                 }
 
                 return false;

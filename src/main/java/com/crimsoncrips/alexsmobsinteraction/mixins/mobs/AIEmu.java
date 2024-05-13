@@ -28,41 +28,6 @@ public class AIEmu extends Mob {
     }
     EntityEmu emu = (EntityEmu)(Object)this;
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void EmuGoals(CallbackInfo ci){
-        Predicate<LivingEntity> emuHoldEgg = (livingEntity) -> {
-            return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get())) || livingEntity.isHolding( Ingredient.of(AMItemRegistry.BOILED_EMU_EGG.get()));
-        };
-        Predicate<LivingEntity> emuTrifle = (livingEntity) -> {
-            return livingEntity.isHolding(Ingredient.of(AInteractionTagRegistry.EMU_TRIGGER));
-        };
-
-        if (AInteractionConfig.emueggattack) {
-            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, LivingEntity.class, 0, true, false,
-                    emuHoldEgg) {
-                public boolean canUse() {
-                    return super.canUse() && !emu.isBaby();
-                }
-            });
-        }
-        if (AInteractionConfig.emurangedattack){
-            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, LivingEntity.class, 70, true, false,
-                    emuTrifle){
-                public boolean canUse() {
-                    return super.canUse() && !emu.isBaby();
-                }
-            });
-        }
-
-        this.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(this, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.EMU_KILL)));
-        if(AInteractionConfig.emuscuffle){
-            this.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(this, EntityEmu.class, 1000, false, true, null) {
-                public boolean canUse() {
-                    return !isLeashed() && super.canUse() && level().isDay() && !isBaby();
-                }
-            });
-        }
-    }
     public boolean isInvulnerableTo(DamageSource source) {
         return source.getDirectEntity() instanceof EntityEmu;
     }

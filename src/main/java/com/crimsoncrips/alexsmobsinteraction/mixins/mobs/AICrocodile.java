@@ -36,22 +36,6 @@ public class AICrocodile extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void CrocodileGoals(CallbackInfo ci){
-        Predicate<LivingEntity> CROCODILE_BABY_TARGETS = AMEntityRegistry.buildPredicateFromTag(CROCODILE_BABY_KILL);;
-        Predicate<LivingEntity> crocodileHuntBaby = (livingEntity) -> {
-            return CROCODILE_BABY_TARGETS.test(livingEntity) && livingEntity.isBaby();
-        };
-        EntityCrocodile crocodile = (EntityCrocodile)(Object)this;
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 5000, true, false, crocodileHuntBaby){
-            protected AABB getTargetSearchArea(double targetDistance) {
-                return this.mob.getBoundingBox().inflate(25D, 1D, 25D);
-            }
-            public boolean canUse() {
-                return super.canUse() && !crocodile.isTame() && !crocodile.isBaby();
-            }
-        });
-    }
     public void awardKillScore(Entity entity, int score, DamageSource src) {
         if(entity instanceof LivingEntity living && AInteractionConfig.nodropsforpredators){
             final CompoundTag emptyNbt = new CompoundTag();

@@ -105,28 +105,6 @@ public class AIFly extends Mob implements AITransform {
     }
 
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void FlyGoals(CallbackInfo ci){
-        EntityFly fly = (EntityFly)(Object)this;
-        java.util.function.Predicate<LivingEntity> PESTERTARGET = AMEntityRegistry.buildPredicateFromTag(AInteractionTagRegistry.FLY_PESTER);
-        if(AInteractionConfig.flyfearall) {
-            this.goalSelector.addGoal(7, new AvoidEntityGoal<>(fly, LivingEntity.class, 2.0F, 1.1, 1.3, (livingEntity) ->{
-                return !PESTERTARGET.test(livingEntity) && !(livingEntity instanceof EntityFly);
-            }));
-        }
-        if(AInteractionConfig.flyfearcandles){
-            this.goalSelector.addGoal(3, new AvoidBlockGoal(fly, 4, 1, 1.2, (pos) -> {
-                BlockState state = level().getBlockState(pos);
-                return state.is(BlockTags.CANDLES);
-            }));
-        }
-        if(AInteractionConfig.flypester) {
-            this.goalSelector.addGoal(8, new FollowNearestGoal<>(fly, LivingEntity.class, 3, 1.2, (livingEntity) -> {
-                return PESTERTARGET.test(livingEntity) && !noFollow;
-            }));
-        }
-    }
-
     public boolean hurt(DamageSource source, float amount) {
         boolean prev = super.hurt(source, amount);
         if (source.getDirectEntity() instanceof EntityMosquitoSpit && AInteractionConfig.flyconvert) {

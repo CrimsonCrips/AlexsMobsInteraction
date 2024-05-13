@@ -44,17 +44,6 @@ public class AIElephant extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void ElephantGoals(CallbackInfo ci){
-        EntityElephant elephant = (EntityElephant)(Object)this;
-        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, Player.class, 1500, true, true,null){
-            public boolean canUse() {
-                return super.canUse() && elephant.isTusked() && !elephant.isTame() && !(elephant.getHealth() <= 0.30F * elephant.getMaxHealth());
-            }
-        });
-
-    }
-
     private static final EntityDataAccessor<Boolean> CANTRAMPLE = SynchedEntityData.defineId(EntityElephant.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Integer> STUNTICK = SynchedEntityData.defineId(EntityElephant.class, EntityDataSerializers.INT);

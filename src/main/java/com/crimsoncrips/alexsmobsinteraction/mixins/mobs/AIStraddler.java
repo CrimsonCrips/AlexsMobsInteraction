@@ -101,24 +101,6 @@ public class AIStraddler extends Mob {
         }
     }
 
-    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
-    private void StraddlerGoals(CallbackInfo ci){
-        ci.cancel();
-        EntityStraddler straddler = (EntityStraddler)(Object)this;
-        this.goalSelector.addGoal(1, new StraddlerAIShoot(straddler, 0.5, 30, 16.0F));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(straddler, 1.0, 60));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Strider.class, 8.0F));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(straddler, new Class[0]));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, AbstractVillager.class, true));
-        if(AInteractionConfig.stradllervengeance) {
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EntityBoneSerpent.class, true));
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EntityCrimsonMosquito.class, true));
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EntityWarpedMosco.class, true));
-        }
-    }
     public void tick() {
         EntityStraddler straddler = (EntityStraddler)(Object)this;
         if (AInteractionConfig.straddlershots != 0) {

@@ -5,7 +5,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import static com.mojang.text2speech.Narrator.LOGGER;
 
 public class AInteractionConfig {
-    public static boolean anacondaattackbabies = true;
     public static boolean anacondacanibalize = true;
     public static boolean baldeaglecannibalize = true;
     public static boolean bananaslugsheared = true;
@@ -36,7 +35,6 @@ public class AInteractionConfig {
     public static boolean lobsternight = true;
     public static boolean mantisaggresive = true;
     public static boolean mantiscannibalize = true;
-    public static boolean moscoconsume = true;
     public static boolean murmurbodykill = true;
     public static boolean nodropsforpredators = true;
     public static boolean preyfear = true;
@@ -154,7 +152,6 @@ public class AInteractionConfig {
             enderiophageplayer = ConfigHolder.INTERACT.enderiophageplayer.get();
             enderioimmunity = ConfigHolder.INTERACT.enderioimmunity.get();
             fluttersheared = ConfigHolder.INTERACT.fluttersheared.get();
-            anacondaattackbabies = ConfigHolder.INTERACT.anacondaattackbabies.get();
             anacondacanibalize = ConfigHolder.INTERACT.anacondacannibalize.get();
             baldeaglecannibalize = ConfigHolder.INTERACT.baldeaglecannibalize.get();
             bananaslugsheared = ConfigHolder.INTERACT.bananaslugsheared.get();
@@ -185,7 +182,6 @@ public class AInteractionConfig {
             lobsternight = ConfigHolder.INTERACT.lobsternight.get();
             mantisaggresive = ConfigHolder.INTERACT.mantisaggresive.get();
             mantiscannibalize = ConfigHolder.INTERACT.mantiscannibalize.get();
-            moscoconsume = ConfigHolder.INTERACT.moscoconsume.get();
             murmurbodykill = ConfigHolder.INTERACT.murmurbodykill.get();
             nodropsforpredators = ConfigHolder.INTERACT.nodropsforpredators.get();
             preyfear = ConfigHolder.INTERACT.preyfear.get();

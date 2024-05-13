@@ -56,7 +56,6 @@ public class InteractConfig {
     public final ForgeConfigSpec.BooleanValue lobsternight;
     public final ForgeConfigSpec.BooleanValue mantisaggresive;
     public final ForgeConfigSpec.BooleanValue mantiscannibalize;
-    public final ForgeConfigSpec.BooleanValue moscoconsume;
     public final ForgeConfigSpec.BooleanValue murmurbodykill;
 
     public final ForgeConfigSpec.BooleanValue dimensionallodestone;
@@ -364,8 +363,7 @@ public class InteractConfig {
         builder.pop();
         builder.push("Warped Toad");
         this.warpedtarantula = buildBoolean(builder, "warpedtarantula", " ", true, "Whether Warped Toads dont eat Tarantula Hawks when tamed");
-        this.moscoconsume = buildBoolean(builder, "moscoconsume", " ", true, "Whether Warped Toads cant impossibly eat Warped Moscos");
-   builder.pop(2);
+        builder.pop(2);
         builder.push("April Fools");
         this.goofymode = buildBoolean(builder, "goofymode", " ", false, "AMI April Fools Activation");
         this.bananaslip = buildBoolean(builder, "bananaslip", " ", true, "April Fools Banana Slug and Banana Effects");
