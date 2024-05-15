@@ -13,4 +13,5 @@ When slain, the worm drops both an eye and two of it's mandibles. The mandibles 
 The eye can be used with the mandibles and some netherite to create a magical pickaxe: the Dimensional Carver.
 <NEWLINE>
 <NEWLINE>
-Unlike other pickaxes, the Dimensional Carver is not used to break through blocks, but rather through reality itself. By using the tool anywhere, one can tear open a portal back to their spawn. On the other side, a temporary return portal will also be opened, for only a minute. One should make sure not to overuse this tool, since it only has 20 uses.
+Unlike other pickaxes, the Dimensional Carver is not used to break through blocks, but rather through reality itself. By using the tool anywhere, one can tear open a portal back to their spawn. On the other side, a temporary return portal will also be opened, for only a minute.
+Alternatively, when holding a lodestone compass in their offhand, one can create a portal to the linked lodestone.One should make sure not to overuse this tool, since it only has 20 uses.
