@@ -1,20 +1,18 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.config.ConfigHolder;
-import com.crimsoncrips.alexsmobsinteraction.enchantment.AIEnchantmentRegistry;
-import com.crimsoncrips.alexsmobsinteraction.event.InteractionEvents;
-import com.crimsoncrips.alexsmobsinteraction.item.AIItemRegistry;
-import com.github.alexthe666.alexsmobs.CommonProxy;
+import com.crimsoncrips.alexsmobsinteraction.config.AMIConfigHolder;
+import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
+import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
+import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.mojang.logging.LogUtils;
-import misc.AICreativeTab;
+import misc.AMICreativeTab;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -40,17 +38,17 @@ public class AlexsMobsInteraction {
 
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        AIItemRegistry.DEF_REG.register(modEventBus);
-        AICreativeTab.DEF_REG.register(modEventBus);
-        MinecraftForge.EVENT_BUS.register(new InteractionEvents());
-        AIEnchantmentRegistry.DEF_REG.register(modEventBus);
+        AMIItemRegistry.DEF_REG.register(modEventBus);
+        AMICreativeTab.DEF_REG.register(modEventBus);
+        MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());
+        AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::onModConfigEvent);
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
 
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHolder.INTERACT_SPEC, "alexsinteraction.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AMIConfigHolder.INTERACT_SPEC, "alexsinteraction.toml");
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -64,8 +62,8 @@ public class AlexsMobsInteraction {
     public void onModConfigEvent(final ModConfigEvent event) {
         final ModConfig config = event.getConfig();
         // Rebake the configs when they change
-        if (config.getSpec() == ConfigHolder.INTERACT_SPEC) {
-            AInteractionConfig.bake();
+        if (config.getSpec() == AMIConfigHolder.INTERACT_SPEC) {
+            AMInteractionConfig.bake();
         }
     }
 

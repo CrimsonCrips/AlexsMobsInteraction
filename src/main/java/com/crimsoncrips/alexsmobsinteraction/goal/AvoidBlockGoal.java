@@ -59,7 +59,7 @@ public class AvoidBlockGoal extends Goal {
     }
 
     /**
-     * Returns whether an in-progress EntityAIBase should continue executing
+     * Returns whether an in-progress EntityAMIBase should continue executing
      */
     public boolean canContinueToUse() {
         return !this.pathNav.isDone();
