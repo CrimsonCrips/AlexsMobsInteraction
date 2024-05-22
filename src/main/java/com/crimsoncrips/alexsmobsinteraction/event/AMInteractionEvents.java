@@ -12,10 +12,12 @@ import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.entity.ai.HummingbirdAIPollinate;
+import com.github.alexthe666.alexsmobs.entity.ai.MantisShrimpAIBreakBlocks;
 import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -56,12 +58,8 @@ public class AMInteractionEvents {
     public void onEntityFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
         final var entity = event.getEntity();
         //Vanilla Mobs
-        if (AMInteractionConfig.frogeatflies && entity instanceof final Frog frog) {
-            frog.targetSelector.addGoal(4,
-                    new NearestAttackableTargetGoal<>(frog, EntityFly.class, 1, true, false, null));
-        }
 
-        if (AMInteractionConfig.spidereats && entity instanceof final Spider spider) {
+        if (AMInteractionConfig.SPIDER_EAT_ENABLED && entity instanceof final Spider spider) {
             spider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(spider, EntityCockroach.class, 2, true, false, null));
             spider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(spider, Silverfish.class, 2, true, false, null));
             spider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(spider, Bee.class, 2, true, false, null));
@@ -90,13 +88,13 @@ public class AMInteractionEvents {
             }
         }
 
-        if (AMInteractionConfig.baldeaglecannibalize && entity instanceof final EntityBaldEagle baldEagle && !baldEagle.isTame()) {
+        if (AMInteractionConfig.EAGLE_CANNIBALIZE_ENABLED && entity instanceof final EntityBaldEagle baldEagle && !baldEagle.isTame()) {
             baldEagle.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(baldEagle, EntityBaldEagle.class, 1000, true, false, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
             }));
         }
 
-        if(AMInteractionConfig.preyfear) {
+        if(AMInteractionConfig.PREY_FEAR_ENABLED) {
             if (entity instanceof final EntityBananaSlug bananaSlug) {
                 bananaSlug.goalSelector.addGoal(3, new AvoidEntityGoal<>(bananaSlug, LivingEntity.class, 2.0F, 1.2, 1.5, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SMALLINSECTFEAR)));
             }
@@ -129,23 +127,23 @@ public class AMInteractionEvents {
 
         if (entity instanceof final EntityBoneSerpent boneSerpent ){
             boneSerpent.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(boneSerpent, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.BONESERPENT_KILL)));
-            if(AMInteractionConfig.boneserpentfear) {
+            if(AMInteractionConfig.SERPENT_FEAR_ENABLED) {
                 boneSerpent.goalSelector.addGoal(7, new AvoidEntityGoal<>(boneSerpent, EntityLaviathan.class, 10.0F, 1.6, 2));
             }
         }
 
         if (entity instanceof final EntityCaiman caiman){
-            if(AMInteractionConfig.caimanaggresive && !caiman.isTame()) {
+            if(AMInteractionConfig.CAIMAN_AGGRO_ENABLED && !caiman.isTame()) {
                 caiman.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(caiman, Player.class, 150, true, true, null));
             }
-            if (AMInteractionConfig.caimaneggattack && !caiman.isBaby()) {
+            if (AMInteractionConfig.CAIMAN_EGG_ATTACK_ENABLED && !caiman.isBaby()) {
                 caiman.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(caiman, LivingEntity.class, 0, true, false, (livingEntity) -> {
                     return livingEntity.isHolding( Ingredient.of(AMBlockRegistry.CAIMAN_EGG.get()));
                 }));
             }
         }
 
-        if (entity instanceof final EntityCapuchinMonkey capuchinMonkey && AMInteractionConfig.capuchinhunt && capuchinMonkey.isTame()) {
+        if (entity instanceof final EntityCapuchinMonkey capuchinMonkey && AMInteractionConfig.CAPUCHIN_HUNT_ENABLED && capuchinMonkey.isTame()) {
             capuchinMonkey.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(capuchinMonkey, LivingEntity.class, 400, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CAPUCHIN_KILL)));
         }
 
@@ -154,7 +152,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof final EntityCentipedeHead centipede){
-            if (AMInteractionConfig.centipedelightfear) {
+            if (AMInteractionConfig.LIGHT_FEAR_ENABLED) {
                 centipede.goalSelector.addGoal(1, new AvoidEntityGoal<>(centipede, LivingEntity.class, 4.0F, 1.5, 2, (livingEntity) -> {
                     return livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR));
                 }));
@@ -177,7 +175,7 @@ public class AMInteractionEvents {
 
         if (entity instanceof final EntityCrow crow && !crow.isTame() && !crow.isBaby()){
             crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CROW_KILL)));
-            if (AMInteractionConfig.crowcannibalize){
+            if (AMInteractionConfig.CROW_CANNIBALIZE_ENABLED){
                 crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, EntityCrow.class, 500, true, true, (livingEntity) -> {
                     return livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth();
                 }));
@@ -193,23 +191,25 @@ public class AMInteractionEvents {
             });
         }
 
-        if (entity instanceof final EntityElephant elephant && elephant.isTusked() && !elephant.isTame()){
-            elephant.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(elephant, Player.class, 1500, true, true,null));
+        if (entity instanceof final EntityElephant elephant && elephant.isTusked() && !elephant.isTame() && AMInteractionConfig.ELEPHANT_TERRITORIAL_ENABLED){
+            elephant.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(elephant, Player.class, 1500, true, true,(entity1 -> {
+                return entity1.isHolding(Ingredient.of(AMItemRegistry.ACACIA_BLOSSOM.get()));
+            })));
         }
 
         if (entity instanceof final EntityEmu emu && !emu.isBaby()){
-            if (AMInteractionConfig.emueggattack){
+            if (AMInteractionConfig.EMU_EGG_ATTACK_ENABLED){
                 emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 5, true, false, (livingEntity) -> {
                     return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get())) || livingEntity.isHolding( Ingredient.of(AMItemRegistry.BOILED_EMU_EGG.get()));
                 }));
             }
-            if (AMInteractionConfig.emurangedattack){
+            if (AMInteractionConfig.RANGED_AGGRO_ENABLED){
                 emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 70, true, false, (livingEntity) -> {
                     return livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.EMU_TRIGGER));
                 }));
             }
             emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.EMU_KILL)));
-            if(AMInteractionConfig.emuscuffle){
+            if(AMInteractionConfig.EMU_SCUFFLE_ENABLED){
                 emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, EntityEmu.class, 1000, false, true, null) {
                     public boolean canUse() {
                         return !emu.isLeashed() && super.canUse() && emu.level().isDay();
@@ -220,25 +220,25 @@ public class AMInteractionEvents {
 
         if (entity instanceof final EntityFly fly){
             Predicate<LivingEntity> PESTERTARGET = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FLY_PESTER);
-            if(AMInteractionConfig.flyfearall) {
+            if(AMInteractionConfig.FLY_FEAR_ENABLED) {
                 fly.goalSelector.addGoal(7, new AvoidEntityGoal<>(fly, LivingEntity.class, 2.0F, 1.1, 1.3, (livingEntity) ->{
                     return !PESTERTARGET.test(livingEntity) && !(livingEntity instanceof EntityFly);
                 }));
             }
-            if(AMInteractionConfig.flyfearcandles){
+            if(AMInteractionConfig.CANDLE_REPEL_ENABLED){
                 fly.goalSelector.addGoal(3, new AvoidBlockGoal(fly, 4, 1, 1.2, (pos) -> {
                     BlockState state = fly.level().getBlockState(pos);
                     return state.is(BlockTags.CANDLES);
                 }));
             }
-            if(AMInteractionConfig.flypester) {
+            if(AMInteractionConfig.FLY_PESTER_ENABLED) {
                 fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, PESTERTARGET));
             }
         }
 
         if (entity instanceof final EntityEnderiophage enderiophage){
 
-            if(AMInteractionConfig.enderioimmunity){
+            if(AMInteractionConfig.INFECT_IMMUNITY_ENABLED){
                 enderiophage.goalSelector.removeAllGoals(goal -> {
                     return goal instanceof EntityAINearestTarget3D;
                 });
@@ -257,7 +257,7 @@ public class AMInteractionEvents {
                     }
                 });
             }
-            if(AMInteractionConfig.enderiophageplayer && !enderiophage.isMissingEye() && (int) ReflectionUtil.getField(enderiophage, "fleeAfterStealTime") == 0){
+            if(AMInteractionConfig.INFECT_WEAK_ENABLED && !enderiophage.isMissingEye() && (int) ReflectionUtil.getField(enderiophage, "fleeAfterStealTime") == 0){
                 enderiophage.goalSelector.removeAllGoals(goal -> {
                     return goal instanceof EntityAINearestTarget3D;
                 });
@@ -269,7 +269,7 @@ public class AMInteractionEvents {
 
         }
 
-        else if (entity instanceof EntityFarseer farseer && AMInteractionConfig.farseerhumanlikeattack){
+        else if (entity instanceof EntityFarseer farseer && AMInteractionConfig.FARSEER_HUMANLIKE_ATTACK_ENABLED){
             farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, Raider.class, 3, false, true, null));
             farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, Villager.class, 3, false, true, null));
             farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, WanderingTrader.class, 3, false, true, null));
@@ -282,11 +282,11 @@ public class AMInteractionEvents {
             }));
         }
 
-        else if(AMInteractionConfig.geladahunt && entity instanceof EntityGeladaMonkey geladaMonkey){
+        else if(AMInteractionConfig.GELADA_HUNT_ENABLED && entity instanceof EntityGeladaMonkey geladaMonkey){
             geladaMonkey.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(geladaMonkey, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SMALLCRITTER)));
         }
 
-        else if(entity instanceof EntityGiantSquid giantSquid && AMInteractionConfig.giantsquidcannibalize && giantSquid.isInWaterOrBubble() && !giantSquid.isCaptured()) {
+        else if(entity instanceof EntityGiantSquid giantSquid && AMInteractionConfig.SQUID_CANNIBALIZE_ENABLED && giantSquid.isInWaterOrBubble() && !giantSquid.isCaptured()) {
             giantSquid.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(giantSquid, EntityGiantSquid.class, 200, true, false, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.15F * livingEntity.getMaxHealth();
             }));
@@ -297,7 +297,7 @@ public class AMInteractionEvents {
         }
 
         else if(entity instanceof EntityHummingbird hummingbird){
-            if(AMInteractionConfig.hummingbirdpolinate) {
+            if(AMInteractionConfig.POLINATE_DAY_ENABLED) {
             hummingbird.goalSelector.removeAllGoals(goal -> {
                 return goal instanceof HummingbirdAIPollinate;
             });
@@ -308,7 +308,7 @@ public class AMInteractionEvents {
                     }
             });
             }
-            if(AMInteractionConfig.hummingfollowflutter) {
+            if(AMInteractionConfig.HUMMING_FOLLOW_ENABLED) {
                 hummingbird.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(hummingbird, EntityFlutter.class, 10, 1.2, (livingEntity) -> true) {
                     public boolean canContinueToUse() {
                         return hummingbird.level().isDay();
@@ -318,7 +318,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityHammerheadShark hammerheadShark){
-            if (AMInteractionConfig.hammerheadhuntmantisshrimp){
+            if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
                 hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, EntityMantisShrimp.class, 50, true, false, (mob) -> {
                     return mob.getHealth() <= 0.2 * mob.getMaxHealth();
                 }));
@@ -327,21 +327,21 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityMantisShrimp mantisShrimp && !mantisShrimp.isTame()){
-            if(AMInteractionConfig.mantisaggresive  && !mantisShrimp.isBaby()) {
+            if(AMInteractionConfig.MANTIS_AGGRO_ENABLED  && !mantisShrimp.isBaby()) {
                 mantisShrimp.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(mantisShrimp, Player.class, 150, true, true, null));
             }
-            if(AMInteractionConfig.mantiscannibalize) {
+            if(AMInteractionConfig.MANTIS_CANNIBALIZE_ENABLED) {
                 mantisShrimp.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(mantisShrimp, EntityMantisShrimp.class, 200, true, false, (livingEntity) -> {
                     return livingEntity.getHealth() <= 0.15F * livingEntity.getMaxHealth();
                 }));
             }
         }
 
-        if (entity instanceof EntityMudskipper mudskipper && AMInteractionConfig.mudskipperhunt) {
+        if (entity instanceof EntityMudskipper mudskipper && AMInteractionConfig.MUDSKIPPER_HUNT_ENABLED) {
             mudskipper.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(mudskipper, LivingEntity.class, 200, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.MUDSKIPPER_KILL)));
         }
 
-        if(entity instanceof EntityOrca orca && AMInteractionConfig.orcahunt){
+        if(entity instanceof EntityOrca orca && AMInteractionConfig.ORCA_HUNT_ENABLED){
             orca.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(orca, LivingEntity.class, 200, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.ORCA_KILL)));
             orca.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(orca, LivingEntity.class, 600, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.ORCA_CHANCE_KILL)));
         }
@@ -350,7 +350,7 @@ public class AMInteractionEvents {
             potoo.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(potoo, LivingEntity.class, 600, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.POTOO_KILL)));
         }
 
-        if (entity instanceof EntityRaccoon raccoon && AMInteractionConfig.raccoonhunt) {
+        if (entity instanceof EntityRaccoon raccoon && AMInteractionConfig.RACOON_HUNT_ENABLED) {
             raccoon.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(raccoon, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.RACCOON_KILL)) {
                 @Override
                 public boolean canUse() {
@@ -369,7 +369,7 @@ public class AMInteractionEvents {
                     super.start();
                 }
             });
-            if (AMInteractionConfig.rattlesnakecannibalize) {
+            if (AMInteractionConfig.RATTLESNAKE_CANNIBALIZE_ENABLED) {
                 rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, EntityRattlesnake.class, 1500, true, true, (livingEntity) -> {
                     return (livingEntity.getHealth() <= 0.60F * livingEntity.getMaxHealth() || livingEntity.isBaby());
                 }) {
@@ -380,7 +380,7 @@ public class AMInteractionEvents {
             }
         }
 
-        if (entity instanceof EntityRoadrunner roadrunner && AMInteractionConfig.roadrunnerday){
+        if (entity instanceof EntityRoadrunner roadrunner && AMInteractionConfig.ROADRUNNER_DAY_ENABLED){
             roadrunner.goalSelector.removeAllGoals(goal -> {
                 return goal instanceof NearestAttackableTargetGoal;
             });
@@ -391,7 +391,7 @@ public class AMInteractionEvents {
                 });
         }
 
-        if (entity instanceof EntitySeagull seagull && AMInteractionConfig.seagullnotsnatch){
+        if (entity instanceof EntitySeagull seagull && AMInteractionConfig.SEAGULL_WEAKEN_ENABLED){
             seagull.goalSelector.removeAllGoals(goal -> {
                 return goal instanceof SeagullAIStealFromPlayers;
             });
@@ -408,7 +408,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntitySnowLeopard snowLeopard){
-            if(AMInteractionConfig.leoparddesires){
+            if(AMInteractionConfig.LEOPARD_DESIRES_ENABLED){
                 snowLeopard.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(snowLeopard, EntityMoose.class, 100, true, false, (livingEntity) -> {
                     return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
                 }));
@@ -418,7 +418,7 @@ public class AMInteractionEvents {
             }
         }
 
-        if(entity instanceof EntityStraddler straddler && AMInteractionConfig.stradllervengeance) {
+        if(entity instanceof EntityStraddler straddler && AMInteractionConfig.STRADDLER_VENGEANCE_ENABLED) {
             straddler.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(straddler, EntityBoneSerpent.class, true));
             straddler.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(straddler, EntityCrimsonMosquito.class, true));
             straddler.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(straddler, EntityWarpedMosco.class, true));
@@ -428,14 +428,14 @@ public class AMInteractionEvents {
             tasmanianDevil.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(tasmanianDevil, LivingEntity.class, 10, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.TASMANIAN_KILL)));
         }
 
-        if (entity instanceof EntityTusklin tusklin && AMInteractionConfig.fleewarped){
+        if (entity instanceof EntityTusklin tusklin && AMInteractionConfig.TUSKLIN_FLEE_ENABLED){
             tusklin.goalSelector.addGoal(3, new AvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
                 BlockState state = tusklin.level().getBlockState(pos);
                 return state.is(BlockTags.HOGLIN_REPELLENTS);
             }));
         }
 
-        if (entity instanceof EntityWarpedMosco warpedMosco && AMInteractionConfig.warpedcannibalism){
+        if (entity instanceof EntityWarpedMosco warpedMosco && AMInteractionConfig.MOSCO_CANNIBALISM_ENABLED){
             warpedMosco.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(warpedMosco, EntityCrimsonMosquito.class, 1000, true, true, null));
             warpedMosco.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(warpedMosco, EntityWarpedMosco.class, 100, true, true, (livingEntity) -> {
                         return livingEntity.getHealth() <= 0.05F * livingEntity.getMaxHealth();
@@ -443,7 +443,7 @@ public class AMInteractionEvents {
         }
 
 
-        if (entity instanceof EntityWarpedToad warpedToad && AMInteractionConfig.warpedtarantula){
+        if (entity instanceof EntityWarpedToad warpedToad && AMInteractionConfig.WARPED_FRIENDLY_ENABLED){
             warpedToad.goalSelector.removeAllGoals(goal -> {
                 return goal instanceof EntityAINearestTarget3D;
             });
@@ -451,28 +451,38 @@ public class AMInteractionEvents {
 
     }
 
+    @SubscribeEvent
     public void onInteractWithEntity(PlayerInteractEvent.EntityInteract event) {
-        ItemStack itemStack = event.getItemStack().getItem().getDefaultInstance();
         Player player = event.getEntity();
+        ItemStack itemStack = event.getItemStack();
+        RandomSource random = player.getRandom();
         if (event.getTarget() instanceof LivingEntity living) {
             //Banana Slug
-            if (living instanceof EntityBananaSlug bananaSlug && itemStack.getItem() == Items.SHEARS && AMInteractionConfig.bananaslugsheared) {
+            if (living instanceof EntityBananaSlug bananaSlug) {
+                if (itemStack.getItem() == Items.SHEARS)
+                    return;
+                if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
+                    return;
+                if (!player.isCreative()) {
+                    itemStack.hurtAndBreak(1, player, (p_233654_0_) -> {
+                    });
+                }
                 bananaSlug.gameEvent(GameEvent.ENTITY_INTERACT);
                 bananaSlug.playSound(SoundEvents.SHEEP_SHEAR, 1, bananaSlug.getVoicePitch());
                 bananaSlug.spawnAtLocation(AMItemRegistry.BANANA.get());
-                if (!player.isCreative()) itemStack.hurtAndBreak(1, bananaSlug, (p_233654_0_) -> {});
                 bananaSlug.discard();
             }
 
             //Flutter
             if (living instanceof EntityFlutter flutter){
-                if (itemStack.getItem() == Items.WITHER_ROSE && AMInteractionConfig.flutterwither && !flutter.isTame()) {
+                if (itemStack.getItem() == Items.WITHER_ROSE && AMInteractionConfig.FLUTTER_WITHERED_ENABLED && !flutter.isTame()) {
                     if (!player.isCreative()) itemStack.hurtAndBreak(1, flutter, (p_233654_0_) -> {});
                     flutter.addEffect(new MobEffectInstance(MobEffects.WITHER, 900, 0));
                 }
-                if (itemStack.getItem() == Items.SHEARS && AMInteractionConfig.fluttersheared) {
+                if (itemStack.getItem() == Items.SHEARS && AMInteractionConfig.FLUTTER_SHEAR_ENABLED) {
                     flutter.playSound(SoundEvents.SHEEP_SHEAR, 1, flutter.getVoicePitch());
                     flutter.spawnAtLocation(Items.SPORE_BLOSSOM);
+                    flutter.spawnAtLocation(Items.AZALEA);
                     flutter.spawnAtLocation(Items.AZALEA);
                     if (!player.isCreative()) itemStack.hurtAndBreak(6, flutter, (p_233654_0_) -> {});
                     flutter.discard();
@@ -480,11 +490,22 @@ public class AMInteractionEvents {
             }
 
             //Sugar Glider
-            if (living instanceof EntitySugarGlider sugarGlider && AMInteractionConfig.sugarrush && (itemStack.getItem() == Items.SUGAR || itemStack.getItem() == Items.SUGAR_CANE)) {
+            if (living instanceof EntitySugarGlider sugarGlider && AMInteractionConfig.SUGAR_RUSH_ENABLED && (itemStack.getItem() == Items.SUGAR || itemStack.getItem() == Items.SUGAR_CANE)) {
                 if (!player.isCreative()) itemStack.shrink(1);
                 sugarGlider.gameEvent(GameEvent.EAT);
                 sugarGlider.playSound(SoundEvents.FOX_EAT, 1, sugarGlider.getVoicePitch());
                 sugarGlider.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 900, 1));
+            }
+
+            //Grizzly Bear
+            if (living instanceof EntityGrizzlyBear grizzlyBear && AMInteractionConfig.BRUSHED_ENABLED && itemStack.getItem() == Items.BRUSH) {
+                if (!player.isCreative()) {
+                    itemStack.hurtAndBreak(32, player, (p_233654_0_) -> {
+                    });
+                }
+                grizzlyBear.spawnAtLocation(AMItemRegistry.BEAR_FUR.get());
+                if(random.nextDouble() < 0.2) grizzlyBear.spawnAtLocation(AMItemRegistry.BEAR_FUR.get());
+                if(random.nextDouble() < 0.0002)grizzlyBear.spawnAtLocation(AMItemRegistry.BEAR_DUST.get());
             }
 
 

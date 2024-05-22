@@ -134,7 +134,7 @@ public abstract class AMIVoidWorm extends Monster {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        if(AMInteractionConfig.voidwormstun){
+        if(AMInteractionConfig.VOIDWORM_STUN_ENABLED){
             EntityVoidWorm voidWorm = (EntityVoidWorm) (Object) this;
 
             if (getDamageRetain() > 0) setDamageRetain(getDamageRetain() - 1);

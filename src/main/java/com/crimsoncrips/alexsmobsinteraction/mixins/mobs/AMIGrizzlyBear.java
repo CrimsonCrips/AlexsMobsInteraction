@@ -3,13 +3,18 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,15 +25,18 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Objects;
 
@@ -40,6 +48,8 @@ import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.GRI
 public abstract class AMIGrizzlyBear extends Mob {
 
     @Shadow public abstract boolean isHoneyed();
+
+    @Shadow public abstract void setHoneyed(boolean honeyed);
 
     static{
         HUNGER = SynchedEntityData.defineId(EntityGrizzlyBear.class, EntityDataSerializers.INT);
@@ -111,18 +121,16 @@ public abstract class AMIGrizzlyBear extends Mob {
         );
         this.targetSelector.addGoal(3,(Goal)aiHurtByTargetGoal);
         this.targetSelector.addGoal(4, new CreatureAITargetItems(grizzlyBear, false));
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 100, true, false,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)));
+        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 100, true, false,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
+            public boolean canUse(){
+                return !grizzlyBear.isTame();
+            }
+        });
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, 300, true, false,null) {
 
             public boolean canUse() {
-                if (AMInteractionConfig.grizzlyattackfriendly) {
-                    if (AMInteractionConfig.weakened) {
-                        return super.canUse() && !(getHealth() <= 0.20F * getMaxHealth() && !grizzlyBear.isTame()) && !isHoneyed();
-                    } else {
+                if (AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED) {
                         return super.canUse() && !grizzlyBear.isTame() && !isHoneyed();
-                    }
-                } else if (AMInteractionConfig.weakened) {
-                    return super.canUse() && !(getHealth() <= 0.20F * getMaxHealth() && !isHoneyed());
                 } else {
                     return super.canUse() && !isHoneyed();
                 }
@@ -131,13 +139,13 @@ public abstract class AMIGrizzlyBear extends Mob {
 
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 300, true, false, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_KILL)){
             public boolean canUse() {
-                return  super.canUse() && getHunger() >= 5000 || !grizzlyBear.isTame() && level().isDay();
+                return  super.canUse() && getHunger() >= 5000 && !grizzlyBear.isTame() && level().isDay();
             }
         });
         this.targetSelector.addGoal(7, new ResetUniversalAngerTargetGoal<>(grizzlyBear, false));
     }
     public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(entity instanceof LivingEntity living && AMInteractionConfig.nodropsforpredators){
+        if(entity instanceof LivingEntity living && AMInteractionConfig.DROPLESS_PREDATOR_ENABLED){
             final CompoundTag emptyNbt = new CompoundTag();
             living.addAdditionalSaveData(emptyNbt);
             emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
@@ -151,11 +159,11 @@ public abstract class AMIGrizzlyBear extends Mob {
         if (grizzlyBear.isHoneyed()){
             this.setTarget(null);
         }
-        if(AMInteractionConfig.grizzlyfreddy){
+        if(AMInteractionConfig.FREDDYABLE_ENABLED){
             String freddy = "Freddy Fazbear";
             if (this.getName().getString().equals(freddy)) {
                 grizzlyBear.setAprilFoolsFlag(2);
-                if(!AMInteractionConfig.goofymode){
+                if(!AMInteractionConfig.GOOFY_MODE_ENABLED){
                     grizzlyBear.setTame(false);
                     grizzlyBear.setOwnerUUID(null);
                 }

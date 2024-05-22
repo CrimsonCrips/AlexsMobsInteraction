@@ -71,7 +71,7 @@ public abstract class AMICachalotWhale extends Mob implements AMICachalotInterfa
     }
 
     public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(entity instanceof LivingEntity living && AMInteractionConfig.nodropsforpredators){
+        if(entity instanceof LivingEntity living && AMInteractionConfig.DROPLESS_PREDATOR_ENABLED){
             final CompoundTag emptyNbt = new CompoundTag();
             living.addAdditionalSaveData(emptyNbt);
             emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
@@ -87,7 +87,7 @@ public abstract class AMICachalotWhale extends Mob implements AMICachalotInterfa
     }
     @Inject(method = "baseTick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        if (AMInteractionConfig.stunnablecharge) {
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
             if (getStunTicks() > 0 && target != null) {

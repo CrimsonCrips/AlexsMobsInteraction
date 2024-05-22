@@ -42,7 +42,7 @@ public class AMICrimsonSpit extends Entity {
         Entity entity = spit.getOwner();
         Entity hitEntity = p_213868_1_.getEntity();
 
-        if (AMInteractionConfig.crimsonbloodprot && AMInteractionConfig.flyconvert && entity instanceof LivingEntity){/*flyconvert is on and crimsonbloodprot is on */
+        if (AMInteractionConfig.BLOOD_PROTECTION_ENABLED && AMInteractionConfig.FLY_CONVERT_ENABLED && entity instanceof LivingEntity){/*FLY_CONVERT_ENABLED is on and BLOOD_PROTECTION_ENABLED is on */
             if (!(hitEntity instanceof EntityFly) && !(hitEntity instanceof EntityCrimsonMosquito)) {
                 hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 4.0F);
             }
@@ -50,20 +50,20 @@ public class AMICrimsonSpit extends Entity {
                 hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 0.0F);
             }
         } else {
-            if (AMInteractionConfig.flyconvert && entity instanceof LivingEntity) { //flyconvert is on and crimsonbloodprot is off
+            if (AMInteractionConfig.FLY_CONVERT_ENABLED && entity instanceof LivingEntity) { //FLY_CONVERT_ENABLED is on and BLOOD_PROTECTION_ENABLED is off
                 if (!(hitEntity instanceof EntityFly)) {
                     hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 4.0F);
                 }
                 if (hitEntity instanceof EntityFly){
                     hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 0.0F);
                 }
-            } else if (AMInteractionConfig.crimsonbloodprot && entity instanceof LivingEntity) { //flyconvert is off and crimsonbloodprot is on
+            } else if (AMInteractionConfig.BLOOD_PROTECTION_ENABLED && entity instanceof LivingEntity) { //FLY_CONVERT_ENABLED is off and BLOOD_PROTECTION_ENABLED is on
                 if (!(hitEntity instanceof EntityCrimsonMosquito)) {
                     hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity) entity), 4.0F);
                 }
             }
         }
-        if (!AMInteractionConfig.crimsonbloodprot && !AMInteractionConfig.flyconvert && entity instanceof LivingEntity) { //flyconvert is off and crimsonbloodprot is off
+        if (!AMInteractionConfig.BLOOD_PROTECTION_ENABLED && !AMInteractionConfig.FLY_CONVERT_ENABLED && entity instanceof LivingEntity) { //FLY_CONVERT_ENABLED is off and BLOOD_PROTECTION_ENABLED is off
             if (entity instanceof LivingEntity) {
                 hitEntity.hurt(this.damageSources().mobProjectile(this, (LivingEntity)entity), 4.0F);
             }

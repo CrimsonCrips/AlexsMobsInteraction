@@ -21,7 +21,7 @@ public abstract class AMIMurmur extends Mob {
     @Override
     public boolean hurt(DamageSource source, float damage) {
         EntityMurmurHead murmurHead = (EntityMurmurHead)(Object)this;
-        if (AMInteractionConfig.murmurbodykill) {
+        if (AMInteractionConfig.MURMUR_REGROW_ENABLED) {
             boolean prev = super.hurt(source, damage);
             return prev;
         } else {

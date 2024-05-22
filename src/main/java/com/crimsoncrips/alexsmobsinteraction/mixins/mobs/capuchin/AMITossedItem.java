@@ -27,7 +27,7 @@ public abstract class AMITossedItem extends ThrowableItemProjectile {
 
 
     protected Item getDefaultItem() {
-        if (AMInteractionConfig.capuchinbomb && AMInteractionConfig.goofymode) items = Items.TNT;
+        if (AMInteractionConfig.GOOFY_CAPUCHIN_BOMB_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) items = Items.TNT;
         else items = Items.COBBLESTONE;
         return this.isDart() ? (Item)AMItemRegistry.ANCIENT_DART.get() : items;
     }
@@ -47,7 +47,7 @@ public abstract class AMITossedItem extends ThrowableItemProjectile {
             this.remove(RemovalReason.DISCARDED);
         }
 
-        if (!isDart() && AMInteractionConfig.capuchinbomb && AMInteractionConfig.goofymode) {
+        if (!isDart() && AMInteractionConfig.GOOFY_CAPUCHIN_BOMB_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) {
             this.level().explode(this, x + 1,y + 2,z + 1,2, Level.ExplosionInteraction.MOB);
         }
 

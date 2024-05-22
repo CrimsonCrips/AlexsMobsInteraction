@@ -90,7 +90,7 @@ public class AMIHammerCircleReplace extends Goal {
               hammerhead.getNavigation().moveTo(prey, 0.8);
           }
       }
-      if (AMInteractionConfig.stunnablecharge) {
+      if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
           stunned--;
           LivingEntity target = hammerhead.getTarget();
 

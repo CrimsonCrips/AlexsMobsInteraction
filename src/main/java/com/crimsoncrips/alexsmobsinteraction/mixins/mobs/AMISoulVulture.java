@@ -45,7 +45,7 @@ public class AMISoulVulture extends Mob {
                 new Object[]{soulVulture, this}
         );
         this.goalSelector.addGoal(2,(Goal)aiFlyRandom);
-        if(AMInteractionConfig.soulbuff){
+        if(AMInteractionConfig.VULTURE_STEAL_ENABLED){
             this.goalSelector.addGoal(3, new AMIVultureTackleReplace(soulVulture));
         } else {
             Object aiTackleMelee = ReflectionUtil.createInstance(

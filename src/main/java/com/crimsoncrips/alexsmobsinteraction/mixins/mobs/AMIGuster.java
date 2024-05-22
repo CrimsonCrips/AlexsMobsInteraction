@@ -81,7 +81,7 @@ public class AMIGuster extends Mob {
             double extraZ = this.getZ() + radius * Mth.cos(angle);
             double d0 = (extraX - lifted.getX()) * resist;
             double d1 = (extraZ - lifted.getZ()) * resist;
-            if (lifted instanceof Player && AMInteractionConfig.gusterweighed) {
+            if (lifted instanceof Player && AMInteractionConfig.GUSTER_WEIGHT_ENABLED) {
                 int lift = ((Player) lifted).getArmorValue();
                 float multiplier = 0.1f - lift / 3.0f;
                 multiplier = Math.max(multiplier, 0.0f);
@@ -153,7 +153,7 @@ public class AMIGuster extends Mob {
 
     @Override
     public boolean canBeHitByProjectile() {
-        return !AMInteractionConfig.gusterprojectileprot;
+        return !AMInteractionConfig.GUSTER_PROJECTILE_PROT_ENABLED;
     }
 
 }

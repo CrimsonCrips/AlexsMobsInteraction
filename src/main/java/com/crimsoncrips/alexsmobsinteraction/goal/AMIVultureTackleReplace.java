@@ -57,7 +57,7 @@ public class AMIVultureTackleReplace extends Goal {
             if (this.vulture.getBoundingBox().inflate(0.30000001192092896, 0.30000001192092896, 0.30000001192092896).intersects(this.vulture.getTarget().getBoundingBox()) && (int) ReflectionUtil.getField(vulture, "tackleCooldown") == 0) {
                 ReflectionUtil.setField(vulture, "tackleCooldown", 100 + random.nextInt(200));
                 float dmg = (float)this.vulture.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
-                if (AMInteractionConfig.soulbuff) {
+                if (AMInteractionConfig.VULTURE_STEAL_ENABLED) {
                     if (this.vulture.getTarget().hurt(this.vulture.damageSources().mobAttack(this.vulture), dmg) && this.vulture.getSoulLevel() < 5) {
                         this.vulture.setSoulLevel(this.vulture.getSoulLevel() + 1);
                         this.vulture.heal(dmg);

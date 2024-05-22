@@ -41,7 +41,7 @@ public class AMIBananaSlug extends Mob {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickBananaSlug(CallbackInfo ci){
-        if(AMInteractionConfig.bananaslip && AMInteractionConfig.goofymode){
+        if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED){
             for (LivingEntity livingEntity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
                 Entity entity = (Entity) livingEntity;
                 if (entity instanceof Player) {

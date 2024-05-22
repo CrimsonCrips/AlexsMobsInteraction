@@ -123,7 +123,7 @@ public class AMIFrog extends Mob implements AMITransform {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if(AMInteractionConfig.frogtransform){
+        if(AMInteractionConfig.FROG_TRANSFORM_ENABLED){
             if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(getMaggotFed() >= 10)) {
 
                 gameEvent(GameEvent.ENTITY_INTERACT);

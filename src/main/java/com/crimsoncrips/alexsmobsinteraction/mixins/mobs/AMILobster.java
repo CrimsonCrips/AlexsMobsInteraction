@@ -20,7 +20,7 @@ public class AMILobster extends Mob {
     }
 
     public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType spawnReasonIn) {
-        if (AMInteractionConfig.lobsternight) {
+        if (AMInteractionConfig.LOBSTER_NIGHT_ENABLED) {
             return AMEntityRegistry.rollSpawn(AMConfig.lobsterSpawnRolls, this.getRandom(), spawnReasonIn) && level().isNight();
         } else {
             return AMEntityRegistry.rollSpawn(AMConfig.lobsterSpawnRolls, this.getRandom(), spawnReasonIn);

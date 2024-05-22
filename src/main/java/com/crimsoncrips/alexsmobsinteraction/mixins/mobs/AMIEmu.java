@@ -33,7 +33,7 @@ public class AMIEmu extends Mob {
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        if (AMInteractionConfig.emuscuffle) {
+        if (AMInteractionConfig.EMU_SCUFFLE_ENABLED) {
             LivingEntity livingEntity = getTarget();
             if ((random.nextDouble() < 0.02 || emu.isLeashed() || emu.isInLove()) && livingEntity instanceof EntityEmu )
                 setTarget(null);

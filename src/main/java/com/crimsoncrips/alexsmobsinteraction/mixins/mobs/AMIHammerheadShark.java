@@ -98,7 +98,7 @@ public class AMIHammerheadShark extends Mob {
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, EntityMimicOctopus.class, 80, false, true, (Predicate)null));
         this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, AbstractSchoolingFish.class, 70, false, true, (Predicate)null));
 
-        if (AMInteractionConfig.hammerheadhuntmantisshrimp){
+        if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
             this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, EntityMantisShrimp.class, 50, true, false, MANTIS_EAT));
         }
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.HAMMERHEAD_KILL)));
@@ -115,7 +115,7 @@ public class AMIHammerheadShark extends Mob {
     @Override
     public void tick() {
         super.tick();
-        if (AMInteractionConfig.stunnablecharge) {
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
             if (getStunTicks() > 0 && target != null) {

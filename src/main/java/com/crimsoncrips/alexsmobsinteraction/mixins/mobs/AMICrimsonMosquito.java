@@ -119,7 +119,7 @@ public abstract class AMICrimsonMosquito extends Mob {
             this.jumping = false;
             if (onGround()) this.setNoAi(true);
         }
-        if(AMInteractionConfig.bloodedmosquitoes){
+        if(AMInteractionConfig.BLOODED_ENABLED){
             if (!this.isBlooded() && random.nextDouble() < 0.05) {
                 crimsonMosquito.setBloodLevel(this.getBloodLevel() + 1);
                 setBlooded(true);
@@ -141,7 +141,7 @@ public abstract class AMICrimsonMosquito extends Mob {
 
         Entity attach = this.getVehicle();
 
-        if ((AMInteractionConfig.goofymode && AMInteractionConfig.crimsonmultiply &&  attach != null && this.getBloodLevel() > 1)) {
+        if ((AMInteractionConfig.GOOFY_MODE_ENABLED && AMInteractionConfig.GOOFY_CRIMSON_MULTIPLY_ENABLED &&  attach != null && this.getBloodLevel() > 1)) {
             if (!(attach instanceof Player)){
                 EntityCrimsonMosquito crimsonMosquito1 = AMEntityRegistry.CRIMSON_MOSQUITO.get().create(level());
                 crimsonMosquito1.copyPosition(this);
@@ -174,12 +174,12 @@ public abstract class AMICrimsonMosquito extends Mob {
             crimsonMosquito.setSick(true);
             return InteractionResult.SUCCESS;
         }
-        if (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AMInteractionConfig.crimsontransform && !(this.getMungusFed() >= 3) && isPacified()) {
+        if (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && AMInteractionConfig.CRIMSON_TRANSFORM_ENABLED && !(this.getMungusFed() >= 3) && isPacified()) {
             feed(itemstack);
             this.setMungusFed(this.getMungusFed() + 1);
             return InteractionResult.SUCCESS;
         }
-        if (itemstack.getItem() == AMIItemRegistry.SWATTER.get() && AMInteractionConfig.crimsontransform && !isPacified()) {
+        if (itemstack.getItem() == AMIItemRegistry.SWATTER.get() && AMInteractionConfig.CRIMSON_TRANSFORM_ENABLED && !isPacified()) {
             gameEvent(GameEvent.ENTITY_INTERACT);
             itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
@@ -189,7 +189,7 @@ public abstract class AMICrimsonMosquito extends Mob {
             return InteractionResult.SUCCESS;
 
         }
-        if (itemstack.getItem() == Items.WARPED_FUNGUS && AMInteractionConfig.crimsontransform && !(this.getWarpedFed() >= 10) && isPacified()) {
+        if (itemstack.getItem() == Items.WARPED_FUNGUS && AMInteractionConfig.CRIMSON_TRANSFORM_ENABLED && !(this.getWarpedFed() >= 10) && isPacified()) {
             feed(itemstack);
            this.setWarpedFed(this.getWarpedFed() + 1);
             return InteractionResult.SUCCESS;

@@ -147,7 +147,7 @@ public abstract class AMITusklin extends Mob {
         }
         Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.2,-2,0.2)).iterator();
 
-        if(AMInteractionConfig.tusklintrample && this.isVehicle() && isTusklinTrample()){
+        if(AMInteractionConfig.TUSKLIN_TRAMPLE_ENABLED && this.isVehicle() && isTusklinTrample()){
             while (var4.hasNext()) {
                 Entity entity = (Entity) var4.next();
                 if (entity != this && entity != this.getControllingPassenger() && entity.getBbHeight() <= 2.1F && this.isVehicle()) {
@@ -192,7 +192,7 @@ public abstract class AMITusklin extends Mob {
         }
 
         if (!this.level().isClientSide) {
-            if (AMInteractionConfig.tusklinfulltrust) {
+            if (AMInteractionConfig.TUSKLIN_TRUST_ENABLED) {
                 if (this.isVehicle() && !isPermTrusted()) {
                     ++this.ridingTime;
                     if (this.ridingTime >= this.getMaxRidingTime() && tusklin.getAnimation() != ANIMATION_BUCK) {
@@ -267,16 +267,16 @@ public abstract class AMITusklin extends Mob {
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-        if (AMInteractionConfig.tusklinfulltrust && itemstack.getItem() == Items.MUSHROOM_STEW) {
+        if (AMInteractionConfig.TUSKLIN_TRUST_ENABLED && itemstack.getItem() == Items.MUSHROOM_STEW) {
             itemstack.shrink(1);
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
             setPermTrusted(true);
         }
-        if (AMInteractionConfig.tusklinfulltrust && itemstack.getEnchantmentLevel(AMIEnchantmentRegistry.TRAMPLE.get()) > 0) {
+        if (AMInteractionConfig.TUSKLIN_TRUST_ENABLED && itemstack.getEnchantmentLevel(AMIEnchantmentRegistry.TRAMPLE.get()) > 0) {
             setTusklinTrample(true);
         }
-        if (AMInteractionConfig.tusklinremoveequipment && itemstack.getItem() == Items.SHEARS) {
+        if (AMInteractionConfig.REMOVE_TUSKLIN_EQUIPMENT_ENABLED && itemstack.getItem() == Items.SHEARS) {
             setTusklinTrample(false);
             this.playSound(SoundEvents.SHEEP_SHEAR, this.getSoundVolume(), this.getVoicePitch());
             this.dropEquipment();

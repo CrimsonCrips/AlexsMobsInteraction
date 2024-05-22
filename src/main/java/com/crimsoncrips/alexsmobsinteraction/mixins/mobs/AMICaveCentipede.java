@@ -31,7 +31,7 @@ public class AMICaveCentipede extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickCaveCentipede(CallbackInfo ci) {
-        if (AMInteractionConfig.centipedelightfear) {
+        if (AMInteractionConfig.LIGHT_FEAR_ENABLED) {
             LivingEntity livingEntity = getTarget();
             if (livingEntity != null && livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) && this.getLastHurtByMob() != livingEntity) {
                 setTarget(null);

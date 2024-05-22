@@ -89,7 +89,7 @@ public abstract class AMIBison extends Mob {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickBison(CallbackInfo ci) {
-        if (AMInteractionConfig.stunnablecharge) {
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
 

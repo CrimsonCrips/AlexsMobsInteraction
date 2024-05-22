@@ -99,7 +99,7 @@ public class AMIFly extends Mob implements AMITransform {
 
     public boolean hurt(DamageSource source, float amount) {
         boolean prev = super.hurt(source, amount);
-        if (source.getDirectEntity() instanceof EntityMosquitoSpit && AMInteractionConfig.flyconvert) {
+        if (source.getDirectEntity() instanceof EntityMosquitoSpit && AMInteractionConfig.FLY_CONVERT_ENABLED) {
             setBlooded(true);
         }
 
@@ -109,12 +109,12 @@ public class AMIFly extends Mob implements AMITransform {
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-     if (AMInteractionConfig.flyconvert && (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get()) && !isMungused()) {
+     if (AMInteractionConfig.FLY_CONVERT_ENABLED && (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get()) && !isMungused()) {
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
             setMungused(true);
         }
-        if (itemstack.getItem() == AMIItemRegistry.SWATTER.get() && AMInteractionConfig.flyconvert && !isPacified()) {
+        if (itemstack.getItem() == AMIItemRegistry.SWATTER.get() && AMInteractionConfig.FLY_CONVERT_ENABLED && !isPacified()) {
             gameEvent(GameEvent.ENTITY_INTERACT);
             itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
             });
@@ -132,7 +132,7 @@ public class AMIFly extends Mob implements AMITransform {
                 this.setDeltaMovement(0, y2, 0);
            }
         if (isPacified() && isMungused() && isBlooded()) setTransforming(true);
-        if(AMInteractionConfig.flypester){
+        if(AMInteractionConfig.FLY_PESTER_ENABLED){
             if (random.nextDouble() < 0.001 && !noFollow || level().isNight()) noFollow = true;
             if (random.nextDouble() < 0.05 && noFollow && level().isDay()) noFollow = false;
         }

@@ -88,7 +88,7 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
         EntityLaviathan laviathan = (EntityLaviathan)(Object)this;
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        if (itemstack.is(AMInteractionTagRegistry.LAVITHAN_PICKAXES) && laviathan.isObsidian() && !this.isRelava() && AMInteractionConfig.lavaithanobsidianremove){
+        if (itemstack.is(AMInteractionTagRegistry.LAVITHAN_PICKAXES) && laviathan.isObsidian() && !this.isRelava() && AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED){
             this.setRelava(true);
             laviathan.setObsidian(false);
             this.gameEvent(GameEvent.ENTITY_INTERACT);
@@ -183,7 +183,7 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
         }
 
         if (!this.level().isClientSide) {
-            if (!laviathan.isObsidian() && this.isInWaterOrBubble() && (!this.isRelava() || !AMInteractionConfig.lavaithanobsidianremove)) {
+            if (!laviathan.isObsidian() && this.isInWaterOrBubble() && (!this.isRelava() || !AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED)) {
                 if (conversionTime < 300) {
                     conversionTime++;
                 } else {
@@ -192,7 +192,7 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
                 }
 
             }
-            if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && this.isRelava() && AMInteractionConfig.lavaithanobsidianremove) {
+            if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && this.isRelava() && AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED) {
                 if (getRelavaTicks() < 5000) {
                     this.setRelavaTicks(getRelavaTicks() + 1);
                 } else {
@@ -249,7 +249,7 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
                 this.level().addParticle(ParticleTypes.SMOKE, laviathan.headPart.getRandomX(0.6D), laviathan.headPart.getY(0.9), laviathan.headPart.getRandomZ(0.6D), 0.0D, this.random.nextDouble() / 5.0D, 0.0D);
 
             }
-            if (this.level().isClientSide && this.isRelava() && AMInteractionConfig.lavaithanobsidianremove) {
+            if (this.level().isClientSide && this.isRelava() && AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED) {
 
                 if (!this.isBaby() ) {
                     if (random.nextDouble() < 0.1) {

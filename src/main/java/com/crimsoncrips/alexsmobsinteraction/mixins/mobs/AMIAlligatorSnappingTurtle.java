@@ -76,26 +76,26 @@ public abstract class AMIAlligatorSnappingTurtle extends Mob {
         this.goalSelector.addGoal(2, new AnimalAIFindWater((EntityAlligatorSnappingTurtle)(Object)this));
         this.goalSelector.addGoal(2, new AnimalAILeaveWater((EntityAlligatorSnappingTurtle)(Object)this){
             public boolean canUse(){
-                if (AMInteractionConfig.snappingturtledormant) {return super.canUse() && level().isNight();}
+                if (AMInteractionConfig.SNAPPING_DORMANT_ENABLED) {return super.canUse() && level().isNight();}
                 else {return super.canUse();}
             }});
 
         this.goalSelector.addGoal(3, new BottomFeederAIWander((EntityAlligatorSnappingTurtle)(Object)this, 1.0D, 120, 150, 10){
             public boolean canUse(){
-                if (AMInteractionConfig.snappingturtledormant) {return super.canUse() && level().isNight();}
+                if (AMInteractionConfig.SNAPPING_DORMANT_ENABLED) {return super.canUse() && level().isNight();}
                 else {return super.canUse();}
             }});
 
         this.goalSelector.addGoal(3, new BreedGoal((EntityAlligatorSnappingTurtle)(Object)this, 1.0D));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this){
             public boolean canUse() {
-                if (AMInteractionConfig.snappingturtledormant) { return super.canUse() && level().isNight();}
+                if (AMInteractionConfig.SNAPPING_DORMANT_ENABLED) { return super.canUse() && level().isNight();}
                 else { return super.canUse();}
             }});
 
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F){
             public boolean canUse() {
-                if (AMInteractionConfig.snappingturtledormant) { return super.canUse() && level().isNight();}
+                if (AMInteractionConfig.SNAPPING_DORMANT_ENABLED) { return super.canUse() && level().isNight();}
                 else { return super.canUse();}
             }});
 
@@ -112,7 +112,7 @@ public abstract class AMIAlligatorSnappingTurtle extends Mob {
 
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SNAPPING_TURTLE_KILL)){
             public boolean canUse() {
-                if (AMInteractionConfig.snappingturtledormant) {return snapping.chaseTime >= 0 && super.canUse() && level().isNight();}
+                if (AMInteractionConfig.SNAPPING_DORMANT_ENABLED) {return snapping.chaseTime >= 0 && super.canUse() && level().isNight();}
                 else {return snapping.chaseTime >= 0 && super.canUse();}
             }
             protected AABB getTargetSearchArea(double targetDistance) {
@@ -122,10 +122,7 @@ public abstract class AMIAlligatorSnappingTurtle extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickSnappingTurtle(CallbackInfo ci) {
         EntityAlligatorSnappingTurtle snapping = (EntityAlligatorSnappingTurtle)(Object)this;
-        if (AMInteractionConfig.weakened && snapping.getHealth() <= 0.10F * getMaxHealth() && snapping.getTarget() instanceof Player) {
-                setTarget(null);
-        }
-        if(AMInteractionConfig.snappingturtlemossincrease){
+        if(AMInteractionConfig.SNAPPING_MOSS_ENABLED){
             this.setRainMossTime(this.getRainMossTime() + 1);
             if (level().isRaining() && random.nextDouble() < 0.0001) {
                 snapping.setMoss(Math.min(10, snapping.getMoss() + 1));

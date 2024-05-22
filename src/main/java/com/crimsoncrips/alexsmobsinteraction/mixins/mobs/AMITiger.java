@@ -91,7 +91,7 @@ public abstract class AMITiger extends Mob {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        if (AMInteractionConfig.stunnablecharge) {
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
             if (getStunTicks() > 0 && target != null) {

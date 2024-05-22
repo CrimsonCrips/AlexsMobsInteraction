@@ -134,7 +134,7 @@ public class AMIRainfrog extends Mob implements AMITransform {
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         {
-            if (AMInteractionConfig.frogtransform){
+            if (AMInteractionConfig.FROG_TRANSFORM_ENABLED){
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(getMaggotFed() >= 5)) {
 
@@ -198,7 +198,7 @@ public class AMIRainfrog extends Mob implements AMITransform {
     }
 
     public void spawnGusters(){
-        if (AMInteractionConfig.rainfrogspawnage && AMInteractionConfig.goofymode) {
+        if (AMInteractionConfig.RAINFROG_SPAWNAGE_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) {
             for (int i = 0; i < 10; i++) {
                 EntityGuster guster = AMEntityRegistry.GUSTER.get().create(level());
                 guster.copyPosition(this);

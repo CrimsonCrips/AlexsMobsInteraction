@@ -44,7 +44,7 @@ public class AMISculkShrieker extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if (AMInteractionConfig.skreecherward){
+        if (AMInteractionConfig.SKREECHER_WARD_ENABLED){
             ItemStack stack = player.getItemInHand(handIn);
             RandomSource random = player.getRandom();
             if (stack.getItem() == AMItemRegistry.SKREECHER_SOUL.get() && !state.getValue(CAN_SUMMON)) {

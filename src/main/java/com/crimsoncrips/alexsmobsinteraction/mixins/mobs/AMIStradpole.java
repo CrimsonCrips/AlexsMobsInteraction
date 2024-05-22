@@ -92,7 +92,7 @@ public abstract class AMIStradpole extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        if (AMInteractionConfig.stradpolebobup) {
+        if (AMInteractionConfig.STRADPOLE_BOB_UP_ENABLED) {
             setHopUpTick(getHopUpTick() + 1);
             if (getHopUpTick() >= 200 + random.nextInt(600) && this.isInLava()){
                 y2 = 0.05 + y2;
@@ -103,7 +103,7 @@ public abstract class AMIStradpole extends Mob {
                 y2 = 0;
             }
         }
-        if (AMInteractionConfig.straddlerexplosivespread && AMInteractionConfig.goofymode && isDespawnSoon()){
+        if (AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();
             int z = this.getBlockZ();

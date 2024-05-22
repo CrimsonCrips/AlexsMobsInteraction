@@ -97,7 +97,7 @@ public class AMIElephant extends Mob {
 
         Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5,-2,0.5)).iterator();
 
-        if(AMInteractionConfig.elephanttrample && this.isVehicle() && isElephantTrample()){
+        if(AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED && this.isVehicle() && isElephantTrample()){
             while (var4.hasNext()) {
                 Entity entity = (Entity) var4.next();
                 if (entity != this && entity != this.getControllingPassenger() && entity.getBbHeight() <= 2.5F && this.isVehicle()) {
@@ -113,7 +113,7 @@ public class AMIElephant extends Mob {
 
 
 
-        if (AMInteractionConfig.stunnablecharge) {
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
             if (getStunTicks() > 0 && target != null) {

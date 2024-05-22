@@ -27,7 +27,7 @@ public class AMITerrapin extends Mob {
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        if (AMInteractionConfig.terrapinstomp)
+        if (AMInteractionConfig.TERRAPIN_STOMP_ENABLED)
         {
             EntityTerrapin terrapin = (EntityTerrapin)(Object)this;
             if (terrapin.hasRetreated() && !retreatStomp){

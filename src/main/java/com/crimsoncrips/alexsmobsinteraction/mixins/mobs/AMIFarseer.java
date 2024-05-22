@@ -32,7 +32,7 @@ public class AMIFarseer extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        if (AMInteractionConfig.farseeralter){
+        if (AMInteractionConfig.FARSEER_ALTERING_ENABLED){
             if (this.getTarget() instanceof Player player && loop >= 0) {
                 loop--;
                 renderStaticScreenFor = 20;

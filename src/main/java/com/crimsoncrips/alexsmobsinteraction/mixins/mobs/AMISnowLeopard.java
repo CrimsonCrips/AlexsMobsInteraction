@@ -35,7 +35,7 @@ public class AMISnowLeopard extends Mob {
         super(p_21368_, p_21369_);
     }
     public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(AMInteractionConfig.snowluck){
+        if(AMInteractionConfig.SNOW_LUCK_ENABLED){
             if (entity instanceof Goat && random.nextDouble() < 0.5) {
                 entity.spawnAtLocation(Items.GOAT_HORN);
                 if (random.nextDouble() < 0.05) entity.spawnAtLocation(Items.GOAT_HORN);

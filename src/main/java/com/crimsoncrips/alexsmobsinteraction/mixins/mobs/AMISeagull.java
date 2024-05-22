@@ -30,7 +30,7 @@ public class AMISeagull extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        if (AMInteractionConfig.seagullbuff){
+        if (AMInteractionConfig.SEAGULL_BUFFED_ENABLED){
             if (this.getMainHandItem().is(Items.ENCHANTED_GOLDEN_APPLE)) {
                 this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1000, 0));
                 this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 3000, 0));

@@ -59,7 +59,7 @@ public class AMISkelewag extends Mob implements AMISkelewagInterface {
             return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT.get());
         };
         this.goalSelector.addGoal(1, new TryFindWaterGoal(skelewag));
-        if (AMInteractionConfig.skelewagcircle){
+        if (AMInteractionConfig.SKELEWAG_CIRCLE_ENABLED){
             this.goalSelector.addGoal(1, new AMISkelewagCircleGoal(skelewag,1F));
         } else {
             Object aiAttackGoal = ReflectionUtil.createInstance(
@@ -71,7 +71,7 @@ public class AMISkelewag extends Mob implements AMISkelewagInterface {
         }
         this.goalSelector.addGoal(3, new AnimalAIRandomSwimming(skelewag, 1F, 12, 5));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(skelewag, Drowned.class, EntitySkelewag.class));
-        if(AMInteractionConfig.mightupgrade){
+        if(AMInteractionConfig.MIGHT_UPGRADE_ENABLED){
             this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, 100, true, false, MIGHT));
         }
         this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, Dolphin.class, true));
@@ -112,7 +112,7 @@ public class AMISkelewag extends Mob implements AMISkelewagInterface {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        if (AMInteractionConfig.stunnablecharge && AMInteractionConfig.skelewagcircle) {
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED && AMInteractionConfig.SKELEWAG_CIRCLE_ENABLED) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
             if (getStunTicks() > 0 && target != null) {

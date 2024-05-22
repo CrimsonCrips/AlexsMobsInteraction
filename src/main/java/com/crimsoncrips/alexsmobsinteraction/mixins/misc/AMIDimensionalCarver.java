@@ -54,7 +54,7 @@ public abstract class AMIDimensionalCarver extends Item {
         GlobalPos globalLodestone = null;
         if (player instanceof ServerPlayer serverPlayer) {
             ItemStack offhandItem = serverPlayer.getOffhandItem();
-            if (AMInteractionConfig.dimensionallodestone) {
+            if (AMInteractionConfig.DIMENSIONAL_LODESTONE_ENABLED) {
                 if (offhandItem.getItem() == Items.COMPASS) {
                     CompoundTag tag = offhandItem.getTag();
                     if (tag != null) {
@@ -66,7 +66,7 @@ public abstract class AMIDimensionalCarver extends Item {
                 respawnPosition = serverPlayer.getRespawnPosition();
             }
         }
-        if (AMInteractionConfig.dimensionallodestone && globalLodestone != null) {
+        if (AMInteractionConfig.DIMENSIONAL_LODESTONE_ENABLED && globalLodestone != null) {
             BlockPos lodestonePos = globalLodestone.pos();
             portal.exitDimension = globalLodestone.dimension();
             portal.setDestination(lodestonePos.above(2));

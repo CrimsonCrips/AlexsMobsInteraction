@@ -93,7 +93,7 @@ public class AMIStraddler extends Mob {
 
 
     private boolean doSomething4() {
-        if (AMInteractionConfig.straddlershots != 0) {
+        if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
             return !(getShootShots() <= 0);
         }else {
             return true;
@@ -102,12 +102,12 @@ public class AMIStraddler extends Mob {
 
     public void tick() {
         EntityStraddler straddler = (EntityStraddler)(Object)this;
-        if (AMInteractionConfig.straddlershots != 0) {
+        if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
             if (getShootShots() <= 0) {
                 setShootCooldown(getShootCooldown() - 1);
             }
             if (getShootCooldown() <= 0 && getShootShots() <= 0) {
-                setShootShots(AMInteractionConfig.straddlershots);
+                setShootShots(AMInteractionConfig.STRADDLER_SHOTS_AMOUNT);
                 setShootCooldown(100);
             }
         }
@@ -119,8 +119,8 @@ public class AMIStraddler extends Mob {
                 this.playSound(SoundEvents.CROSSBOW_LOADING_MIDDLE, 2F, 1F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             }
         }
-        if (AMInteractionConfig.goofymode && AMInteractionConfig.straddlerexplosivespread){
-            if (AMInteractionConfig.straddlershots != 0) {
+        if (AMInteractionConfig.GOOFY_MODE_ENABLED && AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED){
+            if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
                 if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null && !(getShootShots() <= 0)) {
                     for (int i = 0; i < 15; i++) {
                         int spread = random.nextInt(10);
@@ -166,7 +166,7 @@ public class AMIStraddler extends Mob {
                     }
                 }
             }
-        } else if (AMInteractionConfig.straddlershots != 0) {
+        } else if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
             if (straddler.getAnimation() == ANIMATION_LAUNCH && this.isAlive() && straddler.getAnimationTick() == 20 && this.getTarget() != null && !(getShootShots() <= 0)) {
                     EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
                     pole.setParentId(this.getUUID());

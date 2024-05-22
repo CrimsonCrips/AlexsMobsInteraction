@@ -98,7 +98,7 @@ public class AMICosmaw extends Mob implements AMICosmawInterface {
 
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(cosmaw));
         this.goalSelector.addGoal(3, new FlyingAIFollowOwner(cosmaw, 1.3, 8.0F, 4.0F, false));
-        if (AMInteractionConfig.cosmawweakness) {
+        if (AMInteractionConfig.COSMAW_WEAKENED_ENABLED) {
             this.goalSelector.addGoal(4, new AMICosmawOwner(cosmaw));
         } else {
             Object aiAMIPickupOwner = ReflectionUtil.createInstance(

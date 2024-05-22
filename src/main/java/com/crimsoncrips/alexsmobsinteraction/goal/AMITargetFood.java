@@ -96,8 +96,8 @@ public class AMITargetFood extends Goal {
     }
     private boolean isFood(Entity entity) {
         RandomSource random = catfish.getRandom();
-        if (AMInteractionConfig.catfishcannibalize) {
-            if (AMInteractionConfig.catfisheatstupid) {
+        if (AMInteractionConfig.CATFISH_CANNIBALIZE_ENABLED) {
+            if (AMInteractionConfig.STUPID_CATFISH_EAT_ENABLED) {
                 if (catfish.getCatfishSize() == 2) {
                     return (entity instanceof Mob && entity.getBbHeight() <= 1.0F && !catfish.isBaby()) || (entity instanceof EntityCatfish && entity.getBbHeight() <= 0.7F && random.nextDouble() < 0.002);
                 } else {
@@ -108,7 +108,7 @@ public class AMITargetFood extends Goal {
             } else {
                 return entity instanceof ItemEntity && ((ItemEntity) entity).getAge() > 35;
             }
-        } else if (AMInteractionConfig.catfisheatstupid) {
+        } else if (AMInteractionConfig.STUPID_CATFISH_EAT_ENABLED) {
             if (catfish.getCatfishSize() == 2) {
                 return (entity instanceof Mob && entity.getBbHeight() <= 1.0F) && !catfish.isBaby();
             } else {

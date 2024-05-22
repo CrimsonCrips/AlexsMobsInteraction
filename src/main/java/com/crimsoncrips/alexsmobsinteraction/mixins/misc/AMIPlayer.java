@@ -39,13 +39,13 @@ public abstract class AMIPlayer extends LivingEntity {
     private void AlexInteraction$tick(CallbackInfo ci) {
         Block block = getFeetBlockState().getBlock();
 
-        if(AMInteractionConfig.bananaslip && AMInteractionConfig.goofymode){
+        if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED){
             if (block instanceof BlockBananaPeel){
                 kill();
             }
         }
 
-        if(AMInteractionConfig.sunbirdupgrade){
+        if(AMInteractionConfig.SUNBIRD_UPGRADE_ENABLED){
 
             for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7, 4, 7))) {
                 EntityType<?> entityType = entity.getType();
@@ -64,7 +64,7 @@ public abstract class AMIPlayer extends LivingEntity {
 
 
 
-        if (AMInteractionConfig.tigersstealth && hasEffect(AMEffectRegistry.TIGERS_BLESSING.get()) && isCrouching()){
+        if (AMInteractionConfig.TIGER_STEALTH_ENABLED && hasEffect(AMEffectRegistry.TIGERS_BLESSING.get()) && isCrouching()){
             addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 20, 0));
         }
 
@@ -72,7 +72,7 @@ public abstract class AMIPlayer extends LivingEntity {
         double x = this.getLookAngle().x;
 
 
-        if(AMInteractionConfig.rollingthunder){
+        if(AMInteractionConfig.ROLLING_THUNDER_ENABLED){
             if (!(rollingtime <= 0) && this.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0 && this.getItemBySlot(EquipmentSlot.CHEST).is((Item) AMItemRegistry.ROCKY_CHESTPLATE.get())) {
                 this.setGlowingTag(true);
                 if (isRolling()) {

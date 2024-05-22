@@ -55,7 +55,7 @@ public class AMIPocketSand extends Item {
             ammo = new ItemStack(Items.SAND);
         }
 
-        if (!worldIn.isClientSide && (!ammo.isEmpty() || AMInteractionConfig.sandnoammo)) {
+        if (!worldIn.isClientSide && (!ammo.isEmpty() || AMInteractionConfig.POCKET_SAND_AMMOLESS_ENABLED)) {
             livingEntityIn.gameEvent(GameEvent.ITEM_INTERACT_START);
             worldIn.playSound((Player)null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), SoundEvents.SAND_BREAK, SoundSource.PLAYERS, 0.5F, 0.4F + livingEntityIn.getRandom().nextFloat() * 0.4F + 0.8F);
             boolean left = false;
@@ -71,7 +71,7 @@ public class AMIPocketSand extends Item {
             }
 
             livingEntityIn.getCooldowns().addCooldown(this, 2);
-            if (!AMInteractionConfig.sandnoammo) ammo.shrink(1);
+            if (!AMInteractionConfig.POCKET_SAND_AMMOLESS_ENABLED) ammo.shrink(1);
             itemstack.hurtAndBreak(1, livingEntityIn, (player) -> {
                 player.broadcastBreakEvent(livingEntityIn.getUsedItemHand());
             });
