@@ -18,6 +18,7 @@ import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -54,6 +55,8 @@ import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 import java.util.Random;
 import java.util.function.Predicate;
@@ -63,7 +66,6 @@ import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AMInteractionEvents {
-
 
     @SubscribeEvent
     public void onEntityFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
@@ -579,9 +581,6 @@ public class AMInteractionEvents {
 
         }
     }
-
-
-
 
 
 }

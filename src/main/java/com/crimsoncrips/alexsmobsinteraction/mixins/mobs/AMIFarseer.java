@@ -1,20 +1,22 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
+import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
+import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
 import com.github.alexthe666.alexsmobs.entity.EntityFarseer;
-import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.PacketDistributor;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,7 +27,10 @@ import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderSt
 @Mixin(EntityFarseer.class)
 public class AMIFarseer extends Mob {
 
-    int loop;
+
+    @Unique
+    private int alexsMobsInteraction$loop;
+
 
     protected AMIFarseer(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
@@ -34,8 +39,8 @@ public class AMIFarseer extends Mob {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         if (AMInteractionConfig.FARSEER_ALTERING_ENABLED){
-            if (this.getTarget() instanceof Player player && loop >= 0) {
-                loop--;
+            if (this.getTarget() instanceof Player player && !level().isClientSide() && alexsMobsInteraction$loop >= 0) {
+                alexsMobsInteraction$loop--;
                 renderStaticScreenFor = 20;
                 Inventory inv = player.getInventory();
                 if (!(player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)) {
@@ -49,8 +54,8 @@ public class AMIFarseer extends Mob {
                         inv.setItem(i, to);
                     }
                 }
-                if (loop == 9) {
-                    AMIRendering.renderText = true;
+                if (alexsMobsInteraction$loop == 9) {
+                    AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)player), new FarseerPacket());
                     int something = getRandom().nextInt(6);
                     switch (something) {
                         case 0:
@@ -74,8 +79,8 @@ public class AMIFarseer extends Mob {
                     }
                 }
                 }
-            if (this.getTarget() == null && loop <= 0) {
-                loop = 10;
+            if (this.getTarget() == null && alexsMobsInteraction$loop <= 0) {
+                alexsMobsInteraction$loop = 10;
             }
             }
         }
