@@ -27,8 +27,6 @@ public class AMIFarseer extends Mob {
 
     int loop;
 
-    double alpha = AMIRendering.alpha;
-
     protected AMIFarseer(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }

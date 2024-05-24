@@ -90,7 +90,7 @@ public class AMInteractionConfig {
     public static boolean FREDDYABLE_ENABLED = true;
 
     public static boolean STRADPOLE_FLAME_ENABLED = true;
-    public static boolean GOOFY_MODE_ENABLED = true;
+    public static boolean GOOFY_MODE_ENABLED = false;
     public static boolean GOOFY_BANANA_SLIP_ENABLED = true;
     public static boolean COSMAW_WEAKENED_ENABLED = true;
     public static boolean GOOFY_MURMUR_DECAPITATED_ENABLED = true;

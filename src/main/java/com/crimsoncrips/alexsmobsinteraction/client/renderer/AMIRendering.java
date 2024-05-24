@@ -56,6 +56,10 @@ public class AMIRendering {
 			return;
 		if (!renderText)
 			return;
+
+
+
+
 		System.out.println(alpha);
 
 
