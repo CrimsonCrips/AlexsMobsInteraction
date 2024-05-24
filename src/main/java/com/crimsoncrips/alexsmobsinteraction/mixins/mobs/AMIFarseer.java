@@ -38,10 +38,6 @@ public class AMIFarseer extends Mob {
         if (AMInteractionConfig.FARSEER_ALTERING_ENABLED){
             if (this.getTarget() instanceof Player player && loop >= 0) {
                 loop--;
-                if (alpha <= 0) AMIRendering.alpha = alpha - 0.1;
-                else {
-                    AMIRendering.alpha = 1;
-                }
                 renderStaticScreenFor = 20;
                 Inventory inv = player.getInventory();
                 if (!(player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)) {
@@ -55,8 +51,8 @@ public class AMIFarseer extends Mob {
                         inv.setItem(i, to);
                     }
                 }
-                AMIRendering.renderText = true;
                 if (loop == 9) {
+                    AMIRendering.renderText = true;
                     int something = getRandom().nextInt(6);
                     switch (something) {
                         case 0:
@@ -82,7 +78,6 @@ public class AMIFarseer extends Mob {
                 }
             if (this.getTarget() == null && loop <= 0) {
                 loop = 10;
-                AMIRendering.renderText = false;
             }
             }
         }

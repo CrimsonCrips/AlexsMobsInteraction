@@ -22,6 +22,8 @@ public class AMIRendering {
 
 	public static boolean renderText = false;
 
+	public static double alpha = 1.0;
+
 
 
 	private static final ResourceLocation FARSEER_TEXT = AlexsMobsInteraction.prefix("textures/gui/farseer_text.png");
@@ -54,12 +56,19 @@ public class AMIRendering {
 			return;
 		if (!renderText)
 			return;
+		System.out.println(alpha);
 
 
 		int y = (screenHeight / 2) - 130;
 		int x = (screenWidth / 2) - 200;
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, (float) alpha);
 		graphics.blit(FARSEER_TEXT, x, y, 0, 0, 400, 250);
+
+		if (!(alpha <= 0)) alpha = alpha - 0.01;
+		else {
+			alpha = 1;
+			renderText = false;
+		}
 	}
 
 }
