@@ -1,10 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
+import com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering;
 import com.crimsoncrips.alexsmobsinteraction.config.AMIConfigHolder;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
+import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.mojang.logging.LogUtils;
 import misc.AMICreativeTab;
 import net.minecraft.resources.ResourceLocation;
@@ -43,15 +45,16 @@ public class AlexsMobsInteraction {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         AMIItemRegistry.DEF_REG.register(modEventBus);
         AMICreativeTab.DEF_REG.register(modEventBus);
-        MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());
         AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::onModConfigEvent);
         modEventBus.addListener(this::commonSetup);
+        MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());
         MinecraftForge.EVENT_BUS.register(this);
-
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AMIConfigHolder.INTERACT_SPEC, "alexsinteraction.toml");
+
+        AMIPacketHandler.init();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
