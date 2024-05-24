@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityFarseer;
@@ -26,6 +27,8 @@ public class AMIFarseer extends Mob {
 
     int loop;
 
+    double alpha = AMIRendering.alpha;
+
     protected AMIFarseer(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
@@ -35,6 +38,10 @@ public class AMIFarseer extends Mob {
         if (AMInteractionConfig.FARSEER_ALTERING_ENABLED){
             if (this.getTarget() instanceof Player player && loop >= 0) {
                 loop--;
+                if (alpha <= 0) AMIRendering.alpha = alpha - 0.1;
+                else {
+                    AMIRendering.alpha = 1;
+                }
                 renderStaticScreenFor = 20;
                 Inventory inv = player.getInventory();
                 if (!(player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)) {
@@ -48,6 +55,7 @@ public class AMIFarseer extends Mob {
                         inv.setItem(i, to);
                     }
                 }
+                AMIRendering.renderText = true;
                 if (loop == 9) {
                     int something = getRandom().nextInt(6);
                     switch (something) {
@@ -72,7 +80,10 @@ public class AMIFarseer extends Mob {
                     }
                 }
                 }
-            if (this.getTarget() == null && loop <= 0) loop = 10;
+            if (this.getTarget() == null && loop <= 0) {
+                loop = 10;
+                AMIRendering.renderText = false;
+            }
             }
         }
     }

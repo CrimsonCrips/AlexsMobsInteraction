@@ -5,7 +5,7 @@ import static com.mojang.text2speech.Narrator.LOGGER;
 public class AMInteractionConfig {
     public static boolean MANTIS_SPEED_ENABLED = true;
     public static boolean BRUSHED_ENABLED = true;
-    public static boolean anacondacanibalize = true;
+    public static boolean ANACONDA_CANNIBALIZE_ENABLED = true;
     public static boolean EAGLE_CANNIBALIZE_ENABLED = true;
     public static boolean BANANA_SHEAR_ENABLED = true;
     public static boolean BLOODED_ENABLED = true;
@@ -148,7 +148,7 @@ public class AMInteractionConfig {
             INFECT_WEAK_ENABLED = AMIConfigHolder.INTERACT.INFECT_WEAK_ENABLED.get();
             INFECT_IMMUNITY_ENABLED = AMIConfigHolder.INTERACT.INFECT_IMMUNITY_ENABLED.get();
             FLUTTER_SHEAR_ENABLED = AMIConfigHolder.INTERACT.FLUTTER_SHEAR_ENABLED.get();
-            anacondacanibalize = AMIConfigHolder.INTERACT.ANACONDA_CANNIBALIZE_ENABLED.get();
+            ANACONDA_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.ANACONDA_CANNIBALIZE_ENABLED.get();
             EAGLE_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.EAGLE_CANNIBALIZE_ENABLED.get();
             BANANA_SHEAR_ENABLED = AMIConfigHolder.INTERACT.BANANA_SHEAR_ENABLED.get();
             BLOODED_ENABLED = AMIConfigHolder.INTERACT.BLOODED_ENABLED.get();

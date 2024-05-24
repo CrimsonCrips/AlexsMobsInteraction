@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.goal.AMISeagullSteal;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.goal.AMIFollowNearestGoal;
+import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -15,9 +16,13 @@ import com.github.alexthe666.alexsmobs.entity.ai.HummingbirdAIPollinate;
 import com.github.alexthe666.alexsmobs.entity.ai.MantisShrimpAIBreakBlocks;
 import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -27,6 +32,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Spider;
@@ -38,6 +44,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -46,9 +55,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Random;
 import java.util.function.Predicate;
 
 import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.CROCODILE_BABY_KILL;
+import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AMInteractionEvents {
@@ -63,8 +74,16 @@ public class AMInteractionEvents {
             spider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(spider, EntityCockroach.class, 2, true, false, null));
             spider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(spider, Silverfish.class, 2, true, false, null));
             spider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(spider, Bee.class, 2, true, false, null));
-            spider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(spider, EntityFly.class, 2, true, false, null));
         }
+
+        if (AMInteractionConfig.CAVESPIDER_EAT_ENABLED && entity instanceof final CaveSpider cavespider) {
+            cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, EntityCockroach.class, 2, true, false, null));
+            cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, Silverfish.class, 2, true, false, null));
+            cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, Bee.class, 2, true, false, null));
+            cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, EntityFly.class, 2, true, false, null));
+            cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, EntityFly.class, 2, true, false, null));
+        }
+
 
 
         //AM Mobs
@@ -81,7 +100,7 @@ public class AMInteractionEvents {
                     return anaconda.getBoundingBox().inflate(25D, 1D, 25D);
                 }
             });
-            if (AMInteractionConfig.anacondacanibalize) {
+            if (AMInteractionConfig.ANACONDA_CANNIBALIZE_ENABLED) {
                 anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 2500, true, false, (livingEntity) -> {
                     return (livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth() || livingEntity.isBaby());
                 }));
@@ -513,6 +532,55 @@ public class AMInteractionEvents {
 
 
     }
+    @SubscribeEvent
+    public void onUseItemOnBlock(PlayerInteractEvent.RightClickBlock event) {
+        BlockState blockState = event.getEntity().level().getBlockState(event.getPos());
+        ItemStack itemStack = event.getItemStack();
+        BlockPos pos = event.getPos();
+        Level worldIn = event.getLevel();
+        RandomSource random = event.getEntity().getRandom();
+        LivingEntity livingEntity = event.getEntity();
+
+
+        if (AMInteractionConfig.SKREECHER_WARD_ENABLED ){
+            if (!itemStack.is(AMItemRegistry.SKREECHER_SOUL.get()))
+                return;
+            if (!blockState.is(Blocks.SCULK_SHRIEKER))
+                return;
+            if (blockState.getValue(CAN_SUMMON))
+                return;
+
+
+            for (int x = 0; x < 5; x++){
+                for (int z = 0; z < 5; z++){
+                    BlockPos sculkPos = new BlockPos(pos.getX() + x - 2,pos.getY() - 1,pos.getZ() + z - 2);
+                    BlockState sculkPosState = worldIn.getBlockState(sculkPos);
+                    if (random.nextDouble() < 0.7 && sculkPosState.is(BlockTags.SCULK_REPLACEABLE)) {
+                        worldIn.setBlock(sculkPos, Blocks.SCULK.defaultBlockState(),2);
+                        worldIn.scheduleTick(sculkPos, sculkPosState.getBlock(), 8);
+                        worldIn.playSound((Player)null, sculkPos, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 2.0F, 0.6F + random.nextFloat() * 0.4F);
+                        if (random.nextDouble() < 0.2) worldIn.addParticle(ParticleTypes.SCULK_SOUL, sculkPos.getX() + 0.5, sculkPos.getY() + 1.15, sculkPos.getZ() + 0.5,  0.0, 0.05, 0.0);
+                        if (random.nextDouble() < 0.2) for (int i = 0; i < random.nextInt(5); i++)worldIn.addParticle(ParticleTypes.SCULK_CHARGE_POP, sculkPos.getX() + 0.5, sculkPos.getY() + 1.15, sculkPos.getZ() + 0.5,  0 + random.nextGaussian() * 0.02, 0.01 + random.nextGaussian() * 0.02, 0 + random.nextGaussian() * 0.02);
+                    }
+                }
+            }
+            worldIn.playSound(null,pos,SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 1, 1);
+            worldIn.setBlockAndUpdate(pos, blockState.setValue(CAN_SUMMON, true));
+            if (livingEntity instanceof Player player && !player.isCreative())
+                itemStack.shrink(1);
+            for (int i = 0; i < 100; ++i) {
+                double d0 = random.nextGaussian() * 0.02D;
+                double d1 = random.nextGaussian() * 0.02D;
+                double d2 = random.nextGaussian() * 0.02D;
+                worldIn.addParticle(ParticleTypes.SCULK_SOUL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, d0, d1, d2);
+            }
+
+
+
+        }
+    }
+
+
 
 
 

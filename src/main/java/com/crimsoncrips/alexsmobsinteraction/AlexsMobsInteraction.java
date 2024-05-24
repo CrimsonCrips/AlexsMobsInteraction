@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.mojang.logging.LogUtils;
 import misc.AMICreativeTab;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,6 +23,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+
+import java.util.Locale;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AlexsMobsInteraction.MODID)
@@ -84,5 +87,9 @@ public class AlexsMobsInteraction {
             LOGGER.info("THE CRIMSON SHALL GUIDE YOU.");
             LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
         }
+    }
+
+    public static ResourceLocation prefix(String name) {
+        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
 }
