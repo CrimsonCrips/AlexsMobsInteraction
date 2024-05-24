@@ -27,8 +27,10 @@ import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderSt
 @Mixin(EntityFarseer.class)
 public class AMIFarseer extends Mob {
 
+
     @Unique
     private int alexsMobsInteraction$loop;
+
 
     protected AMIFarseer(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
