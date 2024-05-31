@@ -47,22 +47,16 @@ public class AlexsMobsInteraction {
         AMICreativeTab.DEF_REG.register(modEventBus);
         AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::onModConfigEvent);
-        modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());
         MinecraftForge.EVENT_BUS.register(this);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AMIConfigHolder.INTERACT_SPEC, "alexsinteraction.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AMIConfigHolder.INTERACT_SPEC, "alexsmobsinteraction.toml");
 
         AMIPacketHandler.init();
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        // Some common setup code
-        LOGGER.info("ENEMIES OF THE CRIMSON SHALL BURN.");
-        LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
 
-    }
 
     @SubscribeEvent
     public void onModConfigEvent(final ModConfigEvent event) {
@@ -73,12 +67,6 @@ public class AlexsMobsInteraction {
         }
     }
 
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("SUBMIT YOURSELF.");
-        LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
-    }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

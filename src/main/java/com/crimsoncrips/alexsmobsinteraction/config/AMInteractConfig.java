@@ -146,7 +146,15 @@ public class AMInteractConfig {
 
     public final ForgeConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
 
+    public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
+
     public final ForgeConfigSpec.BooleanValue MANTIS_SPEED_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue MOLTEN_BATH_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO;
 
 
 
@@ -155,6 +163,9 @@ public class AMInteractConfig {
         this.DROPLESS_PREDATOR_ENABLED = buildBoolean(builder, "DROPLESS_PREDATOR_ENABLED", " ", true, "Whether some predators cause to not drop any items for their prey");
         this.PREY_FEAR_ENABLED = buildBoolean(builder, "PREY_FEAR_ENABLED", " ", true, "Whether some Prey fear their predators");
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Whether Charging Mobs can get stunned when holding up a shield");
+        this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Whether you will combust more when stepping on hot blocks");
+        this.MOLTEN_BATH_ENABLED = buildBoolean(builder, "MOLTEN_BATH_ENABLED", " ", true, "Whether you can set a entity on fire with Lava Bottles");
+
         builder.pop();
         builder.push("Items");
         this.POCKET_SAND_AMMOLESS_ENABLED = buildBoolean(builder, "POCKET_SAND_AMMOLESS_ENABLED", " ", true, "Whether Sand requires no sand");
@@ -214,6 +225,8 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Crow");
         this.CROW_CANNIBALIZE_ENABLED = buildBoolean(builder, "CROW_CANNIBALIZE_ENABLED", " ", true, "Whether Crows cannibalize on other crows in certain conditions");
+        this.CROW_WARRIORS_ENABLED = buildBoolean(builder, "CROW_WARRIORS_ENABLED", " ", true, "Whether Crows will not drop weapons when hit");
+
         builder.pop();
         builder.push("Elephant");
         this.ELEPHANT_TERRITORIAL_ENABLED = buildBoolean(builder, "ELEPHANT_TERRITORIAL_ENABLED", " ", true, "Whether Tusked Elephants will attack players if staying with them for too long,(Unless if holding a acasia blossom)");
@@ -265,6 +278,9 @@ public class AMInteractConfig {
         builder.push("Hummingbird");
         this.HUMMING_FOLLOW_ENABLED = buildBoolean(builder, "HUMMING_FOLLOW_ENABLED", " ", true, "Whether Hummingbirds follow Flutters");
         this.POLINATE_DAY_ENABLED = buildBoolean(builder, "POLINATE_DAY_ENABLED", " ", true, "Whether Hummingbirds only pollinate at day");
+        builder.pop();
+        builder.push("Komodo Dragon");
+        this.FRIENDLY_KOMODO = buildBoolean(builder, "FRIENDLY_KOMODO", " ", false, "Whether Komodo Dragon's are much friendlier when tamed");
         builder.pop();
         builder.push("Lavithan");
         this.OBSIDIAN_EXTRACT_ENABLED = buildBoolean(builder, "OBSIDIAN_EXTRACT_ENABLED", " ", true, "Whether Lavithan can be reconverted from Obsidian to Normal");
@@ -319,7 +335,7 @@ public class AMInteractConfig {
         this.VULTURE_STEAL_ENABLED = buildBoolean(builder, "VULTURE_STEAL_ENABLED", " ", true, "Whether Soul Vultures increase soul level no matter what when attacking");
         builder.pop();
         builder.push("Straddler");
-        this.STRADDLER_SHOTS_AMOUNT = buildInt(builder, "STRADDLER_SHOTS_AMOUNT", " ", AMInteractionConfig.STRADDLER_SHOTS_AMOUNT, 0, Integer.MAX_VALUE, "Amount of shots a Straddler has before reloading to fire again (0 Disables this feature)");
+        this.STRADDLER_SHOTS_AMOUNT = buildInt(builder, "STRADDLER_SHOTS_AMOUNT", " ", 8, 0, Integer.MAX_VALUE, "Amount of shots a Straddler has before reloading to fire again (0 Disables this feature)");
         this.STRADDLER_VENGEANCE_ENABLED = buildBoolean(builder, "STRADDLER_VENGEANCE_ENABLED", " ", true, "Whether Straddlers no longer avenger their brethren (Bone Serpents and Crimson Mosquitoes)");
         builder.pop();
         builder.push("Stradpole");

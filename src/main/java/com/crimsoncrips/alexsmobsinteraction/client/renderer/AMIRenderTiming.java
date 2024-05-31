@@ -18,7 +18,7 @@ public class AMIRenderTiming {
             final double deltaTime = (time - LAST_TIME) / 1.0E9D;
             LAST_TIME = time;
 
-            AMIRendering.ALPHA_PROGRESS = Math.min(AMIRendering.ALPHA_PROGRESS + (float)deltaTime * 2.0F, 1.0F);
+            AMIRendering.ALPHA_PROGRESS = Math.min(AMIRendering.ALPHA_PROGRESS + (float)deltaTime * 0.7F, 1.0F);
         }
     }
 }

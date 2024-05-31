@@ -3,6 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.event;
 import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
+import com.crimsoncrips.alexsmobsinteraction.config.AMInteractConfig;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.goal.AMISeagullSteal;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
@@ -16,6 +17,7 @@ import com.github.alexthe666.alexsmobs.entity.ai.HummingbirdAIPollinate;
 import com.github.alexthe666.alexsmobs.entity.ai.MantisShrimpAIBreakBlocks;
 import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
@@ -347,6 +349,25 @@ public class AMInteractionEvents {
             hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.HAMMERHEAD_KILL)));
         }
 
+        if (entity instanceof EntityKomodoDragon komodoDragon){
+            if (!AMInteractionConfig.FRIENDLY_KOMODO)
+                return;
+            if (komodoDragon.isTame())
+                return;
+
+            komodoDragon.goalSelector.removeAllGoals(goal -> {
+                return goal instanceof NearestAttackableTargetGoal || goal instanceof EntityAINearestTarget3D;
+            });
+            komodoDragon.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(komodoDragon, EntityKomodoDragon.class, 50, true, false, (p_213616_0_) -> {
+                return p_213616_0_.isBaby() || p_213616_0_.getHealth() <= 0.7F * p_213616_0_.getMaxHealth();
+            }));
+            komodoDragon.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(komodoDragon, Player.class, 150, true, true, (Predicate)null));
+            komodoDragon.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(komodoDragon, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.KOMODO_DRAGON_TARGETS)));
+
+
+
+        }
+
         if (entity instanceof EntityMantisShrimp mantisShrimp && !mantisShrimp.isTame()){
             if(AMInteractionConfig.MANTIS_AGGRO_ENABLED  && !mantisShrimp.isBaby()) {
                 mantisShrimp.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(mantisShrimp, Player.class, 150, true, true, null));
@@ -478,6 +499,11 @@ public class AMInteractionEvents {
         ItemStack itemStack = event.getItemStack();
         RandomSource random = player.getRandom();
         if (event.getTarget() instanceof LivingEntity living) {
+            if (itemStack.getItem() == AMItemRegistry.LAVA_BOTTLE.get() && AMInteractionConfig.MOLTEN_BATH_ENABLED){
+                if (!player.isCreative()) itemStack.shrink(1);
+                living.setSecondsOnFire(10);
+                player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
+            }
             //Banana Slug
             if (living instanceof EntityBananaSlug bananaSlug) {
                 if (itemStack.getItem() == Items.SHEARS)
@@ -497,7 +523,8 @@ public class AMInteractionEvents {
             //Flutter
             if (living instanceof EntityFlutter flutter){
                 if (itemStack.getItem() == Items.WITHER_ROSE && AMInteractionConfig.FLUTTER_WITHERED_ENABLED && !flutter.isTame()) {
-                    if (!player.isCreative()) itemStack.hurtAndBreak(1, flutter, (p_233654_0_) -> {});
+                    if (!player.isCreative())
+                        itemStack.hurtAndBreak(1, flutter, (p_233654_0_) -> {});
                     flutter.addEffect(new MobEffectInstance(MobEffects.WITHER, 900, 0));
                 }
                 if (itemStack.getItem() == Items.SHEARS && AMInteractionConfig.FLUTTER_SHEAR_ENABLED) {

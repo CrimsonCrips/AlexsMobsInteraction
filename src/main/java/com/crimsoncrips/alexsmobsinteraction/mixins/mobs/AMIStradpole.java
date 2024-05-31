@@ -131,7 +131,9 @@ public abstract class AMIStradpole extends Mob {
             Entity var4 = raytraceresult.getEntity();
             if (var4 instanceof LivingEntity) {
                 LivingEntity target = (LivingEntity)var4;
-                if (random.nextDouble() < 0.2)target.setSecondsOnFire(2);
+                if(AMInteractionConfig.STRADPOLE_FLAME_ENABLED && random.nextDouble() < 0.2){
+                    target.setSecondsOnFire(2);
+                }
                 if (!target.isBlocking()) {
                     target.hurt(this.damageSources().mobProjectile(this, (LivingEntity)entity), 3.0F);
                     target.knockback(0.699999988079071, entity.getX() - this.getX(), entity.getZ() - this.getZ());

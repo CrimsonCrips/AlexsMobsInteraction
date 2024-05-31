@@ -32,7 +32,7 @@ public class AMIRendering {
 	}
 
 	public static void renderFarseerText(GuiGraphics graphics, int screenWidth, int screenHeight) {
-		float currentAlpha = 1.0F - ALPHA_PROGRESS;
+		float currentAlpha = Math.min(-3.0F * ALPHA_PROGRESS + 3.0F, 1.0F);
 		if (currentAlpha <= 0.0F)
 			return;
 

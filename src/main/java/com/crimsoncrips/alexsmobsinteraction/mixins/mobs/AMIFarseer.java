@@ -38,50 +38,61 @@ public class AMIFarseer extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        if (AMInteractionConfig.FARSEER_ALTERING_ENABLED){
-            if (this.getTarget() instanceof Player player && !level().isClientSide() && alexsMobsInteraction$loop >= 0) {
-                alexsMobsInteraction$loop--;
-                renderStaticScreenFor = 20;
-                Inventory inv = player.getInventory();
-                if (!(player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)) {
-                    for (int i = 0; i < 9 - 1; i++) {
-                        ItemStack current = inv.getItem(i);
-                        int j = random.nextInt(i + 1, 9);
 
-                        // swap
-                        ItemStack to = inv.getItem(j);
-                        inv.setItem(j, current);
-                        inv.setItem(i, to);
-                    }
-                }
-                if (alexsMobsInteraction$loop == 9) {
-                    AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)player), new FarseerPacket());
-                    int something = getRandom().nextInt(6);
-                    switch (something) {
-                        case 0:
-                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech0"));
-                            break;
-                        case 1:
-                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech1"));
-                            break;
-                        case 2:
-                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech2"));
-                            break;
-                        case 3:
-                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech3"));
-                            break;
-                        case 4:
-                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech4"));
-                            break;
-                        case 5:
-                            player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech5"));
-                            break;
-                    }
-                }
-                }
-            if (this.getTarget() == null && alexsMobsInteraction$loop <= 0) {
-                alexsMobsInteraction$loop = 10;
+        if (!AMInteractionConfig.FARSEER_ALTERING_ENABLED)
+            return;
+        if (level().isClientSide())
+            return;
+        if (!(alexsMobsInteraction$loop >= 0))
+            return;
+
+        if (this.getTarget() instanceof Player player) {
+            alexsMobsInteraction$loop--;
+            renderStaticScreenFor = 20;
+            Inventory inv = player.getInventory();
+            if (player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)
+                return;
+
+
+            for (int i = 0; i < 9 - 1; i++) {
+                ItemStack current = inv.getItem(i);
+                int j = random.nextInt(i + 1, 9);
+
+                // swap
+                ItemStack to = inv.getItem(j);
+                inv.setItem(j, current);
+                inv.setItem(i, to);
             }
+
+            if (alexsMobsInteraction$loop != 9)
+                return;
+
+            AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)player), new FarseerPacket());
+            int something = getRandom().nextInt(6);
+            switch (something) {
+                case 0:
+                    player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech0"));
+                    break;
+                case 1:
+                    player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech1"));
+                    break;
+                case 2:
+                    player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech2"));
+                    break;
+                case 3:
+                    player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech3"));
+                    break;
+                case 4:
+                    player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech4"));
+                    break;
+                case 5:
+                    player.sendSystemMessage(Component.translatable("alexsmobsinteraction.farseerspeech5"));
+                    break;
             }
+        }
+        if (this.getTarget() == null && alexsMobsInteraction$loop <= 0) {
+            alexsMobsInteraction$loop = 10;
+        }
+
         }
     }
