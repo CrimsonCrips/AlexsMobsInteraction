@@ -121,12 +121,12 @@ public abstract class AMIGrizzlyBear extends Mob {
         );
         this.targetSelector.addGoal(3,(Goal)aiHurtByTargetGoal);
         this.targetSelector.addGoal(4, new CreatureAITargetItems(grizzlyBear, false));
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 100, true, false,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
+        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, LivingEntity.class, 100, true, true,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
             public boolean canUse(){
                 return !grizzlyBear.isTame();
             }
         });
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, 300, true, false,null) {
+        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, 300, true, true,null) {
 
             public boolean canUse() {
                 if (AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED) {

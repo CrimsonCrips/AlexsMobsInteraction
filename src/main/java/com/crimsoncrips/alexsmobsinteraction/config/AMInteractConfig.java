@@ -16,6 +16,8 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue SNAPPING_MOSS_ENABLED;
     public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
 
+    public final ForgeConfigSpec.BooleanValue FARSEER_EFFECTS_ENABLED;
+
     public final ForgeConfigSpec.BooleanValue CHARGE_STUN_ENABLED;
     public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
@@ -244,6 +246,7 @@ public class AMInteractConfig {
         builder.push("Farseer");
         this.FARSEER_ALTERING_ENABLED = buildBoolean(builder, "FARSEER_ALTERING_ENABLED", " ", true, "Whether Farseer will have new effects when attacking the player");
         this.FARSEER_HUMANLIKE_ATTACK_ENABLED = buildBoolean(builder, "FARSEER_HUMANLIKE_ATTACK_ENABLED", " ", true, "Whether Farseer attack human-like entities");
+        this.FARSEER_EFFECTS_ENABLED = buildBoolean(builder, "FARSEER_EFFECTS_ENABLED", " ", true, "Whether Farseer's effects are enabled (this is for sensitive types like photosensitivity)");
         builder.pop();
         builder.push("Flutter");
         this.FLUTTER_WITHERED_ENABLED = buildBoolean(builder, "FLUTTER_WITHERED_ENABLED", " ", true, "Whether Flutter will be withered when fed Wither Rose");

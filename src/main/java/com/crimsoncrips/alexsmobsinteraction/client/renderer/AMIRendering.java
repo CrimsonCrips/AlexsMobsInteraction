@@ -35,11 +35,12 @@ public class AMIRendering {
 		float currentAlpha = Math.min(-3.0F * ALPHA_PROGRESS + 3.0F, 1.0F);
 		if (currentAlpha <= 0.0F)
 			return;
-
-		int y = (screenHeight / 2) - 130;
-		int x = (screenWidth / 2) - 200;
+		int imageWidth = 500;
+		int imageHeight = 191;
+		int x = (screenWidth - imageWidth) / 2;
+		int y = (screenHeight - imageHeight) / 2;
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, currentAlpha);
-		graphics.blit(FARSEER_TEXT, x, y, 0, 0, 400, 250);
+		graphics.blit(FARSEER_TEXT, x, y, 0,0, 0, 500, 191,500,191);
 	}
 
 }
