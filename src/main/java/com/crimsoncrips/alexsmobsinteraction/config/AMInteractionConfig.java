@@ -7,6 +7,8 @@ public class AMInteractionConfig {
 
     public static boolean FRIENDLY_KOMODO;
 
+    public static boolean WITCH_ADDITIONS_ENABLED;
+
     public static boolean FARSEER_EFFECTS_ENABLED;
 
     public static boolean MOLTEN_BATH_ENABLED;
@@ -215,6 +217,8 @@ public class AMInteractionConfig {
             MOLTEN_BATH_ENABLED = AMIConfigHolder.INTERACT.MOLTEN_BATH_ENABLED.get();
             CROW_WARRIORS_ENABLED = AMIConfigHolder.INTERACT.CROW_WARRIORS_ENABLED.get();
             FARSEER_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FARSEER_EFFECTS_ENABLED.get();
+            WITCH_ADDITIONS_ENABLED = AMIConfigHolder.INTERACT.WITCH_ADDITIONS_ENABLED.get();
+
 
 
 

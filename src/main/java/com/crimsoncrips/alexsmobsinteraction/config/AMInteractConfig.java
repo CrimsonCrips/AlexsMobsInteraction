@@ -158,6 +158,8 @@ public class AMInteractConfig {
 
     public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO;
 
+    public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
+
 
 
     public AMInteractConfig(final ForgeConfigSpec.Builder builder) {
@@ -174,6 +176,7 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Mobs");
         builder.push("Vanilla Mob Tweaks");
+        this.WITCH_ADDITIONS_ENABLED = buildBoolean(builder, "WITCH_ADDITIONS_ENABLED", " ", true, "Whether Witches will drink a Poison Resistance when Poisoned");
         this.SPIDER_EAT_ENABLED = buildBoolean(builder, "SPIDER_EAT_ENABLED", " ", true, "Whether Spiders eat silverfish,cockroaches,flies and bees");
         this.CAVESPIDER_EAT_ENABLED = buildBoolean(builder, "CAVESPIDER_EAT_ENABLED", " ", true, "Whether Cave Spiders eat silverfish,cockroaches,flies and bees");
         this.FROG_TRANSFORM_ENABLED = buildBoolean(builder, "FROG_TRANSFORM_ENABLED", " ", true, "Whether frogs can be transformed into Warped Toads");

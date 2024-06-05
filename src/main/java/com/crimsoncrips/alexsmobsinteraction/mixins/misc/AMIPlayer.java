@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
+import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
@@ -55,8 +56,8 @@ public abstract class AMIPlayer extends LivingEntity {
                 this.setSecondsOnFire(20);
 
             if (feetBlockstate.is(Blocks.SOUL_CAMPFIRE)){
-                if (!ModList.get().isLoaded("soulfired")) {
-                    FireManager.setOnFire(this, 30, FireManager.SOUL_FIRE_TYPE);
+                if (ModList.get().isLoaded("soulfired")) {
+                    SoulFiredCompat.setOnFire(this,20);
                 } else this.setSecondsOnFire(20);
             }
 

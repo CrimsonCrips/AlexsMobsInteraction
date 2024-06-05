@@ -145,6 +145,7 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+
 }
 
 dependencies {
@@ -163,6 +164,11 @@ dependencies {
     runtimeOnly fg.deobf("maven.modrinth:enchantment-descriptions:H9lpjTvf")
     runtimeOnly fg.deobf("maven.modrinth:nbt-autocomplete:36dElHpR")
     runtimeOnly fg.deobf("maven.modrinth:jei:PeYsGsQy")
+
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.6"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.6")) {
+        jarJar.ranged(it, "[0.3.6,)")
+    }
 
 
 
