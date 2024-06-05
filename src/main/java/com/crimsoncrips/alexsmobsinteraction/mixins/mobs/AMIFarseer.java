@@ -54,9 +54,6 @@ public class AMIFarseer extends Mob {
             if (player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)
                 return;
 
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 30, 0));
-
-
             for (int i = 0; i < 9 - 1; i++) {
                 ItemStack current = inv.getItem(i);
                 int j = random.nextInt(i + 1, 9);
@@ -65,17 +62,19 @@ public class AMIFarseer extends Mob {
                 ItemStack to = inv.getItem(j);
                 inv.setItem(j, current);
                 inv.setItem(i, to);
+                renderStaticScreenFor = 30;
             }
             if(AMInteractionConfig.FARSEER_EFFECTS_ENABLED){
-                renderStaticScreenFor = 20;
-                if (alexsMobsInteraction$loop == 9) {
+
+                if (alexsMobsInteraction$loop == 49) {
+                    player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 0));
                     AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new FarseerPacket());
                 }
             }
 
         }
         if (this.getTarget() == null && alexsMobsInteraction$loop <= 0) {
-            alexsMobsInteraction$loop = 10;
+            alexsMobsInteraction$loop = 50;
         }
 
         }
