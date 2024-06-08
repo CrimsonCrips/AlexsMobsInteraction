@@ -1,0 +1,12 @@
+{
+  "enchantment.alexsmobsinteraction.stabilizer": "Стабилизатор",
+  "enchantment.alexsmobsinteraction.stabilizer.desc": "Стабилизирует психику игрока при встрече с прозирателем.",
+  "enchantment.alexsmobsinteraction.trample": "Топтыга",
+  "enchantment.alexsmobsinteraction.trample.desc": "Вытаптывает всё, что попадается тасклину, когда на нём ездят.",
+  "enchantment.alexsmobsinteraction.final_stand": "Последний отпор",
+  "enchantment.alexsmobsinteraction.final_stand.desc": "Позволяет пользователю оглушать атакующих мобов ценой значительного снижения прочности щита.",
+  "enchantment.alexsmobsinteraction.lightweight": "Легковес",
+  "enchantment.alexsmobsinteraction.lightweight.desc": "Позволяет прирученным космавам не получать штрафы при переноске тяжёлых игроков.",
+  "enchantment.alexsmobsinteraction.rolling_thunder": "Раскатистый гром",
+  "enchantment.alexsmobsinteraction.rolling_thunder.desc": "Позволяет прокатываться через жидкости с помощью нагрудника из каменистого панциря."
+}
