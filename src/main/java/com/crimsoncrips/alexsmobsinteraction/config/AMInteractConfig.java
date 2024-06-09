@@ -159,6 +159,7 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO;
 
     public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
+    
 
 
 

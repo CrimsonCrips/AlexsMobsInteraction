@@ -66,7 +66,7 @@ modId="alexsmobs"
 mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange="[1.22.8,)"
-ordering="BEFORE"
+ordering="AFTER"
 side="BOTH"
 
 [[dependencies."${mod_id}"]]

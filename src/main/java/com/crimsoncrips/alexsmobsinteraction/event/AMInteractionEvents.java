@@ -506,9 +506,9 @@ public class AMInteractionEvents {
             }
             //Banana Slug
             if (living instanceof EntityBananaSlug bananaSlug) {
-                if (itemStack.getItem() == Items.SHEARS)
+                if (itemStack.getItem() != Items.SHEARS)
                     return;
-                if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
+                if(!AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
                     return;
                 if (!player.isCreative()) {
                     itemStack.hurtAndBreak(1, player, (p_233654_0_) -> {
