@@ -39,9 +39,10 @@ import java.util.EnumSet;
         return skelewag.getTarget() != null;
     }
 
+      RandomSource random = skelewag.getRandom();
+
 
     public void start() {
-        RandomSource random = skelewag.getRandom();
         this.circlingTime = 0.0F;
         this.maxCirclingTime = (float)(20 + random.nextInt(80));
         this.circleDistance = 5.0F + random.nextFloat() * 5.0F;
@@ -49,7 +50,6 @@ import java.util.EnumSet;
     }
 
     public void stop() {
-        RandomSource random = skelewag.getRandom();
         this.circlingTime = 0.0F;
         this.maxCirclingTime = (float)(20 + random.nextInt(80));
         this.circleDistance = 5.0F + random.nextFloat() * 5.0F;

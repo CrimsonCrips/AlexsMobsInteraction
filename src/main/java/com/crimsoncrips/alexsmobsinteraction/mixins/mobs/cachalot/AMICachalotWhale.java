@@ -70,16 +70,6 @@ public abstract class AMICachalotWhale extends Mob implements AMICachalotInterfa
         super(p_21368_, p_21369_);
     }
 
-    public void awardKillScore(Entity entity, int score, DamageSource src) {
-        if(entity instanceof LivingEntity living && AMInteractionConfig.DROPLESS_PREDATOR_ENABLED){
-            final CompoundTag emptyNbt = new CompoundTag();
-            living.addAdditionalSaveData(emptyNbt);
-            emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
-            living.readAdditionalSaveData(emptyNbt);
-        }
-        super.awardKillScore(entity, score, src);
-    }
-
     boolean stun = false;
 
     protected boolean isImmobile() {

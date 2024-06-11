@@ -84,60 +84,10 @@ public class AMICosmaw extends Mob implements AMICosmawInterface {
 
     boolean delayweak = false;
 
-    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
-    private void test(CallbackInfo ci) {
-        ci.cancel();
-        EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        Object aiAMIAttack = ReflectionUtil.createInstance(
-                "com.github.alexthe666.alexsmobs.entity.EntityCosmaw$AMIAttack",
-                new Class[]{EntityCosmaw.class},
-                new Object[]{cosmaw}
-        );
-        this.goalSelector.addGoal(1, (Goal) aiAMIAttack);
-
-        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(cosmaw));
-        this.goalSelector.addGoal(3, new FlyingAIFollowOwner(cosmaw, 1.3, 8.0F, 4.0F, false));
-        if (AMInteractionConfig.COSMAW_WEAKENED_ENABLED) {
-            this.goalSelector.addGoal(4, new AMICosmawOwner(cosmaw));
-        } else {
-            Object aiAMIPickupOwner = ReflectionUtil.createInstance(
-                    "com.github.alexthe666.alexsmobs.entity.EntityCosmaw$AMIPickupOwner",
-                    new Class[]{EntityCosmaw.class},
-                    new Object[]{cosmaw}
-            );
-            this.goalSelector.addGoal(4, (Goal) aiAMIPickupOwner);
-        }
-        this.goalSelector.addGoal(5, new BreedGoal(cosmaw, 1.2));
-        this.goalSelector.addGoal(6, new AnimalAITemptDistance(cosmaw, 1.1, Ingredient.of(new ItemLike[]{Items.CHORUS_FRUIT, (ItemLike) AMItemRegistry.COSMIC_COD.get()}), false, 25.0) {
-            public boolean canUse() {
-                return super.canUse() && cosmaw.getMainHandItem().isEmpty();
-            }
-
-            public boolean canContinueToUse() {
-                return super.canContinueToUse() && cosmaw.getMainHandItem().isEmpty();
-            }
-        });
-        this.goalSelector.addGoal(7, new AMIRandomFly(cosmaw));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new CreatureAITargetItems<>(cosmaw, true));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(cosmaw, new Class[0]) {
-            public boolean canUse() {
-                LivingEntity livingentity = this.mob.getLastHurtByMob();
-                return livingentity != null && cosmaw.isOwnedBy(livingentity) ? false : super.canUse();
-            }
-        });
-        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, EntityCosmicCod.class, 80, true, false, Predicates.alwaysTrue()));
-    }
-
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
         setweakTimer(getweakTimer() - 1);
-
-
-
         if(cosmaw.getOwner() != null){
             armor = cosmaw.getOwner().getArmorValue();
             LivingEntity owner = cosmaw.getOwner();

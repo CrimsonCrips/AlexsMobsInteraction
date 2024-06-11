@@ -29,7 +29,6 @@ public class AMInteractionConfig {
     public static boolean CROW_CANNIBALIZE_ENABLED;
     public static boolean ELEPHANT_TERRITORIAL_ENABLED;
     public static boolean RANGED_AGGRO_ENABLED;
-    public static boolean EMU_SCUFFLE_ENABLED;
     public static boolean FARSEER_ALTERING_ENABLED;
     public static boolean FARSEER_HUMANLIKE_ATTACK_ENABLED;
     public static boolean TUSKLIN_FLEE_ENABLED;
@@ -173,7 +172,6 @@ public class AMInteractionConfig {
             CROW_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CROW_CANNIBALIZE_ENABLED.get();
             ELEPHANT_TERRITORIAL_ENABLED = AMIConfigHolder.INTERACT.ELEPHANT_TERRITORIAL_ENABLED.get();
             RANGED_AGGRO_ENABLED = AMIConfigHolder.INTERACT.RANGED_AGGRO_ENABLED.get();
-            EMU_SCUFFLE_ENABLED = AMIConfigHolder.INTERACT.EMU_SCUFFLE_ENABLED.get();
             FARSEER_ALTERING_ENABLED = AMIConfigHolder.INTERACT.FARSEER_ALTERING_ENABLED.get();
             FARSEER_HUMANLIKE_ATTACK_ENABLED = AMIConfigHolder.INTERACT.FARSEER_HUMANLIKE_ATTACK_ENABLED.get();
             TUSKLIN_FLEE_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_FLEE_ENABLED.get();

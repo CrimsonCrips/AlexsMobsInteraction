@@ -34,7 +34,6 @@ public class AMInteractConfig {
 
     public final ForgeConfigSpec.BooleanValue CRIMSON_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue RANGED_AGGRO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EMU_SCUFFLE_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
@@ -241,7 +240,6 @@ public class AMInteractConfig {
         builder.push("Emu");
         this.RANGED_AGGRO_ENABLED = buildBoolean(builder, "RANGED_AGGRO_ENABLED", " ", true, "Whether Emus attack ANY entity that is holding a ranged weapon");
         this.EMU_EGG_ATTACK_ENABLED = buildBoolean(builder, "EMU_EGG_ATTACK_ENABLED", " ", true, "Whether Emu's attack when their egg is held by an entity");
-        this.EMU_SCUFFLE_ENABLED = buildBoolean(builder, "EMU_SCUFFLE_ENABLED", " ", true, "Whether Emu's rarely scuffle at day");
         builder.pop();
         builder.push("Enderiophage");
         this.INFECT_WEAK_ENABLED = buildBoolean(builder, "INFECT_WEAK_ENABLED", " ", true, "Whether Enderiophages attack players when below 40%");
@@ -378,7 +376,7 @@ public class AMInteractConfig {
         this.MOSCO_CANNIBALISM_ENABLED = buildBoolean(builder, "MOSCO_CANNIBALISM_ENABLED", " ", true, "Whether Warped Moscos eat Crimson Mosquitoes rarely");
         builder.pop();
         builder.push("Warped Toad");
-        this.WARPED_FRIENDLY_ENABLED = buildBoolean(builder, "WARPED_FRIENDLY_ENABLED", " ", true, "Whether Warped Toads dont eat Tarantula Hawks when tamed");
+        this.WARPED_FRIENDLY_ENABLED = buildBoolean(builder, "WARPED_FRIENDLY_ENABLED", " ", true, "Whether Warped Toads dont eat anything when tamed unless tamer attacks");
         builder.pop(2);
         builder.push("April Fools");
         this.GOOFY_MODE_ENABLED = buildBoolean(builder, "GOOFY_MODE_ENABLED", " ", false, "AMI April Fools Activation");

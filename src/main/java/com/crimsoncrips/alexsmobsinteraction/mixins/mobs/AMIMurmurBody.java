@@ -62,18 +62,6 @@ public abstract class AMIMurmurBody extends Mob {
 
     }
 
-    public Entity getHead() {
-        if (!this.level().isClientSide) {
-            UUID id = this.getHeadUUID();
-            return id == null ? null : ((ServerLevel)this.level()).getEntity(id);
-        } else {
-            int id = (Integer)this.entityData.get(HEAD_ID);
-            return id == -1 ? null : this.level().getEntity(id);
-        }
-    }
-    public UUID getHeadUUID() {
-        return (UUID)((Optional)this.entityData.get(HEAD_UUID)).orElse((Object)null);
-    }
 
 
 

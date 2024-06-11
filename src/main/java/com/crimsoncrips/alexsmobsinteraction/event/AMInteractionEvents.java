@@ -3,44 +3,55 @@ package com.crimsoncrips.alexsmobsinteraction.event;
 import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
+import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractConfig;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.goal.AMISeagullSteal;
-import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
-import com.crimsoncrips.alexsmobsinteraction.goal.AMIFollowNearestGoal;
+import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
+import com.crimsoncrips.alexsmobsinteraction.goal.*;
+import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
+import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
 import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
-import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
-import com.github.alexthe666.alexsmobs.entity.ai.HummingbirdAIPollinate;
-import com.github.alexthe666.alexsmobs.entity.ai.MantisShrimpAIBreakBlocks;
-import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
+import com.github.alexthe666.alexsmobs.entity.ai.*;
+import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.Item;
@@ -52,22 +63,40 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.Predicate;
 
-import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.CROCODILE_BABY_KILL;
+import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.*;
+import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
+import static java.lang.Character.getName;
 import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AMInteractionEvents {
+    private int alexsMobsInteraction$loop;
+
+    private boolean retreatStomp;
+
+    public boolean canRollInFluid = false;
+
+    int rollingtime = 0;
 
     @SubscribeEvent
     public void onEntityFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
@@ -232,13 +261,6 @@ public class AMInteractionEvents {
                 }));
             }
             emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.EMU_KILL)));
-            if(AMInteractionConfig.EMU_SCUFFLE_ENABLED){
-                emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, EntityEmu.class, 1000, false, true, null) {
-                    public boolean canUse() {
-                        return !emu.isLeashed() && super.canUse() && emu.level().isDay();
-                    }
-                });
-            }
         }
 
         if (entity instanceof final EntityFly fly){
@@ -488,8 +510,341 @@ public class AMInteractionEvents {
         if (entity instanceof EntityWarpedToad warpedToad && AMInteractionConfig.WARPED_FRIENDLY_ENABLED){
             warpedToad.goalSelector.removeAllGoals(goal -> {
                 return goal instanceof EntityAINearestTarget3D;
+
+            });
+            warpedToad.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(warpedToad, LivingEntity.class, 50, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.WARPED_TOAD_TARGETS)){
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !warpedToad.isTame();
+                }
+            });
+
+        }
+
+        if (entity instanceof EntityGrizzlyBear grizzlyBear){
+            grizzlyBear.goalSelector.removeAllGoals(goal -> {
+                return goal instanceof TameableAITempt;
+            });
+            grizzlyBear.goalSelector.addGoal(5, new TameableAITempt(grizzlyBear, 1.1D, Ingredient.of(AMInteractionTagRegistry.GRIZZLY_ENTICE), false));
+            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 4000, true, false, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_KILL)){
+                public boolean canUse() {
+                    return  super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isHoneyed();
+                }
+            });
+            if (!AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED)
+                return;
+            grizzlyBear.goalSelector.removeAllGoals(goal -> {
+                return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear.AttackPlayerGoal");
+            });
+            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
+                public boolean canUse() {
+                    return super.canUse() && !grizzlyBear.isTame();
+                }
+            });
+            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 100, true, true,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
+                public boolean canUse() {
+                    return super.canUse() && !grizzlyBear.isTame();
+                }
             });
         }
+
+        if (entity instanceof EntityAlligatorSnappingTurtle snappingturtle){
+            if (AMInteractionConfig.SNAPPING_DORMANT_ENABLED){
+                snappingturtle.goalSelector.removeAllGoals(goal -> {
+                    return goal instanceof AnimalAIFindWater || goal instanceof AnimalAILeaveWater || goal instanceof BottomFeederAIWander || goal instanceof RandomLookAroundGoal || goal instanceof LookAtPlayerGoal;
+                });
+                snappingturtle.goalSelector.addGoal(2, new AnimalAIFindWater(snappingturtle){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                    }
+                });
+                snappingturtle.goalSelector.addGoal(2, new AnimalAILeaveWater(snappingturtle){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                    }
+                });
+                snappingturtle.goalSelector.addGoal(3, new BottomFeederAIWander(snappingturtle, 1.0, 120, 150, 10){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                    }
+                });
+                snappingturtle.goalSelector.addGoal(3, new BreedGoal(snappingturtle, 1.0){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                    }
+                });
+                snappingturtle.goalSelector.addGoal(5, new RandomLookAroundGoal(snappingturtle){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                    }
+                });
+                snappingturtle.goalSelector.addGoal(6, new LookAtPlayerGoal(snappingturtle, Player.class, 6.0F){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                    }
+                });
+                snappingturtle.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(snappingturtle, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SNAPPING_TURTLE_KILL)){
+                    public boolean canUse() {
+                        return snappingturtle.chaseTime >= 0 && super.canUse() && snappingturtle.level().isNight();
+                    }
+                    protected AABB getTargetSearchArea(double targetDistance) {
+                        return this.mob.getBoundingBox().inflate(10D, 1D, 10D);
+                    }});
+            } else
+                snappingturtle.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(snappingturtle, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SNAPPING_TURTLE_KILL)){
+                    public boolean canUse() {
+                        return snappingturtle.chaseTime >= 0 && super.canUse();
+                    }
+                    protected AABB getTargetSearchArea(double targetDistance) {
+                        return this.mob.getBoundingBox().inflate(10D, 1D, 10D);
+                    }});
+        }
+
+        if (entity instanceof EntityCosmaw cosmaw){
+            if (AMInteractionConfig.COSMAW_WEAKENED_ENABLED) {
+                cosmaw.goalSelector.removeAllGoals(goal -> {
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityCosmaw.AIPickupOwner");
+                });
+                cosmaw.goalSelector.addGoal(4, new AMICosmawOwner(cosmaw));
+            }
+        }
+
+        if (entity instanceof EntityHammerheadShark hammerheadShark){
+            hammerheadShark.goalSelector.removeAllGoals(goal -> {
+                return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityHammerheadShark.CirclePreyGoal");
+            });
+            hammerheadShark.goalSelector.addGoal(1, new AMIHammerCircleReplace(hammerheadShark, 1.0F));
+
+            if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
+                hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, EntityMantisShrimp.class, 50, true, false, (mob) -> {
+                    return mob.getHealth() <= 0.2 * mob.getMaxHealth();
+                }));
+            }
+            hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.HAMMERHEAD_KILL)));
+        }
+
+        if (entity instanceof EntitySoulVulture soulVulture){
+            soulVulture.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(soulVulture, Hoglin.class, true));
+            soulVulture.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(soulVulture, EntityDropBear.class, true));
+            soulVulture.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(soulVulture, EntityBoneSerpent.class, 0, true, false, (mob) -> {
+                return !entity.isInLava();
+            }));
+
+        }
+    }
+
+
+
+    @SubscribeEvent
+    public void mobTickEvents(LivingEvent.LivingTickEvent livingTickEvent){
+        LivingEntity livingEntity = livingTickEvent.getEntity();
+
+        if (livingEntity instanceof EntityGrizzlyBear grizzlyBear){
+            if(AMInteractionConfig.FREDDYABLE_ENABLED){
+                String freddy = "Freddy Fazbear";
+                if (grizzlyBear.getName().getString().equals(freddy)) {
+                    grizzlyBear.setAprilFoolsFlag(2);
+                    if(!AMInteractionConfig.GOOFY_MODE_ENABLED){
+                        grizzlyBear.setTame(false);
+                        grizzlyBear.setOwnerUUID(null);
+                    }
+                }
+            }
+        }
+
+        if(livingEntity instanceof EntityFarseer farseer){
+            if (!AMInteractionConfig.FARSEER_ALTERING_ENABLED)
+                return;
+            if (farseer.level().isClientSide())
+                return;
+            if (!(alexsMobsInteraction$loop >= 0))
+                return;
+
+            if (farseer.getTarget() instanceof Player player) {
+                alexsMobsInteraction$loop--;
+                Inventory inv = player.getInventory();
+                if (player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)
+                    return;
+
+                for (int i = 0; i < 9 - 1; i++) {
+                    ItemStack current = inv.getItem(i);
+                    int j = farseer.getRandom().nextInt(i + 1, 9);
+
+                    // swap
+                    ItemStack to = inv.getItem(j);
+                    inv.setItem(j, current);
+                    inv.setItem(i, to);
+                    renderStaticScreenFor = 30;
+                }
+                if (AMInteractionConfig.FARSEER_EFFECTS_ENABLED) {
+
+                    if (alexsMobsInteraction$loop == 49) {
+                        player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 0));
+                        AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new FarseerPacket());
+                    }
+                }
+
+            }
+            if (farseer.getTarget() == null && alexsMobsInteraction$loop <= 0) {
+                alexsMobsInteraction$loop = 50;
+            }
+        }
+
+        if(livingEntity instanceof EntityBananaSlug bananaSlug){
+            if (!AMInteractionConfig.GOOFY_MODE_ENABLED)
+                return;
+            if (!AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
+                return;
+            for (LivingEntity livingEntitys : bananaSlug.level().getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
+                if ((Entity) livingEntitys instanceof Player) {
+                    ((Entity) livingEntitys).kill();
+                }
+            }
+        }
+
+        if(livingEntity instanceof EntityAlligatorSnappingTurtle snappingturtle){
+            if (!AMInteractionConfig.SNAPPING_MOSS_ENABLED)
+                return;
+            if (!snappingturtle.level().isRaining())
+                return;
+            if (!(snappingturtle.getRandom().nextDouble() < 0.0001))
+                return;
+            snappingturtle.setMoss(Math.min(10, snappingturtle.getMoss() + 1));
+
+        }
+
+        if(livingEntity instanceof EntityCentipedeHead centipede){
+            if (!AMInteractionConfig.LIGHT_FEAR_ENABLED)
+                return;
+            LivingEntity target = centipede.getTarget();
+            if (target == null)
+                return;
+            if (!target.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)))
+                return;
+            if (centipede.getLastHurtByMob() == target)
+                return;
+            centipede.setTarget(null);
+        }
+
+        if(livingEntity instanceof EntitySeagull seagull){
+            if (AMInteractionConfig.SEAGULL_BUFFED_ENABLED)
+                return;
+
+            if (seagull.getMainHandItem().is(Items.ENCHANTED_GOLDEN_APPLE)) {
+                seagull.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1000, 0));
+                seagull.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 3000, 0));
+            }
+            if (seagull.getMainHandItem().is(Items.GOLDEN_APPLE)) {
+                seagull.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1));
+                seagull.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 1000, 2));
+            }
+
+        }
+
+        if (livingEntity instanceof EntityTerrapin terrapin){
+            if (!AMInteractionConfig.TERRAPIN_STOMP_ENABLED)
+                return;
+            if (terrapin.hasRetreated() && !retreatStomp) {
+                terrapin.hurt(terrapin.damageSources().generic(),2);
+                retreatStomp = true;
+            }
+            if (!terrapin.hasRetreated() && !terrapin.isSpinning()) {
+                retreatStomp = false;
+            }
+        }
+
+        if(livingEntity instanceof Player player){
+            BlockState feetBlockstate = player.getBlockStateOn();
+
+            if (AMInteractionConfig.COMBUSTABLE_ENABLED && player.hasEffect(AMEffectRegistry.OILED.get())){
+                if (feetBlockstate.is(Blocks.MAGMA_BLOCK) || feetBlockstate.is(Blocks.CAMPFIRE))
+                    player.setSecondsOnFire(20);
+
+                if (feetBlockstate.is(Blocks.SOUL_CAMPFIRE)){
+                    if (ModList.get().isLoaded("soulfired")) {
+                        SoulFiredCompat.setOnFire(player,20);
+                    } else player.setSecondsOnFire(20);
+                }
+
+            }
+
+            if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED){
+                if (feetBlockstate.is(AMBlockRegistry.BANANA_PEEL.get())){
+                    player.kill();
+                }
+            }
+
+            if(AMInteractionConfig.SUNBIRD_UPGRADE_ENABLED){
+
+                for (LivingEntity entity : player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7, 4, 7))) {
+                    EntityType<?> entityType = entity.getType();
+                    if (entityType.is(AMInteractionTagRegistry.BURNABLE_DEAD) && !entity.isInWater()) {
+                        if (player.hasEffect(AMEffectRegistry.SUNBIRD_BLESSING.get())) {
+                            entity.setSecondsOnFire(3);
+                        }
+                        if (player.hasEffect(AMEffectRegistry.SUNBIRD_CURSE.get())) {
+                            entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 350, 2));
+                            entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 600, 0));
+                            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 0));
+                        }
+                    }
+                }
+            }
+
+
+
+            if (AMInteractionConfig.TIGER_STEALTH_ENABLED && player.hasEffect(AMEffectRegistry.TIGERS_BLESSING.get()) && player.isCrouching()){
+                player.addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 20, 0));
+            }
+
+            double z = player.getLookAngle().z;
+            double x = player.getLookAngle().x;
+
+
+            if(AMInteractionConfig.ROLLING_THUNDER_ENABLED){
+                if (!(rollingtime <= 0) && player.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0 && player.getItemBySlot(EquipmentSlot.CHEST).is((Item) AMItemRegistry.ROCKY_CHESTPLATE.get())) {
+                    if (RockyChestplateUtil.isRockyRolling(player)) {
+                        if (!(player.isInWater() || player.isInLava())) {
+                            canRollInFluid = true;
+                        }
+
+                        if (feetBlockstate.is(Blocks.WATER)) {
+                            rollingtime--;
+                            double d1 = player.getRandom().nextGaussian() * 0.02;
+                            player.level().addParticle(ParticleTypes.SPLASH, player.getRandomX(0.1), player.getY() + 0.5, player.getRandomZ(0.1), x * -2 * player.getRandom().nextInt(2), 0.1 + d1, z * -2 * player.getRandom().nextInt(2));
+                            player.level().addParticle(ParticleTypes.SPLASH, player.getRandomX(0.1), player.getY() + 0.5, player.getRandomZ(0.1), x * -2 * player.getRandom().nextInt(2), 0.1 + d1, z * -2 * player.getRandom().nextInt(2));
+                            for (int i = 0; i < 5; i++) {
+                                player.level().addParticle(ParticleTypes.BUBBLE, player.getRandomX(2), player.getY() + 0.5, player.getRandomZ(2), 0, 0, 0);
+                            }
+                        }
+                        if (feetBlockstate.is(Blocks.LAVA)) {
+                            rollingtime--;
+                            player.setSecondsOnFire(3);
+                            double d1 = player.getRandom().nextGaussian() * 0.02;
+                            double d2 = player.getRandom().nextGaussian() * 0.02;
+                            double d3 = player.getRandom().nextGaussian() * 0.02;
+                            player.level().addParticle(ParticleTypes.LAVA, player.getX(), player.getY() + 1, player.getZ(), x * -2 + d1, 0.1 + d2, z * -2 + d3);
+
+                        }
+                    }
+                    if (rollingtime <= 1 || !RockyChestplateUtil.isRockyRolling(player)) {
+                        canRollInFluid = false;
+                    }
+
+                }
+                if (!(player.isInWater() || player.isInLava()) && player.onGround()) {
+                    rollingtime = 100;
+                }
+            }
+        }
+
+
 
     }
 
@@ -504,7 +859,7 @@ public class AMInteractionEvents {
                 living.setSecondsOnFire(10);
                 player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
             }
-            //Banana Slug
+
             if (living instanceof EntityBananaSlug bananaSlug) {
                 if (itemStack.getItem() != Items.SHEARS)
                     return;
@@ -520,7 +875,6 @@ public class AMInteractionEvents {
                 bananaSlug.discard();
             }
 
-            //Flutter
             if (living instanceof EntityFlutter flutter){
                 if (itemStack.getItem() == Items.WITHER_ROSE && AMInteractionConfig.FLUTTER_WITHERED_ENABLED && !flutter.isTame()) {
                     if (!player.isCreative())
@@ -537,16 +891,22 @@ public class AMInteractionEvents {
                 }
             }
 
-            //Sugar Glider
-            if (living instanceof EntitySugarGlider sugarGlider && AMInteractionConfig.SUGAR_RUSH_ENABLED && (itemStack.getItem() == Items.SUGAR || itemStack.getItem() == Items.SUGAR_CANE)) {
+            if (living instanceof EntitySugarGlider sugarGlider) {
+                if (!AMInteractionConfig.SUGAR_RUSH_ENABLED)
+                    return;
+                if (!(itemStack.getItem() == Items.SUGAR || itemStack.getItem() == Items.SUGAR_CANE))
+                    return;
                 if (!player.isCreative()) itemStack.shrink(1);
                 sugarGlider.gameEvent(GameEvent.EAT);
                 sugarGlider.playSound(SoundEvents.FOX_EAT, 1, sugarGlider.getVoicePitch());
                 sugarGlider.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 900, 1));
             }
 
-            //Grizzly Bear
-            if (living instanceof EntityGrizzlyBear grizzlyBear && AMInteractionConfig.BRUSHED_ENABLED && itemStack.getItem() == Items.BRUSH) {
+            if (living instanceof EntityGrizzlyBear grizzlyBear) {
+                if (!AMInteractionConfig.BRUSHED_ENABLED)
+                    return;
+                if (itemStack.getItem() != Items.BRUSH)
+                    return;
                 if (!player.isCreative()) {
                     itemStack.hurtAndBreak(32, player, (p_233654_0_) -> {
                     });
@@ -556,7 +916,6 @@ public class AMInteractionEvents {
                 if(random.nextDouble() < 0.0002)grizzlyBear.spawnAtLocation(AMItemRegistry.BEAR_DUST.get());
             }
 
-
         }
 
 
@@ -564,7 +923,6 @@ public class AMInteractionEvents {
     @SubscribeEvent
     public void onUseItemOnBlock(PlayerInteractEvent.RightClickBlock event) {
         BlockState blockState = event.getEntity().level().getBlockState(event.getPos());
-        ItemStack itemStack = event.getItemStack();
         BlockPos pos = event.getPos();
         Level worldIn = event.getLevel();
         RandomSource random = event.getEntity().getRandom();
@@ -572,7 +930,7 @@ public class AMInteractionEvents {
 
 
         if (AMInteractionConfig.SKREECHER_WARD_ENABLED ){
-            if (!itemStack.is(AMItemRegistry.SKREECHER_SOUL.get()))
+            if (!event.getItemStack().is(AMItemRegistry.SKREECHER_SOUL.get()))
                 return;
             if (!blockState.is(Blocks.SCULK_SHRIEKER))
                 return;
@@ -596,7 +954,7 @@ public class AMInteractionEvents {
             worldIn.playSound(null,pos,SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 1, 1);
             worldIn.setBlockAndUpdate(pos, blockState.setValue(CAN_SUMMON, true));
             if (livingEntity instanceof Player player && !player.isCreative())
-                itemStack.shrink(1);
+                event.getItemStack().shrink(1);
             for (int i = 0; i < 100; ++i) {
                 double d0 = random.nextGaussian() * 0.02D;
                 double d1 = random.nextGaussian() * 0.02D;
@@ -607,6 +965,54 @@ public class AMInteractionEvents {
 
 
         }
+    }
+
+    @SubscribeEvent
+    public void mobDeath(LivingDeathEvent livingDeathEvent){
+        LivingEntity deadEntity = livingDeathEvent.getEntity();
+        LivingEntity murdererEntity = deadEntity.getLastAttacker();
+        if(AMInteractionConfig.DROPLESS_PREDATOR_ENABLED){
+            if (murdererEntity == null)
+                return;
+            EntityType<?> entityType = murdererEntity.getType();
+            if (!entityType.is(NO_DROPS_ANIMAL))
+                return;
+            final CompoundTag emptyNbt = new CompoundTag();
+            deadEntity.addAdditionalSaveData(emptyNbt);
+            emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
+            deadEntity.readAdditionalSaveData(emptyNbt);
+
+        }
+
+        if(AMInteractionConfig.SNOW_LUCK_ENABLED){
+            if (murdererEntity == null)
+                return;
+            RandomSource random = murdererEntity.getRandom();
+            if (deadEntity instanceof Goat && random.nextDouble() < 0.5) {
+                deadEntity.spawnAtLocation(Items.GOAT_HORN);
+                if (random.nextDouble() < 0.05) deadEntity.spawnAtLocation(Items.GOAT_HORN);
+            } else if (deadEntity instanceof Turtle && random.nextDouble() < 0.2) {
+                deadEntity.spawnAtLocation(Items.SCUTE);
+            } else if (deadEntity instanceof EntityFrilledShark && random.nextDouble() < 0.08) {
+                deadEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
+                if (random.nextDouble() < 0.01) deadEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
+            } else if (deadEntity instanceof EntityBananaSlug && random.nextDouble() < 0.2) {
+                deadEntity.spawnAtLocation(AMItemRegistry.BANANA_SLUG_SLIME.get());
+            } else if (deadEntity instanceof Rabbit) {
+                deadEntity.spawnAtLocation(Items.RABBIT_FOOT);
+                if (random.nextDouble() < 0.02) deadEntity.spawnAtLocation(Items.RABBIT_FOOT);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void mobAttack(LivingAttackEvent attackEvent){
+        LivingEntity victim = attackEvent.getEntity();
+        LivingEntity attacker = (LivingEntity) attackEvent.getSource().getEntity();
+        if(attacker instanceof EntitySoulVulture soulVulture){
+            soulVulture.setSoulLevel(5);
+        }
+
     }
 
 

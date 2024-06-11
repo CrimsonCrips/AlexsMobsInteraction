@@ -111,23 +111,22 @@ public abstract class AMIBison extends Mob {
 
             }
 
-        }
+
+            float angle;
 
 
-        float angle;
+            if (this.getStunTicks() > 0) {
+                if (this.level().isClientSide) {
+                    angle = 0.017453292F * this.yBodyRot;
+                    double headX = (double) (1.5F * this.getScale() * Mth.sin(3.1415927F + angle));
+                    double headZ = (double) (1.5F * this.getScale() * Mth.cos(angle));
 
-
-        if (this.getStunTicks() > 0) {
-            if (this.level().isClientSide) {
-                angle = 0.017453292F * this.yBodyRot;
-                double headX = (double)(1.5F * this.getScale() * Mth.sin(3.1415927F + angle));
-                double headZ = (double)(1.5F * this.getScale() * Mth.cos(angle));
-
-                for(int i = 0; i < 5; ++i) {
-                    float innerAngle = 0.017453292F * (this.yBodyRot + (float)(this.tickCount * 5)) * (float)(i + 1);
-                    double extraX = (double)(0.5F * Mth.sin((float)(Math.PI + (double)innerAngle)));
-                    double extraZ = (double)(0.5F * Mth.cos(innerAngle));
-                    this.level().addParticle(ParticleTypes.CRIT, true, this.getX() + headX + extraX, this.getEyeY() + 0.5, this.getZ() + headZ + extraZ, 0.0, 0.0, 0.0);
+                    for (int i = 0; i < 5; ++i) {
+                        float innerAngle = 0.017453292F * (this.yBodyRot + (float) (this.tickCount * 5)) * (float) (i + 1);
+                        double extraX = (double) (0.5F * Mth.sin((float) (Math.PI + (double) innerAngle)));
+                        double extraZ = (double) (0.5F * Mth.cos(innerAngle));
+                        this.level().addParticle(ParticleTypes.CRIT, true, this.getX() + headX + extraX, this.getEyeY() + 0.5, this.getZ() + headZ + extraZ, 0.0, 0.0, 0.0);
+                    }
                 }
             }
         }

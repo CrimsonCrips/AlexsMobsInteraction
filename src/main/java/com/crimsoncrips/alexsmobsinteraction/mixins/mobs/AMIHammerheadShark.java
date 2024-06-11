@@ -82,29 +82,6 @@ public class AMIHammerheadShark extends Mob {
         this.entityData.set(STUNTICK, stuntick);
     }
 
-    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
-    private void HammerGoals(CallbackInfo ci){
-        ci.cancel();
-        EntityHammerheadShark hammerheadShark = (EntityHammerheadShark)(Object)this;
-        this.goalSelector.addGoal(1, new TryFindWaterGoal(hammerheadShark));
-        this.goalSelector.addGoal(1, new AMIHammerCircleReplace(hammerheadShark, 1.0F));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(hammerheadShark, 0.6000000238418579, 7));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new FollowBoatGoal(hammerheadShark));
-        this.goalSelector.addGoal(9, new AvoidEntityGoal(hammerheadShark, Guardian.class, 8.0F, 1.0, 1.0));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(hammerheadShark, new Class[0]));
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, LivingEntity.class, 50, false, true, INJURED_PREDICATE));
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, Squid.class, 50, false, true, (Predicate)null));
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, EntityMimicOctopus.class, 80, false, true, (Predicate)null));
-        this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, AbstractSchoolingFish.class, 70, false, true, (Predicate)null));
-
-        if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, EntityMantisShrimp.class, 50, true, false, MANTIS_EAT));
-        }
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D(this, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.HAMMERHEAD_KILL)));
-
-    }
-
     boolean stun = false;
 
     @Override
