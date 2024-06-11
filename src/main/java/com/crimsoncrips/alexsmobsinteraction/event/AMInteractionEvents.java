@@ -1008,9 +1008,10 @@ public class AMInteractionEvents {
     @SubscribeEvent
     public void mobAttack(LivingAttackEvent attackEvent){
         LivingEntity victim = attackEvent.getEntity();
-        LivingEntity attacker = (LivingEntity) attackEvent.getSource().getDirectEntity();
+        if (!(attackEvent.getSource().getDirectEntity() instanceof LivingEntity attacker))
+            return;
         if(attacker instanceof EntitySoulVulture soulVulture){
-            soulVulture.setSoulLevel(5);
+            soulVulture.setSoulLevel(soulVulture.getSoulLevel() + 1);
         }
 
     }
