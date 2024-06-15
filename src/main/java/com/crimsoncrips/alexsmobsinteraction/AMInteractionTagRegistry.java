@@ -21,7 +21,6 @@ public class AMInteractionTagRegistry {
     public static final TagKey<Item> CROW_WEAPON = registerItemTag("crow_weapon");
 
     public static final TagKey<EntityType<?>> NO_DROPS_ANIMAL = registerEntityTag("no_drops_animal");
-
     public static final TagKey<EntityType<?>> BURNABLE_DEAD = registerEntityTag("burnable_dead");
     public static final TagKey<EntityType<?>> ANACONDA_BABY_KILL = registerEntityTag("anaconda_kill_baby");
     public static final TagKey<EntityType<?>> BIGCATFISHCANNOTEAT = registerEntityTag("bigcatfish_cannotkill");

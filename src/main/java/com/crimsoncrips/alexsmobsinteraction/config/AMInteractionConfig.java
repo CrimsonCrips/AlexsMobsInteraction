@@ -25,7 +25,7 @@ public class AMInteractionConfig {
     public static boolean CATFISH_CANNIBALIZE_ENABLED;
     public static boolean STUPID_CATFISH_EAT_ENABLED;
     public static boolean LIGHT_FEAR_ENABLED;
-    public static boolean CRIMSON_NON_STRADDLER_ENABLED;
+    public static boolean BLOODLESS_IGNORE_ENABLED;
     public static boolean CROW_CANNIBALIZE_ENABLED;
     public static boolean ELEPHANT_TERRITORIAL_ENABLED;
     public static boolean RANGED_AGGRO_ENABLED;
@@ -168,7 +168,7 @@ public class AMInteractionConfig {
             CATFISH_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CATFISH_CANNIBALIZE_ENABLED.get();
             STUPID_CATFISH_EAT_ENABLED = AMIConfigHolder.INTERACT.STUPID_CATFISH_EAT_ENABLED.get();
             LIGHT_FEAR_ENABLED = AMIConfigHolder.INTERACT.LIGHT_FEAR_ENABLED.get();
-            CRIMSON_NON_STRADDLER_ENABLED = AMIConfigHolder.INTERACT.CRIMSON_NON_STRADDLER_ENABLED.get();
+            BLOODLESS_IGNORE_ENABLED = AMIConfigHolder.INTERACT.BLOODLESS_IGNORE_ENABLED.get();
             CROW_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CROW_CANNIBALIZE_ENABLED.get();
             ELEPHANT_TERRITORIAL_ENABLED = AMIConfigHolder.INTERACT.ELEPHANT_TERRITORIAL_ENABLED.get();
             RANGED_AGGRO_ENABLED = AMIConfigHolder.INTERACT.RANGED_AGGRO_ENABLED.get();

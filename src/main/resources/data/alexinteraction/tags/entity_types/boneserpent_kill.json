@@ -4,9 +4,9 @@
     "minecraft:hoglin",
     "minecraft:piglin",
     "minecraft:piglin_brute",
-    "alexsmobs:drop_bear",
+    "alexsmobs:dropbear",
     "alexsmobs:warped_toad",
     "minecraft:wither_skeleton",
-    "minecraft:soul_vulture"
+    "alexsmobs:soul_vulture"
   ]
 }

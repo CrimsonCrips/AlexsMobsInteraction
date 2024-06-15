@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "alexsmobs:alligator_snapping_turtle",
-    "alexsmobs:turtle",
+    "minecraft:turtle",
     "alexsmobs:crocodile"
 
   ]

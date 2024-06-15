@@ -42,20 +42,17 @@ public abstract class AMICrimsonMosquito extends Mob {
 
     static {
         PACIFIED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.BOOLEAN);
-        BLOODED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.BOOLEAN);
         MUNGUSFED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.INT);
         WARPEDFED = SynchedEntityData.defineId(EntityCrimsonMosquito.class, EntityDataSerializers.INT);
     }
 
     private static final EntityDataAccessor<Boolean> PACIFIED;
-    private static final EntityDataAccessor<Boolean> BLOODED;
     private static final EntityDataAccessor<Integer> MUNGUSFED;
     private static final EntityDataAccessor<Integer> WARPEDFED;
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
         this.entityData.define(PACIFIED, false);
-        this.entityData.define(BLOODED, false);
         this.entityData.define(MUNGUSFED, 0);
         this.entityData.define(WARPEDFED, 0);
     }
@@ -63,14 +60,12 @@ public abstract class AMICrimsonMosquito extends Mob {
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditional(CompoundTag compound, CallbackInfo ci){
         compound.putBoolean("Pacified", this.isPacified());
-        compound.putBoolean("Blooded", this.isBlooded());
         compound.putInt("MungusFed", this.getMungusFed());
         compound.putInt("WarpedFed", this.getWarpedFed());
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditional(CompoundTag compound, CallbackInfo ci){
         this.setPacified(compound.getBoolean("Pacified"));
-        this.setBlooded(compound.getBoolean("Blooded"));
         this.setMungusFed(compound.getInt("MungusFed"));
         this.setWarpedFed(compound.getInt("WarpedFed"));
     }
@@ -82,13 +77,7 @@ public abstract class AMICrimsonMosquito extends Mob {
     public void setPacified(boolean pacified) {
         this.entityData.set(PACIFIED, pacified);
     }
-    public boolean isBlooded() {
-        return this.entityData.get(BLOODED);
-    }
 
-    public void setBlooded(boolean blooded) {
-        this.entityData.set(BLOODED, blooded);
-    }
     public int getWarpedFed() {
         return (Integer)this.entityData.get(WARPEDFED);
     }
@@ -118,14 +107,6 @@ public abstract class AMICrimsonMosquito extends Mob {
             this.setFlying(false);
             this.jumping = false;
             if (onGround()) this.setNoAi(true);
-        }
-        if(AMInteractionConfig.BLOODED_ENABLED){
-            if (!this.isBlooded() && random.nextDouble() < 0.05) {
-                crimsonMosquito.setBloodLevel(this.getBloodLevel() + 1);
-                setBlooded(true);
-            } else {
-                setBlooded(true);
-            }
         }
         if (this.getMungusFed() >= 3 && this.getWarpedFed() >= 10) {
             crimsonMosquito.setSick(true);

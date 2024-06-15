@@ -51,32 +51,6 @@ public class AMISkelewag extends Mob implements AMISkelewagInterface {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "registerGoals", at = @At("HEAD"),cancellable = true)
-    private void ShoebillGoals(CallbackInfo ci){
-        ci.cancel();
-        EntitySkelewag skelewag = (EntitySkelewag) (Object) this;
-        Predicate<LivingEntity> MIGHT = (livingEntity) -> {
-            return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT.get());
-        };
-        this.goalSelector.addGoal(1, new TryFindWaterGoal(skelewag));
-        if (AMInteractionConfig.SKELEWAG_CIRCLE_ENABLED){
-            this.goalSelector.addGoal(1, new AMISkelewagCircleGoal(skelewag,1F));
-        } else {
-            Object aiAttackGoal = ReflectionUtil.createInstance(
-                    "com.github.alexthe666.alexsmobs.entity.EntitySkelewag$AttackGoal",
-                    new Class[]{EntitySkelewag.class, EntitySkelewag.class},
-                    new Object[]{skelewag, this}
-            );
-            this.goalSelector.addGoal(2,(Goal)aiAttackGoal);
-        }
-        this.goalSelector.addGoal(3, new AnimalAIRandomSwimming(skelewag, 1F, 12, 5));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(skelewag, Drowned.class, EntitySkelewag.class));
-        if(AMInteractionConfig.MIGHT_UPGRADE_ENABLED){
-            this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, 100, true, false, MIGHT));
-        }
-        this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, Dolphin.class, true));
-
-    }
 
     boolean stun = false;
 

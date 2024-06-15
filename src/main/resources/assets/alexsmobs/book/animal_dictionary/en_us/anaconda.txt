@@ -4,7 +4,7 @@ Anacondas are gigantic, aggressive snakes found in swamp biomes. These massive s
 <NEWLINE>
 This snake has a massive appetite, and will attempt to eat almost anything it can wrap around. The snake ambushes its prey, wraps its body around it, and slowly suffocates its prey before swallowing it whole.
 Since they are swallowed whole, animals slain by the Anaconda do not drop any extra items
-While it is rare, it has been observed they cannibalize on other snakes if they haven't had anything to eat.
+While seldom, it has been observed they cannibalize on other snakes.
 <NEWLINE>
 After swallowing its prey, the snake will slowly digest its meal. After eating a few large meals, the snake will become discolored and begin shedding its skin.
 This skin can be used to create a unique banner pattern, or used to craft the Vine Lasso.

@@ -28,7 +28,7 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue STUPID_CATFISH_EAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue LIGHT_FEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue ORCA_HUNT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CRIMSON_NON_STRADDLER_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BLOODLESS_IGNORE_ENABLED;
     public final ForgeConfigSpec.BooleanValue CROW_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
 
@@ -223,7 +223,7 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Crimson Mosquito");
         this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Whether Crimson Mosquitoes can be turned into Warped Moscos by feeding them Mungus Spores");
-        this.CRIMSON_NON_STRADDLER_ENABLED = buildBoolean(builder, "CRIMSON_NON_STRADDLER_ENABLED", " ", true, "Whether Crimson Mosquitoes cant attack Straddlers, unless with blood inside");
+        this.BLOODLESS_IGNORE_ENABLED = buildBoolean(builder, "BLOODLESS_IGNORE_ENABLED", " ", true, "Whether Crimson Mosquitoes cant attack bloodless entites (Straddlers,etc..)");
         this.BLOODED_ENABLED = buildBoolean(builder, "BLOODED_ENABLED", " ", true, "Whether Crimson Mosquitoes can spawn with blood");
         this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Whether Crimson Mosquitoes take no damage from Blood Sprayer");
 
