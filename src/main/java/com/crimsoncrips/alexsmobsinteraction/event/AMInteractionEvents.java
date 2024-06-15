@@ -120,7 +120,7 @@ public class AMInteractionEvents {
         //AM Mobs
         if (entity instanceof EntityAnaconda anaconda){
             Predicate<LivingEntity> ANACONDA_BABY_TARGETS = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.ANACONDA_BABY_KILL);
-            anaconda.goalSelector.removeAllGoals(goal -> {
+            anaconda.targetSelector.removeAllGoals(goal -> {
                 return goal instanceof HurtByTargetGoal;
             });
             anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(anaconda, EntityAnaconda.class));
@@ -282,7 +282,7 @@ public class AMInteractionEvents {
         if (entity instanceof final EntityEnderiophage enderiophage){
 
             if(AMInteractionConfig.INFECT_IMMUNITY_ENABLED){
-                enderiophage.goalSelector.removeAllGoals(goal -> {
+                enderiophage.targetSelector.removeAllGoals(goal -> {
                     return goal instanceof EntityAINearestTarget3D;
                 });
                 enderiophage.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(enderiophage, EnderMan.class, 15, true, true, (livingEntity) -> {
@@ -301,7 +301,7 @@ public class AMInteractionEvents {
                 });
             }
             if(AMInteractionConfig.INFECT_WEAK_ENABLED && !enderiophage.isMissingEye() && (int) ReflectionUtil.getField(enderiophage, "fleeAfterStealTime") == 0){
-                enderiophage.goalSelector.removeAllGoals(goal -> {
+                enderiophage.targetSelector.removeAllGoals(goal -> {
                     return goal instanceof EntityAINearestTarget3D;
                 });
                 enderiophage.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(enderiophage, Player.class, 15, true, true, (livingEntity) -> {
@@ -375,7 +375,7 @@ public class AMInteractionEvents {
             if (komodoDragon.isTame())
                 return;
 
-            komodoDragon.goalSelector.removeAllGoals(goal -> {
+            komodoDragon.targetSelector.removeAllGoals(goal -> {
                 return goal instanceof NearestAttackableTargetGoal || goal instanceof EntityAINearestTarget3D;
             });
             komodoDragon.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(komodoDragon, EntityKomodoDragon.class, 50, true, false, (p_213616_0_) -> {
@@ -443,7 +443,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityRoadrunner roadrunner && AMInteractionConfig.ROADRUNNER_DAY_ENABLED){
-            roadrunner.goalSelector.removeAllGoals(goal -> {
+            roadrunner.targetSelector.removeAllGoals(goal -> {
                 return goal instanceof NearestAttackableTargetGoal;
             });
                 roadrunner.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(roadrunner, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.ROADRUNNER_KILL)) {
@@ -454,7 +454,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntitySeagull seagull && AMInteractionConfig.SEAGULL_WEAKEN_ENABLED){
-            seagull.goalSelector.removeAllGoals(goal -> {
+            seagull.targetSelector.removeAllGoals(goal -> {
                 return goal instanceof SeagullAIStealFromPlayers;
             });
             seagull.targetSelector.addGoal(2, new AMISeagullSteal(seagull){
@@ -507,12 +507,12 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityCrimsonMosquito crimsonMosquito){
-            if (AMInteractionConfig.BLOODED_ENABLED && crimsonMosquito.getRandom().nextDouble() < 0.05){
+            if (AMInteractionConfig.BLOODED_ENABLED && crimsonMosquito.getRandom().nextDouble() < 1){
                 crimsonMosquito.setBloodLevel(crimsonMosquito.getBloodLevel() + 1);
             }
             if (AMInteractionConfig.BLOODLESS_IGNORE_ENABLED){
-                crimsonMosquito.goalSelector.removeAllGoals(goal -> {
-                    return goal instanceof EntityAINearestTarget3D;
+                crimsonMosquito.targetSelector.removeAllGoals(goal -> {
+                    return goal instanceof HurtByTargetGoal;
                 });
                 crimsonMosquito.targetSelector.addGoal(1, new HurtByTargetGoal(crimsonMosquito, new Class[]{EntityCrimsonMosquito.class, EntityWarpedMosco.class, EntityStraddler.class, EntityStradpole.class, EntityBoneSerpent.class,EntitySoulVulture.class, Skeleton.class,WitherSkeleton.class, EntityBoneSerpent.class,Blaze.class}));
             }
@@ -523,7 +523,7 @@ public class AMInteractionEvents {
         if (entity instanceof EntityWarpedToad warpedToad){
             if(!AMInteractionConfig.WARPED_FRIENDLY_ENABLED)
                 return;
-            warpedToad.goalSelector.removeAllGoals(goal -> {
+            warpedToad.targetSelector.removeAllGoals(goal -> {
                 return goal instanceof EntityAINearestTarget3D;
 
             });
@@ -548,7 +548,7 @@ public class AMInteractionEvents {
             });
             if (!AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED)
                 return;
-            grizzlyBear.goalSelector.removeAllGoals(goal -> {
+            grizzlyBear.targetSelector.removeAllGoals(goal -> {
                 return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear.AttackPlayerGoal");
             });
             grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
@@ -660,15 +660,15 @@ public class AMInteractionEvents {
                 skelewag.goalSelector.addGoal(1, new AMISkelewagCircleGoal(skelewag,1F));
             }
             if (AMInteractionConfig.MIGHT_UPGRADE_ENABLED){
-                skelewag.goalSelector.removeAllGoals(goal -> {
-                    return goal instanceof EntityAINearestTarget3D;
+                skelewag.targetSelector.removeAllGoals(target -> {
+                    return target instanceof EntityAINearestTarget3D;
                 });
                 skelewag.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(skelewag, Player.class, 100, true, false, (livingEntity) -> {
                     return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT.get());
                 }));
             }
-
         }
+
     }
 
 
@@ -687,6 +687,14 @@ public class AMInteractionEvents {
                         grizzlyBear.setOwnerUUID(null);
                     }
                 }
+            }
+        }
+
+        if (livingEntity instanceof EntityCrimsonMosquito crimsonMosquito){
+            if(AMInteractionConfig.BLOODLESS_IGNORE_ENABLED){
+                if (crimsonMosquito.getBloodLevel() > 0) {
+                    crimsonMosquito.setTarget(crimsonMosquito.getLastAttacker());
+                } else crimsonMosquito.setTarget(null);
             }
         }
 
