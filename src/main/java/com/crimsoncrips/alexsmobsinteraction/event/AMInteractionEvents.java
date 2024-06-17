@@ -4,13 +4,11 @@ import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractConfig;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.*;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
-import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -21,29 +19,21 @@ import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Bee;
-import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
@@ -57,33 +47,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
 
-import java.util.Objects;
-import java.util.Random;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.*;
 import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
-import static java.lang.Character.getName;
 import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -319,6 +303,9 @@ public class AMInteractionEvents {
         }
 
         if(entity instanceof EntityFrilledShark frilledShark){
+            frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 1, false, true, (mob) -> {
+                return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
+            }));
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, LivingEntity.class, 1, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FRILLED_KILL)));
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, EntityGiantSquid.class, 1, false, true,(livingEntity) -> {
                 return livingEntity.getHealth() <= 0.25F * livingEntity.getMaxHealth();
@@ -366,6 +353,9 @@ public class AMInteractionEvents {
                     return mob.getHealth() <= 0.2 * mob.getMaxHealth();
                 }));
             }
+            hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, Player.class, 1, false, true, (mob) -> {
+                return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
+            }));
             hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.HAMMERHEAD_KILL)));
         }
 
@@ -507,7 +497,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityCrimsonMosquito crimsonMosquito){
-            if (AMInteractionConfig.BLOODED_ENABLED && crimsonMosquito.getRandom().nextDouble() < 1){
+            if (AMInteractionConfig.BLOODED_ENABLED && crimsonMosquito.getRandom().nextDouble() < 0.2){
                 crimsonMosquito.setBloodLevel(crimsonMosquito.getBloodLevel() + 1);
             }
             if (AMInteractionConfig.BLOODLESS_IGNORE_ENABLED){
@@ -686,6 +676,22 @@ public class AMInteractionEvents {
                         grizzlyBear.setTame(false);
                         grizzlyBear.setOwnerUUID(null);
                     }
+                }
+            }
+        }
+
+        if (livingEntity instanceof EntityElephant elephant){
+            Iterator<LivingEntity> var4 = elephant.level().getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.5, -2, 0.5)).iterator();
+
+            if (AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED && elephant.isVehicle() && elephant.isTame()) {
+                while (var4.hasNext()) {
+                    Entity entity = (Entity) var4.next();
+                    if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.5F && elephant.isVehicle()) {
+                        entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 8.0F + elephant.getRandom().nextFloat() * 2.0F);
+
+                    }
+
+
                 }
             }
         }
@@ -1050,6 +1056,20 @@ public class AMInteractionEvents {
         LivingEntity victim = attackEvent.getEntity();
         if(attackEvent.getSource().getDirectEntity() instanceof EntitySoulVulture soulVulture){
             soulVulture.setSoulLevel(soulVulture.getSoulLevel() + 1);
+        }
+
+    }
+
+    @SubscribeEvent
+    public void blockBreak(BlockEvent.BreakEvent breakEvent){
+        BlockState blockState = breakEvent.getState();
+        Level level = (Level) breakEvent.getLevel();
+        if (AMInteractionConfig.COCKROACH_CHAMBER) {
+            if (blockState.is(AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get()) && breakEvent.getLevel().getRandom().nextDouble() < 0.1) {
+                Entity entityToSpawn = (AMEntityRegistry.COCKROACH.get()).spawn((ServerLevel) level, BlockPos.containing(breakEvent.getPos().getX() + 0.5, breakEvent.getPos().getY() + 1.0, breakEvent.getPos().getZ() + 0.5), MobSpawnType.MOB_SUMMONED);
+                if (entityToSpawn instanceof EntityCockroach cockroach && breakEvent.getLevel().getRandom().nextDouble() < 0.07)
+                    cockroach.setBaby(true);
+            }
         }
 
     }

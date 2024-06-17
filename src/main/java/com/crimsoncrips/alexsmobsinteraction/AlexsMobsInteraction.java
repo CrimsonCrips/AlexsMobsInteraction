@@ -1,19 +1,23 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
-import com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering;
 import com.crimsoncrips.alexsmobsinteraction.config.AMIConfigHolder;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
+import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.message.*;
+import com.github.alexthe666.alexsmobs.misc.AMAdvancementTriggerRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMRecipeRegistry;
 import com.mojang.logging.LogUtils;
 import misc.AMICreativeTab;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -28,18 +32,11 @@ import org.slf4j.Logger;
 
 import java.util.Locale;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(AlexsMobsInteraction.MODID)
 public class AlexsMobsInteraction {
 
-
-
-
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "alexsmobsinteraction";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "alexsmobsinteraction" namespace
 
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -49,6 +46,9 @@ public class AlexsMobsInteraction {
         modEventBus.addListener(this::onModConfigEvent);
         MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());
         MinecraftForge.EVENT_BUS.register(this);
+        AMIEffects.EFFECT_REGISTER.register(modEventBus);
+        AMIEffects.POTION_REGISTER.register(modEventBus);
+        modEventBus.addListener(this::setup);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AMIConfigHolder.INTERACT_SPEC, "alexsmobsinteraction.toml");
@@ -67,17 +67,8 @@ public class AlexsMobsInteraction {
         }
     }
 
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
-            LOGGER.info("THE CRIMSON SHALL GUIDE YOU.");
-            LOGGER.info("CRIMSON HYPHAE >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.CRIMSON_HYPHAE));
-        }
+    private void setup(final FMLCommonSetupEvent event) {
+        AMIEffects.init();
     }
 
     public static ResourceLocation prefix(String name) {

@@ -44,6 +44,7 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue FLY_CONVERT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER;
 
     public final ForgeConfigSpec.BooleanValue BLOOD_PROTECTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue SQUID_CANNIBALIZE_ENABLED;
@@ -106,6 +107,7 @@ public class AMInteractConfig {
 
     public final ForgeConfigSpec.BooleanValue SOMBRERO_PROTECTION_ENABLED;
 
+    public final ForgeConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
     public final ForgeConfigSpec.BooleanValue INFECT_WEAK_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue INFECT_IMMUNITY_ENABLED;
@@ -260,7 +262,10 @@ public class AMInteractConfig {
         this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "flysfearcandles", " ", true, "Whether flies fear candles");
         this.FLY_FEAR_ENABLED = buildBoolean(builder, "frogeatflies", " ", true, "Whether flies fear all (except for mobs they pester)");
         builder.pop();
-        builder.push("Fly");
+        builder.push("Flying Fish");
+        this.WEAVING_WATERS_ENABLED = buildBoolean(builder, "WEAVING_WATERS_ENABLED", " ", true, "Whether Flying Fish Boots boost will depend on your speed and your look angle");
+       builder.pop();
+        builder.push("Gelada Monkey");
         this.GELADA_HUNT_ENABLED = buildBoolean(builder, "GELADA_HUNT_ENABLED", " ", true, "Whether Gelada Monkeys hunt small animals");
         builder.pop();
         builder.push("Giant Squid");
@@ -289,6 +294,9 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Lavithan");
         this.OBSIDIAN_EXTRACT_ENABLED = buildBoolean(builder, "OBSIDIAN_EXTRACT_ENABLED", " ", true, "Whether Lavithan can be reconverted from Obsidian to Normal");
+        builder.pop();
+        builder.push("Leafcutter Ants");
+        this.COCKROACH_CHAMBER = buildBoolean(builder, "COCKROACH_CHAMBER", " ", true, "Whether Leafcutter Chambers have a chance to spawn cockroaches when broken");
         builder.pop();
         builder.push("Lobster");
         this.LOBSTER_NIGHT_ENABLED = buildBoolean(builder, "LOBSTER_NIGHT_ENABLED", " ", true, "Whether Lobsters only spawn at night");

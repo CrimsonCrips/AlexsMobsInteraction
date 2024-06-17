@@ -1,6 +1,11 @@
 {
   "item.alexsmobsinteraction.swatter": "Swatter",
-  "alexsmobsinteraction.itemTabalexsmobsinteraction": "Alex's Mob's Interaction"
-
+  "alexsmobsinteraction.itemTabalexsmobsinteraction": "Alex's Mob's Interaction",
+  "alexsmobsinteraction.potion.skreeching": "Skreech Your Last.",
+  "effect.alexsmobsinteraction.skreeching.description": "§tCauses a Warden to spawn when the effect wares off or when entering the Deep Dark",
+  "item.minecraft.splash_potion.effect.skreeching": "Splash Potion of Skreeching",
+  "item.minecraft.tipped_arrow.effect.skreeching": "Arrow of Skreeching",
+  "item.minecraft.lingering_potion.effect.skreeching": "Lingering Potion of Skreeching",
+  "item.minecraft.potion.effect.skreeching": "Potion of Skreeching"
 }
 

@@ -7,7 +7,9 @@
   "mixins": [
     "misc.AMIDimensionalCarver",
     "misc.AMIPocketSand",
+    "misc.AMIFlyingFishBoots",
     "mobs.AMIBison",
+    "mobs.AMICosmaw",
     "mobs.AMICrimsonMosquito",
     "mobs.AMICrimsonSpit",
     "mobs.AMICrow",

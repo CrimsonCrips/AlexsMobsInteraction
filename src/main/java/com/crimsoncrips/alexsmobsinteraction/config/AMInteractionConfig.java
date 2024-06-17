@@ -5,7 +5,11 @@ import static com.mojang.text2speech.Narrator.LOGGER;
 public class AMInteractionConfig {
     public static boolean COMBUSTABLE_ENABLED;
 
+    public static boolean COCKROACH_CHAMBER;
+
     public static boolean FRIENDLY_KOMODO;
+
+    public static boolean WEAVING_WATERS_ENABLED;
 
     public static boolean WITCH_ADDITIONS_ENABLED;
 
@@ -216,6 +220,8 @@ public class AMInteractionConfig {
             CROW_WARRIORS_ENABLED = AMIConfigHolder.INTERACT.CROW_WARRIORS_ENABLED.get();
             FARSEER_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FARSEER_EFFECTS_ENABLED.get();
             WITCH_ADDITIONS_ENABLED = AMIConfigHolder.INTERACT.WITCH_ADDITIONS_ENABLED.get();
+            COCKROACH_CHAMBER = AMIConfigHolder.INTERACT.COCKROACH_CHAMBER.get();
+            WEAVING_WATERS_ENABLED = AMIConfigHolder.INTERACT.WEAVING_WATERS_ENABLED.get();
 
 
 

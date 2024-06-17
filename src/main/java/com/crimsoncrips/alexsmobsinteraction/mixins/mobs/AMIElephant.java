@@ -44,25 +44,20 @@ public class AMIElephant extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    private static final EntityDataAccessor<Boolean> CANTRAMPLE = SynchedEntityData.defineId(EntityElephant.class, EntityDataSerializers.BOOLEAN);
-
     private static final EntityDataAccessor<Integer> STUNTICK = SynchedEntityData.defineId(EntityElephant.class, EntityDataSerializers.INT);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
         this.entityData.define(STUNTICK, 0);
-        this.entityData.define(CANTRAMPLE, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditional(CompoundTag compound, CallbackInfo ci){
         compound.putInt("StunTicks", this.getStunTicks());
-        compound.putBoolean("CanTrample", this.isElephantTrample());
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditional(CompoundTag compound, CallbackInfo ci){
         this.setStunTicks(compound.getInt("StunTicks"));
-        this.setElephantTrample(compound.getBoolean("CanTrample"));
 
     }
 
@@ -74,15 +69,6 @@ public class AMIElephant extends Mob {
         this.entityData.set(STUNTICK, stuntick);
     }
 
-    public boolean isElephantTrample() {
-        return this.entityData.get(CANTRAMPLE);
-    }
-
-    public void setElephantTrample(boolean tusklinTrample) {
-        this.entityData.set(CANTRAMPLE, tusklinTrample);
-    }
-
-
     boolean stun = false;
 
     protected boolean isImmobile() {
@@ -93,26 +79,6 @@ public class AMIElephant extends Mob {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         EntityElephant elephant = (EntityElephant)(Object)this;
-        if (elephant.isTame()) setElephantTrample(true);
-
-        Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.5,-2,0.5)).iterator();
-
-        if(AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED && this.isVehicle() && isElephantTrample()){
-            while (var4.hasNext()) {
-                Entity entity = (Entity) var4.next();
-                if (entity != this && entity != this.getControllingPassenger() && entity.getBbHeight() <= 2.5F && this.isVehicle()) {
-                    entity.hurt(this.damageSources().mobAttack((LivingEntity) this), 8.0F + this.random.nextFloat() * 2.0F);
-
-                }
-
-
-            }
-        }
-
-
-
-
-
         if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
             setStunTicks(getStunTicks() - 1);
             LivingEntity target = getTarget();
