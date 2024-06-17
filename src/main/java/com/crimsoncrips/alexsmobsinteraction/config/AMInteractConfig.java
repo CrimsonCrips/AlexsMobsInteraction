@@ -3,7 +3,9 @@ package com.crimsoncrips.alexsmobsinteraction.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class AMInteractConfig {
+
     public final ForgeConfigSpec.BooleanValue ANACONDA_KILL_BABY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SKREECH_YOUR_LAST_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
 
@@ -339,6 +341,8 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Skreecher");
         this.SKREECHER_WARD_ENABLED = buildBoolean(builder, "SKREECHER_WARD_ENABLED", " ", true, "Whether Skreecher's soul can be used on a Screacher to allow it to spawn wardens");
+
+        this.SKREECH_YOUR_LAST_ENABLED = buildBoolean(builder, "SKREECH_YOUR_LAST_ENABLED", " ", true, "New potion that causes a warden to spawn when an entity has the effect");
         builder.pop();
         builder.push("Snow Leopard");
         this.SNOW_LUCK_ENABLED = buildBoolean(builder, "SNOW_LUCK_ENABLED", " ", true, "Whether Snow Leopards can get rare items when killing specific mobs");
