@@ -3,6 +3,7 @@
 <NEWLINE>
 <NEWLINE>
 Frilled Sharks are lethargic living fossils found in deep oceans. These neutral sharks spend most of their time hunting for blobfish and squid, their favorite prey.
+Although will attack players that seem to be 'bleeding' when spotted.
 When pursuing squid, Frilled Sharks take advantage of the low-light levels of the deep sea and the squid's natural instincts by luring them in using its very reflective teeth.
 After landing some prey in its jaws, the shark will use its special serrated teeth to deal damage along with the Exsanguination effect, which quickly drains health. Occasionally, these teeth can be shed when attacking a squid.
 <NEWLINE>

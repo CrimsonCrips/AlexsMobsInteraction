@@ -7,6 +7,8 @@ public class AMInteractionConfig {
 
     public static boolean GUSTING_ENABLED;
 
+    public static boolean BLEEDING_HUNGER_ENABLED;
+
     public static boolean SKREECH_YOUR_LAST_ENABLED;
 
     public static boolean COCKROACH_CHAMBER;
@@ -226,6 +228,7 @@ public class AMInteractionConfig {
             WITCH_ADDITIONS_ENABLED = AMIConfigHolder.INTERACT.WITCH_ADDITIONS_ENABLED.get();
             COCKROACH_CHAMBER = AMIConfigHolder.INTERACT.COCKROACH_CHAMBER.get();
             GUSTING_ENABLED = AMIConfigHolder.INTERACT.GUSTING_ENABLED.get();
+            BLEEDING_HUNGER_ENABLED = AMIConfigHolder.INTERACT.BLEEDING_HUNGER_ENABLED.get();
 
             WEAVING_WATERS_ENABLED = AMIConfigHolder.INTERACT.WEAVING_WATERS_ENABLED.get();
             SKREECH_YOUR_LAST_ENABLED = AMIConfigHolder.INTERACT.SKREECH_YOUR_LAST_ENABLED.get();

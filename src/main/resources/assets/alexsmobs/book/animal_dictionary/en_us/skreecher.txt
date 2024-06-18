@@ -11,7 +11,8 @@ Given a few seconds, such a loud noise in such a sound-sensitive biome is bound 
 Lucky for adventurers, the Skreecher has extremely limited health, and any projectile can temporarily disable it from calling for a warden - along with sending it plummeting towards the ground.
 The most difficult part of facing these beasts is identifying them before they identify you.
 <NEWLINE>
-If slain, a Skreecher has a chance to drop its soul. The Skreecher Soul can be used to craft a Sculk Boomer or allows one to infuse its soul upon a Sculk Shrieker to allow it to summon the Warden from anywhere.
+If slain, a Skreecher has a chance to drop its soul.  Which allows one to infuse its soul upon a Sculk Shrieker to allow it to summon the Warden from anywhere, The Skreecher Soul can also be used to craft a Sculk Boomer.
 <NEWLINE>
 <NEWLINE>
 When activated by a nearby skulk sensor, this block will emit a loud boom that can damage nearby mobs that are within 3 horizontal blocks of the boomer. It can be temporarily disabled with a redstone signal, and the booms themselves have a slight cooldown, making the Sculk Boomer useful for traps.
+This soul is rumored to be able to be infused upon a potion to cause one to 'skreech' some say...

@@ -71,6 +71,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.*;
+import static com.github.alexthe666.alexsmobs.block.BlockLeafcutterAntChamber.FUNGUS;
 import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
 import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
@@ -307,9 +308,11 @@ public class AMInteractionEvents {
         }
 
         if(entity instanceof EntityFrilledShark frilledShark){
-            frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 1, false, true, (mob) -> {
-                return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
-            }));
+            if (AMInteractionConfig.BLEEDING_HUNGER_ENABLED){
+                frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 1, false, true, (mob) -> {
+                    return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
+                }));
+            }
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, LivingEntity.class, 1, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FRILLED_KILL)));
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, EntityGiantSquid.class, 1, false, true,(livingEntity) -> {
                 return livingEntity.getHealth() <= 0.25F * livingEntity.getMaxHealth();
@@ -981,41 +984,49 @@ public class AMInteractionEvents {
         LivingEntity livingEntity = event.getEntity();
 
 
-        if (AMInteractionConfig.SKREECHER_WARD_ENABLED ){
-            if (!event.getItemStack().is(AMItemRegistry.SKREECHER_SOUL.get()))
-                return;
-            if (!blockState.is(Blocks.SCULK_SHRIEKER))
-                return;
-            if (blockState.getValue(CAN_SUMMON))
-                return;
-
-
-            for (int x = 0; x < 5; x++){
-                for (int z = 0; z < 5; z++){
-                    BlockPos sculkPos = new BlockPos(pos.getX() + x - 2,pos.getY() - 1,pos.getZ() + z - 2);
-                    BlockState sculkPosState = worldIn.getBlockState(sculkPos);
-                    if (random.nextDouble() < 0.7 && sculkPosState.is(BlockTags.SCULK_REPLACEABLE)) {
-                        worldIn.setBlock(sculkPos, Blocks.SCULK.defaultBlockState(),2);
-                        worldIn.scheduleTick(sculkPos, sculkPosState.getBlock(), 8);
-                        worldIn.playSound((Player)null, sculkPos, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 2.0F, 0.6F + random.nextFloat() * 0.4F);
-                        if (random.nextDouble() < 0.2) worldIn.addParticle(ParticleTypes.SCULK_SOUL, sculkPos.getX() + 0.5, sculkPos.getY() + 1.15, sculkPos.getZ() + 0.5,  0.0, 0.05, 0.0);
-                        if (random.nextDouble() < 0.2) for (int i = 0; i < random.nextInt(5); i++)worldIn.addParticle(ParticleTypes.SCULK_CHARGE_POP, sculkPos.getX() + 0.5, sculkPos.getY() + 1.15, sculkPos.getZ() + 0.5,  0 + random.nextGaussian() * 0.02, 0.01 + random.nextGaussian() * 0.02, 0 + random.nextGaussian() * 0.02);
+        if (AMInteractionConfig.SKREECHER_WARD_ENABLED){
+            if (event.getItemStack().is(AMItemRegistry.SKREECHER_SOUL.get()) && blockState.is(Blocks.SCULK_SHRIEKER) && blockState.getValue(CAN_SUMMON)) {
+                for (int x = 0; x < 5; x++) {
+                    for (int z = 0; z < 5; z++) {
+                        BlockPos sculkPos = new BlockPos(pos.getX() + x - 2, pos.getY() - 1, pos.getZ() + z - 2);
+                        BlockState sculkPosState = worldIn.getBlockState(sculkPos);
+                        if (random.nextDouble() < 0.7 && sculkPosState.is(BlockTags.SCULK_REPLACEABLE)) {
+                            worldIn.setBlock(sculkPos, Blocks.SCULK.defaultBlockState(), 2);
+                            worldIn.scheduleTick(sculkPos, sculkPosState.getBlock(), 8);
+                            worldIn.playSound((Player) null, sculkPos, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 2.0F, 0.6F + random.nextFloat() * 0.4F);
+                            if (random.nextDouble() < 0.2)
+                                worldIn.addParticle(ParticleTypes.SCULK_SOUL, sculkPos.getX() + 0.5, sculkPos.getY() + 1.15, sculkPos.getZ() + 0.5, 0.0, 0.05, 0.0);
+                            if (random.nextDouble() < 0.2) for (int i = 0; i < random.nextInt(5); i++)
+                                worldIn.addParticle(ParticleTypes.SCULK_CHARGE_POP, sculkPos.getX() + 0.5, sculkPos.getY() + 1.15, sculkPos.getZ() + 0.5, 0 + random.nextGaussian() * 0.02, 0.01 + random.nextGaussian() * 0.02, 0 + random.nextGaussian() * 0.02);
+                        }
                     }
                 }
+                worldIn.playSound(null, pos, SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 1, 1);
+                worldIn.setBlockAndUpdate(pos, blockState.setValue(CAN_SUMMON, true));
+                if (livingEntity instanceof Player player && !player.isCreative())
+                    event.getItemStack().shrink(1);
+                for (int i = 0; i < 100; ++i) {
+                    double d0 = random.nextGaussian() * 0.02D;
+                    double d1 = random.nextGaussian() * 0.02D;
+                    double d2 = random.nextGaussian() * 0.02D;
+                    worldIn.addParticle(ParticleTypes.SCULK_SOUL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, d0, d1, d2);
+                }
             }
-            worldIn.playSound(null,pos,SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 1, 1);
-            worldIn.setBlockAndUpdate(pos, blockState.setValue(CAN_SUMMON, true));
-            if (livingEntity instanceof Player player && !player.isCreative())
-                event.getItemStack().shrink(1);
-            for (int i = 0; i < 100; ++i) {
-                double d0 = random.nextGaussian() * 0.02D;
-                double d1 = random.nextGaussian() * 0.02D;
-                double d2 = random.nextGaussian() * 0.02D;
-                worldIn.addParticle(ParticleTypes.SCULK_SOUL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, d0, d1, d2);
+
+
+
+        }
+
+        if (AMInteractionConfig.COCKROACH_CHAMBER){
+            if (blockState.is(AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get()) && !worldIn.isClientSide){
+                if (blockState.getValue(FUNGUS) != 5)
+                    return;
+                if (!(livingEntity.getRandom().nextDouble() < 0.7))
+                    return;
+                Entity entityToSpawn = (AMEntityRegistry.COCKROACH.get()).spawn((ServerLevel) worldIn, BlockPos.containing(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5), MobSpawnType.MOB_SUMMONED);
+                if (entityToSpawn instanceof EntityCockroach cockroach && worldIn.getRandom().nextDouble() < 0.07)
+                    cockroach.setBaby(true);
             }
-
-
-
         }
     }
 
@@ -1072,8 +1083,10 @@ public class AMInteractionEvents {
         Level level = (Level) breakEvent.getLevel();
         if (AMInteractionConfig.COCKROACH_CHAMBER) {
             if (blockState.is(AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get()) && breakEvent.getLevel().getRandom().nextDouble() < 0.1) {
+                 if (blockState.getValue(FUNGUS) < 3)
+                     return;
                 Entity entityToSpawn = (AMEntityRegistry.COCKROACH.get()).spawn((ServerLevel) level, BlockPos.containing(breakEvent.getPos().getX() + 0.5, breakEvent.getPos().getY() + 1.0, breakEvent.getPos().getZ() + 0.5), MobSpawnType.MOB_SUMMONED);
-                if (entityToSpawn instanceof EntityCockroach cockroach && breakEvent.getLevel().getRandom().nextDouble() < 0.07)
+                if (entityToSpawn instanceof EntityCockroach cockroach && breakEvent.getLevel().getRandom().nextDouble() < 0.8)
                     cockroach.setBaby(true);
             }
         }

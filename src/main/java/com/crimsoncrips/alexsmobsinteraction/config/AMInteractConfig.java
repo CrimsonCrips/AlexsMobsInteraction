@@ -163,6 +163,8 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO;
 
     public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
     
 
 
@@ -174,6 +176,7 @@ public class AMInteractConfig {
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Whether Charging Mobs can get stunned when holding up a shield");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Whether you will combust more when stepping on hot blocks");
         this.MOLTEN_BATH_ENABLED = buildBoolean(builder, "MOLTEN_BATH_ENABLED", " ", true, "Whether you can set a entity on fire with Lava Bottles");
+        this.BLEEDING_HUNGER_ENABLED = buildBoolean(builder, "BLEEDING_HUNGER_ENABLED", " ", true, "You get hunted by Frilled Sharks and Hammerhead's when you have Exsanguination");
 
         builder.pop();
         builder.push("Items");
@@ -300,7 +303,7 @@ public class AMInteractConfig {
         this.OBSIDIAN_EXTRACT_ENABLED = buildBoolean(builder, "OBSIDIAN_EXTRACT_ENABLED", " ", true, "Whether Lavithan can be reconverted from Obsidian to Normal");
         builder.pop();
         builder.push("Leafcutter Ants");
-        this.COCKROACH_CHAMBER = buildBoolean(builder, "COCKROACH_CHAMBER", " ", true, "Whether Leafcutter Chambers have a chance to spawn cockroaches when broken");
+        this.COCKROACH_CHAMBER = buildBoolean(builder, "COCKROACH_CHAMBER", " ", true, "Whether Leafcutter Chambers have a chance to spawn cockroaches when broken or harvested");
         builder.pop();
         builder.push("Lobster");
         this.LOBSTER_NIGHT_ENABLED = buildBoolean(builder, "LOBSTER_NIGHT_ENABLED", " ", true, "Whether Lobsters only spawn at night");
