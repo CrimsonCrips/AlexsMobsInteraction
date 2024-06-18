@@ -1024,15 +1024,15 @@ public class AMInteractionEvents {
         LivingEntity deadEntity = livingDeathEvent.getEntity();
         LivingEntity murdererEntity = deadEntity.getLastAttacker();
         if(AMInteractionConfig.DROPLESS_PREDATOR_ENABLED){
-            if (murdererEntity == null)
-                return;
-            EntityType<?> entityType = murdererEntity.getType();
-            if (!entityType.is(NO_DROPS_ANIMAL))
-                return;
-            final CompoundTag emptyNbt = new CompoundTag();
-            deadEntity.addAdditionalSaveData(emptyNbt);
-            emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
-            deadEntity.readAdditionalSaveData(emptyNbt);
+            if (murdererEntity != null) {
+                EntityType<?> entityType = murdererEntity.getType();
+                if (entityType.is(NO_DROPS_ANIMAL)) {
+                    final CompoundTag emptyNbt = new CompoundTag();
+                    deadEntity.addAdditionalSaveData(emptyNbt);
+                    emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
+                    deadEntity.readAdditionalSaveData(emptyNbt);
+                }
+            }
 
         }
 

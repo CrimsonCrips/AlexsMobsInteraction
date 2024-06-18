@@ -69,6 +69,7 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue TIGER_STEALTH_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GUSTING_ENABLED;
     public final ForgeConfigSpec.BooleanValue RACOON_HUNT_ENABLED;
     public final ForgeConfigSpec.BooleanValue RATTLESNAKE_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ROADRUNNER_DAY_ENABLED;
@@ -282,6 +283,7 @@ public class AMInteractConfig {
         builder.push("Guster");
         this.GUSTER_WEIGHT_ENABLED = buildBoolean(builder, "GUSTER_WEIGHT_ENABLED", " ", true, "Whether Guster's Tornado effect is based on armor of the player");
         this.GUSTER_PROJECTILE_PROT_ENABLED = buildBoolean(builder, "GUSTER_PROJECTILE_PROT_ENABLED", " ", true, "Whether Gusters are immune to projectiles");
+        this.GUSTING_ENABLED = buildBoolean(builder, "GUSTING_ENABLED", " ", true, "New potion effect that spawns tiny gusts, and are immune to being slowed by gusts");
 
         builder.pop();
         builder.push("Hammerhead Shark");
@@ -342,7 +344,7 @@ public class AMInteractConfig {
         builder.push("Skreecher");
         this.SKREECHER_WARD_ENABLED = buildBoolean(builder, "SKREECHER_WARD_ENABLED", " ", true, "Whether Skreecher's soul can be used on a Screacher to allow it to spawn wardens");
 
-        this.SKREECH_YOUR_LAST_ENABLED = buildBoolean(builder, "SKREECH_YOUR_LAST_ENABLED", " ", true, "New potion that causes a warden to spawn when an entity has the effect");
+        this.SKREECH_YOUR_LAST_ENABLED = buildBoolean(builder, "SKREECH_YOUR_LAST_ENABLED", " ", true, "New potion effect that spawns a Warden when it is about to ware off");
         builder.pop();
         builder.push("Snow Leopard");
         this.SNOW_LUCK_ENABLED = buildBoolean(builder, "SNOW_LUCK_ENABLED", " ", true, "Whether Snow Leopards can get rare items when killing specific mobs");

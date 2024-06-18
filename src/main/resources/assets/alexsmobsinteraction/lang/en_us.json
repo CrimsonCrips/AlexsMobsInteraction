@@ -1,11 +1,25 @@
 {
   "item.alexsmobsinteraction.swatter": "Swatter",
   "alexsmobsinteraction.itemTabalexsmobsinteraction": "Alex's Mob's Interaction",
+
   "alexsmobsinteraction.potion.skreeching": "Skreech Your Last.",
-  "effect.alexsmobsinteraction.skreeching.description": "§tCauses a Warden to spawn when the effect wares off or when entering the Deep Dark",
+  "effect.alexsmobsinteraction.skreeching.description": "Causes a Warden to spawn when the effect wares off",
   "item.minecraft.splash_potion.effect.skreeching": "Splash Potion of Skreeching",
   "item.minecraft.tipped_arrow.effect.skreeching": "Arrow of Skreeching",
   "item.minecraft.lingering_potion.effect.skreeching": "Lingering Potion of Skreeching",
-  "item.minecraft.potion.effect.skreeching": "Potion of Skreeching"
+  "item.minecraft.potion.effect.skreeching": "Potion of Skreeching",
+
+  "alexsmobsinteraction.potion.gusting": "Gusting",
+  "effect.alexsmobsinteraction.gusting.description": "Immune to affection with gusts and spawns gusts simultaniously around the player",
+  "item.minecraft.splash_potion.effect.gusting": "Splash Potion of Gusting",
+  "item.minecraft.tipped_arrow.effect.gusting": "Arrow of Gusting",
+  "item.minecraft.lingering_potion.effect.gusting": "Lingering Potion of Gusting",
+  "item.minecraft.potion.effect.gusting": "Potion of Gusting",
+  "alexsmobsinteraction.potion.long_gusting": "Gusting",
+  "effect.alexsmobsinteraction.long_gusting.description": "Immune to affection with gusts and spawns gusts simultaniously around the player",
+  "item.minecraft.splash_potion.effect.long_gusting": "Splash Potion of Gusting",
+  "item.minecraft.tipped_arrow.effect.long_gusting": "Arrow of Gusting",
+  "item.minecraft.lingering_potion.effect.long_gusting": "Lingering Potion of Gusting",
+  "item.minecraft.potion.effect.long_gusting": "Potion of Gusting"
 }
 
