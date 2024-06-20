@@ -63,7 +63,6 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DROPLESS_PREDATOR_ENABLED;
     public final ForgeConfigSpec.BooleanValue PREY_FEAR_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
@@ -171,7 +170,6 @@ public class AMInteractConfig {
 
     public AMInteractConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
-        this.DROPLESS_PREDATOR_ENABLED = buildBoolean(builder, "DROPLESS_PREDATOR_ENABLED", " ", true, "Whether some predators cause to not drop any items for their prey");
         this.PREY_FEAR_ENABLED = buildBoolean(builder, "PREY_FEAR_ENABLED", " ", true, "Whether some Prey fear their predators");
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Whether Charging Mobs can get stunned when holding up a shield");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Whether you will combust more when stepping on hot blocks");

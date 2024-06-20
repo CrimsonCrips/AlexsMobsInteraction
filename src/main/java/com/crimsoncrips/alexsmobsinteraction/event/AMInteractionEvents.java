@@ -1034,18 +1034,6 @@ public class AMInteractionEvents {
     public void mobDeath(LivingDeathEvent livingDeathEvent){
         LivingEntity deadEntity = livingDeathEvent.getEntity();
         LivingEntity murdererEntity = deadEntity.getLastAttacker();
-        if(AMInteractionConfig.DROPLESS_PREDATOR_ENABLED){
-            if (murdererEntity != null) {
-                EntityType<?> entityType = murdererEntity.getType();
-                if (entityType.is(NO_DROPS_ANIMAL)) {
-                    final CompoundTag emptyNbt = new CompoundTag();
-                    deadEntity.addAdditionalSaveData(emptyNbt);
-                    emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
-                    deadEntity.readAdditionalSaveData(emptyNbt);
-                }
-            }
-
-        }
 
         if(AMInteractionConfig.SNOW_LUCK_ENABLED){
             if (murdererEntity == null)

@@ -54,7 +54,6 @@ public class AMInteractionConfig {
     public static boolean MANTIS_AGGRO_ENABLED;
     public static boolean MANTIS_CANNIBALIZE_ENABLED;
     public static boolean MURMUR_REGROW_ENABLED;
-    public static boolean DROPLESS_PREDATOR_ENABLED;
     public static boolean PREY_FEAR_ENABLED;
     public static boolean RACOON_HUNT_ENABLED;
     public static boolean RATTLESNAKE_CANNIBALIZE_ENABLED;
@@ -197,7 +196,6 @@ public class AMInteractionConfig {
             MANTIS_AGGRO_ENABLED = AMIConfigHolder.INTERACT.MANTIS_AGGRO_ENABLED.get();
             MANTIS_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.MANTIS_CANNIBALIZE_ENABLED.get();
             MURMUR_REGROW_ENABLED = AMIConfigHolder.INTERACT.MURMUR_REGROW_ENABLED.get();
-            DROPLESS_PREDATOR_ENABLED = AMIConfigHolder.INTERACT.DROPLESS_PREDATOR_ENABLED.get();
             PREY_FEAR_ENABLED = AMIConfigHolder.INTERACT.PREY_FEAR_ENABLED.get();
             RACOON_HUNT_ENABLED = AMIConfigHolder.INTERACT.RACOON_HUNT_ENABLED.get();
             RATTLESNAKE_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.RATTLESNAKE_CANNIBALIZE_ENABLED.get();
