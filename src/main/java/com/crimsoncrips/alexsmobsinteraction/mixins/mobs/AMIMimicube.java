@@ -27,9 +27,10 @@ public abstract class AMIMimicube extends Mob {
     }
 
 
-    public boolean hurt(DamageSource source, float amount) {
+    //placeholder
+    /*public boolean hurt(DamageSource source, float amount) {
         Entity trueSource = source.getEntity();
-        if (trueSource instanceof LivingEntity attacker && attacker.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.MIMICLESS.get()) > 0) {
+        if (trueSource instanceof LivingEntity attacker && !(attacker.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.MIMICLESS.get()) > 0)) {
             if (!attacker.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
                 this.setItemSlot(EquipmentSlot.HEAD, this.mimicStack(attacker.getItemBySlot(EquipmentSlot.HEAD)));
             }
@@ -44,7 +45,7 @@ public abstract class AMIMimicube extends Mob {
         }
 
         return super.hurt(source, amount);
-    }
+    } */
 
     private ItemStack mimicStack(ItemStack stack) {
         ItemStack copy = stack.copy();
