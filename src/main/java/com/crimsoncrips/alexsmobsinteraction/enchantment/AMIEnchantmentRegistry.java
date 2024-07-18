@@ -23,6 +23,8 @@ public class AMIEnchantmentRegistry {
 
     public static final RegistryObject<Enchantment> STABILIZER;
 
+    public static final RegistryObject<Enchantment> MIMICLESS;
+
     public static final RegistryObject<Enchantment> LIGHTWEIGHT;
 
     public static final RegistryObject<Enchantment> FINAL_STAND;
@@ -44,7 +46,8 @@ public class AMIEnchantmentRegistry {
         ROLLER  = EnchantmentCategory.create("teleport_staff", item -> item == AMItemRegistry.ROCKY_CHESTPLATE.get());
 
         LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
-        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, ROLLER,EquipmentSlot.CHEST));
+        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, ROLLER,EquipmentSlot.CHEST));
+        MIMICLESS = DEF_REG.register("mimicless", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
 
         STABILIZER = DEF_REG.register("stabilizer", () -> new AMIBasicEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
         TRAMPLE = DEF_REG.register("trample", () -> {

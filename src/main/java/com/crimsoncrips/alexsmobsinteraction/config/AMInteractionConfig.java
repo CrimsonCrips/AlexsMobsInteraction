@@ -33,6 +33,7 @@ public class AMInteractionConfig {
     public static boolean CAIMAN_AGGRO_ENABLED;
     public static boolean CAPUCHIN_HUNT_ENABLED;
     public static boolean CATFISH_CANNIBALIZE_ENABLED;
+    public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
     public static boolean STUPID_CATFISH_EAT_ENABLED;
     public static boolean LIGHT_FEAR_ENABLED;
     public static boolean BLOODLESS_IGNORE_ENABLED;
@@ -171,6 +172,7 @@ public class AMInteractionConfig {
             ANACONDA_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.ANACONDA_CANNIBALIZE_ENABLED.get();
             EAGLE_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.EAGLE_CANNIBALIZE_ENABLED.get();
             BANANA_SHEAR_ENABLED = AMIConfigHolder.INTERACT.BANANA_SHEAR_ENABLED.get();
+            ACCIDENTAL_BETRAYAL_ENABLED = AMIConfigHolder.INTERACT.ACCIDENTAL_BETRAYAL_ENABLED.get();
             BLOODED_ENABLED = AMIConfigHolder.INTERACT.BLOODED_ENABLED.get();
             CAIMAN_AGGRO_ENABLED = AMIConfigHolder.INTERACT.CAIMAN_AGGRO_ENABLED.get();
             CAPUCHIN_HUNT_ENABLED = AMIConfigHolder.INTERACT.CAPUCHIN_HUNT_ENABLED.get();

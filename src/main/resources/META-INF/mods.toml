@@ -17,7 +17,7 @@ license="MIT"
 modId="alexsmobsinteraction" #mandatory
 displayURL="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs-interaction" #optional
 # The version number of the mod
-version="3.3.1" #mandatory
+version="3.4" #mandatory
 # A display name for the mod
 displayName="Alexs Mobs Interaction" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://docs.minecraftforge.net/en/latest/misc/updatechecker/
@@ -41,7 +41,7 @@ authors="The Crimson and the Reimainder" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''Adding interactivity between Mobs from Alex's Mobs'''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies."${mod_id}"]] #optional
+[[dependencies.alexsmobsinteraction]] #optional
 # the modid of the dependency
 modId="forge" #mandatory
 # Does this dependency have to exist - if not, ordering below must be specified
@@ -54,25 +54,25 @@ versionRange="[47,)" #mandatory
 ordering="NONE"
 # Side this dependency is applied on - BOTH, CLIENT, or SERVER
 side="BOTH"# Here's another dependency
-[[dependencies."${mod_id}"]]
+[[dependencies.alexsmobsinteraction]]
 modId="minecraft"
 mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange="[1.20.1]"
 ordering="NONE"
 side="BOTH"
-[[dependencies."${mod_id}"]]
+[[dependencies.alexsmobsinteraction]]
 modId="alexsmobs"
 mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange="[1.22.8,)"
-ordering="AFTER"
+ordering="BEFORE"
 side="BOTH"
 
-[[dependencies."${mod_id}"]]
+[[dependencies.alexsmobsinteraction]]
 modId="soulfired"
 mandatory=false
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange="[3.2.1.0,)"
-ordering="BEFORE"
+ordering="NONE"
 side="BOTH"

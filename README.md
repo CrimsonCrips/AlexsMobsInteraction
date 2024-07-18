@@ -8,7 +8,7 @@ it adds new interactions between the mobs.
 
 Special Thanks to
 -
--Reimnop, for helping me code
+-Reimnop and Drullkus for helping with code.
 
 -[Alex](whttps://modrinth.com/user/AlexModGuy) and [Carro](whttps://modrinth.com/user/Carro1001) for the great mod
 

@@ -114,12 +114,8 @@ public class AMInteractionEvents {
             });
             anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(anaconda, EntityAnaconda.class));
             anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 1000, true, false, (livingEntity) -> {
-                return ANACONDA_BABY_TARGETS.test(livingEntity) && anaconda.level().isNight() && livingEntity.isBaby();
-            }) {
-                protected AABB getTargetSearchArea(double targetDistance) {
-                    return anaconda.getBoundingBox().inflate(25D, 1D, 25D);
-                }
-            });
+                return ANACONDA_BABY_TARGETS.test(livingEntity)  && livingEntity.isBaby();
+            }));
             if (AMInteractionConfig.ANACONDA_CANNIBALIZE_ENABLED) {
                 anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 2500, true, false, (livingEntity) -> {
                     return (livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth() || livingEntity.isBaby());
@@ -205,11 +201,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof final EntityCrocodile crocodile && !crocodile.isBaby() && !crocodile.isTame()){
-            crocodile.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(crocodile, LivingEntity.class, 5000, true, false,AMEntityRegistry.buildPredicateFromTag(CROCODILE_BABY_KILL)){
-                protected AABB getTargetSearchArea(double targetDistance) {
-                    return this.mob.getBoundingBox().inflate(25D, 1D, 25D);
-                }
-            });
+            crocodile.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(crocodile, LivingEntity.class, 5000, true, false,AMEntityRegistry.buildPredicateFromTag(CROCODILE_BABY_KILL)));
         }
 
         if (entity instanceof final EntityCrow crow && !crow.isTame() && !crow.isBaby()){
@@ -413,12 +405,9 @@ public class AMInteractionEvents {
             raccoon.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(raccoon, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.RACCOON_KILL)) {
                 @Override
                 public boolean canUse() {
-                    return super.canUse() && !raccoon.isTame() && raccoon.level().isNight();
+                    return super.canUse() && !raccoon.isTame();
                 }
 
-                protected AABB getTargetSearchArea(double targetDistance) {
-                    return this.mob.getBoundingBox().inflate(10D, 1D, 10D);
-                }
             });
         }
 
@@ -543,21 +532,21 @@ public class AMInteractionEvents {
                     return  super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isHoneyed();
                 }
             });
-            if (!AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED)
-                return;
-            grizzlyBear.targetSelector.removeAllGoals(goal -> {
-                return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear.AttackPlayerGoal");
-            });
-            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
-                public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame();
-                }
-            });
-            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 100, true, true,AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)){
-                public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame();
-                }
-            });
+            if (AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED) {
+                grizzlyBear.targetSelector.removeAllGoals(goal -> {
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear.AttackPlayerGoal");
+                });
+                grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)) {
+                    public boolean canUse() {
+                        return super.canUse() && !grizzlyBear.isTame();
+                    }
+                });
+                grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 100, true, true,null) {
+                    public boolean canUse() {
+                        return super.canUse() && !grizzlyBear.isTame();
+                    }
+                });
+            }
         }
 
         if (entity instanceof EntityAlligatorSnappingTurtle snappingturtle){
@@ -647,6 +636,31 @@ public class AMInteractionEvents {
             soulVulture.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(soulVulture, EntityBoneSerpent.class, 0, true, false, (mob) -> {
                 return !entity.isInLava();
             }));
+        }
+
+        if (entity instanceof EntityRhinoceros rhinoceros){
+            if (AMInteractionConfig.ACCIDENTAL_BETRAYAL_ENABLED){
+                rhinoceros.targetSelector.removeAllGoals(goal -> {
+                    return goal instanceof AnimalAIHurtByTargetNotBaby;
+                });
+
+                rhinoceros.targetSelector.addGoal(1, new HurtByTargetGoal(rhinoceros, new Class[]{EntityRhinoceros.class}));
+
+
+                rhinoceros.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(rhinoceros, EntityRhinoceros.class, 200, true, true, (mob) -> {
+                    System.out.println(mob.getDeltaMovement().horizontalDistance());
+                    return mob.isBaby() && mob.getDeltaMovement().horizontalDistance() >= 0.08 && mob.getLastAttacker() != rhinoceros;
+                }) {
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && !rhinoceros.isBaby() && rhinoceros.level().isDay() && !rhinoceros.isLeashed() && !rhinoceros.isInLove();
+                    }
+
+                    protected double getFollowDistance() {
+                        return 3.0;
+                    }
+                });
+            }
+
         }
 
         if (entity instanceof EntitySkelewag skelewag){
@@ -816,6 +830,7 @@ public class AMInteractionEvents {
 
         if(livingEntity instanceof Player player){
             BlockState feetBlockstate = player.getBlockStateOn();
+
 
             if (AMInteractionConfig.COMBUSTABLE_ENABLED && player.hasEffect(AMEffectRegistry.OILED.get())){
                 if (feetBlockstate.is(Blocks.MAGMA_BLOCK) || feetBlockstate.is(Blocks.CAMPFIRE))
@@ -1036,22 +1051,23 @@ public class AMInteractionEvents {
         LivingEntity murdererEntity = deadEntity.getLastAttacker();
 
         if(AMInteractionConfig.SNOW_LUCK_ENABLED){
-            if (murdererEntity == null)
-                return;
-            RandomSource random = murdererEntity.getRandom();
-            if (deadEntity instanceof Goat && random.nextDouble() < 0.5) {
-                deadEntity.spawnAtLocation(Items.GOAT_HORN);
-                if (random.nextDouble() < 0.05) deadEntity.spawnAtLocation(Items.GOAT_HORN);
-            } else if (deadEntity instanceof Turtle && random.nextDouble() < 0.2) {
-                deadEntity.spawnAtLocation(Items.SCUTE);
-            } else if (deadEntity instanceof EntityFrilledShark && random.nextDouble() < 0.08) {
-                deadEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
-                if (random.nextDouble() < 0.01) deadEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
-            } else if (deadEntity instanceof EntityBananaSlug && random.nextDouble() < 0.2) {
-                deadEntity.spawnAtLocation(AMItemRegistry.BANANA_SLUG_SLIME.get());
-            } else if (deadEntity instanceof Rabbit) {
-                deadEntity.spawnAtLocation(Items.RABBIT_FOOT);
-                if (random.nextDouble() < 0.02) deadEntity.spawnAtLocation(Items.RABBIT_FOOT);
+            if (murdererEntity instanceof EntitySnowLeopard) {
+                RandomSource random = murdererEntity.getRandom();
+                if (deadEntity instanceof Goat && random.nextDouble() < 0.5) {
+                    murdererEntity.spawnAtLocation(Items.GOAT_HORN);
+                    if (random.nextDouble() < 0.05) murdererEntity.spawnAtLocation(Items.GOAT_HORN);
+                } else if (deadEntity instanceof Turtle && random.nextDouble() < 0.2) {
+                    murdererEntity.spawnAtLocation(Items.SCUTE);
+                } else if (deadEntity instanceof EntityFrilledShark && random.nextDouble() < 0.08) {
+                    murdererEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
+                    if (random.nextDouble() < 0.01)
+                        murdererEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
+                } else if (deadEntity instanceof EntityBananaSlug && random.nextDouble() < 0.2) {
+                    murdererEntity.spawnAtLocation(AMItemRegistry.BANANA_SLUG_SLIME.get());
+                } else if (deadEntity instanceof Rabbit) {
+                    murdererEntity.spawnAtLocation(Items.RABBIT_FOOT);
+                    if (random.nextDouble() < 0.02) deadEntity.spawnAtLocation(Items.RABBIT_FOOT);
+                }
             }
         }
     }

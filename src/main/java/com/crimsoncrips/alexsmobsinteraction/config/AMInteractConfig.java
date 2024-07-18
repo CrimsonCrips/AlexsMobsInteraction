@@ -40,6 +40,7 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
     public final ForgeConfigSpec.BooleanValue FARSEER_HUMANLIKE_ATTACK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ACCIDENTAL_BETRAYAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_FLEE_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLY_FEAR_ENABLED;
@@ -327,6 +328,9 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Rattlesnake");
         this.RATTLESNAKE_CANNIBALIZE_ENABLED = buildBoolean(builder, "RATTLESNAKE_CANNIBALIZE_ENABLED", " ", true, "Whether Rattlesnakes cannibalize on other rattlesnakes in certain conditions");
+        builder.pop();
+        builder.push("Rhino");
+        this.ACCIDENTAL_BETRAYAL_ENABLED = buildBoolean(builder, "ACCIDENTAL_BETRAYAL_ENABLED", " ", true, "Causes Rhinos to sometimes accidentally attack moving baby rhinos due to their extremely poor vision");
         builder.pop();
         builder.push("Roadrunner");
         this.ROADRUNNER_DAY_ENABLED = buildBoolean(builder, "ROADRUNNER_DAY_ENABLED", " ", true, "Whether Roadrunners only hunt at day");
