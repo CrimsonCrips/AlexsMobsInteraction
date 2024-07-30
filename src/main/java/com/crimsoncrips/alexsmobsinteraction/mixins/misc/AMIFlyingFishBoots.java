@@ -20,7 +20,7 @@ public abstract class AMIFlyingFishBoots {
 
 
     @Inject(method = "tickFlyingFishBoots", at = @At("HEAD"),remap = false)
-    private static void fishyVaribale(LivingEntity fishy, CallbackInfo ci){
+    private static void fishyVariable(LivingEntity fishy, CallbackInfo ci){
         wearer = fishy;
         if (wearer.getDeltaMovement().horizontalDistance() != 0) {
             speed = wearer.getDeltaMovement().horizontalDistance() * 0.3;
