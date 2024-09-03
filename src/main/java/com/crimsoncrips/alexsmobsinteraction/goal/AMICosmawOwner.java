@@ -34,6 +34,7 @@ public class AMICosmawOwner extends Goal {
     public void tick() {
         if (this.owner != null && (!this.owner.isFallFlying() || this.owner.getY() < -30.0)) {
             double dist = (double)cosmaw.distanceTo(this.owner);
+
             if (!(dist < 3.0) && !(this.owner.getY() <= -50.0)) {
                 if (!(dist > 100.0) && !(this.owner.getY() <= -20.0)) {
                     cosmaw.getNavigation().moveTo(this.owner, 1.0 + Math.min(dist * 0.30000001192092896, 3.0));
