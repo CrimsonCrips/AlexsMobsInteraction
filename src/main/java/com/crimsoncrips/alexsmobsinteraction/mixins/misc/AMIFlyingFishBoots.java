@@ -20,7 +20,7 @@ public abstract class AMIFlyingFishBoots {
 
 
     @Inject(method = "tickFlyingFishBoots", at = @At("HEAD"),remap = false)
-    private static void fishyVaribale(LivingEntity fishy, CallbackInfo ci){
+    private static void fishyVariable(LivingEntity fishy, CallbackInfo ci){
         wearer = fishy;
         if (wearer.getDeltaMovement().horizontalDistance() != 0) {
             speed = wearer.getDeltaMovement().horizontalDistance() * 0.3;
@@ -29,8 +29,6 @@ public abstract class AMIFlyingFishBoots {
         if (!(wearer.getLookAngle().y <= 0)) {
             lookAngle = wearer.getLookAngle().y;
         }
-
-        System.out.println(speed + lookAngle * speed);
     }
 
     @ModifyArg(method = "tickFlyingFishBoots", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V"), index = 1)
