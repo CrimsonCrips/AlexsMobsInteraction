@@ -1,11 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.goal;
 
 
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMICosmawInterface;
-
+import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCosmaw;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class AMICosmawOwner extends Goal {
@@ -20,9 +23,7 @@ public class AMICosmawOwner extends Goal {
 
 
     public boolean canUse() {
-        AMICosmawInterface myAccessor = (AMICosmawInterface) cosmaw;
-        int getweaktimer = myAccessor.getweakTimer();
-        if (cosmaw.isTame() && cosmaw.getOwner() != null && !cosmaw.isSitting() && !cosmaw.getOwner().isPassenger() && !cosmaw.getOwner().onGround() && cosmaw.getOwner().fallDistance > 4.0F && getweaktimer <= 0) {
+        if (cosmaw.isTame() && cosmaw.getOwner() != null && !cosmaw.isSitting() && !cosmaw.getOwner().isPassenger() && !cosmaw.getOwner().onGround() && cosmaw.getOwner().fallDistance > 4.0F && !cosmaw.hasEffect(MobEffects.WEAKNESS)) {
             this.owner = cosmaw.getOwner();
             return true;
         } else {
@@ -42,6 +43,9 @@ public class AMICosmawOwner extends Goal {
             } else {
                 this.owner.fallDistance = 0.0F;
                 this.owner.startRiding(cosmaw);
+            }
+            if (cosmaw.hasPassenger(owner) && owner.getArmorValue() > 5 && !(owner.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.LIGHTWEIGHT.get()) > 0)){
+                cosmaw.addEffect(new MobEffectInstance(MobEffects.WEAKNESS,owner.getArmorValue() * 100, 0));
             }
         }
 

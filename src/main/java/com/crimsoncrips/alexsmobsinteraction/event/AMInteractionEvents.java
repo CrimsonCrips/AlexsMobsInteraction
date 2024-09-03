@@ -315,12 +315,6 @@ public class AMInteractionEvents {
             geladaMonkey.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(geladaMonkey, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SMALLCRITTER)));
         }
 
-        if(entity instanceof EntityGiantSquid giantSquid && AMInteractionConfig.SQUID_CANNIBALIZE_ENABLED && giantSquid.isInWaterOrBubble() && !giantSquid.isCaptured()) {
-            giantSquid.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(giantSquid, EntityGiantSquid.class, 200, true, false, (livingEntity) -> {
-                return livingEntity.getHealth() <= 0.15F * livingEntity.getMaxHealth();
-            }));
-        }
-
         if(entity instanceof EntityGorilla gorilla){
             gorilla.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(gorilla, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SMALLCRITTER)));
         }
@@ -344,18 +338,6 @@ public class AMInteractionEvents {
                     }
                 });
             }
-        }
-
-        if (entity instanceof EntityHammerheadShark hammerheadShark){
-            if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
-                hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, EntityMantisShrimp.class, 50, true, false, (mob) -> {
-                    return mob.getHealth() <= 0.2 * mob.getMaxHealth();
-                }));
-            }
-            hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, Player.class, 1, false, true, (mob) -> {
-                return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
-            }));
-            hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.HAMMERHEAD_KILL)));
         }
 
         if (entity instanceof EntityKomodoDragon komodoDragon){
@@ -534,14 +516,14 @@ public class AMInteractionEvents {
             });
             if (AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED) {
                 grizzlyBear.targetSelector.removeAllGoals(goal -> {
-                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear.AttackPlayerGoal");
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear.AttackPlayerGoal") || goal instanceof NearestAttackableTargetGoal<?>;
                 });
                 grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)) {
                     public boolean canUse() {
                         return super.canUse() && !grizzlyBear.isTame();
                     }
                 });
-                grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 100, true, true,null) {
+                grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 10, true, true,null) {
                     public boolean canUse() {
                         return super.canUse() && !grizzlyBear.isTame();
                     }
@@ -610,17 +592,20 @@ public class AMInteractionEvents {
         if (entity instanceof EntityCosmaw cosmaw){
             if (AMInteractionConfig.COSMAW_WEAKENED_ENABLED) {
                 cosmaw.goalSelector.removeAllGoals(goal -> {
-                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityCosmaw.AIPickupOwner");
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityCosmaw$AIPickupOwner");
                 });
                 cosmaw.goalSelector.addGoal(4, new AMICosmawOwner(cosmaw));
             }
         }
 
         if (entity instanceof EntityHammerheadShark hammerheadShark){
-            hammerheadShark.goalSelector.removeAllGoals(goal -> {
-                return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityHammerheadShark.CirclePreyGoal");
-            });
-            hammerheadShark.goalSelector.addGoal(1, new AMIHammerCircleReplace(hammerheadShark, 1.0F));
+            if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+                hammerheadShark.goalSelector.removeAllGoals(goal -> {
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityHammerheadShark$CirclePreyGoal");
+                });
+
+                hammerheadShark.goalSelector.addGoal(1, new AMIHammerCircleReplace(hammerheadShark, 1.0F));
+            }
 
             if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
                 hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, EntityMantisShrimp.class, 50, true, false, (mob) -> {

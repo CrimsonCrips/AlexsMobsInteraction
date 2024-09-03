@@ -50,7 +50,6 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER;
 
     public final ForgeConfigSpec.BooleanValue BLOOD_PROTECTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SQUID_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue GRIZZLY_FRIENDLY_ENABLED;
     public final ForgeConfigSpec.BooleanValue GUSTER_WEIGHT_ENABLED;
     public final ForgeConfigSpec.BooleanValue HAMMERHEAD_MANTIS_EAT_ENABLED;
@@ -272,9 +271,6 @@ public class AMInteractConfig {
        builder.pop();
         builder.push("Gelada Monkey");
         this.GELADA_HUNT_ENABLED = buildBoolean(builder, "GELADA_HUNT_ENABLED", " ", true, "Whether Gelada Monkeys hunt small animals");
-        builder.pop();
-        builder.push("Giant Squid");
-        this.SQUID_CANNIBALIZE_ENABLED = buildBoolean(builder, "SQUID_CANNIBALIZE_ENABLED", " ", true, "Whether Giant Squids cannibalize on other giant squids in certain conditions");
         builder.pop();
         builder.push("Grizzly Bear");
         this.GRIZZLY_FRIENDLY_ENABLED = buildBoolean(builder, "GRIZZLY_FRIENDLY_ENABLED", " ", true, "Whether Grizzlies will not attack players when untamed");

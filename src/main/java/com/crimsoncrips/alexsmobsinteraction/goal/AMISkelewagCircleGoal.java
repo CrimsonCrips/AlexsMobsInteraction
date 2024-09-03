@@ -1,6 +1,5 @@
 package com.crimsoncrips.alexsmobsinteraction.goal;
 
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMICosmawInterface;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMISkelewagInterface;
 import com.github.alexthe666.alexsmobs.entity.EntitySkelewag;
 import com.github.alexthe666.alexsmobs.misc.AMBlockPos;

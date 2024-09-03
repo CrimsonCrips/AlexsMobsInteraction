@@ -46,7 +46,6 @@ public class AMInteractionConfig {
     public static boolean FLUTTER_WITHERED_ENABLED;
     public static boolean FLY_FEAR_ENABLED;
     public static boolean CANDLE_REPEL_ENABLED;
-    public static boolean SQUID_CANNIBALIZE_ENABLED;
     public static boolean GRIZZLY_FRIENDLY_ENABLED;
     public static boolean GUSTER_WEIGHT_ENABLED;
     public static boolean HAMMERHEAD_MANTIS_EAT_ENABLED;
@@ -189,7 +188,6 @@ public class AMInteractionConfig {
             FLUTTER_WITHERED_ENABLED = AMIConfigHolder.INTERACT.FLUTTER_WITHERED_ENABLED.get();
             FLY_FEAR_ENABLED = AMIConfigHolder.INTERACT.FLY_FEAR_ENABLED.get();
             CANDLE_REPEL_ENABLED = AMIConfigHolder.INTERACT.CANDLE_REPEL_ENABLED.get();
-            SQUID_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.SQUID_CANNIBALIZE_ENABLED.get();
             GRIZZLY_FRIENDLY_ENABLED = AMIConfigHolder.INTERACT.GRIZZLY_FRIENDLY_ENABLED.get();
             GUSTER_WEIGHT_ENABLED = AMIConfigHolder.INTERACT.GUSTER_WEIGHT_ENABLED.get();
             HAMMERHEAD_MANTIS_EAT_ENABLED = AMIConfigHolder.INTERACT.HAMMERHEAD_MANTIS_EAT_ENABLED.get();
