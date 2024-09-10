@@ -156,8 +156,8 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("maven.modrinth:alexs-mobs:1.22.8")
-    implementation fg.deobf("maven.modrinth:citadel:2.5.4")
+    implementation fg.deobf("maven.modrinth:alexs-mobs:1.22.9")
+    implementation fg.deobf("maven.modrinth:citadel:2.6.0")
     implementation fg.deobf("maven.modrinth:soul-fire-d:JksWBgvV")
     runtimeOnly fg.deobf("maven.modrinth:jade:11.7.1")
     runtimeOnly fg.deobf("maven.modrinth:bookshelf-lib:dH6uJvm7")

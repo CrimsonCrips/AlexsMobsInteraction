@@ -64,7 +64,7 @@ side="BOTH"
 [[dependencies.alexsmobsinteraction]]
 modId="alexsmobs"
 mandatory=true
-versionRange="[1.22.8]"
+versionRange="[1.22.9]"
 ordering="BEFORE"
 side="BOTH"
 
