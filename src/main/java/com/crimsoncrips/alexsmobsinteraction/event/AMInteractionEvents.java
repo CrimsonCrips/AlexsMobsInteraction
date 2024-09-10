@@ -81,9 +81,6 @@ public class AMInteractionEvents {
 
     private boolean retreatStomp;
 
-    public boolean canRollInFluid = false;
-
-    int rollingtime = 0;
 
     @SubscribeEvent
     public void onEntityFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
@@ -858,45 +855,7 @@ public class AMInteractionEvents {
                 player.addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 20, 0));
             }
 
-            double z = player.getLookAngle().z;
-            double x = player.getLookAngle().x;
 
-
-            if(AMInteractionConfig.ROLLING_THUNDER_ENABLED){
-                if (!(rollingtime <= 0) && player.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0 && player.getItemBySlot(EquipmentSlot.CHEST).is((Item) AMItemRegistry.ROCKY_CHESTPLATE.get())) {
-                    if (RockyChestplateUtil.isRockyRolling(player)) {
-                        if (!(player.isInWater() || player.isInLava())) {
-                            canRollInFluid = true;
-                        }
-
-                        if (feetBlockstate.is(Blocks.WATER)) {
-                            rollingtime--;
-                            double d1 = player.getRandom().nextGaussian() * 0.02;
-                            player.level().addParticle(ParticleTypes.SPLASH, player.getRandomX(0.1), player.getY() + 0.5, player.getRandomZ(0.1), x * -2 * player.getRandom().nextInt(2), 0.1 + d1, z * -2 * player.getRandom().nextInt(2));
-                            player.level().addParticle(ParticleTypes.SPLASH, player.getRandomX(0.1), player.getY() + 0.5, player.getRandomZ(0.1), x * -2 * player.getRandom().nextInt(2), 0.1 + d1, z * -2 * player.getRandom().nextInt(2));
-                            for (int i = 0; i < 5; i++) {
-                                player.level().addParticle(ParticleTypes.BUBBLE, player.getRandomX(2), player.getY() + 0.5, player.getRandomZ(2), 0, 0, 0);
-                            }
-                        }
-                        if (feetBlockstate.is(Blocks.LAVA)) {
-                            rollingtime--;
-                            player.setSecondsOnFire(3);
-                            double d1 = player.getRandom().nextGaussian() * 0.02;
-                            double d2 = player.getRandom().nextGaussian() * 0.02;
-                            double d3 = player.getRandom().nextGaussian() * 0.02;
-                            player.level().addParticle(ParticleTypes.LAVA, player.getX(), player.getY() + 1, player.getZ(), x * -2 + d1, 0.1 + d2, z * -2 + d3);
-
-                        }
-                    }
-                    if (rollingtime <= 1 || !RockyChestplateUtil.isRockyRolling(player)) {
-                        canRollInFluid = false;
-                    }
-
-                }
-                if (!(player.isInWater() || player.isInLava()) && player.onGround()) {
-                    rollingtime = 100;
-                }
-            }
         }
 
 
