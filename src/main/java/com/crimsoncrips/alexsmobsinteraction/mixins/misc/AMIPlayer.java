@@ -53,7 +53,7 @@ public abstract class AMIPlayer extends LivingEntity {
                     if (random.nextDouble() < 0.03) this.level().addParticle(ParticleTypes.LAVA, this.getX(), this.getY() + 0.05, this.getZ(), x * -2 + d1, 0.1 + d2, z * -2 + d3);
                 }
                 if (random.nextDouble() < 0.001) this.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(1, this, (p_233654_0_) -> {
-                });
+                 });
             }
             return RockyChestplateUtil.isRockyRolling(this) && this.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0 && this.getItemBySlot(EquipmentSlot.CHEST).is((Item) AMItemRegistry.ROCKY_CHESTPLATE.get());
         } else return false;
