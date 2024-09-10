@@ -44,9 +44,4 @@ public abstract class AMIFlyingFishBoots {
             return x * (speed + 0.4);
         } else return x;
     }
-
-    @ModifyConstant(method = "tickFlyingFishBoots", constant = @Constant(doubleValue = 0.20000000298023224),remap = false)
-    private static double consistencyFix(double constant) {
-        return 0.4;
-    }
 }
