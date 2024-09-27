@@ -1,0 +1,81 @@
+{
+  "name": "Prey Fear",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This feature refers to how some prey-like animals will run away from predators-like animals"
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
+      },
+
+    {
+      "type": "patchouli:entity",
+      "text": "Banana Slugs fear animals such as crows and bald eagles (Refer to the next page for the full list)",
+      "entity": "alexsmobs:banana_slug",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Alligator Snapping Turtle,Anaconda,Bald Eagle,Blue Jay,Caiman,Capuchin Monkey,Crocodile,Crow,Emu,Froststalker,Gelada Monkey,Gorilla,Grizzly Bear,Komodo Dragon"
+    },
+
+    {
+      "type": "patchouli:entity",
+      "text": "Raccoon runs from animals such as grizzly bears but will fight back once attacked (Refer to the next page for the full list)",
+      "entity": "alexsmobs:raccoon",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Alligator Snapping Turtle,Anaconda,Bald Eagle,Caiman,Capuchin Monkey,Crocodile,Froststalker,Grizzly Bear,Komodo Dragon"
+    },
+
+    {
+      "type": "patchouli:entity",
+      "text": "Jerboa flee from predators like rattlesnakes (Refer to the next page for the full list)",
+      "entity": "alexsmobs:jerboa",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Alligator Snapping Turtle,Anaconda,Bald Eagle,Blue Jay,Caiman,Capuchin Monkey,Crocodile,Crow,Froststalker,Grizzly Bear,Komodo Dragon,Rattlesnake,Roadrunner"
+    },
+
+    {
+      "type": "patchouli:entity",
+      "text": "Rainfrog scatter away from its hunters like crows (Refer to the next page for the full list)",
+      "entity": "alexsmobs:rain_frog",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Alligator Snapping Turtle,Anaconda,Bald Eagle,Blue Jay,Caiman,Capuchin Monkey,Crocodile,Crow,Froststalker,Grizzly Bear,Komodo Dragon,Rattlesnake"
+    },
+
+    {
+      "type": "patchouli:entity",
+      "text": "Blobfish swim away from players and giant squid (Refer to the next page for the full list)",
+      "entity": "alexsmobs:blobfish",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Players, Giant Squid, Frilled Shark"
+    },
+
+    {
+      "type": "patchouli:entity",
+      "text": "Sugar Glider glides off from players and giant squid (Refer to the next page for the full list)",
+      "entity": "alexsmobs:sugar_glider",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Alligator Snapping Turtle,Anaconda,Bald Eagle,Blue Jay,Caiman,Capuchin Monkey,Crocodile,Crow,Emu,Froststalker,Gelada Monkey,Gorilla,Grizzly Bear,Komodo Dragon"
+    }
+  ]
+}

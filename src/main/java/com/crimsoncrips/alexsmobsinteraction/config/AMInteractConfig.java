@@ -14,6 +14,7 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue SNAPPING_MOSS_ENABLED;
     public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
@@ -30,7 +31,6 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue STUPID_CATFISH_EAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue LIGHT_FEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue ORCA_HUNT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLOODLESS_IGNORE_ENABLED;
     public final ForgeConfigSpec.BooleanValue CROW_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
 
@@ -47,7 +47,7 @@ public class AMInteractConfig {
     public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue FLY_CONVERT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER;
+    public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue BLOOD_PROTECTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue GRIZZLY_FRIENDLY_ENABLED;
@@ -120,7 +120,9 @@ public class AMInteractConfig {
 
     public final ForgeConfigSpec.BooleanValue SKREECHER_WARD_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue POCKET_SAND_AMMOLESS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BOTTOMLESS_SAND_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue TENDON_GRAB_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
 
@@ -159,11 +161,15 @@ public class AMInteractConfig {
 
     public final ForgeConfigSpec.BooleanValue MOLTEN_BATH_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO;
+    public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue POISONOUS_BATH_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue BLOOD_DAMAGE_DIFFERENCE_ENABLED;
     
 
 
@@ -173,12 +179,11 @@ public class AMInteractConfig {
         this.PREY_FEAR_ENABLED = buildBoolean(builder, "PREY_FEAR_ENABLED", " ", true, "Whether some Prey fear their predators");
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Whether Charging Mobs can get stunned when holding up a shield");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Whether you will combust more when stepping on hot blocks");
-        this.MOLTEN_BATH_ENABLED = buildBoolean(builder, "MOLTEN_BATH_ENABLED", " ", true, "Whether you can set a entity on fire with Lava Bottles");
-        this.BLEEDING_HUNGER_ENABLED = buildBoolean(builder, "BLEEDING_HUNGER_ENABLED", " ", true, "You get hunted by Frilled Sharks and Hammerhead's when you have Exsanguination");
-
-        builder.pop();
-        builder.push("Items");
-        this.POCKET_SAND_AMMOLESS_ENABLED = buildBoolean(builder, "POCKET_SAND_AMMOLESS_ENABLED", " ", true, "Whether Sand requires no sand");
+        this.MOLTEN_BATH_ENABLED = buildBoolean(builder, "MOLTEN_BATH_ENABLED", " ", true, "Whether you can set an entity on fire with Lava Bottles");
+        this.POISONOUS_BATH_ENABLED = buildBoolean(builder, "POISONOUS_BATH_ENABLED", " ", true, "Whether you can poison an entity with Poison Essence");
+        this.BLOODED_EFFECT_ENABLED = buildBoolean(builder, "BLOODED_EFFECT_ENABLED", " ", true, "Blood Sprayer inflicts the new 'Blooded' effect that slows and weakens inflicted");
+        this.BLOOD_DAMAGE_DIFFERENCE_ENABLED = buildBoolean(builder, "BLOOD_DAMAGE_DIFFERENCE_ENABLED", " ", true, "Blood Spits damage is dependant on its origin");
+        this.BOTTOMLESS_SAND_ENABLED = buildBoolean(builder, "BOTTOMLESS_SAND_ENABLED", " ", true, "Whether Pocket Sand requires no sand");
         builder.pop();
         builder.push("Mobs");
         builder.push("Vanilla Mob Tweaks");
@@ -209,7 +214,7 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Caiman");
         this.CAIMAN_EGG_ATTACK_ENABLED = buildBoolean(builder, "CAIMAN_EGG_ATTACK_ENABLED", " ", true, "Whether Caimans attack when their egg is held by an entity");
-        this.CAIMAN_AGGRO_ENABLED = buildBoolean(builder, "CAIMAN_AGGRO_ENABLED", " ", true, "Whether Mantis Shrimps cannibalize on other mantis shrimps in certain conditions");
+        this.CAIMAN_AGGRO_ENABLED = buildBoolean(builder, "CAIMAN_AGGRO_ENABLED", " ", true, "Whether untamed caimans are aggresive to players");
         builder.pop();
         builder.push("Capuchin Monkey");
         this.CAPUCHIN_HUNT_ENABLED = buildBoolean(builder, "CAPUCHIN_HUNT_ENABLED", " ", true, "Whether Capuchins hunt small animals");
@@ -229,9 +234,8 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Crimson Mosquito");
         this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Whether Crimson Mosquitoes can be turned into Warped Moscos by feeding them Mungus Spores");
-        this.BLOODLESS_IGNORE_ENABLED = buildBoolean(builder, "BLOODLESS_IGNORE_ENABLED", " ", true, "Whether Crimson Mosquitoes cant attack bloodless entites (Straddlers,etc..)");
         this.BLOODED_ENABLED = buildBoolean(builder, "BLOODED_ENABLED", " ", true, "Whether Crimson Mosquitoes can spawn with blood");
-        this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Whether Crimson Mosquitoes take no damage from Blood Sprayer");
+        this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Whether Crimson Mosquitoes and its mutated form take no damage from Blood Sprayer");
 
         builder.pop();
         builder.push("Crow");
@@ -269,6 +273,9 @@ public class AMInteractConfig {
         builder.push("Flying Fish");
         this.WEAVING_WATERS_ENABLED = buildBoolean(builder, "WEAVING_WATERS_ENABLED", " ", true, "Whether Flying Fish Boots boost will depend on your speed and your look angle");
        builder.pop();
+        builder.push("Frilled Shark");
+        this.BLEEDING_HUNGER_ENABLED = buildBoolean(builder, "BLEEDING_HUNGER_ENABLED", " ", true, "You get hunted by Frilled Sharks when you have Exsanguination");
+        builder.pop();
         builder.push("Gelada Monkey");
         this.GELADA_HUNT_ENABLED = buildBoolean(builder, "GELADA_HUNT_ENABLED", " ", true, "Whether Gelada Monkeys hunt small animals");
         builder.pop();
@@ -292,13 +299,13 @@ public class AMInteractConfig {
         this.POLINATE_DAY_ENABLED = buildBoolean(builder, "POLINATE_DAY_ENABLED", " ", true, "Whether Hummingbirds only pollinate at day");
         builder.pop();
         builder.push("Komodo Dragon");
-        this.FRIENDLY_KOMODO = buildBoolean(builder, "FRIENDLY_KOMODO", " ", false, "Whether Komodo Dragon's are much friendlier when tamed");
+        this.FRIENDLY_KOMODO_ENABLED = buildBoolean(builder, "FRIENDLY_KOMODO_ENABLED", " ", false, "Whether Komodo Dragon's are much friendlier when tamed");
         builder.pop();
         builder.push("Lavithan");
         this.OBSIDIAN_EXTRACT_ENABLED = buildBoolean(builder, "OBSIDIAN_EXTRACT_ENABLED", " ", true, "Whether Lavithan can be reconverted from Obsidian to Normal");
         builder.pop();
         builder.push("Leafcutter Ants");
-        this.COCKROACH_CHAMBER = buildBoolean(builder, "COCKROACH_CHAMBER", " ", true, "Whether Leafcutter Chambers have a chance to spawn cockroaches when broken or harvested");
+        this.COCKROACH_CHAMBER_ENABLED = buildBoolean(builder, "COCKROACH_CHAMBER_ENABLED", " ", true, "Whether Leafcutter Chambers have a chance to spawn cockroaches when broken or harvested");
         builder.pop();
         builder.push("Lobster");
         this.LOBSTER_NIGHT_ENABLED = buildBoolean(builder, "LOBSTER_NIGHT_ENABLED", " ", true, "Whether Lobsters only spawn at night");
@@ -314,6 +321,7 @@ public class AMInteractConfig {
         builder.pop();
         builder.push("Murmur");
         this.MURMUR_REGROW_ENABLED = buildBoolean(builder, "MURMUR_REGROW_ENABLED", " ", true, "Whether Murmur has to has its body to be killed");
+        this.TENDON_GRAB_ENABLED = buildBoolean(builder, "TENDON_GRAB_ENABLED", " ", true, "Whether Tendon Whip can pickup items and xp as it moves for its owner with the 'Stretchy Accumulation' enchantment");
         builder.pop();
         builder.push("Orca");
         this.MIGHT_UPGRADE_ENABLED = buildBoolean(builder, "MIGHT_UPGRADE_ENABLED", " ", true, "Whether Orcas Might allows temporary neutrality with Skelewags");
@@ -380,7 +388,6 @@ public class AMInteractConfig {
         this.TUSKLIN_TRUST_ENABLED = buildBoolean(builder, "TUSKLIN_TRUST_ENABLED", " ", true, "Whether Tusklins can be perm trusted with mushroom stew");
         this.TUSKLIN_TRAMPLE_ENABLED = buildBoolean(builder, "TUSKLIN_TRAMPLE_ENABLED", " ", true, "Whether Tusklins with the new Trample enchantment can trample when ridden");
         this.REMOVE_TUSKLIN_EQUIPMENT_ENABLED = buildBoolean(builder, "REMOVE_TUSKLIN_EQUIPMENT_ENABLED", " ", true, "Whether Tusklins can have their equipment removed with shears");
-
         builder.pop();
         builder.push("Void Worm");
         this.VOIDWORM_STUN_ENABLED = buildBoolean(builder, "VOIDWORM_STUN_ENABLED", " ", true, "Whether Void Worm can be stunned when dealt enough damage");

@@ -14,20 +14,12 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(RenderFly.class)
 
-public class AMIFlyRendering  extends MobRenderer<EntityFly, ModelFly> {
+public abstract class AMIFlyRendering  extends MobRenderer<EntityFly, ModelFly> {
 
 
     public AMIFlyRendering(EntityRendererProvider.Context pContext, ModelFly pModel, float pShadowRadius) {
         super(pContext, pModel, pShadowRadius);
     }
-
-    @Override
-    @Shadow
-    public ResourceLocation getTextureLocation(EntityFly pEntity) {
-        return null;
-    }
-
-
 
     protected boolean isShaking(EntityFly fly) {
         AMITransform myAccessor = (AMITransform) fly;

@@ -18,6 +18,7 @@ import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
+import com.github.alexthe666.alexsmobs.misc.EmeraldsForItemsTrade;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -27,6 +28,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -41,6 +43,8 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -51,16 +55,19 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -71,6 +78,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.*;
+import static com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED;
 import static com.github.alexthe666.alexsmobs.block.BlockLeafcutterAntChamber.FUNGUS;
 import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
 import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
@@ -98,7 +106,6 @@ public class AMInteractionEvents {
             cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, Silverfish.class, 2, true, false, null));
             cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, Bee.class, 2, true, false, null));
             cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, EntityFly.class, 2, true, false, null));
-            cavespider.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(cavespider, EntityFly.class, 2, true, false, null));
         }
 
 
@@ -106,24 +113,40 @@ public class AMInteractionEvents {
         //AM Mobs
         if (entity instanceof EntityAnaconda anaconda){
             Predicate<LivingEntity> ANACONDA_BABY_TARGETS = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.ANACONDA_BABY_KILL);
-            anaconda.targetSelector.removeAllGoals(goal -> {
-                return goal instanceof HurtByTargetGoal;
-            });
-            anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(anaconda, EntityAnaconda.class));
             anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 1000, true, false, (livingEntity) -> {
                 return ANACONDA_BABY_TARGETS.test(livingEntity)  && livingEntity.isBaby();
             }));
             if (AMInteractionConfig.ANACONDA_CANNIBALIZE_ENABLED) {
+                anaconda.targetSelector.removeAllGoals(goal -> {
+                    return goal instanceof HurtByTargetGoal;
+                });
+                anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(anaconda, EntityAnaconda.class));
                 anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 2500, true, false, (livingEntity) -> {
                     return (livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth() || livingEntity.isBaby());
                 }));
             }
         }
 
-        if (AMInteractionConfig.EAGLE_CANNIBALIZE_ENABLED && entity instanceof final EntityBaldEagle baldEagle && !baldEagle.isTame()) {
-            baldEagle.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(baldEagle, EntityBaldEagle.class, 1000, true, false, (livingEntity) -> {
-                return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
-            }));
+        if (entity instanceof EntityCatfish catfish){
+            if (AMInteractionConfig.CATFISH_CANNIBALIZE_ENABLED) {
+                catfish.goalSelector.removeAllGoals(goal -> {
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityCatfish$TargetFoodGoal");
+                });
+                catfish.goalSelector.addGoal(3, new AMITargetFood(catfish));
+            }
+        }
+
+        if (entity instanceof final EntityBaldEagle baldEagle) {
+            if(AMInteractionConfig.EAGLE_CANNIBALIZE_ENABLED){
+                baldEagle.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(baldEagle, EntityBaldEagle.class, 1000, true, false, (livingEntity) -> {
+                    return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
+                }) {
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && !baldEagle.isTame();
+                    }
+                });
+            }
         }
 
         if(AMInteractionConfig.PREY_FEAR_ENABLED) {
@@ -140,17 +163,9 @@ public class AMInteractionEvents {
                 rainFrog.goalSelector.addGoal(3, new AvoidEntityGoal<>(rainFrog, LivingEntity.class, 10.0F, 1.2, 1.5,AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.RAINFROG_FEAR)));
             }
             if (entity instanceof final EntityBlobfish blobfish) {
-                blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, Player.class, 5.0F, 1.2, 1.4));
-                blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, EntityGiantSquid.class, 5.0F, 1.2, 1.4));
-            }
-            if (entity instanceof final EntityCatfish catfish) {
-                catfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(catfish, LivingEntity.class, 4.0F, 1.1, 1.3, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FISHFEAR)));
-            }
-            if (entity instanceof final EntityDevilsHolePupfish devilsHolePupfish){
-                devilsHolePupfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(devilsHolePupfish, LivingEntity.class, 2.0F, 1.1, 1.3, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FISHFEAR)));
-            }
-            if (entity instanceof final EntityFlyingFish flyingFish){
-                flyingFish.goalSelector.addGoal(3, new AvoidEntityGoal<>(flyingFish, LivingEntity.class, 4.0F, 1.3, 1.7, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FISHFEAR)));
+                blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, Player.class, 3.0F, 0.8, 1.2));
+                blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, EntityGiantSquid.class, 5.0F, 1, 1.4));
+                blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, EntityFrilledShark.class, 2.0F, 0.8, 1));
             }
             if (entity instanceof final EntitySugarGlider sugarGlider) {
                 sugarGlider.goalSelector.addGoal(3, new AvoidEntityGoal<>(sugarGlider, LivingEntity.class, 2.0F, 1.2, 1.5,AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SMALLINSECTFEAR)));
@@ -165,18 +180,35 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof final EntityCaiman caiman){
-            if(AMInteractionConfig.CAIMAN_AGGRO_ENABLED && !caiman.isTame()) {
-                caiman.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(caiman, Player.class, 150, true, true, null));
+            if(AMInteractionConfig.CAIMAN_AGGRO_ENABLED) {
+                caiman.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(caiman, Player.class, 150, true, true, null){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && !caiman.isTame();
+                    }
+                });
             }
-            if (AMInteractionConfig.CAIMAN_EGG_ATTACK_ENABLED && !caiman.isBaby()) {
+            if (AMInteractionConfig.CAIMAN_EGG_ATTACK_ENABLED) {
                 caiman.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(caiman, LivingEntity.class, 0, true, false, (livingEntity) -> {
-                    return livingEntity.isHolding( Ingredient.of(AMBlockRegistry.CAIMAN_EGG.get()));
-                }));
+                    return livingEntity.isHolding(Ingredient.of(AMBlockRegistry.CAIMAN_EGG.get()));
+                }){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && !caiman.isTame() && !caiman.isBaby();
+                    }
+                });
             }
         }
 
-        if (entity instanceof final EntityCapuchinMonkey capuchinMonkey && AMInteractionConfig.CAPUCHIN_HUNT_ENABLED && capuchinMonkey.isTame()) {
-            capuchinMonkey.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(capuchinMonkey, LivingEntity.class, 400, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CAPUCHIN_KILL)));
+        if (entity instanceof final EntityCapuchinMonkey capuchinMonkey) {
+            if (!AMInteractionConfig.CAPUCHIN_HUNT_ENABLED)
+                return;
+            capuchinMonkey.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(capuchinMonkey, LivingEntity.class, 400, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CAPUCHIN_KILL)){
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !capuchinMonkey.isTame();
+                }
+            });
         }
 
         if (entity instanceof final EntityCachalotWhale cachalotWhale && cachalotWhale.isSleeping() && !cachalotWhale.isBeached()){
@@ -201,12 +233,17 @@ public class AMInteractionEvents {
             crocodile.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(crocodile, LivingEntity.class, 5000, true, false,AMEntityRegistry.buildPredicateFromTag(CROCODILE_BABY_KILL)));
         }
 
-        if (entity instanceof final EntityCrow crow && !crow.isTame() && !crow.isBaby()){
+        if (entity instanceof final EntityCrow crow){
             crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CROW_KILL)));
             if (AMInteractionConfig.CROW_CANNIBALIZE_ENABLED){
                 crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, EntityCrow.class, 500, true, true, (livingEntity) -> {
                     return livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth();
-                }));
+                }){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && !crow.isTame() && !crow.isBaby();
+                    }
+                });
             }
         }
 
@@ -219,37 +256,61 @@ public class AMInteractionEvents {
             });
         }
 
-        if (entity instanceof final EntityElephant elephant && elephant.isTusked() && !elephant.isTame() && AMInteractionConfig.ELEPHANT_TERRITORIAL_ENABLED){
-            elephant.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(elephant, Player.class, 1500, true, true,(entity1 -> {
-                return entity1.isHolding(Ingredient.of(AMItemRegistry.ACACIA_BLOSSOM.get()));
-            })));
+        if (entity instanceof final EntityElephant elephant){
+            if (AMInteractionConfig.ELEPHANT_TERRITORIAL_ENABLED){
+                elephant.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(elephant, Player.class, 1000, true, true, (entity1 -> {
+                    return entity1.isHolding(Ingredient.of(AMItemRegistry.ACACIA_BLOSSOM.get()));
+                })) {
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && elephant.isTusked() && !elephant.isTame();
+                    }
+                });
+            }
         }
 
-        if (entity instanceof final EntityEmu emu && !emu.isBaby()){
+        if (entity instanceof final EntityEmu emu){
             if (AMInteractionConfig.EMU_EGG_ATTACK_ENABLED){
                 emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 5, true, false, (livingEntity) -> {
                     return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get())) || livingEntity.isHolding( Ingredient.of(AMItemRegistry.BOILED_EMU_EGG.get()));
-                }));
+                }){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && !emu.isBaby();
+                    }
+                });
             }
             if (AMInteractionConfig.RANGED_AGGRO_ENABLED){
                 emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 70, true, false, (livingEntity) -> {
                     return livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.EMU_TRIGGER));
-                }));
+                }){
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && !emu.isBaby();
+                    }
+                });
             }
-            emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.EMU_KILL)));
+            emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.EMU_KILL)){
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !emu.isBaby();
+                }
+            });
         }
 
         if (entity instanceof final EntityFly fly){
-            Predicate<LivingEntity> PESTERTARGET = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FLY_PESTER);
+            Predicate<LivingEntity> PESTERTARGET = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.PESTER_ENTITY);
             if(AMInteractionConfig.FLY_FEAR_ENABLED) {
                 fly.goalSelector.addGoal(7, new AvoidEntityGoal<>(fly, LivingEntity.class, 2.0F, 1.1, 1.3, (livingEntity) ->{
                     return !PESTERTARGET.test(livingEntity) && !(livingEntity instanceof EntityFly);
                 }));
             }
             if(AMInteractionConfig.CANDLE_REPEL_ENABLED){
-                fly.goalSelector.addGoal(3, new AvoidBlockGoal(fly, 4, 1, 1.2, (pos) -> {
+                fly.goalSelector.addGoal(3, new AvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
                     BlockState state = fly.level().getBlockState(pos);
-                    return state.is(BlockTags.CANDLES);
+                    if (state.is(BlockTags.CANDLES)){
+                        return state.getValue(CandleBlock.LIT);
+                    } else return false;
                 }));
             }
             if(AMInteractionConfig.FLY_PESTER_ENABLED) {
@@ -338,7 +399,7 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityKomodoDragon komodoDragon){
-            if (!AMInteractionConfig.FRIENDLY_KOMODO)
+            if (!AMInteractionConfig.FRIENDLY_KOMODO_ENABLED)
                 return;
             if (komodoDragon.isTame())
                 return;
@@ -455,11 +516,13 @@ public class AMInteractionEvents {
             tasmanianDevil.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(tasmanianDevil, LivingEntity.class, 10, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.TASMANIAN_KILL)));
         }
 
-        if (entity instanceof EntityTusklin tusklin && AMInteractionConfig.TUSKLIN_FLEE_ENABLED){
-            tusklin.goalSelector.addGoal(3, new AvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
-                BlockState state = tusklin.level().getBlockState(pos);
-                return state.is(BlockTags.HOGLIN_REPELLENTS);
-            }));
+        if (entity instanceof EntityTusklin tusklin){
+            if(AMInteractionConfig.TUSKLIN_FLEE_ENABLED){
+                tusklin.goalSelector.addGoal(3, new AvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
+                    BlockState state = tusklin.level().getBlockState(pos);
+                    return state.is(BlockTags.HOGLIN_REPELLENTS);
+                }));
+            }
         }
 
         if (entity instanceof EntityWarpedMosco warpedMosco){
@@ -475,13 +538,6 @@ public class AMInteractionEvents {
             if (AMInteractionConfig.BLOODED_ENABLED && crimsonMosquito.getRandom().nextDouble() < 0.2){
                 crimsonMosquito.setBloodLevel(crimsonMosquito.getBloodLevel() + 1);
             }
-            if (AMInteractionConfig.BLOODLESS_IGNORE_ENABLED){
-                crimsonMosquito.targetSelector.removeAllGoals(goal -> {
-                    return goal instanceof HurtByTargetGoal;
-                });
-                crimsonMosquito.targetSelector.addGoal(1, new HurtByTargetGoal(crimsonMosquito, new Class[]{EntityCrimsonMosquito.class, EntityWarpedMosco.class, EntityStraddler.class, EntityStradpole.class, EntityBoneSerpent.class,EntitySoulVulture.class, Skeleton.class,WitherSkeleton.class, EntityBoneSerpent.class,Blaze.class}));
-            }
-
         }
 
 
@@ -513,7 +569,7 @@ public class AMInteractionEvents {
             });
             if (AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED) {
                 grizzlyBear.targetSelector.removeAllGoals(goal -> {
-                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear.AttackPlayerGoal") || goal instanceof NearestAttackableTargetGoal<?>;
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear$AttackPlayerGoal") || goal instanceof NearestAttackableTargetGoal<?>;
                 });
                 grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)) {
                     public boolean canUse() {
@@ -596,13 +652,6 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityHammerheadShark hammerheadShark){
-            if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
-                hammerheadShark.goalSelector.removeAllGoals(goal -> {
-                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityHammerheadShark$CirclePreyGoal");
-                });
-
-                hammerheadShark.goalSelector.addGoal(1, new AMIHammerCircleReplace(hammerheadShark, 1.0F));
-            }
 
             if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
                 hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, EntityMantisShrimp.class, 50, true, false, (mob) -> {
@@ -648,7 +697,7 @@ public class AMInteractionEvents {
         if (entity instanceof EntitySkelewag skelewag){
             if (AMInteractionConfig.SKELEWAG_CIRCLE_ENABLED){
                 skelewag.goalSelector.removeAllGoals(goal -> {
-                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntitySkelewag.AttackGoal");
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntitySkelewag$AttackGoal");
                 });
                 skelewag.goalSelector.addGoal(1, new AMISkelewagCircleGoal(skelewag,1F));
             }
@@ -664,12 +713,20 @@ public class AMInteractionEvents {
 
     }
 
+    @SubscribeEvent
+    public void tradeEvents(VillagerTradesEvent villagerTradesEvent){
+        if (villagerTradesEvent.getType() == VillagerProfession.FISHERMAN) {
+            VillagerTrades.ItemListing pupfishTrade = new EmeraldsForItemsTrade(AMItemRegistry.DEVILS_HOLE_PUPFISH_BUCKET.get(), 24, 2, 5);
+            final var list = villagerTradesEvent.getTrades().get(5);
+            list.add(pupfishTrade);
+            villagerTradesEvent.getTrades().put(5, list);
+        }
+    }
 
 
     @SubscribeEvent
     public void mobTickEvents(LivingEvent.LivingTickEvent livingTickEvent){
         LivingEntity livingEntity = livingTickEvent.getEntity();
-
 
 
         if (livingEntity instanceof EntityGrizzlyBear grizzlyBear){
@@ -686,26 +743,17 @@ public class AMInteractionEvents {
         }
 
         if (livingEntity instanceof EntityElephant elephant){
-            Iterator<LivingEntity> var4 = elephant.level().getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.5, -2, 0.5)).iterator();
+            if(ELEPHANT_TRAMPLE_ENABLED){
+                Iterator<LivingEntity> var4 = elephant.level().getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.5, -2, 0.5)).iterator();
 
-            if (AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED && elephant.isVehicle() && elephant.isTame()) {
-                while (var4.hasNext()) {
-                    Entity entity = (Entity) var4.next();
-                    if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.5F && elephant.isVehicle()) {
-                        entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 8.0F + elephant.getRandom().nextFloat() * 2.0F);
-
+                if (elephant.isVehicle() && elephant.isTame()) {
+                    while (var4.hasNext()) {
+                        Entity entity = (Entity) var4.next();
+                        if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.5F) {
+                            entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 8.0F + elephant.getRandom().nextFloat() * 2.0F);
+                        }
                     }
-
-
                 }
-            }
-        }
-
-        if (livingEntity instanceof EntityCrimsonMosquito crimsonMosquito){
-            if(AMInteractionConfig.BLOODLESS_IGNORE_ENABLED){
-                if (crimsonMosquito.getBloodLevel() > 0) {
-                    crimsonMosquito.setTarget(crimsonMosquito.getLastAttacker());
-                } else crimsonMosquito.setTarget(null);
             }
         }
 
@@ -731,11 +779,11 @@ public class AMInteractionEvents {
                     ItemStack to = inv.getItem(j);
                     inv.setItem(j, current);
                     inv.setItem(i, to);
-                    renderStaticScreenFor = 30;
                 }
                 if (AMInteractionConfig.FARSEER_EFFECTS_ENABLED) {
 
                     if (alexsMobsInteraction$loop == 49) {
+                        renderStaticScreenFor = 30;
                         player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 0));
                         AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new FarseerPacket());
                     }
@@ -874,10 +922,16 @@ public class AMInteractionEvents {
                 player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
             }
 
+            if (itemStack.getItem() == AMItemRegistry.POISON_BOTTLE.get() && AMInteractionConfig.POISONOUS_BATH_ENABLED){
+                if (!player.isCreative()) itemStack.shrink(1);
+                living.addEffect(new MobEffectInstance(MobEffects.POISON, 150, 1));
+                player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
+            }
+
             if (living instanceof EntityBananaSlug bananaSlug) {
-                if (itemStack.getItem() != Items.SHEARS)
+                if (!AMInteractionConfig.BANANA_SHEAR_ENABLED)
                     return;
-                if(!AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
+                if (itemStack.getItem() != Items.SHEARS)
                     return;
                 if (!player.isCreative()) {
                     itemStack.hurtAndBreak(1, player, (p_233654_0_) -> {
@@ -976,7 +1030,7 @@ public class AMInteractionEvents {
 
         }
 
-        if (AMInteractionConfig.COCKROACH_CHAMBER){
+        if (AMInteractionConfig.COCKROACH_CHAMBER_ENABLED){
             if (blockState.is(AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get()) && !worldIn.isClientSide){
                 if (blockState.getValue(FUNGUS) != 5)
                     return;
@@ -1029,7 +1083,7 @@ public class AMInteractionEvents {
     public void blockBreak(BlockEvent.BreakEvent breakEvent){
         BlockState blockState = breakEvent.getState();
         Level level = (Level) breakEvent.getLevel();
-        if (AMInteractionConfig.COCKROACH_CHAMBER) {
+        if (AMInteractionConfig.COCKROACH_CHAMBER_ENABLED) {
             if (blockState.is(AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get()) && breakEvent.getLevel().getRandom().nextDouble() < 0.1) {
                  if (blockState.getValue(FUNGUS) < 3)
                      return;

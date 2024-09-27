@@ -159,6 +159,7 @@ dependencies {
     implementation fg.deobf("maven.modrinth:alexs-mobs:1.22.9")
     implementation fg.deobf("maven.modrinth:citadel:2.6.0")
     implementation fg.deobf("maven.modrinth:soul-fire-d:JksWBgvV")
+    implementation fg.deobf("maven.modrinth:patchouli:1.20.1-84-forge")
     runtimeOnly fg.deobf("maven.modrinth:jade:11.7.1")
     runtimeOnly fg.deobf("maven.modrinth:bookshelf-lib:dH6uJvm7")
     runtimeOnly fg.deobf("maven.modrinth:enchantment-descriptions:H9lpjTvf")

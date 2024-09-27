@@ -116,10 +116,13 @@ public class AMIGuster extends Mob {
             this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
         }
     }
+
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityGuster.class, EntityDataSerializers.INT);
+
     public int getVariant() {
         return this.entityData.get(VARIANT);
     }
+
     private void spit(LivingEntity target) {
         EntitySandShot sghot = new EntitySandShot(guster.level(), guster);
         double d0 = target.getX() - this.getX();
@@ -134,6 +137,7 @@ public class AMIGuster extends Mob {
         }
         this.level().addFreshEntity(sghot);
     }
+
     public boolean hasLiftedEntity() {
         return this.entityData.get(LIFT_ENTITY) != 0;
     }
@@ -145,6 +149,7 @@ public class AMIGuster extends Mob {
             return this.level().getEntity(this.entityData.get(LIFT_ENTITY));
         }
     }
+
     private static final EntityDataAccessor<Integer> LIFT_ENTITY = SynchedEntityData.defineId(EntityGuster.class, EntityDataSerializers.INT);
 
     private void setLiftedEntity(int p_175463_1_) {

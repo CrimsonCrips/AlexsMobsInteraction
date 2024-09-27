@@ -1,7 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -159,16 +158,6 @@ public abstract class AMICrimsonMosquito extends Mob {
             feed(itemstack);
             this.setMungusFed(this.getMungusFed() + 1);
             return InteractionResult.SUCCESS;
-        }
-        if (itemstack.getItem() == AMIItemRegistry.SWATTER.get() && AMInteractionConfig.CRIMSON_TRANSFORM_ENABLED && !isPacified()) {
-            gameEvent(GameEvent.ENTITY_INTERACT);
-            itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
-            });
-            this.setPacified(true);
-            this.playSound(AMSoundRegistry.MOSQUITO_DIE.get(), 2F, 1F);
-            this.setHealth(this.getHealth() / 2);
-            return InteractionResult.SUCCESS;
-
         }
         if (itemstack.getItem() == Items.WARPED_FUNGUS && AMInteractionConfig.CRIMSON_TRANSFORM_ENABLED && !(this.getWarpedFed() >= 10) && isPacified()) {
             feed(itemstack);

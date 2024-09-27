@@ -3,129 +3,122 @@ package com.crimsoncrips.alexsmobsinteraction.config;
 import static com.mojang.text2speech.Narrator.LOGGER;
 
 public class AMInteractionConfig {
-    public static boolean COMBUSTABLE_ENABLED;
 
-    public static boolean GUSTING_ENABLED;
-
-    public static boolean BLEEDING_HUNGER_ENABLED;
-
-    public static boolean SKREECH_YOUR_LAST_ENABLED;
-
-    public static boolean COCKROACH_CHAMBER;
-
-    public static boolean FRIENDLY_KOMODO;
-
-    public static boolean WEAVING_WATERS_ENABLED;
-
-    public static boolean WITCH_ADDITIONS_ENABLED;
-
-    public static boolean FARSEER_EFFECTS_ENABLED;
-
-    public static boolean MOLTEN_BATH_ENABLED;
-
-    public static boolean CROW_WARRIORS_ENABLED;
-    public static boolean MANTIS_SPEED_ENABLED;
-    public static boolean BRUSHED_ENABLED;
+    public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
     public static boolean ANACONDA_CANNIBALIZE_ENABLED;
-    public static boolean EAGLE_CANNIBALIZE_ENABLED;
     public static boolean BANANA_SHEAR_ENABLED;
+    public static boolean BLEEDING_HUNGER_ENABLED;
     public static boolean BLOODED_ENABLED;
+    public static boolean BLOOD_DAMAGE_DIFFERENCE_ENABLED;
+    public static boolean BLOODED_EFFECT_ENABLED;
+    public static boolean BLOOD_PROTECTION_ENABLED;
+    public static boolean BRUSHED_ENABLED;
     public static boolean CAIMAN_AGGRO_ENABLED;
+    public static boolean CAIMAN_EGG_ATTACK_ENABLED;
+    public static boolean CANDLE_REPEL_ENABLED;
     public static boolean CAPUCHIN_HUNT_ENABLED;
     public static boolean CATFISH_CANNIBALIZE_ENABLED;
-    public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
-    public static boolean STUPID_CATFISH_EAT_ENABLED;
-    public static boolean LIGHT_FEAR_ENABLED;
-    public static boolean BLOODLESS_IGNORE_ENABLED;
+    public static boolean CAVESPIDER_EAT_ENABLED;
+    public static boolean CHARGE_STUN_ENABLED;
+    public static boolean COCKROACH_CHAMBER_ENABLED;
+    public static boolean COMBUSTABLE_ENABLED;
+    public static boolean COSMAW_WEAKENED_ENABLED;
+    public static boolean CRIMSON_TRANSFORM_ENABLED;
     public static boolean CROW_CANNIBALIZE_ENABLED;
+    public static boolean CROW_WARRIORS_ENABLED;
+    public static boolean DIMENSIONAL_LODESTONE_ENABLED;
+    public static boolean EAGLE_CANNIBALIZE_ENABLED;
     public static boolean ELEPHANT_TERRITORIAL_ENABLED;
-    public static boolean RANGED_AGGRO_ENABLED;
+    public static boolean ELEPHANT_TRAMPLE_ENABLED;
+    public static boolean EMU_EGG_ATTACK_ENABLED;
     public static boolean FARSEER_ALTERING_ENABLED;
+    public static boolean FARSEER_EFFECTS_ENABLED;
     public static boolean FARSEER_HUMANLIKE_ATTACK_ENABLED;
-    public static boolean TUSKLIN_FLEE_ENABLED;
+    public static boolean FLUTTER_SHEAR_ENABLED;
     public static boolean FLUTTER_WITHERED_ENABLED;
+    public static boolean FLY_CONVERT_ENABLED;
     public static boolean FLY_FEAR_ENABLED;
-    public static boolean CANDLE_REPEL_ENABLED;
+    public static boolean FLY_PESTER_ENABLED;
+    public static boolean FREDDYABLE_ENABLED;
+    public static boolean FRIENDLY_KOMODO_ENABLED;
+    public static boolean FROG_TRANSFORM_ENABLED;
+    public static boolean GELADA_HUNT_ENABLED;
+    public static boolean GOOFY_BANANA_SLIP_ENABLED;
+    public static boolean GOOFY_CAPUCHIN_BOMB_ENABLED;
+    public static boolean GOOFY_CRIMSON_MULTIPLY_ENABLED;
+    public static boolean GOOFY_MODE_ENABLED;
+    public static boolean GOOFY_MURMUR_DECAPITATED_ENABLED;
+    public static boolean GOOFY_STRADDLER_SHOTGUN_ENABLED;
     public static boolean GRIZZLY_FRIENDLY_ENABLED;
+    public static boolean GUSTER_PROJECTILE_PROT_ENABLED;
     public static boolean GUSTER_WEIGHT_ENABLED;
+    public static boolean GUSTING_ENABLED;
     public static boolean HAMMERHEAD_MANTIS_EAT_ENABLED;
-    public static boolean POLINATE_DAY_ENABLED;
+    public static boolean HUMMING_FOLLOW_ENABLED;
+    public static boolean INFECT_IMMUNITY_ENABLED;
+    public static boolean INFECT_WEAK_ENABLED;
+    public static boolean LEOPARD_DESIRES_ENABLED;
+    public static boolean LIGHT_FEAR_ENABLED;
     public static boolean LOBSTER_NIGHT_ENABLED;
     public static boolean MANTIS_AGGRO_ENABLED;
     public static boolean MANTIS_CANNIBALIZE_ENABLED;
+    public static boolean MANTIS_SPEED_ENABLED;
+    public static boolean MIGHT_UPGRADE_ENABLED;
+    public static boolean MOLTEN_BATH_ENABLED;
+    public static boolean MOSCO_CANNIBALISM_ENABLED;
+    public static boolean MUDSKIPPER_HUNT_ENABLED;
     public static boolean MURMUR_REGROW_ENABLED;
+    public static boolean OBSIDIAN_EXTRACT_ENABLED;
+    public static boolean ORCA_HUNT_ENABLED;
+    public static boolean BOTTOMLESS_SAND_ENABLED;
+    public static boolean POISONOUS_BATH_ENABLED;
+    public static boolean POLINATE_DAY_ENABLED;
     public static boolean PREY_FEAR_ENABLED;
     public static boolean RACOON_HUNT_ENABLED;
+    public static boolean RAINFROG_SPAWNAGE_ENABLED;
+    public static boolean RANGED_AGGRO_ENABLED;
     public static boolean RATTLESNAKE_CANNIBALIZE_ENABLED;
+    public static boolean REMOVE_TUSKLIN_EQUIPMENT_ENABLED;
     public static boolean ROADRUNNER_DAY_ENABLED;
-    public static boolean MIGHT_UPGRADE_ENABLED;
+    public static boolean ROLLING_THUNDER_ENABLED;
     public static boolean SEAGULL_BUFFED_ENABLED;
     public static boolean SEAGULL_WEAKEN_ENABLED;
+    public static boolean SERPENT_FEAR_ENABLED;
+    public static boolean SKELEWAG_CIRCLE_ENABLED;
     public static boolean SKITTISH_ROACHES_ENABLED;
+    public static boolean SKREECHER_WARD_ENABLED;
+    public static boolean SKREECH_YOUR_LAST_ENABLED;
     public static boolean SNAPPING_ALERT_ENABLED;
     public static boolean SNAPPING_DORMANT_ENABLED;
+    public static boolean SNAPPING_MOSS_ENABLED;
+    public static boolean SNOW_LUCK_ENABLED;
+    public static boolean SOMBRERO_PROTECTION_ENABLED;
     public static boolean SPIDER_EAT_ENABLED;
     public static boolean STRADDLER_VENGEANCE_ENABLED;
     public static boolean STRADPOLE_BOB_UP_ENABLED;
-    public static boolean SUGAR_RUSH_ENABLED;
-    public static boolean TERRAPIN_STOMP_ENABLED;
-    public static boolean MOSCO_CANNIBALISM_ENABLED;
-    public static int STRADDLER_SHOTS_AMOUNT;
-    public static boolean WARPED_FRIENDLY_ENABLED;
-    public static boolean CAVESPIDER_EAT_ENABLED;
-    public static boolean EMU_EGG_ATTACK_ENABLED;
-
-    public static boolean SERPENT_FEAR_ENABLED;
-    public static boolean MUDSKIPPER_HUNT_ENABLED;
-    public static boolean CAIMAN_EGG_ATTACK_ENABLED;
-    public static boolean HUMMING_FOLLOW_ENABLED;
-
-    public static boolean FLY_PESTER_ENABLED;
-    public static boolean SOMBRERO_PROTECTION_ENABLED;
-    public static boolean INFECT_WEAK_ENABLED;
-    public static boolean INFECT_IMMUNITY_ENABLED;
-    public static boolean FLUTTER_SHEAR_ENABLED;
-    public static boolean GELADA_HUNT_ENABLED;
-    public static boolean ORCA_HUNT_ENABLED;
-    public static boolean CRIMSON_TRANSFORM_ENABLED;
-    public static boolean FROG_TRANSFORM_ENABLED;
-    public static boolean SNAPPING_MOSS_ENABLED;
-    public static boolean SKELEWAG_CIRCLE_ENABLED;
-    public static boolean CHARGE_STUN_ENABLED;
-    public static boolean TUSKLIN_TRUST_ENABLED;
-    public static boolean FLY_CONVERT_ENABLED;
-    public static boolean BLOOD_PROTECTION_ENABLED;
-    public static boolean SNOW_LUCK_ENABLED;
-    public static boolean VULTURE_STEAL_ENABLED;
-    public static boolean SKREECHER_WARD_ENABLED;
-    public static boolean POCKET_SAND_AMMOLESS_ENABLED;
-    public static boolean OBSIDIAN_EXTRACT_ENABLED;
-    public static boolean TUSKLIN_TRAMPLE_ENABLED;
-    public static boolean REMOVE_TUSKLIN_EQUIPMENT_ENABLED;
-    public static boolean GUSTER_PROJECTILE_PROT_ENABLED;
-    public static boolean ELEPHANT_TRAMPLE_ENABLED;
-    public static boolean VOIDWORM_STUN_ENABLED;
-    public static boolean GOOFY_STRADDLER_SHOTGUN_ENABLED;
-    public static boolean FREDDYABLE_ENABLED;
-
     public static boolean STRADPOLE_FLAME_ENABLED;
-    public static boolean GOOFY_MODE_ENABLED;
-    public static boolean GOOFY_BANANA_SLIP_ENABLED;
-    public static boolean COSMAW_WEAKENED_ENABLED;
-    public static boolean GOOFY_MURMUR_DECAPITATED_ENABLED;
-    public static boolean GOOFY_CRIMSON_MULTIPLY_ENABLED;
-    public static boolean RAINFROG_SPAWNAGE_ENABLED;
-    public static boolean TIGER_STEALTH_ENABLED;
+    public static boolean STUPID_CATFISH_EAT_ENABLED;
+    public static boolean SUGAR_RUSH_ENABLED;
     public static boolean SUNBIRD_UPGRADE_ENABLED;
-    public static boolean LEOPARD_DESIRES_ENABLED;
-    public static boolean GOOFY_CAPUCHIN_BOMB_ENABLED;
-    public static boolean DIMENSIONAL_LODESTONE_ENABLED;
-    public static boolean ROLLING_THUNDER_ENABLED;
+    public static boolean TENDON_GRAB_ENABLED;
+    public static boolean TERRAPIN_STOMP_ENABLED;
+    public static boolean TIGER_STEALTH_ENABLED;
+    public static boolean TUSKLIN_FLEE_ENABLED;
+    public static boolean TUSKLIN_TRAMPLE_ENABLED;
+    public static boolean TUSKLIN_TRUST_ENABLED;
+    public static boolean VOIDWORM_STUN_ENABLED;
+    public static boolean VULTURE_STEAL_ENABLED;
+    public static boolean WARPED_FRIENDLY_ENABLED;
+    public static boolean WEAVING_WATERS_ENABLED;
+    public static boolean WITCH_ADDITIONS_ENABLED;
+    public static int STRADDLER_SHOTS_AMOUNT;
 
 
     public static void bake() {
         try {
-            FRIENDLY_KOMODO = AMIConfigHolder.INTERACT.FRIENDLY_KOMODO.get();
+            POISONOUS_BATH_ENABLED = AMIConfigHolder.INTERACT.POISONOUS_BATH_ENABLED.get();
+            TENDON_GRAB_ENABLED = AMIConfigHolder.INTERACT.TENDON_GRAB_ENABLED.get();
+            FRIENDLY_KOMODO_ENABLED = AMIConfigHolder.INTERACT.FRIENDLY_KOMODO_ENABLED.get();
             MANTIS_SPEED_ENABLED = AMIConfigHolder.INTERACT.MANTIS_SPEED_ENABLED.get();
             BRUSHED_ENABLED = AMIConfigHolder.INTERACT.BRUSHED_ENABLED.get();
             ROLLING_THUNDER_ENABLED = AMIConfigHolder.INTERACT.ROLLING_THUNDER_ENABLED.get();
@@ -149,7 +142,7 @@ public class AMInteractionConfig {
             REMOVE_TUSKLIN_EQUIPMENT_ENABLED = AMIConfigHolder.INTERACT.REMOVE_TUSKLIN_EQUIPMENT_ENABLED.get();
             TUSKLIN_TRAMPLE_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_TRAMPLE_ENABLED.get();
             OBSIDIAN_EXTRACT_ENABLED = AMIConfigHolder.INTERACT.OBSIDIAN_EXTRACT_ENABLED.get();
-            POCKET_SAND_AMMOLESS_ENABLED = AMIConfigHolder.INTERACT.POCKET_SAND_AMMOLESS_ENABLED.get();
+            BOTTOMLESS_SAND_ENABLED = AMIConfigHolder.INTERACT.BOTTOMLESS_SAND_ENABLED.get();
             SKREECHER_WARD_ENABLED = AMIConfigHolder.INTERACT.SKREECHER_WARD_ENABLED.get();
             VULTURE_STEAL_ENABLED = AMIConfigHolder.INTERACT.VULTURE_STEAL_ENABLED.get();
             SNOW_LUCK_ENABLED = AMIConfigHolder.INTERACT.SNOW_LUCK_ENABLED.get();
@@ -172,13 +165,13 @@ public class AMInteractionConfig {
             EAGLE_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.EAGLE_CANNIBALIZE_ENABLED.get();
             BANANA_SHEAR_ENABLED = AMIConfigHolder.INTERACT.BANANA_SHEAR_ENABLED.get();
             ACCIDENTAL_BETRAYAL_ENABLED = AMIConfigHolder.INTERACT.ACCIDENTAL_BETRAYAL_ENABLED.get();
+            BLOOD_DAMAGE_DIFFERENCE_ENABLED = AMIConfigHolder.INTERACT.BLOOD_DAMAGE_DIFFERENCE_ENABLED.get();
             BLOODED_ENABLED = AMIConfigHolder.INTERACT.BLOODED_ENABLED.get();
             CAIMAN_AGGRO_ENABLED = AMIConfigHolder.INTERACT.CAIMAN_AGGRO_ENABLED.get();
             CAPUCHIN_HUNT_ENABLED = AMIConfigHolder.INTERACT.CAPUCHIN_HUNT_ENABLED.get();
             CATFISH_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CATFISH_CANNIBALIZE_ENABLED.get();
             STUPID_CATFISH_EAT_ENABLED = AMIConfigHolder.INTERACT.STUPID_CATFISH_EAT_ENABLED.get();
             LIGHT_FEAR_ENABLED = AMIConfigHolder.INTERACT.LIGHT_FEAR_ENABLED.get();
-            BLOODLESS_IGNORE_ENABLED = AMIConfigHolder.INTERACT.BLOODLESS_IGNORE_ENABLED.get();
             CROW_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CROW_CANNIBALIZE_ENABLED.get();
             ELEPHANT_TERRITORIAL_ENABLED = AMIConfigHolder.INTERACT.ELEPHANT_TERRITORIAL_ENABLED.get();
             RANGED_AGGRO_ENABLED = AMIConfigHolder.INTERACT.RANGED_AGGRO_ENABLED.get();
@@ -195,6 +188,7 @@ public class AMInteractionConfig {
             LOBSTER_NIGHT_ENABLED = AMIConfigHolder.INTERACT.LOBSTER_NIGHT_ENABLED.get();
             MANTIS_AGGRO_ENABLED = AMIConfigHolder.INTERACT.MANTIS_AGGRO_ENABLED.get();
             MANTIS_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.MANTIS_CANNIBALIZE_ENABLED.get();
+            BLOODED_EFFECT_ENABLED = AMIConfigHolder.INTERACT.BLOODED_EFFECT_ENABLED.get();
             MURMUR_REGROW_ENABLED = AMIConfigHolder.INTERACT.MURMUR_REGROW_ENABLED.get();
             PREY_FEAR_ENABLED = AMIConfigHolder.INTERACT.PREY_FEAR_ENABLED.get();
             RACOON_HUNT_ENABLED = AMIConfigHolder.INTERACT.RACOON_HUNT_ENABLED.get();
@@ -224,7 +218,7 @@ public class AMInteractionConfig {
             CROW_WARRIORS_ENABLED = AMIConfigHolder.INTERACT.CROW_WARRIORS_ENABLED.get();
             FARSEER_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FARSEER_EFFECTS_ENABLED.get();
             WITCH_ADDITIONS_ENABLED = AMIConfigHolder.INTERACT.WITCH_ADDITIONS_ENABLED.get();
-            COCKROACH_CHAMBER = AMIConfigHolder.INTERACT.COCKROACH_CHAMBER.get();
+            COCKROACH_CHAMBER_ENABLED = AMIConfigHolder.INTERACT.COCKROACH_CHAMBER_ENABLED.get();
             GUSTING_ENABLED = AMIConfigHolder.INTERACT.GUSTING_ENABLED.get();
             BLEEDING_HUNGER_ENABLED = AMIConfigHolder.INTERACT.BLEEDING_HUNGER_ENABLED.get();
 

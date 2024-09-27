@@ -33,14 +33,14 @@ public abstract class AMIFrogRendering extends MobRenderer<Frog, FrogModel<Frog>
     }
 
 
-    public void setupRotations(Frog entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-        if (this.isShaking(entityLiving)) {
-            rotationYaw += (float)(Math.cos((double)entityLiving.tickCount * 7.0) * Math.PI * 0.8999999761581421);
+    public void setupRotations(Frog frog, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+        if (this.isShaking(frog)) {
+            rotationYaw += (float)(Math.cos((double)frog.tickCount * 7.0) * Math.PI * 0.8999999761581421);
             float vibrate = 0.05F;
-            matrixStackIn.translate((entityLiving.getRandom().nextFloat() - 0.5F) * vibrate, (entityLiving.getRandom().nextFloat() - 0.5F) * vibrate, (entityLiving.getRandom().nextFloat() - 0.5F) * vibrate);
+            matrixStackIn.translate((frog.getRandom().nextFloat() - 0.5F) * vibrate, (frog.getRandom().nextFloat() - 0.5F) * vibrate, (frog.getRandom().nextFloat() - 0.5F) * vibrate);
         }
 
-        super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+        super.setupRotations(frog, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
 
     }
 }

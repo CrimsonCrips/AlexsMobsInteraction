@@ -1,0 +1,45 @@
+{
+  "name": "Vanilla Mobs",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:witch",
+      "name" : "Witch Additions",
+      "text": "Witches will drink a Poison Resistance when Poisoned",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:potion{Potion:\"alexsmobs:poison_resistance\"}",
+      "title": "Poison Resistance"
+    },
+
+
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:spider",
+      "name" : "Spider Eats",
+      "text": "Spiders will hunt more mobs",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Bees,Silverfish,Cockroaches"
+    },
+
+
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cave_spider",
+      "name" : "Cave Spider Eats",
+      "text": "Cave Spiders will hunt more mobs",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Bees,Silverfish,Cockroaches,Flies"
+    }
+  ]
+}

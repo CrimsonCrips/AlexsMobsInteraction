@@ -1,0 +1,15 @@
+{
+  "name": "Molten Bath",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This feature refers to how you can pour lava bottles into mobs to combust them to flames"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:lava_bottle"
+      }
+  ]
+}

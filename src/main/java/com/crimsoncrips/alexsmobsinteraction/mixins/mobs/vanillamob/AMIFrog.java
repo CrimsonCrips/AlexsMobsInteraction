@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.vanillamob;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -17,7 +18,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -31,76 +34,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Frog.class)
 public class AMIFrog extends Mob implements AMITransform {
+
+    private static final EntityDataAccessor<Boolean> TRANFORMING = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.BOOLEAN);
+
     int frogWarped;
-
-    static {
-        FROGSICK = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.BOOLEAN);
-        MAGGOTFED = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.INT);
-        MUNGUSFED = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.INT);
-        WARPEDFED = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.INT);
-    }
-
-    private static final EntityDataAccessor<Boolean> FROGSICK;
-    private static final EntityDataAccessor<Integer> MAGGOTFED;
-    private static final EntityDataAccessor<Integer> MUNGUSFED;
-    private static final EntityDataAccessor<Integer> WARPEDFED;
-
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(FROGSICK, false);
-        this.entityData.define(MAGGOTFED, 0);
-        this.entityData.define(MUNGUSFED, 0);
-        this.entityData.define(WARPEDFED, 0);
-    }
-
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
-        compound.putBoolean("FrogSick", this.isTransforming());
-        compound.putInt("MaggotFed", this.getMaggotFed());
-        compound.putInt("MungusFed", this.getMungusFed());
-        compound.putInt("WarpedFed", this.getWarpedFed());
-    }
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
-        this.setTransforming(compound.getBoolean("FrogSick"));
-        this.setMaggotFed(compound.getInt("MaggotFed"));
-        this.setMungusFed(compound.getInt("MungusFed"));
-        this.setWarpedFed(compound.getInt("WarpedFed"));
-    }
-
-    public int getMaggotFed() {
-        return (Integer)this.entityData.get(MAGGOTFED);
-    }
-
-    public void setMaggotFed(int maggot) {
-        this.entityData.set(MAGGOTFED, maggot);
-    }
-    public int getMungusFed() {
-        return (Integer)this.entityData.get(MUNGUSFED);
-    }
-
-    public void setMungusFed(int mungus) {
-        this.entityData.set(MUNGUSFED, mungus);
-    }
-    public int getWarpedFed() {
-        return (Integer)this.entityData.get(WARPEDFED);
-    }
-
-    public void setWarpedFed(int warped) {
-        this.entityData.set(WARPEDFED, warped);
-    }
-
 
 
     protected AMIFrog(EntityType<? extends Mob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void defineSynched(CallbackInfo ci){
+        this.entityData.define(TRANFORMING, false);
+    }
+
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        Frog frog = (Frog)(Object)this;
-            if (this.getMungusFed() >= 1 && this.getWarpedFed() >= 2 && this.getMaggotFed() >= 10)  setTransforming(true);
             if (isTransforming()){
                 frogWarped++;
                 if (frogWarped > 160) {
@@ -109,41 +60,27 @@ public class AMIFrog extends Mob implements AMITransform {
                     if (!this.level().isClientSide) {
                         warpedToad.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
                     }
-                    frog.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
+                    this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
 
                     if (!this.level().isClientSide) {
                         this.level().broadcastEntityEvent(this, (byte) 79);
                         level().addFreshEntity(warpedToad);
                     }
-                    frog.remove(RemovalReason.DISCARDED);
+                    this.remove(RemovalReason.DISCARDED);
 
                 }
             }
     }
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        InteractionResult type = super.mobInteract(player, hand);
-        if(AMInteractionConfig.FROG_TRANSFORM_ENABLED){
-            if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(getMaggotFed() >= 10)) {
 
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+        if (AMInteractionConfig.FROG_TRANSFORM_ENABLED) {
+            if (itemstack.getItem() == Items.WARPED_FUNGUS && this.hasEffect(MobEffects.WEAKNESS) ){
                 gameEvent(GameEvent.ENTITY_INTERACT);
-                stack.shrink(1);
-                this.playSound(SoundEvents.GENERIC_EAT);
-                this.setMaggotFed(this.getMaggotFed() + 1);
-                return InteractionResult.SUCCESS;
-            }
-            if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && !(getMungusFed() >= 1)) {
-                gameEvent(GameEvent.ENTITY_INTERACT);
-                stack.shrink(1);
-                this.playSound(SoundEvents.GENERIC_EAT);
-                this.setMungusFed(this.getMungusFed() + 1);
-                return InteractionResult.SUCCESS;
-            }
-            if (stack.getItem() == Items.WARPED_FUNGUS && !(getWarpedFed() >= 2)) {
-                gameEvent(GameEvent.ENTITY_INTERACT);
-                stack.shrink(1);
-                this.playSound(SoundEvents.GENERIC_EAT);
-                this.setWarpedFed(this.getWarpedFed() + 1);
+                this.gameEvent(GameEvent.EAT);
+                this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+                setTransforming(true);
                 return InteractionResult.SUCCESS;
             }
         } return type;
@@ -151,12 +88,12 @@ public class AMIFrog extends Mob implements AMITransform {
 
     @Override
     public boolean isTransforming() {
-        return this.entityData.get(FROGSICK);
+        return this.entityData.get(TRANFORMING);
     }
 
     @Override
-    public void setTransforming(boolean transforming) {
-        this.entityData.set(FROGSICK, transforming);
+    public void setTransforming(boolean transformingBoolean) {
+        this.entityData.set(TRANFORMING, transformingBoolean);
     }
 
 

@@ -15,6 +15,7 @@
   "item.minecraft.tipped_arrow.effect.gusting": "Стрела завихрения",
   "item.minecraft.lingering_potion.effect.gusting": "Туманное зелье завихрения",
   "item.minecraft.potion.effect.gusting": "Зелье завихрения",
+
   "alexsmobsinteraction.potion.long_gusting": "Завихрение",
   "effect.alexsmobsinteraction.long_gusting.description": "Наделяет невосприимчивовстью к воздействию вихрей и одновременно порождает вихрей вокруг игрока.",
   "item.minecraft.splash_potion.effect.long_gusting": "Взрывное зелье завихрения",

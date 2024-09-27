@@ -1,0 +1,6 @@
+{
+  "name": "Mobs",
+  "description": "This is a category for the features for the mobs",
+  "icon": "minecraft:spawner",
+  "sortnum" : 1
+}

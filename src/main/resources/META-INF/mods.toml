@@ -74,3 +74,10 @@ mandatory=false
 versionRange="[3.2.1.0]"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.alexsmobsinteraction]]
+modId="patchouli"
+mandatory=true
+versionRange="[1.20.1-84-forge]"
+ordering="NONE"
+side="BOTH"

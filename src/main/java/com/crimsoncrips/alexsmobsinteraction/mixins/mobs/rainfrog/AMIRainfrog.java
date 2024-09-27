@@ -1,18 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.rainfrog;
 
-import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMISkelewagInterface;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
-import com.github.alexthe666.alexsmobs.config.AMConfig;
-import com.github.alexthe666.alexsmobs.config.BiomeConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
-import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -21,17 +15,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -74,7 +64,6 @@ public class AMIRainfrog extends Mob implements AMITransform {
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditional(CompoundTag compound, CallbackInfo ci){
-        this.setTransforming(compound.getBoolean("RainfrogSick"));
         this.setMaggotFed(compound.getInt("MaggotFed"));
         this.setMungusFed(compound.getInt("MungusFed"));
         this.setWarpedFed(compound.getInt("WarpedFed"));
@@ -110,7 +99,7 @@ public class AMIRainfrog extends Mob implements AMITransform {
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
         EntityRainFrog frog = (EntityRainFrog)(Object)this;
-        if (this.getMungusFed() >= 1 && this.getWarpedFed() >= 2 && this.getMaggotFed() >= 5) setTransforming(true);
+        if (this.getMungusFed() >= 1 && this.getWarpedFed() >= 2 && this.getMaggotFed() >= 5);
         if (isTransforming()){
             frogWarped++;
             if (frogWarped > 160) {
@@ -194,8 +183,9 @@ public class AMIRainfrog extends Mob implements AMITransform {
 
     @Override
     public void setTransforming(boolean transforming) {
-        this.entityData.set(RAMINFROGSICK, transforming);
+
     }
+
 
     public void spawnGusters(){
         if (AMInteractionConfig.RAINFROG_SPAWNAGE_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) {

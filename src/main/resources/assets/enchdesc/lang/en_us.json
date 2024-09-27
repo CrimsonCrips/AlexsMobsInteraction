@@ -1,13 +1,19 @@
 {
   "enchantment.alexsmobsinteraction.stabilizer": "Stabilizer",
   "enchantment.alexsmobsinteraction.stabilizer.desc": "Stabilizes the players mind when facing a Farseer",
+
   "enchantment.alexsmobsinteraction.trample": "Trample",
   "enchantment.alexsmobsinteraction.trample.desc": "Tramples any that get in the Tusklin when ridden",
+
   "enchantment.alexsmobsinteraction.final_stand": "Final Stand",
   "enchantment.alexsmobsinteraction.final_stand.desc": "Allows the user to stun charging/pouncing mobs at the cost of significant damage to Shield Durability",
+
   "enchantment.alexsmobsinteraction.lightweight": "Light-Weight",
   "enchantment.alexsmobsinteraction.lightweight.desc": "Makes tamed Cosmaws suffer no penalty when carrying heavy players",
-  "enchantment.alexsmobsinteraction.rolling_thunder": "Rolling Thunder",
-  "enchantment.alexsmobsinteraction.rolling_thunder.desc": "Allows to roll-through liquids for the rocky chestplate"
 
+  "enchantment.alexsmobsinteraction.rolling_thunder": "Rolling Thunder",
+  "enchantment.alexsmobsinteraction.rolling_thunder.desc": "Allows to roll-through liquids for the rocky chestplate",
+
+  "enchantment.alexsmobsinteraction.stretchy_accumulation": "Stretchy Accumulation",
+  "enchantment.alexsmobsinteraction.stretchy_accumulation.desc": "Pickups Item and XP as it hits entities"
 }

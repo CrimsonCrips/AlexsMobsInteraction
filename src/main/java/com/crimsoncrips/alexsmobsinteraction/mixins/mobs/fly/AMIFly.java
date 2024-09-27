@@ -1,8 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.fly;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
-import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
@@ -31,117 +31,38 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityFly.class)
 public class AMIFly extends Mob implements AMITransform {
-    private static final EntityDataAccessor<Boolean> BLOODED;
-    private static final EntityDataAccessor<Boolean> MUNGUS;
-    private static final EntityDataAccessor<Boolean> PACIFIED;
-    private static final EntityDataAccessor<Boolean> FLYSICK;
-
-    static {
-        BLOODED = SynchedEntityData.defineId(AMIFly.class, EntityDataSerializers.BOOLEAN);
-        MUNGUS = SynchedEntityData.defineId(AMIFly.class, EntityDataSerializers.BOOLEAN);
-        PACIFIED = SynchedEntityData.defineId(AMIFly.class, EntityDataSerializers.BOOLEAN);
-        FLYSICK = SynchedEntityData.defineId(AMIFly.class, EntityDataSerializers.BOOLEAN);
-    }
 
     int flyConvert;
-    double y2 = 0;
-    private boolean noFollow = false;
+
+    boolean transformingBoolean = false;
+
     protected AMIFly(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
-    }
-
-
-
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(FLYSICK, false);
-        this.entityData.define(BLOODED, false);
-        this.entityData.define(MUNGUS, false);
-        this.entityData.define(PACIFIED, false);
-    }
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
-        compound.putBoolean("FlySick", this.isTransforming());
-        compound.putBoolean("Blooded", this.isBlooded());
-        compound.putBoolean("Mungused", this.isMungused());
-        compound.putBoolean("Pacified", this.isPacified());
-    }
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
-        this.setTransforming(compound.getBoolean("FlySick"));
-        this.setBlooded(compound.getBoolean("Blooded"));
-        this.setMungused(compound.getBoolean("Mungused"));
-        this.setPacified(compound.getBoolean("Pacified"));
-    }
-
-    public boolean isBlooded() {
-        return this.entityData.get(BLOODED);
-    }
-
-    public void setBlooded(boolean relava) {
-        this.entityData.set(BLOODED, relava);
-    }
-    public boolean isMungused() {
-        return this.entityData.get(MUNGUS);
-    }
-
-    public void setMungused(boolean relava) {
-        this.entityData.set(MUNGUS, relava);
-    }
-    public boolean isPacified() {
-        return this.entityData.get(PACIFIED);
-    }
-
-    public void setPacified(boolean relava) {
-        this.entityData.set(PACIFIED, relava);
-    }
-
-
-    public boolean hurt(DamageSource source, float amount) {
-        boolean prev = super.hurt(source, amount);
-        if (source.getDirectEntity() instanceof EntityMosquitoSpit && AMInteractionConfig.FLY_CONVERT_ENABLED) {
-            setBlooded(true);
-        }
-
-        return prev;
     }
 
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-     if (AMInteractionConfig.FLY_CONVERT_ENABLED && (itemstack.getItem() == AMItemRegistry.MUNGAL_SPORES.get()) && !isMungused()) {
-            this.gameEvent(GameEvent.EAT);
-            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
-            setMungused(true);
-        }
-        if (itemstack.getItem() == AMIItemRegistry.SWATTER.get() && AMInteractionConfig.FLY_CONVERT_ENABLED && !isPacified()) {
-            gameEvent(GameEvent.ENTITY_INTERACT);
-            itemstack.hurtAndBreak(1, this, (p_233654_0_) -> {
-            });
-            setPacified(true);
-            this.playSound(AMSoundRegistry.FLY_HURT.get(), 2F, 1F);
-
+     if (AMInteractionConfig.FLY_CONVERT_ENABLED) {
+         if (itemstack.getItem() == AMItemRegistry.BLOOD_SAC.get() && this.hasEffect(AMIEffects.BLOODED.get())){
+             transformingBoolean = true;
+             this.gameEvent(GameEvent.EAT);
+             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+         }
         }
 
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void Test(CallbackInfo ci) {
-        if (isPacified()){
-                y2 = -0.05 + y2;
-                this.setDeltaMovement(0, y2, 0);
-           }
-        if (isPacified() && isMungused() && isBlooded()) setTransforming(true);
-        if(AMInteractionConfig.FLY_PESTER_ENABLED){
-            if (random.nextDouble() < 0.001 && !noFollow || level().isNight()) noFollow = true;
-            if (random.nextDouble() < 0.05 && noFollow && level().isDay()) noFollow = false;
-        }
-
+        System.out.println(transformingBoolean);
         if (isTransforming()) {
             flyConvert++;
 
             if (flyConvert > 160) {
                 EntityCrimsonMosquito crimsonMosquito = AMEntityRegistry.CRIMSON_MOSQUITO.get().create(level());
+                if (crimsonMosquito == null)
+                    return;
                 crimsonMosquito.copyPosition(this);
                 if (!this.level().isClientSide) {
                     crimsonMosquito.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
@@ -164,10 +85,12 @@ public class AMIFly extends Mob implements AMITransform {
 
 
     public boolean isTransforming() {
-        return this.entityData.get(FLYSICK);
+        return transformingBoolean;
     }
 
+    @Override
     public void setTransforming(boolean transforming) {
-        this.entityData.set(FLYSICK, transforming);
+
     }
+
 }

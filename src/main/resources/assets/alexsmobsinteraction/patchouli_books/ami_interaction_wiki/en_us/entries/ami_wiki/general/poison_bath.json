@@ -1,0 +1,15 @@
+{
+  "name": "Poison Bath",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This feature refers to how you can pour poison bottles into mobs to poison them alike"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:poison_bottle"
+      }
+  ]
+}

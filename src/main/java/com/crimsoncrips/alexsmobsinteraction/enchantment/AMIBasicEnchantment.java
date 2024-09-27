@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.enchantment;
 
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
@@ -21,7 +22,7 @@ public class AMIBasicEnchantment extends Enchantment {
 
 
     public boolean isTradeable() {
-        return super.isTradeable();
+        return true;
     }
 
     public boolean isDiscoverable() {
@@ -29,7 +30,6 @@ public class AMIBasicEnchantment extends Enchantment {
     }
 
     public boolean isAllowedOnBooks() {
-        return super.isAllowedOnBooks();
+        return true;
     }
-
 }

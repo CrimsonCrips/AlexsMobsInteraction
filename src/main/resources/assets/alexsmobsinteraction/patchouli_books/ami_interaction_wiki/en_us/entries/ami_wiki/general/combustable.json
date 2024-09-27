@@ -1,0 +1,16 @@
+{
+  "name": "Combustable",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This feature refers to how being oiled will cause you to combust more from 'hot' blocks"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/combust.png" ],
+      "title": "Combustion Example"
+    }
+  ]
+}

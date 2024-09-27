@@ -5,7 +5,6 @@ import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
-import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -13,7 +12,6 @@ import com.github.alexthe666.alexsmobs.message.*;
 import com.github.alexthe666.alexsmobs.misc.AMAdvancementTriggerRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMRecipeRegistry;
 import com.mojang.logging.LogUtils;
-import misc.AMICreativeTab;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,8 +38,6 @@ public class AlexsMobsInteraction {
 
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        AMIItemRegistry.DEF_REG.register(modEventBus);
-        AMICreativeTab.DEF_REG.register(modEventBus);
         AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::onModConfigEvent);
         MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());

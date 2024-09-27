@@ -1,0 +1,11 @@
+{
+  "name": "Bottomless Sand",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This feature refers to how Pocket Sand is Bottomless (aka infinite)"
+    }
+  ]
+}
