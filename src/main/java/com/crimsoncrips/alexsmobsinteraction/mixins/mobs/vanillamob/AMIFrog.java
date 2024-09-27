@@ -56,17 +56,20 @@ public class AMIFrog extends Mob implements AMITransform {
                 frogWarped++;
                 if (frogWarped > 160) {
                     EntityWarpedToad warpedToad = AMEntityRegistry.WARPED_TOAD.get().create(level());
-                    warpedToad.copyPosition(this);
-                    if (!this.level().isClientSide) {
-                        warpedToad.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                    }
-                    this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
+                    if(warpedToad != null) {
+                        warpedToad.copyPosition(this);
 
-                    if (!this.level().isClientSide) {
-                        this.level().broadcastEntityEvent(this, (byte) 79);
-                        level().addFreshEntity(warpedToad);
+                        if (!this.level().isClientSide) {
+                            warpedToad.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                        }
+                        this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
+
+                        if (!this.level().isClientSide) {
+                            this.level().broadcastEntityEvent(this, (byte) 79);
+                            level().addFreshEntity(warpedToad);
+                        }
+                        this.remove(RemovalReason.DISCARDED);
                     }
-                    this.remove(RemovalReason.DISCARDED);
 
                 }
             }
@@ -77,6 +80,9 @@ public class AMIFrog extends Mob implements AMITransform {
         InteractionResult type = super.mobInteract(player, hand);
         if (AMInteractionConfig.FROG_TRANSFORM_ENABLED) {
             if (itemstack.getItem() == Items.WARPED_FUNGUS && this.hasEffect(MobEffects.WEAKNESS) ){
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
                 gameEvent(GameEvent.ENTITY_INTERACT);
                 this.gameEvent(GameEvent.EAT);
                 this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());

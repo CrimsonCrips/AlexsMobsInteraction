@@ -40,6 +40,19 @@
     {
       "type": "patchouli:text",
       "text": "Bees,Silverfish,Cockroaches,Flies"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:frog",
+      "name" : "Frog Conversion",
+      "text": "Frogs can be converted into Warped Toads",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/convertion/frog_conversion.png" ],
+      "title": "Conversion Demonstration",
+      "text": "Splash the frog with weakness and feed it warped fungus"
     }
   ]
 }
