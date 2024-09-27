@@ -24,6 +24,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
@@ -40,6 +41,7 @@ public class AMIGusting extends MobEffect {
 
     public AMIGusting() {
         super(MobEffectCategory.BENEFICIAL, 0Xfae6af);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "44d3ee68-a7cb-4da4-b7dc-c17d1746f950", 0.35000000596046448, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {

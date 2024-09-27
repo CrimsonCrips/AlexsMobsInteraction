@@ -11,6 +11,18 @@
       "type": "patchouli:image",
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/combust.png" ],
       "title": "Combustion Example"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/soul_fired.png" ],
+      "title": "Mod Compatibility",
+      "text": "This feature has compatibility with the mod Soul Fire'd, so stepping on soul campfire will combust you into soul flames when oiled",
+      "border": true
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/combust_soul.png" ],
+      "title": "Soul Combustion Example"
     }
   ]
 }
