@@ -37,7 +37,6 @@ public class AMInteractionConfig {
     public static boolean FLUTTER_SHEAR_ENABLED;
     public static boolean FLUTTER_WITHERED_ENABLED;
     public static boolean FLY_CONVERT_ENABLED;
-    public static boolean FLY_FEAR_ENABLED;
     public static boolean FLY_PESTER_ENABLED;
     public static boolean FREDDYABLE_ENABLED;
     public static boolean FRIENDLY_KOMODO_ENABLED;
@@ -62,7 +61,6 @@ public class AMInteractionConfig {
     public static boolean LOBSTER_NIGHT_ENABLED;
     public static boolean MANTIS_AGGRO_ENABLED;
     public static boolean MANTIS_CANNIBALIZE_ENABLED;
-    public static boolean MANTIS_SPEED_ENABLED;
     public static boolean MIGHT_UPGRADE_ENABLED;
     public static boolean MOLTEN_BATH_ENABLED;
     public static boolean MOSCO_CANNIBALISM_ENABLED;
@@ -75,21 +73,18 @@ public class AMInteractionConfig {
     public static boolean POLINATE_DAY_ENABLED;
     public static boolean PREY_FEAR_ENABLED;
     public static boolean RACOON_HUNT_ENABLED;
-    public static boolean RAINFROG_SPAWNAGE_ENABLED;
+    public static boolean GOOFY_RAINFROG_SPAWNAGE_ENABLED;
     public static boolean RANGED_AGGRO_ENABLED;
     public static boolean RATTLESNAKE_CANNIBALIZE_ENABLED;
-    public static boolean REMOVE_TUSKLIN_EQUIPMENT_ENABLED;
     public static boolean ROADRUNNER_DAY_ENABLED;
     public static boolean ROLLING_THUNDER_ENABLED;
     public static boolean SEAGULL_BUFFED_ENABLED;
     public static boolean SEAGULL_WEAKEN_ENABLED;
     public static boolean SERPENT_FEAR_ENABLED;
     public static boolean SKELEWAG_CIRCLE_ENABLED;
-    public static boolean SKITTISH_ROACHES_ENABLED;
     public static boolean SKREECHER_WARD_ENABLED;
     public static boolean SKREECH_YOUR_LAST_ENABLED;
-    public static boolean SNAPPING_ALERT_ENABLED;
-    public static boolean SNAPPING_DORMANT_ENABLED;
+    public static boolean SNAPPING_DORMANCY_ENABLED;
     public static boolean SNAPPING_MOSS_ENABLED;
     public static boolean SNOW_LUCK_ENABLED;
     public static boolean SOMBRERO_PROTECTION_ENABLED;
@@ -97,7 +92,6 @@ public class AMInteractionConfig {
     public static boolean STRADDLER_VENGEANCE_ENABLED;
     public static boolean STRADPOLE_BOB_UP_ENABLED;
     public static boolean STRADPOLE_FLAME_ENABLED;
-    public static boolean STUPID_CATFISH_EAT_ENABLED;
     public static boolean SUGAR_RUSH_ENABLED;
     public static boolean SUNBIRD_UPGRADE_ENABLED;
     public static boolean TENDON_GRAB_ENABLED;
@@ -119,7 +113,6 @@ public class AMInteractionConfig {
             POISONOUS_BATH_ENABLED = AMIConfigHolder.INTERACT.POISONOUS_BATH_ENABLED.get();
             TENDON_GRAB_ENABLED = AMIConfigHolder.INTERACT.TENDON_GRAB_ENABLED.get();
             FRIENDLY_KOMODO_ENABLED = AMIConfigHolder.INTERACT.FRIENDLY_KOMODO_ENABLED.get();
-            MANTIS_SPEED_ENABLED = AMIConfigHolder.INTERACT.MANTIS_SPEED_ENABLED.get();
             BRUSHED_ENABLED = AMIConfigHolder.INTERACT.BRUSHED_ENABLED.get();
             ROLLING_THUNDER_ENABLED = AMIConfigHolder.INTERACT.ROLLING_THUNDER_ENABLED.get();
             DIMENSIONAL_LODESTONE_ENABLED = AMIConfigHolder.INTERACT.DIMENSIONAL_LODESTONE_ENABLED.get();
@@ -127,7 +120,7 @@ public class AMInteractionConfig {
             LEOPARD_DESIRES_ENABLED = AMIConfigHolder.INTERACT.LEOPARD_DESIRES_ENABLED.get();
             SUNBIRD_UPGRADE_ENABLED = AMIConfigHolder.INTERACT.SUNBIRD_UPGRADE_ENABLED.get();
             TIGER_STEALTH_ENABLED = AMIConfigHolder.INTERACT.TIGER_STEALTH_ENABLED.get();
-            RAINFROG_SPAWNAGE_ENABLED = AMIConfigHolder.INTERACT.RAINFROG_SPAWNAGE_ENABLED.get();
+            GOOFY_RAINFROG_SPAWNAGE_ENABLED = AMIConfigHolder.INTERACT.GOOFY_RAINFROG_SPAWNAGE_ENABLED.get();
             GOOFY_CRIMSON_MULTIPLY_ENABLED = AMIConfigHolder.INTERACT.GOOFY_CRIMSON_MULTIPLY_ENABLED.get();
             GOOFY_MURMUR_DECAPITATED_ENABLED = AMIConfigHolder.INTERACT.GOOFY_MURMUR_DECAPITATED_ENABLED.get();
             COSMAW_WEAKENED_ENABLED = AMIConfigHolder.INTERACT.COSMAW_WEAKENED_ENABLED.get();
@@ -139,7 +132,6 @@ public class AMInteractionConfig {
             VOIDWORM_STUN_ENABLED = AMIConfigHolder.INTERACT.VOIDWORM_STUN_ENABLED.get();
             ELEPHANT_TRAMPLE_ENABLED = AMIConfigHolder.INTERACT.ELEPHANT_TRAMPLE_ENABLED.get();
             GUSTER_PROJECTILE_PROT_ENABLED = AMIConfigHolder.INTERACT.GUSTER_PROJECTILE_PROT_ENABLED.get();
-            REMOVE_TUSKLIN_EQUIPMENT_ENABLED = AMIConfigHolder.INTERACT.REMOVE_TUSKLIN_EQUIPMENT_ENABLED.get();
             TUSKLIN_TRAMPLE_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_TRAMPLE_ENABLED.get();
             OBSIDIAN_EXTRACT_ENABLED = AMIConfigHolder.INTERACT.OBSIDIAN_EXTRACT_ENABLED.get();
             BOTTOMLESS_SAND_ENABLED = AMIConfigHolder.INTERACT.BOTTOMLESS_SAND_ENABLED.get();
@@ -170,7 +162,6 @@ public class AMInteractionConfig {
             CAIMAN_AGGRO_ENABLED = AMIConfigHolder.INTERACT.CAIMAN_AGGRO_ENABLED.get();
             CAPUCHIN_HUNT_ENABLED = AMIConfigHolder.INTERACT.CAPUCHIN_HUNT_ENABLED.get();
             CATFISH_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CATFISH_CANNIBALIZE_ENABLED.get();
-            STUPID_CATFISH_EAT_ENABLED = AMIConfigHolder.INTERACT.STUPID_CATFISH_EAT_ENABLED.get();
             LIGHT_FEAR_ENABLED = AMIConfigHolder.INTERACT.LIGHT_FEAR_ENABLED.get();
             CROW_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CROW_CANNIBALIZE_ENABLED.get();
             ELEPHANT_TERRITORIAL_ENABLED = AMIConfigHolder.INTERACT.ELEPHANT_TERRITORIAL_ENABLED.get();
@@ -179,7 +170,6 @@ public class AMInteractionConfig {
             FARSEER_HUMANLIKE_ATTACK_ENABLED = AMIConfigHolder.INTERACT.FARSEER_HUMANLIKE_ATTACK_ENABLED.get();
             TUSKLIN_FLEE_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_FLEE_ENABLED.get();
             FLUTTER_WITHERED_ENABLED = AMIConfigHolder.INTERACT.FLUTTER_WITHERED_ENABLED.get();
-            FLY_FEAR_ENABLED = AMIConfigHolder.INTERACT.FLY_FEAR_ENABLED.get();
             CANDLE_REPEL_ENABLED = AMIConfigHolder.INTERACT.CANDLE_REPEL_ENABLED.get();
             GRIZZLY_FRIENDLY_ENABLED = AMIConfigHolder.INTERACT.GRIZZLY_FRIENDLY_ENABLED.get();
             GUSTER_WEIGHT_ENABLED = AMIConfigHolder.INTERACT.GUSTER_WEIGHT_ENABLED.get();
@@ -195,11 +185,8 @@ public class AMInteractionConfig {
             RATTLESNAKE_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.RATTLESNAKE_CANNIBALIZE_ENABLED.get();
             ROADRUNNER_DAY_ENABLED = AMIConfigHolder.INTERACT.ROADRUNNER_DAY_ENABLED.get();
             MIGHT_UPGRADE_ENABLED = AMIConfigHolder.INTERACT.MIGHT_UPGRADE_ENABLED.get();
-            SEAGULL_BUFFED_ENABLED = AMIConfigHolder.INTERACT.SEAGULL_BUFFED_ENABLED.get();
             SEAGULL_WEAKEN_ENABLED = AMIConfigHolder.INTERACT.SEAGULL_WEAKEN_ENABLED.get();
-            SKITTISH_ROACHES_ENABLED = AMIConfigHolder.INTERACT.SKITTISH_ROACHES_ENABLED.get();
-            SNAPPING_ALERT_ENABLED = AMIConfigHolder.INTERACT.SNAPPING_ALERT_ENABLED.get();
-            SNAPPING_DORMANT_ENABLED = AMIConfigHolder.INTERACT.SNAPPING_DORMANT_ENABLED.get();
+            SNAPPING_DORMANCY_ENABLED = AMIConfigHolder.INTERACT.SNAPPING_DORMANCY_ENABLED.get();
             SPIDER_EAT_ENABLED = AMIConfigHolder.INTERACT.SPIDER_EAT_ENABLED.get();
             STRADDLER_SHOTS_AMOUNT = AMIConfigHolder.INTERACT.STRADDLER_SHOTS_AMOUNT.get();
             STRADDLER_VENGEANCE_ENABLED = AMIConfigHolder.INTERACT.STRADDLER_VENGEANCE_ENABLED.get();

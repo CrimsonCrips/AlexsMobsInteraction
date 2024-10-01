@@ -1,0 +1,25 @@
+{
+  "name": "Hummingbird",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:hummingbird",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/humming_bird/flutter_follow.png" ],
+      "title": "Flutter Follow",
+      "text": "Humming Birds follow flutters"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/humming_bird/day_polinate.png" ],
+      "title": "Day Polinate",
+      "text": "Humming Birds pollinate only in the day"
+    }
+
+  ]
+}

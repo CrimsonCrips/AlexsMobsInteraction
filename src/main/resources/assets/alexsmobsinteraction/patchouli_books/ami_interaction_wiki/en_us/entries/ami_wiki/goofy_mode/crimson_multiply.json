@@ -1,0 +1,13 @@
+{
+  "name": "Crimson Multiply",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:goofy_mode_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/goofy_mode/crimson_multiply.png" ],
+      "title": "Crimson Multiply",
+      "text": "Crimson multiply when latched"
+    }
+  ]
+}

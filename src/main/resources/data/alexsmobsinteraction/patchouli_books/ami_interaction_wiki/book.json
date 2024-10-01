@@ -4,6 +4,7 @@
   "subtitle": "The Bastion Of Interaction",
   "creative_tab": "minecraft:tools_and_utilities",
   "book_texture": "alexsmobsinteraction:textures/gui/book/ami_gui_book.png",
+  "model": "alexsmobsinteraction:ami_book",
   "nameplate_color": "e3cccc",
   "crafting_texture": "alexsmobsinteraction:textures/gui/book/crafting.png",
   "use_resource_pack": true,

@@ -1,7 +1,4 @@
 package com.crimsoncrips.alexsmobsinteraction;//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
 
 
 
@@ -18,17 +15,14 @@ public class AMInteractionTagRegistry {
 
     public static final TagKey<Block> CENTIPEDE_BLOCK_FEAR = registerBlockTag("centipede_block_fear");
     public static final TagKey<EntityType<?>> ANACONDA_BABY_KILL = registerEntityTag("anaconda_kill_baby");
-    public static final TagKey<EntityType<?>> BIGCATFISHCANNOTEAT = registerEntityTag("bigcatfish_cannotkill");
     public static final TagKey<EntityType<?>> BONESERPENT_KILL = registerEntityTag("boneserpent_kill");
     public static final TagKey<EntityType<?>> BURNABLE_DEAD = registerEntityTag("burnable_dead");
     public static final TagKey<EntityType<?>> CACHALOT_WHALE_KILL_CHANCE = registerEntityTag("cachalot_whale_kill");
-    public static final TagKey<EntityType<?>> CAPUCHIN_KILL = registerEntityTag("capuchin_kill");
     public static final TagKey<EntityType<?>> CAVE_CENTIPEDE_KILL = registerEntityTag("cave_centipede_kill");
     public static final TagKey<EntityType<?>> CROCODILE_BABY_KILL = registerEntityTag("crocodile_kill_baby");
     public static final TagKey<EntityType<?>> CROW_KILL = registerEntityTag("crow_kill");
     public static final TagKey<EntityType<?>> DROPBEAR_KILL = registerEntityTag("dropbear_kill");
     public static final TagKey<EntityType<?>> EMU_KILL = registerEntityTag("emu_kill");
-    public static final TagKey<EntityType<?>> FISHFEAR = registerEntityTag("fish_fear");
     public static final TagKey<EntityType<?>> PESTER_ENTITY = registerEntityTag("fly_pester");
     public static final TagKey<EntityType<?>> FRILLED_KILL = registerEntityTag("frilled_kill");
     public static final TagKey<EntityType<?>> GRIZZLY_KILL = registerEntityTag("grizzly_kill");
@@ -46,7 +40,7 @@ public class AMInteractionTagRegistry {
     public static final TagKey<EntityType<?>> ROADRUNNER_KILL = registerEntityTag("roadrunner_kill");
     public static final TagKey<EntityType<?>> SHOEBILL_BABY_KILL = registerEntityTag("shoebill_baby_kill");
     public static final TagKey<EntityType<?>> SHOEBILL_KILL = registerEntityTag("shoebill_kill");
-    public static final TagKey<EntityType<?>> SMALLCRITTER = registerEntityTag("smallcritters");
+    public static final TagKey<EntityType<?>> INSECTS = registerEntityTag("insects");
     public static final TagKey<EntityType<?>> SMALLINSECTFEAR = registerEntityTag("smallinsectfear");
     public static final TagKey<EntityType<?>> SNAPPING_TURTLE_KILL = registerEntityTag("snapping_turtle_kill");
     public static final TagKey<EntityType<?>> TASMANIAN_KILL = registerEntityTag("tasmanian_kill");

@@ -1,0 +1,25 @@
+{
+  "name": "Orca",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:orca",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/orca/might_upgrade.png" ],
+      "title": "Might Upgrade",
+      "text": "Orca's Might can provide temporary neutrality with skelewags"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/orca/orca_hunt.png" ],
+      "title": "Orca Hunt",
+      "text": "Orcas will hunt fish"
+    }
+
+  ]
+}

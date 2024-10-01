@@ -1,0 +1,13 @@
+{
+  "name": "Banana Slip",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:goofy_mode_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/goofy_mode/banana_slip.png" ],
+      "title": "Banana Slip",
+      "text": "Slip on a banana peel or slug and you die"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Elephant",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:elephant",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/elephant/elephant_territorial.png" ],
+      "title": "Elephant Territorial",
+      "text": "Tusked Elephants attack players when lingering long enough,unless holding Acacia Blossom"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/elephant/elephant_trample.png" ],
+      "title": "Elephant Trample",
+      "text": "Tamed Elephants will trample small entities when ridden"
+    }
+  ]
+}

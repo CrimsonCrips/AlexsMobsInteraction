@@ -1,0 +1,19 @@
+{
+  "name": "Mudskipper",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:mudskipper",
+      "scale": 0.9
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/mudskipper/mudskipper_hunt.png" ],
+      "title": "Mudskipper Hunt",
+      "text": "Mudskipper hunts insects and lobster"
+    }
+
+  ]
+}

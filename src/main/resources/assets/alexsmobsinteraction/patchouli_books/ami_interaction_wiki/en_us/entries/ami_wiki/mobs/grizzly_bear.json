@@ -1,0 +1,30 @@
+{
+  "name": "Grizzly Bear",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:grizzly_bear",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/grizzly_bear/grizzly_friendly.png" ],
+      "title": "Grizzly Friendly",
+      "text": "Grizzlies will not attack players when tamed"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/grizzly_bear/grizzly_freddy.png" ],
+      "title": "Grizzly Freddy",
+      "text": "Grizzlies will turn to Freddy Fazbear when named such"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/grizzly_bear/brushed.png" ],
+      "title": "Brushed",
+      "text": "Grizzlies that are pacified with honey can be brushed for hair"
+    }
+  ]
+}

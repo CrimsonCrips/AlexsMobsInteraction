@@ -1,0 +1,18 @@
+{
+  "name": "Anaconda",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:anaconda",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/anaconda/anaconda_cannibalize.png" ],
+      "title": "Anaconda Cannibalize",
+      "text": "Large Anacondas will rarely cannibalize on anacondas when 10% health or babies"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Enderiophage",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:enderiophage",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/enderiophage/enderiophage_weak.png" ],
+      "title": "Infecting Weaks",
+      "text": "Enderiophage will attack any that are below 30% health"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/enderiophage/enderiophage_resistance.png"],
+      "title": "Enderiophage Resistance",
+      "text": "Enderiophage will ignore any that have damage resistance, unless if attacked"
+    }
+  ]
+}

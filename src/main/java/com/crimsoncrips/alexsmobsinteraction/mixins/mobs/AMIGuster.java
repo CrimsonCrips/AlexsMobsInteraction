@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.particles.ParticleOptions;
@@ -81,11 +82,15 @@ public class AMIGuster extends Mob {
             double extraZ = this.getZ() + radius * Mth.cos(angle);
             double d0 = (extraX - lifted.getX()) * resist;
             double d1 = (extraZ - lifted.getZ()) * resist;
-            if (lifted instanceof Player && AMInteractionConfig.GUSTER_WEIGHT_ENABLED) {
-                int lift = ((Player) lifted).getArmorValue();
-                float multiplier = 0.1f - lift / 3.0f;
-                multiplier = Math.max(multiplier, 0.0f);
-                lifted.setDeltaMovement(d0, multiplier * resist, d1);
+            if (lifted instanceof Player player && AMInteractionConfig.GUSTER_WEIGHT_ENABLED) {
+                int lift = player.getArmorValue();
+                if(AMInteractionConfig.GUSTING_ENABLED){
+                    if(player.hasEffect(AMIEffects.GUSTING.get()))
+                        return;
+                    lifted(lift,player,d0,d1,resist);
+                } else {
+                    lifted(lift,player,d0,d1,resist);
+                }
             } else {
                 lifted.setDeltaMovement(d0, 0.1 * resist, d1);
             }
@@ -159,6 +164,12 @@ public class AMIGuster extends Mob {
     @Override
     public boolean canBeHitByProjectile() {
         return !AMInteractionConfig.GUSTER_PROJECTILE_PROT_ENABLED;
+    }
+
+    public void lifted(int lift,Player lifted, double d0,double d1,float resist){
+        float multiplier = 0.1f - lift / 3.0f;
+        multiplier = Math.max(multiplier, 0.0f);
+        lifted.setDeltaMovement(d0, multiplier * resist, d1);
     }
 
 }

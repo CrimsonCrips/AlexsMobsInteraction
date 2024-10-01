@@ -1,0 +1,30 @@
+{
+  "name": "Crimson Mosquito",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:crimson_mosquito",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/crimson_mosquito/crimson_transform.png" ],
+      "title": "Crimson Transform",
+      "text": "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/crimson_mosquito/blooded.png" ],
+      "title": "Blooded",
+      "text": "Crimson Mosquitoes will gain blood level when hit by blood or a 20% chance to gain blood when spawning"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/crimson_mosquito/blood_protection.png" ],
+      "title": "Blood Protection",
+      "text": "Crimson Mosquitoes is immune to blood spits"
+    }
+  ]
+}

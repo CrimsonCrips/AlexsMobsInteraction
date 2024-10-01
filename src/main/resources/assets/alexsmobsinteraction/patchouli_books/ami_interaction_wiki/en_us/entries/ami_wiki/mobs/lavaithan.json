@@ -1,0 +1,19 @@
+{
+  "name": "Laviathan",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:laviathan",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/laviathan/obsidian_extract.png" ],
+      "title": "Obsidian Extract",
+      "text": "Obsidian Laviathans can be mined for obsidian, but will cause them slight harm"
+    }
+
+  ]
+}

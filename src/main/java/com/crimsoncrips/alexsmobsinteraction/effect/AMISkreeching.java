@@ -39,6 +39,8 @@ public class AMISkreeching extends MobEffect {
             return;
         if (entity.isDeadOrDying())
             return;
+        if (!(entity instanceof Player))
+            return;
 
         if (lastDuration == 100 || lastDuration == 95) {
             entity.playSound(AMSoundRegistry.SKREECHER_CALL.get(),1 * 3F,1);

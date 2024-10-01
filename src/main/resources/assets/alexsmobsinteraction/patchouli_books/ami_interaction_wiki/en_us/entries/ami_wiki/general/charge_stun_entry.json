@@ -4,13 +4,10 @@
   "category": "alexsmobsinteraction:general_category",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "This feature refers to stunning charging or pouncing animals when targeting the player,with the new enchantment, Final Stand.$(br) $(br) These are the entities that can be stunned with such enchantment $(br) $(br) Elephant,Cachalot Whale,Tiger,Bison,Hammerhead Shark,Skelewag "
-    },
-    {
       "type": "patchouli:image",
+      "title": "Charge Stun",
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/enchanting/final_stand.png" ],
-      "title": "Final Stand"
+      "text": "Stuns charging animals when targeting the player with the new enchantment, 'Final Stand'"
     }
   ]
 }

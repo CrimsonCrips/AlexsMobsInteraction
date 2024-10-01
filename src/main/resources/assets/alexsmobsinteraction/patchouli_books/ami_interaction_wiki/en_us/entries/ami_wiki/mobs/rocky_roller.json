@@ -1,0 +1,19 @@
+{
+  "name": "Rocky Roller",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:rocky_roller",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/enchanting/rolling_thunder.png" ],
+      "title": "Rolling Thunder",
+      "text": "Rolling Thunder allows the player to roll in liquid with the new enchantment 'Rolling Thunder'"
+    }
+
+  ]
+}

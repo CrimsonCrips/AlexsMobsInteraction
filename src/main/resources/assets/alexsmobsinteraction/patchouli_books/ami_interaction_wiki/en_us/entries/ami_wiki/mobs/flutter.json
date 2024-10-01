@@ -1,0 +1,24 @@
+{
+  "name": "Flutter",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:flutter",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/flutter/flutter_withered.png" ],
+      "title": "Flutter Withered",
+      "text": "Flutter can be fed a wither flower to be inflicted with withered"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/flutter/flutter_shear.png" ],
+      "title": "Flutter Shearing",
+      "text": "Flutter can be sheared for azalea and related"
+    }
+  ]
+}

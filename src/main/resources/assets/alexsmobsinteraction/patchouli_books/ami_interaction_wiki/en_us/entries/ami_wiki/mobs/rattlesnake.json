@@ -1,0 +1,19 @@
+{
+  "name": "Rattlesnake",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:rattlesnake",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/rattlesnake/rattlesnake_cannibalize.png" ],
+      "title": "Rattlesnake Cannibalize",
+      "text": "Rattlesnake will cannibalize on weaker snakes"
+    }
+
+  ]
+}

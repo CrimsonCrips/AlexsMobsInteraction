@@ -1,0 +1,30 @@
+{
+  "name": "Tusklin",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:tusklin",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_trust.png" ],
+      "title": "Lasting Trust",
+      "text": "Tusklins can have a lasting trust with mushroom stew,attacking it will remove that lasting trust however"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_trample.png" ],
+      "title": "Tusklin Trample",
+      "text": "Tusklins can trample when ridden"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_flee.png" ],
+      "title": "Tusklin Flee",
+      "text": "Tusklins like their brethren flee from warped fungus"
+    }
+  ]
+}

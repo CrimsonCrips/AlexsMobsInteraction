@@ -1,0 +1,19 @@
+{
+  "name": "Lobster",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:lobster",
+      "scale": 0.9
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/lobster/lobster_night.png" ],
+      "title": "Night Spawning",
+      "text": "Lobster will only spawn at night"
+    }
+
+  ]
+}

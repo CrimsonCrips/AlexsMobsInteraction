@@ -1,0 +1,13 @@
+{
+  "name": "Rainfrog Summoning",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:goofy_mode_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/goofy_mode/rain_frog_summon.png" ],
+      "title": "Rainfrog Summoning",
+      "text": "Rainfrog summons gusters when chanting"
+    }
+  ]
+}

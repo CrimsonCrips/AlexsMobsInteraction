@@ -1,10 +1,13 @@
 {
   "replace": false,
   "values": [
-    "alexsmobs:lobster",
-    "alexsmobs:triops",
-    "alexsmobs:fly",
     "alexsmobs:banana_slug",
-    "alexsmobs:sugar_glider"
+    "alexsmobs:cockroach",
+    "alexsmobs:fly",
+    "alexsmobs:lobster",
+    "alexsmobs:rain_frog",
+    "alexsmobs:sugar_glider",
+    "alexsmobs:triops",
+    "minecraft:frog"
   ]
 }

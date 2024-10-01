@@ -1,0 +1,24 @@
+{
+  "name": "Caiman",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:caiman",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/caiman/caiman_aggro.png" ],
+      "title": "Caiman Aggro",
+      "text": "Caimans will attack players now"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/caiman/caiman_egg.png" ],
+      "title": "Caiman Egg Protection",
+      "text": "Caimans will attack players that are seen holding their eggs"
+    }
+  ]
+}

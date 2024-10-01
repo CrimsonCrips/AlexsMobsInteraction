@@ -1,0 +1,12 @@
+{
+  "name": "Changes List",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:changelog_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "",
+      "title": "Changes"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Warped Toad",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:warped_toad",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/warped_toad/warped_friendly.png" ],
+      "title": "Warped Friendly",
+      "text": "Warped Toads will not attack food unless given the orders so"
+    }
+  ]
+}

@@ -50,8 +50,10 @@ public class AMIGusting extends MobEffect {
             return;
         if (entity.isDeadOrDying())
             return;
-        for(int i = 0; i < 1 + entity.getRandom().nextInt(1); ++i) {
-            entity.level().addParticle((ParticleOptions)AMParticleRegistry.GUSTER_SAND_SPIN.get(), entity.getX() + (double)(0.5F * (entity.getRandom().nextFloat() - 0.5F)), entity.getY() + (double)(0.5F * (entity.getRandom().nextFloat() - 0.5F) + 1.5), entity.getZ() + (double)(0.5F * (entity.getRandom().nextFloat() - 0.5F)), entity.getX(), entity.getY() + 0.5, entity.getZ());
+        if (entity.getRandom().nextDouble() < 0.5){
+            for (int i = 0; i < 1 + entity.getRandom().nextInt(1); ++i) {
+                entity.level().addParticle((ParticleOptions) AMParticleRegistry.GUSTER_SAND_SPIN.get(), entity.getX() + (double) (0.5F * (entity.getRandom().nextFloat() - 0.5F)), entity.getY() + (double) (0.5F * (entity.getRandom().nextFloat() - 0.5F) + 1.5), entity.getZ() + (double) (0.5F * (entity.getRandom().nextFloat() - 0.5F)), entity.getX(), entity.getY() + 0.5, entity.getZ());
+            }
         }
         if (entity.level().isClientSide)
             return;
@@ -69,8 +71,10 @@ public class AMIGusting extends MobEffect {
                     }
                 }
             }
-            summonGust(entity, 2, 0);
-            summonGust(entity, -2, 0);
+            if (entity instanceof Player) {
+                summonGust(entity, 2, 0);
+                summonGust(entity, -2, 0);
+            }
         }
         if (timer < 0){
             timer = 40;
@@ -92,9 +96,8 @@ public class AMIGusting extends MobEffect {
 
     private void summonGust(LivingEntity entity,double x, double z){
         Entity entityToSpawn = (AMEntityRegistry.GUST.get()).spawn((ServerLevel) entity.level(), BlockPos.containing(entity.getX() + x, entity.getY() + 0.2, entity.getZ() + z), MobSpawnType.MOB_SUMMONED);
-        if (entityToSpawn instanceof EntityGust gust) {
-            gust.tickCount = 200;
-            entity.level().addFreshEntity(entityToSpawn);
+        if (entityToSpawn != null) {
+            entityToSpawn.tickCount = 250;
         }
     }
 

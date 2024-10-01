@@ -4,8 +4,10 @@
   "category": "alexsmobsinteraction:general_category",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "This feature refers to how Pocket Sand is Bottomless (aka infinite)"
+      "type": "patchouli:image",
+      "title": "Bottomless Sand",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/bottomless_sand.png" ],
+      "text": "Infinite ammo for pocket sand"
     }
   ]
 }

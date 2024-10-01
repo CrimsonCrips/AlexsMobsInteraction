@@ -1,0 +1,19 @@
+{
+  "name": "Leafcutter Ant",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:leafcutter_ant",
+      "scale": 0.9
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/leafcutter_ant/cockroach_chamber.png" ],
+      "title": "Cockroach Chamber",
+      "text": "Leafcutter Chambers that are bustling with fungus can burst out cockroaches"
+    }
+
+  ]
+}

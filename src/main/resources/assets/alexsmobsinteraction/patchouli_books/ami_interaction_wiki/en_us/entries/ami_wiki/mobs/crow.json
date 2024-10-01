@@ -1,0 +1,24 @@
+{
+  "name": "Crow",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:crow",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/crow/crow_cannibalize.png" ],
+      "title": "Crow Cannibalize",
+      "text": "Crow will rarely eat their weaker selves unless if tamed"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/crow/crow_warriors.png" ],
+      "title": "Crow Warriors",
+      "text": "Crows will not drop their weapons in their beak when attacked"
+    }
+  ]
+}

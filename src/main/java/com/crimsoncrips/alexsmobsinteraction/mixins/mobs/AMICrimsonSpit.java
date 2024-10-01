@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(EntityMosquitoSpit.class)
-public class AMICrimsonSpit extends Entity {
+public abstract class AMICrimsonSpit extends Entity {
 
     float damageAmount = 0F;
 
@@ -32,15 +32,7 @@ public class AMICrimsonSpit extends Entity {
     public AMICrimsonSpit(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
-    @Shadow
-    protected void defineSynchedData() {
-    }
-    @Shadow
-    protected void readAdditionalSaveData(CompoundTag compoundTag) {
-    }
-    @Shadow
-    protected void addAdditionalSaveData(CompoundTag compoundTag) {
-    }
+
 
     @Inject(method = "onEntityHit", at = @At("HEAD"),cancellable = true,remap = false)
     protected void Spit(EntityHitResult p_213868_1_, CallbackInfo ci){

@@ -276,11 +276,6 @@ public abstract class AMITusklin extends Mob {
         if (AMInteractionConfig.TUSKLIN_TRUST_ENABLED && itemstack.getEnchantmentLevel(AMIEnchantmentRegistry.TRAMPLE.get()) > 0) {
             setTusklinTrample(true);
         }
-        if (AMInteractionConfig.REMOVE_TUSKLIN_EQUIPMENT_ENABLED && itemstack.getItem() == Items.SHEARS) {
-            setTusklinTrample(false);
-            this.playSound(SoundEvents.SHEEP_SHEAR, this.getSoundVolume(), this.getVoicePitch());
-            this.dropEquipment();
-        }
     }
 
 }

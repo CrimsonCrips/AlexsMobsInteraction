@@ -1,0 +1,25 @@
+{
+  "name": "Sun Bird",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:sunbird",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/sun_bird/sun_blessing.png" ],
+      "title": "Sun Bird Blessing",
+      "text": "Sun Bird Blessing will cause nearby undead to combust"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/sun_bird/sun_curse.png" ],
+      "title": "Sun Bird Curse",
+      "text": "Sun Bird Curse will cause nearby undead to be buffed"
+    }
+
+  ]
+}

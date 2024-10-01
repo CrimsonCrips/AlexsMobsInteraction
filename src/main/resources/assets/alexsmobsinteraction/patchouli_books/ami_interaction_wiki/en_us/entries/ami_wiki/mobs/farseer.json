@@ -1,0 +1,30 @@
+{
+  "name": "Farseer",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:farseer",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/farseer/farseer_humanlike.png" ],
+      "title": "Human-like Engaging",
+      "text": "Farseer will attack any that are human-like"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/farseer/farseer_effects.png" ],
+      "title": "Farseer Effects",
+      "text": "Farseer will discombobulate players when targeted,by scrambling their inventory and flashing them with illusions"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/enchanting/stabilizer.png" ],
+      "title": "Stabilizer",
+      "text": "These effects can be deterred by wearing a helmet, with the new enchantment 'Stabilizer'"
+    }
+  ]
+}

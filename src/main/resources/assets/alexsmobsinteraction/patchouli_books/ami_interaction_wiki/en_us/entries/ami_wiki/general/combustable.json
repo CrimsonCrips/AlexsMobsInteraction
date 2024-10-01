@@ -4,25 +4,25 @@
   "category": "alexsmobsinteraction:general_category",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "This feature refers to how being oiled will cause you to combust more from 'hot' blocks"
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/combust.png" ],
+      "title": "Combustable",
+      "text": "Being oiled will cause you to combust more from 'hot' blocks"
+    },
+    {
+      "type": "patchouli:empty"
     },
     {
       "type": "patchouli:image",
-      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/combust.png" ],
-      "title": "Combustion Example"
-    },
-    {
-      "type": "patchouli:image",
-      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/soul_fired.png" ],
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/soul_fired.png" ],
       "title": "Mod Compatibility",
-      "text": "This feature has compatibility with the mod Soul Fire'd, so stepping on soul campfire will combust you into soul flames when oiled",
+      "text": "Has compatibility with the mod Soul Fire'd, stepping on soul campfire will combust you into soul flames",
       "border": true
     },
     {
       "type": "patchouli:image",
-      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/combust_soul.png" ],
-      "title": "Soul Combustion Example"
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/combust_soul.png" ],
+      "title": "Soul Combustable"
     }
   ]
 }

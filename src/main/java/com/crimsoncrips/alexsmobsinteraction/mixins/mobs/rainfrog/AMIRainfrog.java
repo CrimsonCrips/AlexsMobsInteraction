@@ -14,9 +14,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -33,62 +35,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityRainFrog.class)
 public class AMIRainfrog extends Mob implements AMITransform {
 
+    private static final EntityDataAccessor<Boolean> TRANFORMING = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.BOOLEAN);
+
     int frogWarped;
 
-    static {
-        RAMINFROGSICK = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.BOOLEAN);
-        MAGGOTFED = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.INT);
-        MUNGUSFED = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.INT);
-        WARPEDFED = SynchedEntityData.defineId(EntityRainFrog.class, EntityDataSerializers.INT);
-    }
-
-    private static final EntityDataAccessor<Boolean> RAMINFROGSICK;
-    private static final EntityDataAccessor<Integer> MAGGOTFED;
-    private static final EntityDataAccessor<Integer> MUNGUSFED;
-    private static final EntityDataAccessor<Integer> WARPEDFED;
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
-        this.entityData.define(RAMINFROGSICK, false);
-        this.entityData.define(MAGGOTFED, 0);
-        this.entityData.define(MUNGUSFED, 0);
-        this.entityData.define(WARPEDFED, 0);
-    }
-
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
-        compound.putBoolean("RainfrogSick", this.isTransforming());
-        compound.putInt("MaggotFed", this.getMaggotFed());
-        compound.putInt("MungusFed", this.getMungusFed());
-        compound.putInt("WarpedFed", this.getWarpedFed());
-    }
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
-        this.setMaggotFed(compound.getInt("MaggotFed"));
-        this.setMungusFed(compound.getInt("MungusFed"));
-        this.setWarpedFed(compound.getInt("WarpedFed"));
-    }
-
-    public int getMaggotFed() {
-        return (Integer)this.entityData.get(MAGGOTFED);
-    }
-
-    public void setMaggotFed(int maggot) {
-        this.entityData.set(MAGGOTFED, maggot);
-    }
-    public int getMungusFed() {
-        return (Integer)this.entityData.get(MUNGUSFED);
-    }
-
-    public void setMungusFed(int mungus) {
-        this.entityData.set(MUNGUSFED, mungus);
-    }
-    public int getWarpedFed() {
-        return (Integer)this.entityData.get(WARPEDFED);
-    }
-
-    public void setWarpedFed(int warped) {
-        this.entityData.set(WARPEDFED, warped);
+        this.entityData.define(TRANFORMING, false);
     }
 
 
@@ -98,57 +52,44 @@ public class AMIRainfrog extends Mob implements AMITransform {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void AlexInteraction$tick(CallbackInfo ci) {
-        EntityRainFrog frog = (EntityRainFrog)(Object)this;
-        if (this.getMungusFed() >= 1 && this.getWarpedFed() >= 2 && this.getMaggotFed() >= 5);
         if (isTransforming()){
             frogWarped++;
             if (frogWarped > 160) {
                 EntityWarpedToad warpedToad = AMEntityRegistry.WARPED_TOAD.get().create(level());
-                warpedToad.copyPosition(this);
-                if (!this.level().isClientSide) {
-                    warpedToad.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                }
-                frog.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
+                if(warpedToad != null) {
+                    warpedToad.copyPosition(this);
 
-                if (!this.level().isClientSide) {
-                    this.level().broadcastEntityEvent(this, (byte) 79);
-                    level().addFreshEntity(warpedToad);
+                    if (!this.level().isClientSide) {
+                        warpedToad.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                    }
+                    this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
+
+                    if (!this.level().isClientSide) {
+                        this.level().broadcastEntityEvent(this, (byte) 79);
+                        level().addFreshEntity(warpedToad);
+                    }
+                    this.remove(RemovalReason.DISCARDED);
                 }
-                frog.remove(RemovalReason.DISCARDED);
 
             }
         }
     }
 
-    @Inject(method = "mobInteract", at = @At("HEAD"))
-    private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        {
-            if (AMInteractionConfig.FROG_TRANSFORM_ENABLED){
-                ItemStack stack = player.getItemInHand(hand);
-                if (stack.getItem() == AMItemRegistry.MAGGOT.get() && !(getMaggotFed() >= 5)) {
-
-                    gameEvent(GameEvent.ENTITY_INTERACT);
-                    if (!player.isCreative()) stack.shrink(1);
-                    this.playSound(SoundEvents.GENERIC_EAT);
-                    this.setMaggotFed(this.getMaggotFed() + 1);
-
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+        if (AMInteractionConfig.FROG_TRANSFORM_ENABLED) {
+            if (itemstack.getItem() == Items.WARPED_FUNGUS && this.hasEffect(MobEffects.WEAKNESS) ){
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
                 }
-                if (stack.getItem() == AMItemRegistry.MUNGAL_SPORES.get() && !(getMungusFed() >= 1)) {
-                    gameEvent(GameEvent.ENTITY_INTERACT);
-                    if (!player.isCreative()) stack.shrink(1);
-                    this.playSound(SoundEvents.GENERIC_EAT);
-                    this.setMungusFed(this.getMungusFed() + 1);
-
-                }
-                if (stack.getItem() == Items.WARPED_FUNGUS && !(this.getWarpedFed() >= 2)) {
-                    gameEvent(GameEvent.ENTITY_INTERACT);
-                    if (!player.isCreative()) stack.shrink(1);
-                    this.playSound(SoundEvents.GENERIC_EAT);
-                    this.setWarpedFed(this.getWarpedFed() + 1);
-
-                }
+                gameEvent(GameEvent.ENTITY_INTERACT);
+                this.gameEvent(GameEvent.EAT);
+                this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+                setTransforming(true);
+                return InteractionResult.SUCCESS;
             }
-        }
+        } return type;
     }
 
     @Inject(method = "changeWeather", at = @At("HEAD"),cancellable = true,remap = false)
@@ -176,19 +117,19 @@ public class AMIRainfrog extends Mob implements AMITransform {
     }
 
 
-        @Override
+    @Override
     public boolean isTransforming() {
-        return this.entityData.get(RAMINFROGSICK);
+        return this.entityData.get(TRANFORMING);
     }
 
     @Override
-    public void setTransforming(boolean transforming) {
-
+    public void setTransforming(boolean transformingBoolean) {
+        this.entityData.set(TRANFORMING, transformingBoolean);
     }
 
 
     public void spawnGusters(){
-        if (AMInteractionConfig.RAINFROG_SPAWNAGE_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) {
+        if (AMInteractionConfig.GOOFY_RAINFROG_SPAWNAGE_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) {
             for (int i = 0; i < 10; i++) {
                 EntityGuster guster = AMEntityRegistry.GUSTER.get().create(level());
                 guster.copyPosition(this);

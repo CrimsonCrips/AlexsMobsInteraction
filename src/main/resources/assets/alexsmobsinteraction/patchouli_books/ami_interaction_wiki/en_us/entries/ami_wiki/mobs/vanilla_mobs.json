@@ -6,53 +6,46 @@
     {
       "type": "patchouli:entity",
       "entity": "minecraft:witch",
-      "name" : "Witch Additions",
-      "text": "Witches will drink a Poison Resistance when Poisoned",
-      "scale": 1
-    },
-    {
-      "type": "patchouli:spotlight",
-      "item": "minecraft:potion{Potion:\"alexsmobs:poison_resistance\"}",
-      "title": "Poison Resistance"
-    },
-
-
-    {
-      "type": "patchouli:entity",
-      "entity": "minecraft:spider",
-      "name" : "Spider Eats",
-      "text": "Spiders will hunt more mobs",
-      "scale": 1
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Bees,Silverfish,Cockroaches"
-    },
-
-
-    {
-      "type": "patchouli:entity",
-      "entity": "minecraft:cave_spider",
-      "name" : "Cave Spider Eats",
-      "text": "Cave Spiders will hunt more mobs",
-      "scale": 1
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Bees,Silverfish,Cockroaches,Flies"
-    },
-    {
-      "type": "patchouli:entity",
-      "entity": "minecraft:frog",
-      "name" : "Frog Conversion",
-      "text": "Frogs can be converted into Warped Toads",
       "scale": 1
     },
     {
       "type": "patchouli:image",
-      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/convertion/frog_conversion.png" ],
-      "title": "Conversion Demonstration",
-      "text": "Splash the frog with weakness and feed it warped fungus"
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/vanilla_mobs/witch_adaption.png" ],
+      "title": "Witch Adaption",
+      "text": "Witch drinks poison resistance when poisoned"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:spider",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/vanilla_mobs/spider_eat.png" ],
+      "title": "Spider Eat",
+      "text": "Spiders eat more mobs"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:cave_spider",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/vanilla_mobs/cave_spider_eat.png" ],
+      "title": "Cave Spider Eat",
+      "text": "Cave Spiders eat more mobs"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:frog",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/vanilla_mobs/frog_conversion.png" ],
+      "title": "Frog Conversion",
+      "text": "Frogs can be converted into a Warped Toad"
     }
   ]
 }

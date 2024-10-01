@@ -1,0 +1,25 @@
+{
+  "name": "Seagull",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:seagull",
+      "scale": 0.9
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/seagull/seagull_weaken.png" ],
+      "title": "Seagull Weaken",
+      "text": "Seagulls below 40% health will not steal food"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/seagull/sombrero_protection.png" ],
+      "title": "Sombrero Protection",
+      "text": "Sombreros can prevent seagulls from stealing food from you"
+    }
+
+  ]
+}

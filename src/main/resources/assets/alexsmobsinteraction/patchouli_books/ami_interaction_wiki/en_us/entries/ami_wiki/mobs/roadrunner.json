@@ -1,0 +1,19 @@
+{
+  "name": "Roadrunner",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:roadrunner",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/roadrunner/day_hunting.png" ],
+      "title": "Day Hunting",
+      "text": "Roadrunners will only hunt at day"
+    }
+
+  ]
+}

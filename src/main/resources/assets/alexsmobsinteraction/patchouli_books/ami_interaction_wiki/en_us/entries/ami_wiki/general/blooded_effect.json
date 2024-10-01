@@ -4,13 +4,10 @@
   "category": "alexsmobsinteraction:general_category",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "This feature refers to how being hit by spit or from the Blood Sprayer will cause you to be inflicted with the new 'Blooded' effect that causes you to be weakened substantially"
-    },
-    {
       "type": "patchouli:image",
-      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/blooded.png" ],
-      "title": "Blooded Negatives"
+      "title": "Blooded Effect",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/blooded.png" ],
+      "text": "Blood Spits will inflict you with the new 'Blooded' effect that causes temporary substantial weakness"
     }
   ]
 }

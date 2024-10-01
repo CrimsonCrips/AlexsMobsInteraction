@@ -1,0 +1,30 @@
+{
+  "name": "Guster",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:guster",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/guster/guster_projectile.png" ],
+      "title": "Projectile Through",
+      "text": "Projectiles go through gusters (arrows,snowballs,etc..)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/guster/guster_weight.png" ],
+      "title": "Guster Weight",
+      "text": "Gusters tornado effect strength is dependant on how light you are"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/guster/gusting.png" ],
+      "title": "Gusting",
+      "text": "Gusting is a new effect that causes inflicted to be immune to gusts and spawns gusts around players"
+    }
+  ]
+}

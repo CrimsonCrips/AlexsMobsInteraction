@@ -4,6 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCatfish;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -18,10 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class AMITargetFood extends Goal {
@@ -30,93 +28,79 @@ public class AMITargetFood extends Goal {
     private Entity food;
     private int executionCooldown = 50;
 
-
-    Predicate<LivingEntity> bigCATFISHCANNOTEAT = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.BIGCATFISHCANNOTEAT);
-
     public AMITargetFood(EntityCatfish catfish) {
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
         this.catfish = catfish;
     }
 
-
-    @Override
     public boolean canUse() {
-        if (!catfish.isInWaterOrBubble() || this.eatCooldown > 0) {
-            return false;
-        }
-        if (executionCooldown > 0) {
-            executionCooldown--;
-        } else {
-            executionCooldown = 50;
-            if (!this.catfish.isFull()) {
-                final List<Entity> list = catfish.level().getEntitiesOfClass(Entity.class, catfish.getBoundingBox().inflate(8, 8, 8), EntitySelector.NO_SPECTATORS.and(entity -> entity != catfish && this.isFood(entity)));
-                list.sort(Comparator.comparingDouble(catfish::distanceToSqr));
-                if (!list.isEmpty()) {
-                    food = list.get(0);
-                    return true;
+        if (this.catfish.isInWaterOrBubble() && eatCooldown <= 0) {
+            if (this.executionCooldown > 0) {
+                --this.executionCooldown;
+            } else {
+                this.executionCooldown = 50 + catfish.getRandom().nextInt(50);
+                if (!this.catfish.isFull()) {
+                    List<Entity> list = this.catfish.level().getEntitiesOfClass(Entity.class, this.catfish.getBoundingBox().inflate(8.0, 8.0, 8.0), EntitySelector.NO_SPECTATORS.and((entity) -> {
+                        return entity != this.catfish && isFood(entity);
+                    }));
+                    EntityCatfish var10001 = this.catfish;
+                    Objects.requireNonNull(var10001);
+                    list.sort(Comparator.comparingDouble(var10001::distanceToSqr));
+                    if (!list.isEmpty()) {
+                        this.food = (Entity)list.get(0);
+                        return true;
+                    }
                 }
             }
+
+            return false;
+        } else {
+            return false;
         }
-        return false;
     }
 
-    @Override
     public boolean canContinueToUse() {
-        return food != null && food.isAlive() && !this.catfish.isFull();
+        return this.food != null && this.food.isAlive() && !this.catfish.isFull();
     }
 
     public void stop() {
-        executionCooldown = 5;
+        this.executionCooldown = 5;
     }
 
-    @Override
     public void tick() {
-        catfish.getNavigation().moveTo(food.getX(), food.getY(0.5F), food.getZ(), 1.0F);
-        final float eatDist = catfish.getBbWidth() * 0.65F + food.getBbWidth();
-        if (catfish.distanceTo(food) < eatDist + 3 && catfish.hasLineOfSight(food)) {
-            final Vec3 delta = this.getMouthVec().subtract(food.position()).normalize().scale(0.1F);
-            food.setDeltaMovement(food.getDeltaMovement().add(delta));
-            if (catfish.distanceTo(food) < eatDist) {
-                if (food instanceof Player) {
-                    food.hurt(catfish.damageSources().mobAttack(catfish), 12000);
-                } else if (catfish.swallowEntity(food)) {
-                    catfish.gameEvent(GameEvent.EAT);
-                    catfish.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), catfish.getVoicePitch());
-                    food.discard();
+        this.catfish.getNavigation().moveTo(this.food.getX(), this.food.getY(0.5), this.food.getZ(), 1.0);
+        float eatDist = this.catfish.getBbWidth() * 0.65F + this.food.getBbWidth();
+        if (this.catfish.distanceTo(this.food) < eatDist + 3.0F && this.catfish.hasLineOfSight(this.food)) {
+            Vec3 delta = getMouthVec().subtract(this.food.position()).normalize().scale(0.10000000149011612);
+            this.food.setDeltaMovement(this.food.getDeltaMovement().add(delta));
+            if (this.catfish.distanceTo(this.food) < eatDist) {
+                if (this.food instanceof Player) {
+                    this.food.hurt(this.catfish.damageSources().mobAttack(this.catfish), 12000.0F);
+                } else if (this.catfish.swallowEntity(this.food)) {
+                    this.catfish.gameEvent(GameEvent.EAT);
+                    this.catfish.playSound(SoundEvents.GENERIC_EAT, 1, this.catfish.getVoicePitch());
+                    this.food.discard();
                 }
             }
         }
+
     }
-    protected float getSoundVolume() {
-        return 1.0F;
-    }
+
     private Vec3 getMouthVec() {
         Vec3 vec3 = (new Vec3(0.0, (double)(catfish.getBbHeight() * 0.25F), (double)(catfish.getBbWidth() * 0.8F))).xRot(catfish.getXRot() * 0.017453292F).yRot(-catfish.getYRot() * 0.017453292F);
         return catfish.position().add(vec3);
     }
+
     private boolean isFood(Entity entity) {
-        RandomSource random = catfish.getRandom();
         if (AMInteractionConfig.CATFISH_CANNIBALIZE_ENABLED) {
-            if (AMInteractionConfig.STUPID_CATFISH_EAT_ENABLED) {
-                if (catfish.getCatfishSize() == 2) {
-                    return (entity instanceof Mob && entity.getBbHeight() <= 1.0F && !catfish.isBaby()) || (entity instanceof EntityCatfish && entity.getBbHeight() <= 0.7F && random.nextDouble() < 0.002);
-                } else {
-                    return entity instanceof ItemEntity && ((ItemEntity) entity).getAge() > 35;
-                }
-            } else if (catfish.getCatfishSize() == 2) {
-                return (entity instanceof Mob && !bigCATFISHCANNOTEAT.test((LivingEntity) entity) && entity.getBbHeight() <= 1.0F && !catfish.isBaby()) || (entity instanceof EntityCatfish && entity.getBbHeight() <= 0.7F && random.nextDouble() < 0.002);
-            } else {
-                return entity instanceof ItemEntity && ((ItemEntity) entity).getAge() > 35;
-            }
-        } else if (AMInteractionConfig.STUPID_CATFISH_EAT_ENABLED) {
             if (catfish.getCatfishSize() == 2) {
-                return (entity instanceof Mob && entity.getBbHeight() <= 1.0F) && !catfish.isBaby();
+                return !entity.getType().is(AMTagRegistry.CATFISH_IGNORE_EATING) && entity instanceof Mob && entity.getBbHeight() <= 1.0F;
             } else {
                 return entity instanceof ItemEntity && ((ItemEntity) entity).getAge() > 35;
             }
         } else {
             if (catfish.getCatfishSize() == 2) {
-                return (entity instanceof Mob && !bigCATFISHCANNOTEAT.test((LivingEntity) entity) && entity.getBbHeight() <= 1.0F) && !catfish.isBaby();
+                return !entity.getType().is(AMTagRegistry.CATFISH_IGNORE_EATING) && entity instanceof Mob && !(entity instanceof EntityCatfish) && entity.getBbHeight() <= 1.0F;
             } else {
                 return entity instanceof ItemEntity && ((ItemEntity) entity).getAge() > 35;
             }
