@@ -8,10 +8,12 @@ import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.*;
+import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
+import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
@@ -65,13 +67,16 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.network.PacketDistributor;
+import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -877,6 +882,17 @@ public class AMInteractionEvents {
 
 
 
+    }
+
+    @SubscribeEvent
+    public static void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+            CompoundTag playerData = event.getEntity().getPersistentData();
+            CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+            if (data != null && !data.getBoolean("ami_book")) {
+                ItemHandlerHelper.giveItemToPlayer(event.getEntity(), new ItemStack(AMIItemRegistry.BOOK_SHATTERED.get()));
+                data.putBoolean("ami_book", true);
+                playerData.put(Player.PERSISTED_NBT_TAG, data);
+            }
     }
 
     @SubscribeEvent

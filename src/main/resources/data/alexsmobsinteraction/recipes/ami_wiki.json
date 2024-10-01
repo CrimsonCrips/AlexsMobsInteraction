@@ -1,0 +1,9 @@
+{
+  "type": "patchouli:shapeless_book_recipe",
+  "ingredients": [
+    {
+      "item": "alexsmobsinteraction:ami_book_shattered"
+    }
+  ],
+  "book": "alexsmobsinteraction:ami_interaction_wiki"
+}

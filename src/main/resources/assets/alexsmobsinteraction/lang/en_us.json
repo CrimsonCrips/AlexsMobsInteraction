@@ -1,4 +1,6 @@
 {
+  "item.alexsmobsinteraction.ami_book_shattered": "AMI Book Shattered",
+
   "alexsmobsinteraction.potion.skreeching": "Skreech Your Last.",
   "effect.alexsmobsinteraction.skreeching.description": "Causes a Warden to spawn when the effect wares off",
   "item.minecraft.splash_potion.effect.skreeching": "Splash Potion of Skreeching",

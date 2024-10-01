@@ -1,6 +1,6 @@
 {
   "name": "         AMI Wiki",
-  "landing_text": "Welcome",
+  "landing_text": "Welcome to AMI, An addition to Alexs Mobs, Here lies the book for its wiki $(br) $(br) $(br) $(br) $(br) Have Fun ",
   "subtitle": "The Bastion Of Interaction",
   "creative_tab": "minecraft:tools_and_utilities",
   "book_texture": "alexsmobsinteraction:textures/gui/book/ami_gui_book.png",

@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
+import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -44,6 +45,7 @@ public class AlexsMobsInteraction {
         MinecraftForge.EVENT_BUS.register(this);
         AMIEffects.EFFECT_REGISTER.register(modEventBus);
         AMIEffects.POTION_REGISTER.register(modEventBus);
+        AMIItemRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::setup);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
