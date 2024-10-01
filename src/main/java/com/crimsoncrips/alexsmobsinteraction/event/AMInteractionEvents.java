@@ -711,7 +711,7 @@ public class AMInteractionEvents {
 
     @SubscribeEvent
     public void tradeEvents(VillagerTradesEvent villagerTradesEvent){
-        if (villagerTradesEvent.getType() == VillagerProfession.FISHERMAN) {
+        if (villagerTradesEvent.getType() == VillagerProfession.FISHERMAN && AMInteractionConfig.DEVILS_TRADE_ENABLED) {
             VillagerTrades.ItemListing pupfishTrade = new EmeraldsForItemsTrade(AMItemRegistry.DEVILS_HOLE_PUPFISH_BUCKET.get(), 24, 2, 5);
             final var list = villagerTradesEvent.getTrades().get(5);
             list.add(pupfishTrade);

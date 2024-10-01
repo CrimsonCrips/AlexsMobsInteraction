@@ -7,6 +7,7 @@ public class AMInteractionConfig {
     public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
     public static boolean ANACONDA_CANNIBALIZE_ENABLED;
     public static boolean BANANA_SHEAR_ENABLED;
+    public static boolean DEVILS_TRADE_ENABLED;
     public static boolean BLEEDING_HUNGER_ENABLED;
     public static boolean BLOODED_ENABLED;
     public static boolean BLOOD_DAMAGE_DIFFERENCE_ENABLED;
@@ -36,7 +37,7 @@ public class AMInteractionConfig {
     public static boolean FARSEER_HUMANLIKE_ATTACK_ENABLED;
     public static boolean FLUTTER_SHEAR_ENABLED;
     public static boolean FLUTTER_WITHERED_ENABLED;
-    public static boolean FLY_CONVERT_ENABLED;
+    public static boolean FLY_TRANSFORM_ENABLED;
     public static boolean FLY_PESTER_ENABLED;
     public static boolean FREDDYABLE_ENABLED;
     public static boolean FRIENDLY_KOMODO_ENABLED;
@@ -78,7 +79,6 @@ public class AMInteractionConfig {
     public static boolean RATTLESNAKE_CANNIBALIZE_ENABLED;
     public static boolean ROADRUNNER_DAY_ENABLED;
     public static boolean ROLLING_THUNDER_ENABLED;
-    public static boolean SEAGULL_BUFFED_ENABLED;
     public static boolean SEAGULL_WEAKEN_ENABLED;
     public static boolean SERPENT_FEAR_ENABLED;
     public static boolean SKELEWAG_CIRCLE_ENABLED;
@@ -110,6 +110,7 @@ public class AMInteractionConfig {
 
     public static void bake() {
         try {
+            DEVILS_TRADE_ENABLED = AMIConfigHolder.INTERACT.DEVILS_TRADE_ENABLED.get();
             POISONOUS_BATH_ENABLED = AMIConfigHolder.INTERACT.POISONOUS_BATH_ENABLED.get();
             TENDON_GRAB_ENABLED = AMIConfigHolder.INTERACT.TENDON_GRAB_ENABLED.get();
             FRIENDLY_KOMODO_ENABLED = AMIConfigHolder.INTERACT.FRIENDLY_KOMODO_ENABLED.get();
@@ -139,7 +140,7 @@ public class AMInteractionConfig {
             VULTURE_STEAL_ENABLED = AMIConfigHolder.INTERACT.VULTURE_STEAL_ENABLED.get();
             SNOW_LUCK_ENABLED = AMIConfigHolder.INTERACT.SNOW_LUCK_ENABLED.get();
             BLOOD_PROTECTION_ENABLED = AMIConfigHolder.INTERACT.BLOOD_PROTECTION_ENABLED.get();
-            FLY_CONVERT_ENABLED = AMIConfigHolder.INTERACT.FLY_CONVERT_ENABLED.get();
+            FLY_TRANSFORM_ENABLED = AMIConfigHolder.INTERACT.FLY_TRANSFORM_ENABLED.get();
             TUSKLIN_TRUST_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_TRUST_ENABLED.get();
             CHARGE_STUN_ENABLED = AMIConfigHolder.INTERACT.CHARGE_STUN_ENABLED.get();
             SKELEWAG_CIRCLE_ENABLED = AMIConfigHolder.INTERACT.SKELEWAG_CIRCLE_ENABLED.get();

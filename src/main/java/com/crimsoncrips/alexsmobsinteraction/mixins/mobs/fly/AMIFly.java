@@ -51,7 +51,7 @@ public class AMIFly extends Mob implements AMITransform {
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-        if (AMInteractionConfig.CRIMSON_TRANSFORM_ENABLED) {
+        if (AMInteractionConfig.FLY_TRANSFORM_ENABLED) {
             if (itemstack.getItem() == AMItemRegistry.BLOOD_SAC.get() && this.hasEffect(AMIEffects.BLOODED.get())){
                 if (!player.isCreative()) {
                     itemstack.shrink(1);

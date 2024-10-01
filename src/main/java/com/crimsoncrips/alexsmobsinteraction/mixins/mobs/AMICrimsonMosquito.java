@@ -79,7 +79,7 @@ public abstract class AMICrimsonMosquito extends Mob {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (AMInteractionConfig.FROG_TRANSFORM_ENABLED) {
+        if (AMInteractionConfig.CRIMSON_TRANSFORM_ENABLED) {
             if (itemstack.getItem() == AMItemRegistry.WARPED_MUSCLE.get() && this.hasEffect(MobEffects.WEAKNESS)){
                 if (!player.isCreative()) {
                     itemstack.shrink(1);

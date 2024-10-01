@@ -43,7 +43,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
     public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue FLY_CONVERT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FLY_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue BLOOD_PROTECTION_ENABLED;
@@ -160,6 +160,8 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue POISONOUS_BATH_ENABLED;
 
+    public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
+
     public final ForgeConfigSpec.BooleanValue BLOOD_DAMAGE_DIFFERENCE_ENABLED;
     
 
@@ -240,6 +242,9 @@ public class AMIConfigList {
         this.INFECT_WEAK_ENABLED = buildBoolean(builder, "INFECT_WEAK_ENABLED", " ", true, "Enderiophage will attack any that are below 30% health");
         this.INFECT_IMMUNITY_ENABLED = buildBoolean(builder, "INFECT_IMMUNITY_ENABLED", " ", true, "Enderiophage will ignore any that have damage resistance, unless if attacked");
         builder.pop();
+        builder.push("Devils Hole Pupfish");
+        this.DEVILS_TRADE_ENABLED = buildBoolean(builder, "DEVILS_TRADE_ENABLED", " ", true, "Adds Trade for Fisherman with Devils Hole Pupfish ");
+        builder.pop();
         builder.push("Farseer");
         this.FARSEER_ALTERING_ENABLED = buildBoolean(builder, "FARSEER_ALTERING_ENABLED", " ", true, "Farseer will discombobulate players when targeted,by scrambling their inventory and flashing them with illusions");
         this.FARSEER_HUMANLIKE_ATTACK_ENABLED = buildBoolean(builder, "FARSEER_HUMANLIKE_ATTACK_ENABLED", " ", true, "Farseer will attack any that are human-like");
@@ -251,7 +256,7 @@ public class AMIConfigList {
         builder.pop();
         builder.push("Fly");
         this.FLY_PESTER_ENABLED = buildBoolean(builder, "FLY_PESTER_ENABLED", " ", true, "Flies will pester certain smelling animals");
-        this.FLY_CONVERT_ENABLED = buildBoolean(builder, "FLY_CONVERT_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
+        this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
         this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "CANDLE_REPEL_ENABLED", " ", true, "Lit candles will cause flies to run away from it");
         builder.pop();
         builder.push("Flying Fish");

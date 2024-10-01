@@ -54,7 +54,7 @@ public abstract class AMICrimsonSpit extends Entity {
                 mosquito.setBloodLevel(mosquito.getBloodLevel() + 1);
             }
             if (!(hitEntity instanceof EntityCrimsonMosquito || hitEntity instanceof EntityWarpedMosco)){
-                if (AMInteractionConfig.FLY_CONVERT_ENABLED){
+                if (AMInteractionConfig.FLY_TRANSFORM_ENABLED){
                     if (!(hitEntity instanceof EntityFly)) {
                         hurtEntity(hitEntity,spitOwner,damageAmount);
                     }
@@ -63,7 +63,7 @@ public abstract class AMICrimsonSpit extends Entity {
                 }
             }
         } else {
-            if (AMInteractionConfig.FLY_CONVERT_ENABLED){
+            if (AMInteractionConfig.FLY_TRANSFORM_ENABLED){
                 if (!(hitEntity instanceof EntityFly)) {
                     hurtEntity(hitEntity,spitOwner,damageAmount);
                 }
