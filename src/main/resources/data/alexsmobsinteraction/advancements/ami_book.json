@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:story/root",
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "rewards": {
+    "loot": [
+      "alexsmobsinteraction:grant_book"
+    ]
+  },
+    "display": {
+        "description": {"translate": "ami_book.description"},
+        "frame": "task",
+        "icon": {"item": "alexsmobsinteraction:ami_book"},
+        "title": {"translate": "ami_book.title"}
+    }
+}

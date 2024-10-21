@@ -6,16 +6,19 @@ import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITrans
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.frog.Frog;
@@ -70,22 +73,13 @@ public class AMIFly extends Mob implements AMITransform {
         if (isTransforming()) {
             flyConvert++;
 
-            if (flyConvert > 160) {
-                EntityCrimsonMosquito crimsonMosquito = AMEntityRegistry.CRIMSON_MOSQUITO.get().create(level());
-                if (crimsonMosquito == null)
-                    return;
-                crimsonMosquito.copyPosition(this);
-                if (!this.level().isClientSide) {
-                    crimsonMosquito.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            if (flyConvert > 160 && !this.level().isClientSide) {
+                LivingEntity entityToSpawn;
+                entityToSpawn = AMEntityRegistry.CRIMSON_MOSQUITO.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
+                if (entityToSpawn instanceof EntityCrimsonMosquito crimsonMosquito) {
+                    crimsonMosquito.onSpawnFromFly();
+                    this.remove(RemovalReason.DISCARDED);
                 }
-                crimsonMosquito.onSpawnFromFly();
-
-                if (!this.level().isClientSide) {
-                    this.level().broadcastEntityEvent(this, (byte) 79);
-                    level().addFreshEntity(crimsonMosquito);
-                }
-
-                this.remove(RemovalReason.DISCARDED);
 
             }
         }

@@ -2,7 +2,13 @@
   "type": "patchouli:shapeless_book_recipe",
   "ingredients": [
     {
-      "item": "alexsmobsinteraction:ami_book_shattered"
+      "item": "minecraft:book"
+    },
+    {
+      "item": "minecraft:crimson_fungus"
+    },
+    {
+      "item": "minecraft:ender_eye"
     }
   ],
   "book": "alexsmobsinteraction:ami_interaction_wiki"

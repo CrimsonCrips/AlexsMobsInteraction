@@ -78,18 +78,14 @@ public class AMISkreeching extends MobEffect {
                 }
 
                 if (!level.isClientSide) {
-                    entity.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 500, 0));
-                    Entity entityToSpawn = (EntityType.WARDEN).spawn((ServerLevel) level, BlockPos.containing(entity.getX() + 0.5, entity.getY() + 1.0, entity.getZ() + 0.5), MobSpawnType.TRIGGERED);
-                    entity.removeEffect(AMIEffects.SKREECHING.get());
-
-                    if (entityToSpawn instanceof Warden warden) {
-                        warden.copyPosition(entity);
+                    LivingEntity entityToSpawn;
+                    entityToSpawn = EntityType.WARDEN.spawn((ServerLevel) level, BlockPos.containing(entity.getX() + 0.5, entity.getY() + 1.0, entity.getZ() + 0.5), MobSpawnType.TRIGGERED);
+                    if (entityToSpawn != null) {
+                        entity.removeEffect(AMIEffects.SKREECHING.get());
                         final CompoundTag emptyNbt = new CompoundTag();
-                        warden.addAdditionalSaveData(emptyNbt);
+                        entityToSpawn.addAdditionalSaveData(emptyNbt);
                         emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
-                        warden.readAdditionalSaveData(emptyNbt);
-                        warden.skipDropExperience();
-                        entity.level().addFreshEntity(warden);
+                        entityToSpawn.skipDropExperience();
                     }
                 }
             }

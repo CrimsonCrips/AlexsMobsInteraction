@@ -5,16 +5,19 @@ import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.frog.Frog;
@@ -54,20 +57,11 @@ public class AMIFrog extends Mob implements AMITransform {
     private void AlexInteraction$tick(CallbackInfo ci) {
             if (isTransforming()){
                 frogWarped++;
-                if (frogWarped > 160) {
-                    EntityWarpedToad warpedToad = AMEntityRegistry.WARPED_TOAD.get().create(level());
-                    if(warpedToad != null) {
-                        warpedToad.copyPosition(this);
-
-                        if (!this.level().isClientSide) {
-                            warpedToad.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                        }
+                if (frogWarped > 160 && !this.level().isClientSide) {
+                    LivingEntity entityToSpawn;
+                    entityToSpawn = AMEntityRegistry.WARPED_TOAD.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
+                    if (entityToSpawn != null) {
                         this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
-
-                        if (!this.level().isClientSide) {
-                            this.level().broadcastEntityEvent(this, (byte) 79);
-                            level().addFreshEntity(warpedToad);
-                        }
                         this.remove(RemovalReason.DISCARDED);
                     }
 

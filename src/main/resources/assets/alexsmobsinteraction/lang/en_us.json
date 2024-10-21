@@ -1,5 +1,8 @@
 {
-  "item.alexsmobsinteraction.ami_book_shattered": "AMI Book Shattered",
+  "item.alexsmobsinteraction.ami_book": "AMI Book Icon",
+
+  "ami_book.description":"Icon for AMI Book Advancements",
+  "ami_book.title":"AMI Book Icon",
 
   "alexsmobsinteraction.potion.skreeching": "Skreech Your Last.",
   "effect.alexsmobsinteraction.skreeching.description": "Causes a Warden to spawn when the effect wares off",

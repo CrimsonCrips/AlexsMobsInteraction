@@ -14,8 +14,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.frog.Frog;
@@ -54,20 +56,11 @@ public class AMIRainfrog extends Mob implements AMITransform {
     private void AlexInteraction$tick(CallbackInfo ci) {
         if (isTransforming()){
             frogWarped++;
-            if (frogWarped > 160) {
-                EntityWarpedToad warpedToad = AMEntityRegistry.WARPED_TOAD.get().create(level());
-                if(warpedToad != null) {
-                    warpedToad.copyPosition(this);
-
-                    if (!this.level().isClientSide) {
-                        warpedToad.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                    }
+            if (frogWarped > 160 && !this.level().isClientSide) {
+                LivingEntity entityToSpawn;
+                entityToSpawn = AMEntityRegistry.WARPED_TOAD.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
+                if (entityToSpawn != null) {
                     this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED);
-
-                    if (!this.level().isClientSide) {
-                        this.level().broadcastEntityEvent(this, (byte) 79);
-                        level().addFreshEntity(warpedToad);
-                    }
                     this.remove(RemovalReason.DISCARDED);
                 }
 
@@ -131,9 +124,11 @@ public class AMIRainfrog extends Mob implements AMITransform {
     public void spawnGusters(){
         if (AMInteractionConfig.GOOFY_RAINFROG_SPAWNAGE_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) {
             for (int i = 0; i < 10; i++) {
-                EntityGuster guster = AMEntityRegistry.GUSTER.get().create(level());
-                guster.copyPosition(this);
-                level().addFreshEntity(guster);
+                LivingEntity entityToSpawn;
+                entityToSpawn = AMEntityRegistry.GUSTER.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
+                if (entityToSpawn != null && !this.level().isClientSide) {
+                    this.remove(RemovalReason.DISCARDED);
+                }
             }
         }
     }

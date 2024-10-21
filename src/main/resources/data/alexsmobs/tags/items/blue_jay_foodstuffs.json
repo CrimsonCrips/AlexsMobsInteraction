@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:glow_berries",
-    "#alexsmobs:insect_items",
-    "#forge:seeds"
-  ]
-}

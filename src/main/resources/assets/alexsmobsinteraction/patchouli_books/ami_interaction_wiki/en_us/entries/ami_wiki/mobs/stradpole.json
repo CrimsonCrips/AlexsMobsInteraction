@@ -18,7 +18,7 @@
       "type": "patchouli:image",
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/stradpole/stradpole_flame.png" ],
       "title": "Stradpole Flame",
-      "text": "Stradpole have a chance to inflict flame when launcher by straddlers"
+      "text": "Stradpole have a chance to inflict flame when launched by straddlers"
     }
 
   ]

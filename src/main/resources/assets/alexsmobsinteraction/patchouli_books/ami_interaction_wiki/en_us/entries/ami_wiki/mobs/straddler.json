@@ -18,7 +18,7 @@
       "type": "patchouli:image",
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/straddler/straddler_vengeance.png" ],
       "title": "Straddler Vengeance",
-      "text": "Straddlers have ammo,once exhausted it requires time to reload"
+      "text": "Straddlers will attack Crimson Mosquitoes and Bone Serpents"
     }
 
   ]

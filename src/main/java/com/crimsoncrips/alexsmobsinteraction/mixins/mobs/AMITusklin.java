@@ -9,11 +9,13 @@ import com.github.alexthe666.alexsmobs.entity.EntityTusklin;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -136,18 +138,19 @@ public abstract class AMITusklin extends Mob {
         if (tusklin.isInNether()) {
             ++this.conversionTime;
             if (this.conversionTime > 300 && !this.level().isClientSide) {
-                Hoglin hoglin = (Hoglin)this.convertTo(EntityType.HOGLIN, false);
-                if (hoglin != null) {
-                    hoglin.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
+                LivingEntity entityToSpawn;
+                entityToSpawn = EntityType.HOGLIN.spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
+                if (entityToSpawn != null) {
+                    entityToSpawn.setYRot(this.level().getRandom().nextFloat() * 360.0F);
+                    entityToSpawn.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
                     this.dropEquipment();
-                    this.level().addFreshEntity(hoglin);
                     this.remove(RemovalReason.DISCARDED);
                 }
+
             }
         }
-        Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.2,-2,0.2)).iterator();
-
         if(AMInteractionConfig.TUSKLIN_TRAMPLE_ENABLED && this.isVehicle() && isTusklinTrample()){
+            Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.2,-2,0.2)).iterator();
             while (var4.hasNext()) {
                 Entity entity = (Entity) var4.next();
                 if (entity != this && entity != this.getControllingPassenger() && entity.getBbHeight() <= 2.1F && this.isVehicle()) {

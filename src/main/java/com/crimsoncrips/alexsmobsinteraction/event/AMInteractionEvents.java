@@ -885,17 +885,6 @@ public class AMInteractionEvents {
     }
 
     @SubscribeEvent
-    public static void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-            CompoundTag playerData = event.getEntity().getPersistentData();
-            CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-            if (data != null && !data.getBoolean("ami_book")) {
-                ItemHandlerHelper.giveItemToPlayer(event.getEntity(), new ItemStack(AMIItemRegistry.BOOK_SHATTERED.get()));
-                data.putBoolean("ami_book", true);
-                playerData.put(Player.PERSISTED_NBT_TAG, data);
-            }
-    }
-
-    @SubscribeEvent
     public void onInteractWithEntity(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getEntity();
         ItemStack itemStack = event.getItemStack();
