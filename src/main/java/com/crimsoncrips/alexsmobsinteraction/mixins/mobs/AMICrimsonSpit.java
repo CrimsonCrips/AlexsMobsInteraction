@@ -35,13 +35,15 @@ public abstract class AMICrimsonSpit extends Entity {
 
 
     @Inject(method = "onEntityHit", at = @At("HEAD"),cancellable = true,remap = false)
-    protected void Spit(EntityHitResult p_213868_1_, CallbackInfo ci){
+    protected void Spit(EntityHitResult p_213868_1_, CallbackInfo ci) {
         ci.cancel();
-        EntityMosquitoSpit spit = (EntityMosquitoSpit)(Object)this;
+        EntityMosquitoSpit spit = (EntityMosquitoSpit) (Object) this;
         Entity spitOwner = spit.getOwner();
-        LivingEntity hitEntity = (LivingEntity) p_213868_1_.getEntity();
 
-        if(AMInteractionConfig.BLOOD_DAMAGE_DIFFERENCE_ENABLED){
+        if (p_213868_1_.getEntity() instanceof LivingEntity livingHitEntity) {
+
+
+        if (AMInteractionConfig.BLOOD_DAMAGE_DIFFERENCE_ENABLED) {
             if (spitOwner instanceof EntityCrimsonMosquito || spitOwner instanceof EntityWarpedMosco) {
                 damageAmount = 4.0F;
             } else {
@@ -49,33 +51,33 @@ public abstract class AMICrimsonSpit extends Entity {
             }
         } else damageAmount = 4.0F;
 
-        if (AMInteractionConfig.BLOOD_PROTECTION_ENABLED){
-            if (hitEntity instanceof EntityCrimsonMosquito mosquito && !this.level().isClientSide && mosquito.getRandom().nextDouble() < 0.2 && AMInteractionConfig.BLOODED_ENABLED) {
+        if (AMInteractionConfig.BLOOD_PROTECTION_ENABLED) {
+            if (livingHitEntity instanceof EntityCrimsonMosquito mosquito && !this.level().isClientSide && mosquito.getRandom().nextDouble() < 0.2 && AMInteractionConfig.BLOODED_ENABLED) {
                 mosquito.setBloodLevel(mosquito.getBloodLevel() + 1);
             }
-            if (!(hitEntity instanceof EntityCrimsonMosquito || hitEntity instanceof EntityWarpedMosco)){
-                if (AMInteractionConfig.FLY_TRANSFORM_ENABLED){
-                    if (!(hitEntity instanceof EntityFly)) {
-                        hurtEntity(hitEntity,spitOwner,damageAmount);
+            if (!(livingHitEntity instanceof EntityCrimsonMosquito || livingHitEntity instanceof EntityWarpedMosco)) {
+                if (AMInteractionConfig.FLY_TRANSFORM_ENABLED) {
+                    if (!(livingHitEntity instanceof EntityFly)) {
+                        hurtEntity(livingHitEntity, spitOwner, damageAmount);
                     }
                 } else {
-                    hurtEntity(hitEntity,spitOwner,damageAmount);
+                    hurtEntity(livingHitEntity, spitOwner, damageAmount);
                 }
             }
         } else {
-            if (AMInteractionConfig.FLY_TRANSFORM_ENABLED){
-                if (!(hitEntity instanceof EntityFly)) {
-                    hurtEntity(hitEntity,spitOwner,damageAmount);
+            if (AMInteractionConfig.FLY_TRANSFORM_ENABLED) {
+                if (!(livingHitEntity instanceof EntityFly)) {
+                    hurtEntity(livingHitEntity, spitOwner, damageAmount);
                 }
             } else {
-                hurtEntity(hitEntity,spitOwner,damageAmount);
+                hurtEntity(livingHitEntity, spitOwner, damageAmount);
             }
         }
 
-        if (!AMInteractionConfig.BLOODED_EFFECT_ENABLED)
-            return;
-        hitEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
-
+            if (!AMInteractionConfig.BLOODED_EFFECT_ENABLED)
+                return;
+            livingHitEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
+        }
     }
 
     @Unique

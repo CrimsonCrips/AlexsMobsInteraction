@@ -4,44 +4,8 @@
   "category": "alexsmobsinteraction:changelog_category",
   "pages": [
     {
-      "type": "patchouli:image",
-      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/ami_book.png" ],
-      "title": "AMI Wiki In-Game!",
-      "text": "The biggest new feature for AMI!"
-    },
-    {
       "type": "patchouli:text",
-      "text": "Removed FLY_FEAR $(br) Removed MANTIS_SPEED $(br) Removed TUSKLING_EQUIPMENT $(br) Removed SKITTISH_ROACHES $(br) Removed STUPID_CATFISH_EAT $(br) Massive Optimization $(br) Removes alexsmobsinteraction:long_gusting_potion $(br) Fixed Infect Immunity Bug $(br) Changed smallcritters to insects",
-      "title": "Changes"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Decreases gusting particle generation $(br) makes it so only players can spawn gusts with Gusting $(br) Decreases lifespan of gusts with Gusting $(br) Makes skreeching only work for players $(br) Reduces health requirement for anaconda eating weak anacondas from 20% to 10% $(br) Removed CAPUCHIN_KILL tag ",
-      "title": "Changes"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Makes raccoon only hunt at night $(br) Made snapping turtles also be awake while thundering $(br) Made Snapping turtle moss accumulation work for thundering $(br) Added Weakness effect with Sun Bird upgrade feature $(br) Removed Glowing effect with Sun bird upgrade feature $(br) Changed tigers blessing invisibility to work for walking",
-      "title": "Changes"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "You cannot shear tamed flutters $(br) Changed procedure with Transforming Crimson Mosquitoes to Warped Mosco $(br) Removed log spams $(br) Gusting now makes you immune to gusters lifting you $(br) Fixed Terrapin bug $(br) Changed Fly transform procedure $(br) Changed Rain Frog transform procedure $(br) Changed Mudskipper kill tag ",
-      "title": "Changes"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Changed Crow weapon tag $(br) Changed Frog Conversion $(br) Gives slight speed with Gusting effect $(br) Added new Blooded Effect $(br) Fixed Rolling Thunder $(br) Changed Final Stand mechanics $(br) Reduced Effect duration for Gusting $(br) New Enchantment, Stretchy Accumulation $(br) Eagles dont cannibalize when they are tamed ",
-      "title": "Changes"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Blobfish now runs from Frilled Shark $(br) Fixed Crow cannibalize $(br) Fixed Elephant territorial $(br) Fixed Emu Egg Attack $(br) Made Flies run only from lit candles $(br) Removed Bloodless Ignore $(br) Fixed Grizzly Bear attacking players even when tamed $(br) Added Trade for Fisherman with Devils Hole Pupfish",
-      "title": "Changes"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Adds ability to pour poison essence on mobs $(br) Eradicated Animal Dictionary Changes $(br) Compatible with new AM update $(br) Unstuns Void Worm when stunned and is below -50 Y  ",
+      "text": "Removed unneccesary resources,  Optimized spawning of mobs with its features in AMI,   Changes how to obtain the AMI Wiki, Fixed Crimson Spit crashes,  Fixed Straddler text problems in AMI Wiki",
       "title": "Changes"
     }
   ]
