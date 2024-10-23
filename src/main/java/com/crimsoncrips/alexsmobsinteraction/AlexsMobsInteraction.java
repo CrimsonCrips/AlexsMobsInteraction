@@ -35,12 +35,11 @@ import java.util.Locale;
 public class AlexsMobsInteraction {
 
     public static final String MODID = "alexsmobsinteraction";
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(this::onModConfigEvent);
+        AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());
         MinecraftForge.EVENT_BUS.register(this);
         AMIEffects.EFFECT_REGISTER.register(modEventBus);
