@@ -14,6 +14,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
 import static java.lang.Math.abs;
 import static java.lang.Math.random;
 
@@ -54,7 +55,7 @@ public class AMIRendering {
 		int imageWidth = 500;
 		int imageHeight = 191;
 		double movement = Math.sin(2*Math.sin((double) (ALPHA_PROGRESS) /2) * 300);
-
+        renderStaticScreenFor = 30;
 		double x1 = ((double) (screenWidth - imageWidth) / 2);
 		double y2 = ((double) (screenHeight - imageHeight) / 2);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, currentAlpha);

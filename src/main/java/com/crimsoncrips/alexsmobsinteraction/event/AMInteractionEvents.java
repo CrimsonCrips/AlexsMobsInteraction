@@ -63,6 +63,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -74,14 +75,9 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.network.PacketDistributor;
-import vazkii.patchouli.common.item.PatchouliItems;
-
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Predicate;
-
 import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.*;
 import static com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED;
 import static com.github.alexthe666.alexsmobs.block.BlockLeafcutterAntChamber.FUNGUS;
@@ -90,9 +86,6 @@ import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AMInteractionEvents {
-    private int alexsMobsInteraction$loop;
-
-
 
     @SubscribeEvent
     public void onEntityFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
@@ -758,43 +751,7 @@ public class AMInteractionEvents {
             }
         }
 
-        if(livingEntity instanceof EntityFarseer farseer){
-            if (!AMInteractionConfig.FARSEER_ALTERING_ENABLED)
-                return;
-            if (farseer.level().isClientSide())
-                return;
-            if (!(alexsMobsInteraction$loop >= 0))
-                return;
 
-            if (farseer.getTarget() instanceof Player player) {
-                if (player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)
-                    return;
-                alexsMobsInteraction$loop--;
-                Inventory inv = player.getInventory();
-
-                for (int i = 0; i < 9 - 1; i++) {
-                    ItemStack current = inv.getItem(i);
-                    int j = farseer.getRandom().nextInt(i + 1, 9);
-
-                    // swap
-                    ItemStack to = inv.getItem(j);
-                    inv.setItem(j, current);
-                    inv.setItem(i, to);
-                }
-                if (AMInteractionConfig.FARSEER_EFFECTS_ENABLED) {
-
-                    if (alexsMobsInteraction$loop == 49) {
-                        renderStaticScreenFor = 30;
-                        player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 0));
-                        AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new FarseerPacket());
-                    }
-                }
-
-            }
-            if (farseer.getTarget() == null && alexsMobsInteraction$loop <= 0) {
-                alexsMobsInteraction$loop = 50;
-            }
-        }
 
         if(livingEntity instanceof EntityBananaSlug bananaSlug){
             if (!AMInteractionConfig.GOOFY_MODE_ENABLED)
@@ -802,7 +759,7 @@ public class AMInteractionEvents {
             if (!AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
                 return;
             for (LivingEntity livingEntitys : bananaSlug.level().getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
-                if ((Entity) livingEntitys instanceof Player) {
+                if (livingEntitys instanceof Player) {
                     ((Entity) livingEntitys).kill();
                 }
             }
@@ -816,7 +773,6 @@ public class AMInteractionEvents {
             if (snappingturtle.level().isRaining() || snappingturtle.level().isThundering() || snappingturtle.isInWater()){
                 snappingturtle.setMoss(Math.min(10, snappingturtle.getMoss() + 1));
             }
-
         }
 
         if(livingEntity instanceof EntityCentipedeHead centipede){
@@ -1067,6 +1023,17 @@ public class AMInteractionEvents {
             }
         }
 
+    }
+
+    @SubscribeEvent
+    public void struckLightning(EntityStruckByLightningEvent lightningEvent){
+        if (lightningEvent.getEntity() instanceof EntityTusklin tusklin){
+            Level level = tusklin.level();
+            if (!level.isClientSide) {
+                EntityType.ZOGLIN.spawn((ServerLevel) level, BlockPos.containing(tusklin.getX() + 0.5, tusklin.getY() + 1.0, tusklin.getZ() + 0.5), MobSpawnType.TRIGGERED);
+                tusklin.discard();
+            }
+        }
     }
 
 

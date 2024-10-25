@@ -9,7 +9,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue GUSTER_PROJECTILE_PROT_ENABLED;
-
+    public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
@@ -258,6 +258,8 @@ public class AMIConfigList {
         this.FLY_PESTER_ENABLED = buildBoolean(builder, "FLY_PESTER_ENABLED", " ", true, "Flies will pester certain smelling animals");
         this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
         this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "CANDLE_REPEL_ENABLED", " ", true, "Lit candles will cause flies to run away from it");
+        this.MAGGOT_FISHING = buildBoolean(builder, "MAGGOT_FISHING", " ", true, "Holding a maggot while fishing will cause it to be consumed and increase luck for fishing");
+
         builder.pop();
         builder.push("Flying Fish");
         this.WEAVING_WATERS_ENABLED = buildBoolean(builder, "WEAVING_WATERS_ENABLED", " ", true, "Flying Fish Boots's mechanics are changed to be more fluid and based on speed and look angle");

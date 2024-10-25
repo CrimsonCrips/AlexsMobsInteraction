@@ -6,6 +6,7 @@ public class AMInteractionConfig {
 
     public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
     public static boolean ANACONDA_CANNIBALIZE_ENABLED;
+    public static boolean MAGGOT_FISHING;
     public static boolean BANANA_SHEAR_ENABLED;
     public static boolean DEVILS_TRADE_ENABLED;
     public static boolean BLEEDING_HUNGER_ENABLED;
@@ -110,6 +111,7 @@ public class AMInteractionConfig {
 
     public static void bake() {
         try {
+            MAGGOT_FISHING = AMIConfigHolder.INTERACT.MAGGOT_FISHING.get();
             DEVILS_TRADE_ENABLED = AMIConfigHolder.INTERACT.DEVILS_TRADE_ENABLED.get();
             POISONOUS_BATH_ENABLED = AMIConfigHolder.INTERACT.POISONOUS_BATH_ENABLED.get();
             TENDON_GRAB_ENABLED = AMIConfigHolder.INTERACT.TENDON_GRAB_ENABLED.get();

@@ -6,6 +6,7 @@
   "refmap": "alexsmobsinteraction.refmap.json",
   "mixins": [
     "misc.AMIDimensionalCarver",
+    "misc.AMIFishingRod",
     "misc.AMIFlyingFishBoots",
     "misc.AMIPlayer",
     "misc.AMIPocketSand",
@@ -15,6 +16,7 @@
     "mobs.AMICrimsonSpit",
     "mobs.AMICrow",
     "mobs.AMIElephant",
+    "mobs.AMIFarseer",
     "mobs.AMIGust",
     "mobs.AMIGuster",
     "mobs.AMIHammerheadShark",

@@ -10,6 +10,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 public class AMICosmawOwner extends Goal {
 
@@ -45,7 +47,7 @@ public class AMICosmawOwner extends Goal {
                 this.owner.fallDistance = 0.0F;
                 this.owner.startRiding(cosmaw);
             }
-            if (cosmaw.hasPassenger(owner) && owner.getArmorValue() > 5 && !(owner.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.LIGHTWEIGHT.get()) > 0)){
+            if (cosmaw.hasPassenger(owner) && owner.getArmorValue() > 5 && !(owner.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(Enchantments.FISHING_LUCK) > 0)){
                 cosmaw.addEffect(new MobEffectInstance(MobEffects.WEAKNESS,owner.getArmorValue() * 100, 0));
             }
         }
