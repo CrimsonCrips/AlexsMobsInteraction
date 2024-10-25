@@ -31,7 +31,7 @@ public abstract class AMIFishingRod extends Item implements Vanishable {
 
     @ModifyArg(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/FishingHook;<init>(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;II)V"), index = 2)
     private int adjustJ( int j) {
-        if(AMInteractionConfig.MAGGOT_FISHING && player.getOffhandItem().is(AMItemRegistry.MAGGOT.get())){
+        if(AMInteractionConfig.MAGGOT_FISHING_ENABLED && player.getOffhandItem().is(AMItemRegistry.MAGGOT.get())){
             if (!player.isCreative()) {
                 player.getOffhandItem().shrink(1);
             }

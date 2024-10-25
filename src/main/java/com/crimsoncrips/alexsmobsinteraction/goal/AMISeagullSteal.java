@@ -148,10 +148,16 @@ public class AMISeagullSteal extends Goal {
     }
 
     private boolean hasFoods(Player player) {
-        for(int i = 0; i < 9; ++i) {
-            ItemStack stackIn = (ItemStack)player.getInventory().items.get(i);
-            if (stackIn.isEdible() && !this.isBlacklisted(stackIn)) {
-                return true;
+        if(AMInteractionConfig.HELD_FOOD_ENABLED){
+            ItemStack offHand = player.getOffhandItem();
+            ItemStack mainHand = player.getMainHandItem();
+            return (mainHand.isEdible() && !this.isBlacklisted(mainHand)) || (offHand.isEdible() && !this.isBlacklisted(offHand));
+        } else {
+            for (int i = 0; i < 9; ++i){
+                ItemStack stackIn = player.getInventory().items.get(i);
+                if (stackIn.isEdible() && !this.isBlacklisted(stackIn)){
+                    return true;
+                }
             }
         }
 

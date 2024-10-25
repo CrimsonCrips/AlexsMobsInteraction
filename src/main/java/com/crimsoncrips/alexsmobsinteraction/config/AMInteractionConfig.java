@@ -6,8 +6,9 @@ public class AMInteractionConfig {
 
     public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
     public static boolean ANACONDA_CANNIBALIZE_ENABLED;
-    public static boolean MAGGOT_FISHING;
+    public static boolean MAGGOT_FISHING_ENABLED;
     public static boolean BANANA_SHEAR_ENABLED;
+    public static boolean HELD_FOOD_ENABLED;
     public static boolean DEVILS_TRADE_ENABLED;
     public static boolean BLEEDING_HUNGER_ENABLED;
     public static boolean BLOODED_ENABLED;
@@ -111,7 +112,7 @@ public class AMInteractionConfig {
 
     public static void bake() {
         try {
-            MAGGOT_FISHING = AMIConfigHolder.INTERACT.MAGGOT_FISHING.get();
+            MAGGOT_FISHING_ENABLED = AMIConfigHolder.INTERACT.MAGGOT_FISHING_ENABLED.get();
             DEVILS_TRADE_ENABLED = AMIConfigHolder.INTERACT.DEVILS_TRADE_ENABLED.get();
             POISONOUS_BATH_ENABLED = AMIConfigHolder.INTERACT.POISONOUS_BATH_ENABLED.get();
             TENDON_GRAB_ENABLED = AMIConfigHolder.INTERACT.TENDON_GRAB_ENABLED.get();
@@ -211,7 +212,7 @@ public class AMInteractionConfig {
             COCKROACH_CHAMBER_ENABLED = AMIConfigHolder.INTERACT.COCKROACH_CHAMBER_ENABLED.get();
             GUSTING_ENABLED = AMIConfigHolder.INTERACT.GUSTING_ENABLED.get();
             BLEEDING_HUNGER_ENABLED = AMIConfigHolder.INTERACT.BLEEDING_HUNGER_ENABLED.get();
-
+            HELD_FOOD_ENABLED = AMIConfigHolder.INTERACT.HELD_FOOD_ENABLED.get();
             WEAVING_WATERS_ENABLED = AMIConfigHolder.INTERACT.WEAVING_WATERS_ENABLED.get();
             SKREECH_YOUR_LAST_ENABLED = AMIConfigHolder.INTERACT.SKREECH_YOUR_LAST_ENABLED.get();
 

@@ -9,7 +9,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue GUSTER_PROJECTILE_PROT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING;
+    public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
@@ -51,6 +51,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue GUSTER_WEIGHT_ENABLED;
     public final ForgeConfigSpec.BooleanValue HAMMERHEAD_MANTIS_EAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue POLINATE_DAY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue HELD_FOOD_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue ROLLING_THUNDER_ENABLED;
 
@@ -258,7 +259,7 @@ public class AMIConfigList {
         this.FLY_PESTER_ENABLED = buildBoolean(builder, "FLY_PESTER_ENABLED", " ", true, "Flies will pester certain smelling animals");
         this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
         this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "CANDLE_REPEL_ENABLED", " ", true, "Lit candles will cause flies to run away from it");
-        this.MAGGOT_FISHING = buildBoolean(builder, "MAGGOT_FISHING", " ", true, "Holding a maggot while fishing will cause it to be consumed and increase luck for fishing");
+        this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", " ", true, "Holding a maggot while fishing will cause it to be consumed and increase luck for fishing");
 
         builder.pop();
         builder.push("Flying Fish");
@@ -334,6 +335,7 @@ public class AMIConfigList {
         builder.push("Seagull");
         this.SOMBRERO_PROTECTION_ENABLED = buildBoolean(builder, "SOMBRERO_PROTECTION_ENABLED", " ", true, "Sombreros can prevent seagulls from stealing food from you");
         this.SEAGULL_WEAKEN_ENABLED = buildBoolean(builder, "SEAGULL_WEAKEN_ENABLED", " ", true, "Seagulls below 40% health will not steal food");
+        this.HELD_FOOD_ENABLED = buildBoolean(builder,"HELD_FOOD_ENABLED","", false, "Seagulls will only snatch food from your main or off hand");
         builder.pop();
         builder.push("Skelewag");
         this.SKELEWAG_CIRCLE_ENABLED = buildBoolean(builder, "SKELEWAG_CIRCLE_ENABLED", " ", true, "Skelewag circle their prey like hammerhead sharks");
