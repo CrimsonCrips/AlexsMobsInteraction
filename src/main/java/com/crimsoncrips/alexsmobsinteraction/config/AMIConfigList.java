@@ -12,6 +12,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CRIMSON_WIKI_ENABLED;
     public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
 
@@ -170,6 +171,8 @@ public class AMIConfigList {
 
     public AMIConfigList(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
+        this.CRIMSON_WIKI_ENABLED = buildBoolean(builder, "CRIMSON_WIKI_ENABLED", " ", true, "Gives you the crimson wiki book at start");
+
         this.PREY_FEAR_ENABLED = buildBoolean(builder, "PREY_FEAR_ENABLED", " ", true, "Prey like animals flee from predator like animals");
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Stuns charging animals when targeting the player with the new enchantment, 'Final Stand'");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");

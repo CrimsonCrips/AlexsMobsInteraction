@@ -19,15 +19,7 @@ public class AMIBasicEnchantment extends Enchantment {
     public int getMaxCost(int i) {
         return super.getMinCost(i) + 13;
     }
-
-
-    public boolean isTradeable() {
-        return true;
-    }
-
-    public boolean isDiscoverable() {
-        return false;
-    }
+    
 
     public boolean isAllowedOnBooks() {
         return true;

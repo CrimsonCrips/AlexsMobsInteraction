@@ -19,6 +19,12 @@
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/skreecher/skreech_your_last.png" ],
       "title": "Skreech Your Last",
       "text": "New potion effect that spawns a Warden on the player's position when it is about to ware off"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/brewing/skreeching.png" ],
+      "title": "Potion Recipe",
+      "text": ""
     }
 
   ]

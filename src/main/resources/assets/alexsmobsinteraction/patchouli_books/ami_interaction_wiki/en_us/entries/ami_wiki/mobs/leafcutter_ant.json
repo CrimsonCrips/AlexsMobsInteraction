@@ -13,6 +13,12 @@
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/leafcutter_ant/cockroach_chamber.png" ],
       "title": "Cockroach Chamber",
       "text": "Leafcutter Chambers that are bustling with fungus can burst out cockroaches"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/brewing/health_boost.png" ],
+      "title": "Health Boost Potions",
+      "text": "Gongyldilia can brew health boost potions"
     }
 
   ]

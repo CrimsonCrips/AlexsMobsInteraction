@@ -9,6 +9,8 @@ import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.*;
 import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
+import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTrigger;
+import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
@@ -75,6 +77,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.network.PacketDistributor;
 import java.util.Iterator;
 import java.util.function.Predicate;
@@ -970,6 +973,19 @@ public class AMInteractionEvents {
                 if (entityToSpawn instanceof EntityCockroach cockroach && worldIn.getRandom().nextDouble() < 0.07)
                     cockroach.setBaby(true);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        Player player = event.getEntity();
+        CompoundTag playerData = event.getEntity().getPersistentData();
+        CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+        if (!data.getBoolean("ami_book") && AMInteractionConfig.CRIMSON_WIKI_ENABLED) {
+            System.out.println("testing");
+            CrimsonAdvancementTriggerRegistry.AMI_BOOK.trigger((ServerPlayer) player);
+            data.putBoolean("ami_book", true);
+            playerData.put(Player.PERSISTED_NBT_TAG, data);
         }
     }
 

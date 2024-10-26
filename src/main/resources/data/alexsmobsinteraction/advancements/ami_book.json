@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:story/root",
   "criteria": {
-    "tick": {
-      "trigger": "minecraft:tick"
+    "ami": {
+      "trigger": "alexsmobsinteraction:ami_book"
     }
   },
   "rewards": {

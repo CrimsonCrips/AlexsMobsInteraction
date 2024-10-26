@@ -25,6 +25,12 @@
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/fly/fly_conversion.png" ],
       "title": "Fly Conversion",
       "text": "Flies can be transformed to Crimson Mosquitoes"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/fly/maggot_fishing.png" ],
+      "title": "Maggot Fishing",
+      "text": "Holding a maggot in your off hand increases fishing luck by 30%"
     }
   ]
 }

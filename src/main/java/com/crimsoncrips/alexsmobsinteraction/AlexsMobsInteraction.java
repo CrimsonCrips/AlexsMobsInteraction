@@ -6,6 +6,7 @@ import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
+import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -66,7 +67,9 @@ public class AlexsMobsInteraction {
 
     private void setup(final FMLCommonSetupEvent event) {
         AMIEffects.init();
+        CrimsonAdvancementTriggerRegistry.init();
     }
+
 
     public static ResourceLocation prefix(String name) {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));

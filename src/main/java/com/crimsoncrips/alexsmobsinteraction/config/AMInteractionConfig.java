@@ -7,6 +7,7 @@ public class AMInteractionConfig {
     public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
     public static boolean ANACONDA_CANNIBALIZE_ENABLED;
     public static boolean MAGGOT_FISHING_ENABLED;
+    public static boolean CRIMSON_WIKI_ENABLED;
     public static boolean BANANA_SHEAR_ENABLED;
     public static boolean HELD_FOOD_ENABLED;
     public static boolean DEVILS_TRADE_ENABLED;
@@ -215,6 +216,7 @@ public class AMInteractionConfig {
             HELD_FOOD_ENABLED = AMIConfigHolder.INTERACT.HELD_FOOD_ENABLED.get();
             WEAVING_WATERS_ENABLED = AMIConfigHolder.INTERACT.WEAVING_WATERS_ENABLED.get();
             SKREECH_YOUR_LAST_ENABLED = AMIConfigHolder.INTERACT.SKREECH_YOUR_LAST_ENABLED.get();
+            CRIMSON_WIKI_ENABLED = AMIConfigHolder.INTERACT.CRIMSON_WIKI_ENABLED.get();
 
 
 

@@ -25,6 +25,12 @@
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/guster/gusting.png" ],
       "title": "Gusting",
       "text": "Gusting is a new effect that causes inflicted to be immune to gusts and spawns gusts around players"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/brewing/gusting.png" ],
+      "title": "Potion Recipe",
+      "text": ""
     }
   ]
 }
