@@ -108,6 +108,7 @@ public class AMInteractionConfig {
     public static boolean WARPED_FRIENDLY_ENABLED;
     public static boolean WEAVING_WATERS_ENABLED;
     public static boolean WITCH_ADDITIONS_ENABLED;
+    public static boolean TUSKLIN_STRUCK_ENABLED;
     public static int STRADDLER_SHOTS_AMOUNT;
 
 
@@ -217,6 +218,7 @@ public class AMInteractionConfig {
             WEAVING_WATERS_ENABLED = AMIConfigHolder.INTERACT.WEAVING_WATERS_ENABLED.get();
             SKREECH_YOUR_LAST_ENABLED = AMIConfigHolder.INTERACT.SKREECH_YOUR_LAST_ENABLED.get();
             CRIMSON_WIKI_ENABLED = AMIConfigHolder.INTERACT.CRIMSON_WIKI_ENABLED.get();
+            TUSKLIN_STRUCK_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_STRUCK_ENABLED.get();
 
 
 

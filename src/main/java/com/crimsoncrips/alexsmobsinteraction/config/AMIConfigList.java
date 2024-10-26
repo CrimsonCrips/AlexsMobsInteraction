@@ -165,6 +165,8 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue BLOOD_DAMAGE_DIFFERENCE_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue TUSKLIN_STRUCK_ENABLED;
     
 
 
@@ -379,6 +381,7 @@ public class AMIConfigList {
         this.TUSKLIN_FLEE_ENABLED = buildBoolean(builder, "TUSKLIN_FLEE_ENABLED", " ", true, "Tusklins like their brethren flee from warped fungus");
         this.TUSKLIN_TRUST_ENABLED = buildBoolean(builder, "TUSKLIN_TRUST_ENABLED", " ", true, "Tusklins can have a lasting trust with mushroom stew,attacking it will remove that lasting trust however");
         this.TUSKLIN_TRAMPLE_ENABLED = buildBoolean(builder, "TUSKLIN_TRAMPLE_ENABLED", " ", true, "Tusklins can trample when ridden");
+        this.TUSKLIN_STRUCK_ENABLED = buildBoolean(builder, "TUSKLIN_STRUCK_ENABLED", " ", true, "Tusklin struck by lightning will be converted to zoglins");
         builder.pop();
         builder.push("Void Worm");
         this.VOIDWORM_STUN_ENABLED = buildBoolean(builder, "VOIDWORM_STUN_ENABLED", " ", true, "Void Worm can be stunned and brought down when hit in the head enough");

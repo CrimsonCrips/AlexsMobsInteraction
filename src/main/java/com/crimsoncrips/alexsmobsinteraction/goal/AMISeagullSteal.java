@@ -181,12 +181,22 @@ public class AMISeagullSteal extends Goal {
     }
 
     private ItemStack getFoodItemFrom(Player player) {
-        List<ItemStack> foods = new ArrayList();
+        List<ItemStack> foods = new ArrayList<>();
 
-        for(int i = 0; i < 9; ++i) {
-            ItemStack stackIn = (ItemStack)player.getInventory().items.get(i);
-            if (stackIn.isEdible() && !this.isBlacklisted(stackIn)) {
-                foods.add(stackIn);
+        if(AMInteractionConfig.HELD_FOOD_ENABLED){
+            ItemStack offHand = player.getOffhandItem();
+            ItemStack mainHand = player.getMainHandItem();
+            if (offHand.isEdible() && !this.isBlacklisted(offHand)) {
+                foods.add(offHand);
+            } else if (mainHand.isEdible() && !this.isBlacklisted(mainHand)) {
+                foods.add(mainHand);
+            }
+        } else {
+            for (int i = 0; i < 9; ++i) {
+                ItemStack stackIn = player.getInventory().items.get(i);
+                if (stackIn.isEdible() && !this.isBlacklisted(stackIn)) {
+                    foods.add(stackIn);
+                }
             }
         }
 

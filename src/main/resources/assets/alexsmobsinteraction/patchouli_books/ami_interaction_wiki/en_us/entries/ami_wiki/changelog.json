@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Removed unneccesary resources,  Optimized spawning of mobs with its features in AMI,   Changes how to obtain the AMI Wiki, Fixed Crimson Spit crashes,  Fixed Straddler text problems in AMI Wiki",
+      "text": "Fixed Farseer Crashes,$(br) Config for giving AMI Book,$(br) Maggot Fishing allows fishing with maggots to increase luck by 30%,$(br) Seagulls only snatch food when in hand (disabled by default) $(br), Can brew health boost potions with Gongyldilia $(br) ,Added compatibility with brushes that are in #c:brushes $(br),  ",
       "title": "Changes"
     }
   ]
