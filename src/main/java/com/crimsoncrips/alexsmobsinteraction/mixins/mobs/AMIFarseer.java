@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
 import com.github.alexthe666.alexsmobs.entity.EntityBison;
 import com.github.alexthe666.alexsmobs.entity.EntityFarseer;
+import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,17 +33,22 @@ import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderSt
 
 
 @Mixin(EntityFarseer.class)
-public abstract class AMIFarseer extends Monster {
+public class AMIFarseer extends Mob {
 
 
-
-    private int alexsMobsInteraction$loop;
-
-    protected AMIFarseer(EntityType<? extends Monster> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+    protected AMIFarseer(EntityType<? extends Mob> p_21368_, Level p_21369_) {
+        super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "tick", at = @At("TAIL"),remap = false)
+
+
+
+
+    @Unique
+    private int alexsMobsInteraction$loop;
+
+
+    @Inject(method = "tick", at = @At("TAIL"))
     private void tickFarseer(CallbackInfo ci) {
         if (!AMInteractionConfig.FARSEER_ALTERING_ENABLED)
             return;
