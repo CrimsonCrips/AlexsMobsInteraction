@@ -12,5 +12,8 @@
   "enchantment.alexsmobsinteraction.lightweight.desc": "Позволяет прирученным космавам не получать штрафы при переноске тяжёлых игроков.",
 
   "enchantment.alexsmobsinteraction.rolling_thunder": "Раскатистый гром",
-  "enchantment.alexsmobsinteraction.rolling_thunder.desc": "Позволяет прокатываться через жидкости с помощью нагрудника из каменистого панциря."
+  "enchantment.alexsmobsinteraction.rolling_thunder.desc": "Позволяет прокатываться через жидкости с помощью нагрудника из каменистого панциря.",
+
+  "enchantment.alexsmobsinteraction.stretchy_accumulation": "Эластичное накопление",
+  "enchantment.alexsmobsinteraction.stretchy_accumulation.desc": "Подбирает предметы и опыт при попадании в них."
 }
