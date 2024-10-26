@@ -1,6 +1,13 @@
 {
-  "item.alexsmobsinteraction.swatter": "Мухобойка",
-  "alexsmobsinteraction.itemTabalexsmobsinteraction": "Взаимодействие мобов Алекса",
+  "item.alexsmobsinteraction.ami_book": "Значок книги ВМA",
+
+  "ami_book.description": "Добро пожаловать в новую интерактивную вселенную!",
+  "ami_book.title": "Взаимодействие мобов Alex'а",
+
+  "item.minecraft.splash_potion.effect.health_boost": "Взрывное зелье прилива здоровья",
+  "item.minecraft.tipped_arrow.effect.health_boost": "Стрела прилива здоровья",
+  "item.minecraft.lingering_potion.effect.health_boost": "Туманное зелье прилива здоровья",
+  "item.minecraft.potion.effect.health_boost": "Зелье прилива здоровья",
 
   "alexsmobsinteraction.potion.skreeching": "Последний визг",
   "effect.alexsmobsinteraction.skreeching.description": "Приводит к появлению Хранителя, когда действие эффекта прекращается.",
@@ -21,5 +28,11 @@
   "item.minecraft.splash_potion.effect.long_gusting": "Взрывное зелье завихрения",
   "item.minecraft.tipped_arrow.effect.long_gusting": "Стрела завихрения",
   "item.minecraft.lingering_potion.effect.long_gusting": "Туманное зелье завихрения",
-  "item.minecraft.potion.effect.long_gusting": "Зелье завихрения"
+  "item.minecraft.potion.effect.long_gusting": "Зелье завихрения",
+
+  "alexsmobsinteraction.potion.disabled": "Отключка",
+  "effect.alexsmobsinteraction.disabled.description": "Оглушает поражённых (относится к мобам, реализующих этот эффект)",
+
+  "alexsmobsinteraction.potion.blooded": "Окровавленный",
+  "effect.alexsmobsinteraction.blooded.description": "Снижает скорость, броню и силу"
 }
