@@ -4,6 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -22,16 +23,16 @@ public abstract class AMIFishingRod extends Item implements Vanishable {
         super(pProperties);
     }
 
-    private Player player;
+    private LivingEntity wielder;
 
     @Inject(method = "use", at = @At("TAIL"))
     private void useMethod(Level pLevel, Player pPlayer, InteractionHand pHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-        player = pPlayer;
+        wielder = pPlayer;
     }
 
     @ModifyArg(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/FishingHook;<init>(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;II)V"), index = 2)
     private int adjustJ( int j) {
-        if(AMInteractionConfig.MAGGOT_FISHING_ENABLED && player.getOffhandItem().is(AMItemRegistry.MAGGOT.get())){
+        if(AMInteractionConfig.MAGGOT_FISHING_ENABLED && wielder instanceof Player player && player.getOffhandItem().is(AMItemRegistry.MAGGOT.get())){
             if (!player.isCreative()) {
                 player.getOffhandItem().shrink(1);
             }
