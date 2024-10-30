@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.event;
 
+import biomesoplenty.api.block.BOPBlocks;
 import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
@@ -726,6 +727,13 @@ public class AMInteractionEvents {
         LivingEntity livingEntity = livingTickEvent.getEntity();
 
 
+        if (AMInteractionConfig.BLOODED_EFFECT_ENABLED){
+            if (ModList.get().isLoaded("biomesoplenty") && livingEntity.getFeetBlockState().is(BOPBlocks.BLOOD)) {
+                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
+            }
+        }
+
+
         if (livingEntity instanceof EntityGrizzlyBear grizzlyBear){
             if(AMInteractionConfig.FREDDYABLE_ENABLED){
                 String freddy = "Freddy Fazbear";
@@ -793,7 +801,6 @@ public class AMInteractionEvents {
 
         if(livingEntity instanceof Player player){
             BlockState feetBlockstate = player.getBlockStateOn();
-
 
             if (AMInteractionConfig.COMBUSTABLE_ENABLED && player.hasEffect(AMEffectRegistry.OILED.get())){
                 if (feetBlockstate.is(Blocks.MAGMA_BLOCK) || feetBlockstate.is(Blocks.CAMPFIRE))
