@@ -1,0 +1,13 @@
+{
+  "name": "Ядовитая ванна",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/poison_bath.png" ],
+      "title": "Ядовитая ванна",
+      "text": "Заливайте мобов бутолочками с ядом, чтобы затравить их"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Обезглавливание шёпота",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:goofy_mode_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/goofy_mode/murmur_decapitate.png" ],
+      "title": "Обезглавливание шёпота",
+      "text": "У шёпота нет головы"
+    }
+  ]
+}

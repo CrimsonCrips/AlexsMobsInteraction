@@ -1,0 +1,30 @@
+{
+  "name": "Тасклин",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:tusklin",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_trust.png" ],
+      "title": "Прочное доверие",
+      "text": "У тасклинов может быть устойчивое доверие к тушёным грибам, однако атака на них разрушит это прочное доверие"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_trample.png" ],
+      "title": "Топтание тасклина",
+      "text": "Тасклины могут топтать, когда на них ездят верхом"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_flee.png" ],
+      "title": "Тасклин убегает",
+      "text": "Тасклины, как и их собратья, убегают от искажённого гриба"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Расплавленная ванна",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/lava_bath.png" ],
+      "title": "Расплавленная ванна",
+      "text": "Заливайте мобов бутылочками лавы, чтобы сжечь их дотла"
+    }
+  ]
+}

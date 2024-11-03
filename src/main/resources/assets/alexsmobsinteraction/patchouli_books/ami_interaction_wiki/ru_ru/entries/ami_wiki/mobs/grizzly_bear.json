@@ -1,0 +1,30 @@
+{
+  "name": "Бурый медведь",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:grizzly_bear",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/grizzly_bear/grizzly_friendly.png" ],
+      "title": "Дружелюбный гризли",
+      "text": "Прирученные гризли не будут нападать на игроков"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/grizzly_bear/grizzly_freddy.png" ],
+      "title": "Гризли Фредди",
+      "text": "Гризли превратятся в Фредди Фазбера, когда его так назовут"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/grizzly_bear/brushed.png" ],
+      "title": "Причёсанный",
+      "text": "Гризли, усмирённых медом, можно расчесывать щеткой для получения шерсти"
+    }
+  ]
+}

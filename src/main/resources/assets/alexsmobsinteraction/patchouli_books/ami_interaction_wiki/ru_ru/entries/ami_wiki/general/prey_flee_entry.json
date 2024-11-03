@@ -1,0 +1,13 @@
+{
+  "name": "Добыча убегает",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:general_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/general/prey_flee.png" ],
+      "text": "Животные, похожие на добычу, убегают от животных, похожих на хищников",
+      "title": "Добыча убегает"
+    }
+  ]
+}

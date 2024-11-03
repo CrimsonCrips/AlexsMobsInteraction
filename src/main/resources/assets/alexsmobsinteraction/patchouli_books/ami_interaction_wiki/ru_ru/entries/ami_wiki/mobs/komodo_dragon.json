@@ -1,0 +1,19 @@
+{
+  "name": "Варан",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:komodo_dragon",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/komodo_dragon/komodo_friendly.png" ],
+      "title": "Дружелюбный варан",
+      "text": "Прирученный варан дружелюбен к игрокам"
+    }
+
+  ]
+}

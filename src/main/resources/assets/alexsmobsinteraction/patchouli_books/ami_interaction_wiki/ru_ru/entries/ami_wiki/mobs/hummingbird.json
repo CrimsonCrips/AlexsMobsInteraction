@@ -1,0 +1,25 @@
+{
+  "name": "Колибри",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:hummingbird",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/humming_bird/flutter_follow.png" ],
+      "title": "Пархуноследование",
+      "text": "Колибри следуют за пархунами"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/humming_bird/day_polinate.png" ],
+      "title": "Дневное опыление",
+      "text": "Колибри опыляют растения только днём"
+    }
+
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Илистый прыгун",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:mudskipper",
+      "scale": 0.9
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/mudskipper/mudskipper_hunt.png" ],
+      "title": "Охота илистого прыгуна",
+      "text": "Илистые прыгуны охотятся на насекомых и омаров"
+    }
+
+  ]
+}

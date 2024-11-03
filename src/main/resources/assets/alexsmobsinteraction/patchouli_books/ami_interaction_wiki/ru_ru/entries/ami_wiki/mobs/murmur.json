@@ -1,0 +1,29 @@
+{
+  "name": "Шёпот",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:murmur{HeadUUID:[I;100]}",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/murmur/murmur_regrow.png" ],
+      "title": "Шёпот возобновляется",
+      "text": "У шёпотов может отрасти голова, и её здоровье будет отделено от основного тела"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/murmur/tendon_grab.png" ],
+      "title": "Захват сухожилия",
+      "text": "Сухожильный кнут может забирать предметы и опыт для своего владельца по мере движения, благодаря новому заклинанию 'Эластичное накопление'"
+    },
+    {
+      "type": "patchouli:image",
+      "title": "Эластичное накопление",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/enchanting/stretchy_accumulation.png" ]
+    }
+  ]
+}

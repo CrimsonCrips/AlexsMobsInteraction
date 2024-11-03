@@ -1,0 +1,18 @@
+{
+  "name": "Анаконда",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:anaconda",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/anaconda/anaconda_cannibalize.png" ],
+      "title": "Каннибализм анаконды",
+      "text": "Крупные анаконды редко поедают анаконд, когда у них 10% здоровья или детёныши"
+    }
+  ]
+}

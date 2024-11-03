@@ -1,0 +1,24 @@
+{
+  "name": "Косатка",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:orca",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/orca/might_upgrade.png" ],
+      "title": "Мощное обновление",
+      "text": "Мощь косатки может обеспечить временный нейтралитет рыбам-костям"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/orca/orca_hunt.png" ],
+      "title": "Охота косатки",
+      "text": "Косатки будут охотиться на рыбу"
+    }
+  ]
+}

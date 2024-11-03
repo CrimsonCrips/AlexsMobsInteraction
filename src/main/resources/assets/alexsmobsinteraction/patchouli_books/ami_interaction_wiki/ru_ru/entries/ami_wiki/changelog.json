@@ -1,0 +1,12 @@
+{
+  "name": "Список изменений",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:changelog_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Смотрите на странице мода",
+      "title": "Изменения"
+    }
+  ]
+}
