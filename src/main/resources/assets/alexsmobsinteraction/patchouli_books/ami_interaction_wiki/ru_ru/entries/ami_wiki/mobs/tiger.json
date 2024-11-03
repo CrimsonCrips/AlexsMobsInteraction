@@ -1,0 +1,18 @@
+{
+  "name": "Тигр",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:tiger",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tiger/tiger_blessing.png" ],
+      "title": "Скрытность тигра",
+      "text": "Благословение тигра придаст невидимость при движении в обычном темпе"
+    }
+  ]
+}

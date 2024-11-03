@@ -1,0 +1,19 @@
+{
+  "name": "Белка-летяга",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:sugar_glider",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/sugar_glider/sugar_rush.png" ],
+      "title": "Сахарная лихорадка",
+      "text": "Белок-летяг можно ускорить с помощью сахара"
+    }
+
+  ]
+}

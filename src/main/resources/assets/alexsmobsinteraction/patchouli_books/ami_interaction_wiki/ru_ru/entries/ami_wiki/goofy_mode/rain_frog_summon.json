@@ -1,0 +1,13 @@
+{
+  "name": "Призывы узкорота",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:goofy_mode_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/goofy_mode/rain_frog_summon.png" ],
+      "title": "Призывы узкорота",
+      "text": "Узкорот вызывает вихрей, когда поёт"
+    }
+  ]
+}

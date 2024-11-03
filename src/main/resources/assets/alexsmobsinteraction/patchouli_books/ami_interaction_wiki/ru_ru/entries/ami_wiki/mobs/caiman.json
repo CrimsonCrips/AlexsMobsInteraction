@@ -1,0 +1,24 @@
+{
+  "name": "Кайман",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:caiman",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/caiman/caiman_aggro.png" ],
+      "title": "Агрессивность каймана",
+      "text": "Теперь кайманы нападают на игроков"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/caiman/caiman_egg.png" ],
+      "title": "Защита яиц каймана",
+      "text": "Кайманы нападают на игроков, замеченных с их яйцами в руках"
+    }
+  ]
+}

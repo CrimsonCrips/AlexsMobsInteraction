@@ -1,0 +1,12 @@
+{
+  "name": "Список изменений",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:changelog_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Исправлена невозможность ловить рыбу,$(br) Добавлена совместимость с кровавой жидкостью Biomes Of Plenty для эффекта окровавления.",
+      "title": "Changes"
+    }
+  ]
+}

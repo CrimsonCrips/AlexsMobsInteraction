@@ -1,0 +1,13 @@
+{
+  "name": "Багровое размножение",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:goofy_mode_category",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/goofy_mode/crimson_multiply.png" ],
+      "title": "Багровое размножение",
+      "text": "Багровые комары размножаются при защёлкивании"
+    }
+  ]
+}

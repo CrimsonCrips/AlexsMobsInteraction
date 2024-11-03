@@ -1,0 +1,18 @@
+{
+  "name": "Космав",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:cosmaw",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/cosmaw/cosmaw_weakness.png" ],
+      "title": "Ослабевание космава",
+      "text": "Космавы ослабевают, когда они несут тяжёлого игрока, но, будучи ослабленными, они вообще не могут нести своих владельцев"
+    }
+  ]
+}

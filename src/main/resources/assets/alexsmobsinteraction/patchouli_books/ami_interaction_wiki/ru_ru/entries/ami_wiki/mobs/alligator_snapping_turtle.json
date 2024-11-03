@@ -1,0 +1,24 @@
+{
+  "name": "Грифовая черепаха",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:alligator_snapping_turtle",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/alligator_snapping_turtle/mossy_waters.png" ],
+      "title": "Грифовый мох",
+      "text": "Грифовая черепаха редко обрастает мхом во время дождя или в воде"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/alligator_snapping_turtle/day_sleeping.png" ],
+      "title": "Грифовая спячка",
+      "text": "Грифовые черепахи будут активны только ночью или во время дождя, если их не потревожат"
+    }
+  ]
+}

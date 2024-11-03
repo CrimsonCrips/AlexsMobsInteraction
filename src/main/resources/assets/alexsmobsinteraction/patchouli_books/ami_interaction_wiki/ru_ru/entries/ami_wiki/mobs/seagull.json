@@ -1,0 +1,31 @@
+{
+  "name": "Чайка",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:seagull",
+      "scale": 0.9
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/seagull/seagull_weaken.png" ],
+      "title": "Ослабевание чайки",
+      "text": "Чайки, у которых уровень здоровья ниже 40%, не будут красть еду"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/seagull/sombrero_protection.png" ],
+      "title": "Защита в виде сомбреро",
+      "text": "Сомбреро могут помешать чайкам украсть у вас еду"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/seagull/held_food.png" ],
+      "title": "Удерживаемая еда",
+      "text": "Чайки забирают только ту еду, которую держат в руке или во второй руке"
+    }
+
+  ]
+}

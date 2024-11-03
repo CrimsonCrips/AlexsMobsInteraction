@@ -1,0 +1,25 @@
+{
+  "name": "Жар-птица",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:sunbird",
+      "scale": 0.8
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/sun_bird/sun_blessing.png" ],
+      "title": "Озарение жар-птицы",
+      "text": "Озарение жар-птицы приведёт к возгоранию ближайшей нежити"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/sun_bird/sun_curse.png" ],
+      "title": "Проклятие жар-птицы",
+      "text": "Проклятие жар-птицы приведёт к усилению ближайшей нежити"
+    }
+
+  ]
+}

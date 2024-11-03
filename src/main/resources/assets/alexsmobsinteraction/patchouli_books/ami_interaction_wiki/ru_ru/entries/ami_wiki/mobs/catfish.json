@@ -1,0 +1,18 @@
+{
+  "name": "Сом",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:catfish",
+      "scale": 1
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/catfish/catfish_cannibalize.png" ],
+      "title": "Каннибализм сома",
+      "text": "Крупные сомы поедают более мелких сомов"
+    }
+  ]
+}

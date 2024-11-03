@@ -1,0 +1,30 @@
+{
+  "name": "Прозиратель",
+  "icon": "minecraft:paper",
+  "category": "alexsmobsinteraction:mobs_category",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:farseer",
+      "scale": 0.7
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/farseer/farseer_humanlike.png" ],
+      "title": "Человекоподобное притяжение",
+      "text": "Прозиратель нападет на любого, кто похож на человека"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/farseer/farseer_effects.png" ],
+      "title": "Эффекты прозирателя",
+      "text": "Прозиратель приводит игроков в замешательство, когда на них нападает, перемешивая их инвентарь и наводя на них иллюзии"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/enchanting/stabilizer.png" ],
+      "title": "Стабилизатор",
+      "text": "Эти эффекты можно предотвратить, надев шлем с новым зачарованием 'Стабилизатор'"
+    }
+  ]
+}
