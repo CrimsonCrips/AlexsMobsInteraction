@@ -19,6 +19,12 @@
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/snow_leopard/snow_luck.png" ],
       "title": "Snow Luck",
       "text": "Snow Leopard can cause certain animals to drop certain items related to the prey"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/snow_leopard/fear_snow.png" ],
+      "title": "Fear Snow",
+      "text": "Snow Leopards cause creepers to flee"
     }
 
   ]

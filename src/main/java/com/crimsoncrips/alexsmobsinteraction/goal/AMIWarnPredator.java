@@ -22,7 +22,7 @@ public class AMIWarnPredator extends Goal {
     EntityRattlesnake rattlesnake;
 
     private static final Predicate<LivingEntity> WARNABLE_PREDICATE = (mob) -> {
-        return mob instanceof Player && !((Player) mob).isCreative() && !mob.isSpectator() || mob instanceof EntityRoadrunner || (mob instanceof EntityRattlesnake && AMInteractionConfig.RATTLESNAKE_TERRITORIAL_ENABLED);
+        return mob instanceof Player && !((Player) mob).isCreative() && !mob.isSpectator() || mob instanceof EntityRoadrunner || mob instanceof EntityRattlesnake;
     };
 
     public AMIWarnPredator(EntityRattlesnake rattlesnake) {
@@ -30,8 +30,6 @@ public class AMIWarnPredator extends Goal {
     }
 
     public boolean canUse() {
-        if (rattlesnake.getRandom().nextInt(this.executionChance) == 0) {
-            double dist = 5.0;
             List<LivingEntity> list = rattlesnake.level().getEntitiesOfClass(LivingEntity.class, rattlesnake.getBoundingBox().inflate(5.0, 5.0, 5.0), WARNABLE_PREDICATE);
             double d0 = Double.MAX_VALUE;
             Entity possibleTarget = null;
@@ -50,9 +48,7 @@ public class AMIWarnPredator extends Goal {
 
             this.target = (LivingEntity) possibleTarget;
             return !list.isEmpty();
-        } else {
-            return false;
-        }
+
     }
 
     public boolean canContinueToUse() {

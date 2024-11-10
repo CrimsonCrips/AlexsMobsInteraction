@@ -16,12 +16,6 @@
     },
     {
       "type": "patchouli:image",
-      "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_trample.png" ],
-      "title": "Tusklin Trample",
-      "text": "Tusklins can trample when ridden"
-    },
-    {
-      "type": "patchouli:image",
       "images": [ "alexsmobsinteraction:textures/gui/book/custom_pages/mobs/tusklin/tusklin_flee.png" ],
       "title": "Tusklin Flee",
       "text": "Tusklins like their brethren flee from warped fungus"

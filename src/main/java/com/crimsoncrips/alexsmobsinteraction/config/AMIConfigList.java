@@ -124,8 +124,6 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue TUSKLIN_TRAMPLE_ENABLED;
-
 
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
 
@@ -149,8 +147,6 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue GOOFY_RAINFROG_SPAWNAGE_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue SILVERBACK_SMELL_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
 
@@ -286,9 +282,6 @@ public class AMIConfigList {
         builder.push("Gelada Monkey");
         this.GELADA_HUNT_ENABLED = buildBoolean(builder, "GELADA_HUNT_ENABLED", " ", true, "Gelada Monkey hunts insects");
         builder.pop();
-        builder.push("Gorilla");
-        this.SILVERBACK_SMELL_ENABLED = buildBoolean(builder, "SILVERBACK_SMELL_ENABLED", " ", true, "Silverbacks will nauseate any targets that are face to face with a silverback");
-        builder.pop();
         builder.push("Grizzly Bear");
         this.GRIZZLY_FRIENDLY_ENABLED = buildBoolean(builder, "GRIZZLY_FRIENDLY_ENABLED", " ", true, "Grizzlies will not attack players when tamed");
         this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
@@ -399,7 +392,6 @@ public class AMIConfigList {
         builder.push("Tusklin");
         this.TUSKLIN_FLEE_ENABLED = buildBoolean(builder, "TUSKLIN_FLEE_ENABLED", " ", true, "Tusklins like their brethren flee from warped fungus");
         this.TUSKLIN_TRUST_ENABLED = buildBoolean(builder, "TUSKLIN_TRUST_ENABLED", " ", true, "Tusklins can have a lasting trust with mushroom stew,attacking it will remove that lasting trust however");
-        this.TUSKLIN_TRAMPLE_ENABLED = buildBoolean(builder, "TUSKLIN_TRAMPLE_ENABLED", " ", true, "Tusklins can trample when ridden");
         this.TUSKLIN_STRUCK_ENABLED = buildBoolean(builder, "TUSKLIN_STRUCK_ENABLED", " ", true, "Tusklin struck by lightning will be converted to zoglins");
         builder.pop();
         builder.push("Void Worm");

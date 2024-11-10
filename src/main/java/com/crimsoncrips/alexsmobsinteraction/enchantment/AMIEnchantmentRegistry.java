@@ -3,6 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.enchantment;
 
 import com.github.alexthe666.alexsmobs.entity.util.TendonWhipUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.item.ItemPigshoes;
 import com.github.alexthe666.alexsmobs.item.ItemShieldOfTheDeep;
 import com.github.alexthe666.alexsmobs.item.ItemTendonWhip;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -27,14 +28,10 @@ public class AMIEnchantmentRegistry {
 
     public static final RegistryObject<Enchantment> STABILIZER;
 
-    //placeholder for future implementation//
-    //public static final RegistryObject<Enchantment> MIMICLESS;//
 
     public static final RegistryObject<Enchantment> LIGHTWEIGHT;
 
     public static final RegistryObject<Enchantment> FINAL_STAND;
-
-    public static final RegistryObject<Enchantment> TRAMPLE;
 
     public static final RegistryObject<Enchantment> ROLLING_THUNDER;
 
@@ -43,7 +40,6 @@ public class AMIEnchantmentRegistry {
     public AMIEnchantmentRegistry() {
     }
 
-    static ItemStack itemStack;
 
     static {
         DEF_REG = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, "alexsmobsinteraction");
@@ -53,16 +49,13 @@ public class AMIEnchantmentRegistry {
         TENDON_WHIP = EnchantmentCategory.create("tendon_whip", (item) -> {
             return item instanceof ItemTendonWhip;
         });
+
         ROLLER  = EnchantmentCategory.create("rocky_chestplate", item -> item == AMItemRegistry.ROCKY_CHESTPLATE.get());
 
         LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
         ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, ROLLER,EquipmentSlot.CHEST));
-        //MIMICLESS = DEF_REG.register("mimicless", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));//
 
         STABILIZER = DEF_REG.register("stabilizer", () -> new AMIBasicEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
-        TRAMPLE = DEF_REG.register("trample", () -> {
-            return new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[]{EquipmentSlot.FEET});
-        });
         STRETCHY_ACCUMULATION = DEF_REG.register("stretchy_accumulation", () -> {
             return new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, TENDON_WHIP, EquipmentSlot.MAINHAND);
         });

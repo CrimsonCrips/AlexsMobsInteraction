@@ -66,38 +66,26 @@ public abstract class AMITusklin extends Mob {
 
 
     static{
-        CANTRAMPLE = SynchedEntityData.defineId(EntityTusklin.class, EntityDataSerializers.BOOLEAN);
         PERMTRUSTED = SynchedEntityData.defineId(EntityTusklin.class, EntityDataSerializers.BOOLEAN);
     }
 
-    private static final EntityDataAccessor<Boolean> CANTRAMPLE;
     private static final EntityDataAccessor<Boolean> PERMTRUSTED;
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
-        this.entityData.define(CANTRAMPLE, false);
         this.entityData.define(PERMTRUSTED, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditional(CompoundTag compound, CallbackInfo ci){
-        compound.putBoolean("CanTrample", this.isTusklinTrample());
         compound.putBoolean("PermTrusted", this.isPermTrusted());
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditional(CompoundTag compound, CallbackInfo ci){
-        this.setTusklinTrample(compound.getBoolean("CanTrample"));
         this.setPermTrusted(compound.getBoolean("PermTrusted"));
 
     }
 
-    public boolean isTusklinTrample() {
-        return this.entityData.get(CANTRAMPLE);
-    }
-
-    public void setTusklinTrample(boolean tusklinTrample) {
-        this.entityData.set(CANTRAMPLE, tusklinTrample);
-    }
 
     public boolean isPermTrusted() {
         return this.entityData.get(PERMTRUSTED);
@@ -120,9 +108,6 @@ public abstract class AMITusklin extends Mob {
         return prev;
     }
 
-    private boolean isAngryAt(Object p_21675_) {
-        return this.canAttack((LivingEntity) p_21675_);
-    }
     public boolean canAttack(LivingEntity entity) {
         EntityTusklin tusklin = (EntityTusklin)(Object)this;
         boolean prev = super.canAttack(entity);
@@ -149,7 +134,7 @@ public abstract class AMITusklin extends Mob {
 
             }
         }
-        if(AMInteractionConfig.TUSKLIN_TRAMPLE_ENABLED && this.isVehicle() && isTusklinTrample()){
+        if(AMInteractionConfig.TUSKLIN_TRAMPLE_ENABLED && this.isVehicle()){
             Iterator var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.2,-2,0.2)).iterator();
             while (var4.hasNext()) {
                 Entity entity = (Entity) var4.next();
@@ -275,9 +260,6 @@ public abstract class AMITusklin extends Mob {
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
             setPermTrusted(true);
-        }
-        if (AMInteractionConfig.TUSKLIN_TRUST_ENABLED && itemstack.getEnchantmentLevel(AMIEnchantmentRegistry.TRAMPLE.get()) > 0) {
-            setTusklinTrample(true);
         }
     }
 
