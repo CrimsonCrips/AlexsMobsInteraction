@@ -63,6 +63,8 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
     public final ForgeConfigSpec.BooleanValue PREY_FEAR_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FEAR_LEOPARD_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FEAR_TIGER_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
 
@@ -148,6 +150,8 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
 
+    public final ForgeConfigSpec.BooleanValue SILVERBACK_SMELL_ENABLED;
+
     public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
@@ -167,6 +171,10 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue BLOOD_DAMAGE_DIFFERENCE_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue TUSKLIN_STRUCK_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue ORPHANED_ANACONDAS_ENABLED;
+
+    public final ForgeConfigSpec.BooleanValue RATTLESNAKE_TERRITORIAL_ENABLED;
     
 
 
@@ -199,6 +207,8 @@ public class AMIConfigList {
         builder.pop();
         builder.push("Anaconda");
         this.ANACONDA_CANNIBALIZE_ENABLED = buildBoolean(builder, "ANACONDA_CANNIBALIZE_ENABLED", " ", true, "Large Anacondas will rarely cannibalize on anacondas when 10% health or babies");
+        this.ORPHANED_ANACONDAS_ENABLED = buildBoolean(builder, "ORPHANED_ANACONDAS_ENABLED", " ", true, "Large Anacondas abandon their babies");
+
         builder.pop();
         builder.push("Bald Eagle");
         this.EAGLE_CANNIBALIZE_ENABLED = buildBoolean(builder, "EAGLE_CANNIBALIZE_ENABLED", " ", true, "Bald Eagle will rarely cannibalize weaker eagles");
@@ -276,6 +286,9 @@ public class AMIConfigList {
         builder.push("Gelada Monkey");
         this.GELADA_HUNT_ENABLED = buildBoolean(builder, "GELADA_HUNT_ENABLED", " ", true, "Gelada Monkey hunts insects");
         builder.pop();
+        builder.push("Gorilla");
+        this.SILVERBACK_SMELL_ENABLED = buildBoolean(builder, "SILVERBACK_SMELL_ENABLED", " ", true, "Silverbacks will nauseate any targets that are face to face with a silverback");
+        builder.pop();
         builder.push("Grizzly Bear");
         this.GRIZZLY_FRIENDLY_ENABLED = buildBoolean(builder, "GRIZZLY_FRIENDLY_ENABLED", " ", true, "Grizzlies will not attack players when tamed");
         this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
@@ -327,6 +340,8 @@ public class AMIConfigList {
         builder.pop();
         builder.push("Rattlesnake");
         this.RATTLESNAKE_CANNIBALIZE_ENABLED = buildBoolean(builder, "RATTLESNAKE_CANNIBALIZE_ENABLED", " ", true, "Rattlesnake will cannibalize on weaker snakes");
+        this.RATTLESNAKE_TERRITORIAL_ENABLED = buildBoolean(builder, "RATTLESNAKE_TERRITORIAL_ENABLED", " ", true, "Rattlesnakes are territorial against other snakes");
+
         builder.pop();
         builder.push("Rhino");
         this.ACCIDENTAL_BETRAYAL_ENABLED = buildBoolean(builder, "ACCIDENTAL_BETRAYAL_ENABLED", " ", true, "Adult rhinos will rarely accidentally attack baby rhinos");
@@ -352,6 +367,8 @@ public class AMIConfigList {
         builder.push("Snow Leopard");
         this.SNOW_LUCK_ENABLED = buildBoolean(builder, "SNOW_LUCK_ENABLED", " ", true, "Snow Leopard can cause certain animals to drop certain items related to the prey");
         this.LEOPARD_DESIRES_ENABLED = buildBoolean(builder, "LEOPARD_DESIRES_ENABLED", " ", true, "Snow Leopard will hunt weaker moose, but will also mistakenly hunt players with moose headgear");
+        this.FEAR_LEOPARD_ENABLED = buildBoolean(builder, "FEAR_LEOPARD_ENABLED", " ", true, "Creepers will fear Snow Leopards, similar to how they fear cats");
+
         builder.pop();
         builder.push("Soul Vulture");
         this.VULTURE_STEAL_ENABLED = buildBoolean(builder, "VULTURE_STEAL_ENABLED", " ", true, "Soul Vultures no matter what, when attacking a mob will cause its level to go up");
@@ -376,7 +393,9 @@ public class AMIConfigList {
         builder.pop();
         builder.push("Tiger");
         this.TIGER_STEALTH_ENABLED = buildBoolean(builder, "TIGER_STEALTH_ENABLED", " ", true, "Tigers Blessing will give invisibility when moving in a normal pace");
-         builder.pop();
+        this.FEAR_TIGER_ENABLED = buildBoolean(builder, "FEAR_TIGER_ENABLED", " ", true, "Creepers will fear Tigers, similar to how they fear cats");
+
+        builder.pop();
         builder.push("Tusklin");
         this.TUSKLIN_FLEE_ENABLED = buildBoolean(builder, "TUSKLIN_FLEE_ENABLED", " ", true, "Tusklins like their brethren flee from warped fungus");
         this.TUSKLIN_TRUST_ENABLED = buildBoolean(builder, "TUSKLIN_TRUST_ENABLED", " ", true, "Tusklins can have a lasting trust with mushroom stew,attacking it will remove that lasting trust however");

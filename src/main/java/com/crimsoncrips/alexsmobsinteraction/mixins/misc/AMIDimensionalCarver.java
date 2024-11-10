@@ -46,34 +46,41 @@ public abstract class AMIDimensionalCarver extends Item {
     }
 
     @Inject(method = "onPortalOpen", at = @At("HEAD"),cancellable = true,remap = false)
-    private void AlexInteraction$tick(Level worldIn, LivingEntity player, EntityVoidPortal portal, Direction dir, CallbackInfo ci) {
+    private void onPortalOpen(Level worldIn, LivingEntity player, EntityVoidPortal portal, Direction dir, CallbackInfo ci) {
         ci.cancel();
+        GlobalPos globalLodestone;
+
         portal.setLifespan(1200);
-        ResourceKey<Level> portalDimension = Level.OVERWORLD;
-        BlockPos respawnPosition = player.getSleepingPos().isPresent() ? (BlockPos) player.getSleepingPos().get() : player.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, BlockPos.ZERO);
-        GlobalPos globalLodestone = null;
+        ResourceKey<Level> respawnDimension = Level.OVERWORLD;
+        BlockPos respawnPosition = player.getSleepingPos().isPresent() ? player.getSleepingPos().get() : player.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, BlockPos.ZERO);
         if (player instanceof ServerPlayer serverPlayer) {
             ItemStack offhandItem = serverPlayer.getOffhandItem();
-            if (AMInteractionConfig.DIMENSIONAL_LODESTONE_ENABLED) {
-                if (offhandItem.getItem() == Items.COMPASS) {
-                    CompoundTag tag = offhandItem.getTag();
-                    if (tag != null) {
-                        globalLodestone = CompassItem.getLodestonePosition(tag);
+
+            if (AMInteractionConfig.DIMENSIONAL_LODESTONE_ENABLED && offhandItem.getItem() == Items.COMPASS){
+                CompoundTag tag = offhandItem.getTag();
+                if (tag != null){
+                    globalLodestone = CompassItem.getLodestonePosition(tag);
+                    if (globalLodestone == null)
+                        return;
+                    BlockPos lodestonePos = globalLodestone.pos();
+                    portal.exitDimension = globalLodestone.dimension();
+                    portal.setDestination(lodestonePos.above(2));
+                } else {
+                    respawnDimension = serverPlayer.getRespawnDimension();
+                    if (serverPlayer.getRespawnPosition() != null) {
+                        respawnPosition = serverPlayer.getRespawnPosition();
                     }
                 }
-            } else if (serverPlayer.getRespawnPosition() != null) {
-                portalDimension = serverPlayer.getRespawnDimension();
-                respawnPosition = serverPlayer.getRespawnPosition();
+            } else {
+                respawnDimension = serverPlayer.getRespawnDimension();
+                if (serverPlayer.getRespawnPosition() != null) {
+                    respawnPosition = serverPlayer.getRespawnPosition();
+                }
             }
         }
-        if (AMInteractionConfig.DIMENSIONAL_LODESTONE_ENABLED && globalLodestone != null) {
-            BlockPos lodestonePos = globalLodestone.pos();
-            portal.exitDimension = globalLodestone.dimension();
-            portal.setDestination(lodestonePos.above(2));
-        } else {
-            portal.exitDimension = portalDimension;
-            portal.setDestination(respawnPosition.above(2));
-        }
+
+        portal.exitDimension = respawnDimension;
+        portal.setDestination(respawnPosition.above(2));
 
 
     }

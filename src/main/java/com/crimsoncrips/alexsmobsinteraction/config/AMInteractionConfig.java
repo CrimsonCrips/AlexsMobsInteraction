@@ -5,6 +5,7 @@ import static com.mojang.text2speech.Narrator.LOGGER;
 public class AMInteractionConfig {
 
     public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
+    public static boolean ORPHANED_ANACONDAS_ENABLED;
     public static boolean ANACONDA_CANNIBALIZE_ENABLED;
     public static boolean MAGGOT_FISHING_ENABLED;
     public static boolean CRIMSON_WIKI_ENABLED;
@@ -12,7 +13,11 @@ public class AMInteractionConfig {
     public static boolean HELD_FOOD_ENABLED;
     public static boolean DEVILS_TRADE_ENABLED;
     public static boolean BLEEDING_HUNGER_ENABLED;
+    public static boolean SILVERBACK_SMELL_ENABLED;
+    public static boolean RATTLESNAKE_TERRITORIAL_ENABLED;
     public static boolean BLOODED_ENABLED;
+    public static boolean FEAR_LEOPARD_ENABLED;
+    public static boolean FEAR_TIGER_ENABLED;
     public static boolean BLOOD_DAMAGE_DIFFERENCE_ENABLED;
     public static boolean BLOODED_EFFECT_ENABLED;
     public static boolean BLOOD_PROTECTION_ENABLED;
@@ -118,6 +123,7 @@ public class AMInteractionConfig {
             DEVILS_TRADE_ENABLED = AMIConfigHolder.INTERACT.DEVILS_TRADE_ENABLED.get();
             POISONOUS_BATH_ENABLED = AMIConfigHolder.INTERACT.POISONOUS_BATH_ENABLED.get();
             TENDON_GRAB_ENABLED = AMIConfigHolder.INTERACT.TENDON_GRAB_ENABLED.get();
+            RATTLESNAKE_TERRITORIAL_ENABLED = AMIConfigHolder.INTERACT.RATTLESNAKE_TERRITORIAL_ENABLED.get();
             FRIENDLY_KOMODO_ENABLED = AMIConfigHolder.INTERACT.FRIENDLY_KOMODO_ENABLED.get();
             BRUSHED_ENABLED = AMIConfigHolder.INTERACT.BRUSHED_ENABLED.get();
             ROLLING_THUNDER_ENABLED = AMIConfigHolder.INTERACT.ROLLING_THUNDER_ENABLED.get();
@@ -204,6 +210,7 @@ public class AMInteractionConfig {
             CAVESPIDER_EAT_ENABLED = AMIConfigHolder.INTERACT.CAVESPIDER_EAT_ENABLED.get();
             EMU_EGG_ATTACK_ENABLED = AMIConfigHolder.INTERACT.EMU_EGG_ATTACK_ENABLED.get();
             CAIMAN_EGG_ATTACK_ENABLED = AMIConfigHolder.INTERACT.CAIMAN_EGG_ATTACK_ENABLED.get();
+            SILVERBACK_SMELL_ENABLED = AMIConfigHolder.INTERACT.SILVERBACK_SMELL_ENABLED.get();
             MUDSKIPPER_HUNT_ENABLED = AMIConfigHolder.INTERACT.MUDSKIPPER_HUNT_ENABLED.get();
             HUMMING_FOLLOW_ENABLED = AMIConfigHolder.INTERACT.HUMMING_FOLLOW_ENABLED.get();
             COMBUSTABLE_ENABLED = AMIConfigHolder.INTERACT.COMBUSTABLE_ENABLED.get();
@@ -211,6 +218,8 @@ public class AMInteractionConfig {
             CROW_WARRIORS_ENABLED = AMIConfigHolder.INTERACT.CROW_WARRIORS_ENABLED.get();
             FARSEER_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FARSEER_EFFECTS_ENABLED.get();
             WITCH_ADDITIONS_ENABLED = AMIConfigHolder.INTERACT.WITCH_ADDITIONS_ENABLED.get();
+            FEAR_LEOPARD_ENABLED = AMIConfigHolder.INTERACT.FEAR_LEOPARD_ENABLED.get();
+            FEAR_TIGER_ENABLED = AMIConfigHolder.INTERACT.FEAR_TIGER_ENABLED.get();
             COCKROACH_CHAMBER_ENABLED = AMIConfigHolder.INTERACT.COCKROACH_CHAMBER_ENABLED.get();
             GUSTING_ENABLED = AMIConfigHolder.INTERACT.GUSTING_ENABLED.get();
             BLEEDING_HUNGER_ENABLED = AMIConfigHolder.INTERACT.BLEEDING_HUNGER_ENABLED.get();
@@ -219,12 +228,13 @@ public class AMInteractionConfig {
             SKREECH_YOUR_LAST_ENABLED = AMIConfigHolder.INTERACT.SKREECH_YOUR_LAST_ENABLED.get();
             CRIMSON_WIKI_ENABLED = AMIConfigHolder.INTERACT.CRIMSON_WIKI_ENABLED.get();
             TUSKLIN_STRUCK_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_STRUCK_ENABLED.get();
+            ORPHANED_ANACONDAS_ENABLED = AMIConfigHolder.INTERACT.ORPHANED_ANACONDAS_ENABLED.get();
 
 
 
 
         } catch (Exception e) {
-            LOGGER.warn("An exception was caused trying to load the config for Alex's Interaction.");
+            LOGGER.warn("An exception was caused trying to load the config for Alexs Mob's Interaction.");
             e.printStackTrace();
         }
     }
