@@ -33,23 +33,23 @@ public class AMIWarnPredator extends Goal {
         if (rattlesnake.getRandom().nextInt(this.executionChance) == 0) {
             List<LivingEntity> list = rattlesnake.level().getEntitiesOfClass(LivingEntity.class, rattlesnake.getBoundingBox().inflate(5.0, 5.0, 5.0), WARNABLE_PREDICATE);
             double d0 = Double.MAX_VALUE;
-            Entity possibleTarget = null;
-            Iterator<LivingEntity> var7 = list.iterator();
+            LivingEntity possibleTarget = null;
+            Iterator var7 = list.iterator();
 
-            while (var7.hasNext()) {
-
-                Entity entity = var7.next();
+            while(var7.hasNext()) {
+                LivingEntity entity = (LivingEntity) var7.next();
                 double d1 = rattlesnake.distanceToSqr(entity);
                 if (!(d1 > d0) && entity != rattlesnake) {
                     d0 = d1;
                     possibleTarget = entity;
                 }
-
             }
 
-            this.target = (LivingEntity) possibleTarget;
+            this.target = possibleTarget;
             return !list.isEmpty();
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     public boolean canContinueToUse() {
@@ -64,11 +64,8 @@ public class AMIWarnPredator extends Goal {
     public void tick() {
         rattlesnake.setRattling(true);
         rattlesnake.setCurled(true);
-        ReflectionUtil.setField(rattlesnake, "curlTime", 0);
-        if (target != null){
-            target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
-            rattlesnake.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-        }
+        rattlesnake.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+        target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
     }
 }
 

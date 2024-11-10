@@ -228,11 +228,11 @@ public class AMInteractionEvents {
                     return goal instanceof NearestAttackableTargetGoal;
                 });
                 centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, Player.class, 50, true, false, livingEntity -> {
-                    return !(livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || (livingEntity instanceof Player player && curiosLight(player))) || centipede.getLastAttacker() == livingEntity;
+                    return !livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) && !(livingEntity instanceof Player player && curiosLight(player));
                 }));
 
                 centipede.goalSelector.addGoal(1, new AvoidEntityGoal<>(centipede, LivingEntity.class, 4.0F, 1.5, 2, (livingEntity) -> {
-                    return (livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || (livingEntity instanceof Player player && curiosLight(player))) && centipede.getLastAttacker() == livingEntity;
+                    return centipede.getLastAttacker() != livingEntity && (livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || (livingEntity instanceof Player player && curiosLight(player))) ;
                 }));
                 centipede.goalSelector.addGoal(1, new AvoidBlockGoal(centipede, 4,1,1.2,(pos) -> {
                     BlockState state = centipede.level().getBlockState(pos);
@@ -343,14 +343,18 @@ public class AMInteractionEvents {
                 });
 
                 enderiophage.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(enderiophage, LivingEntity.class, 15, true, true, (livingEntity) -> {
-                    if(AMInteractionConfig.INFECT_WEAK_ENABLED){
-                        if (AMInteractionConfig.INFECT_IMMUNITY_ENABLED) {
-                            return !livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && !(livingEntity instanceof EntityEnderiophage) && (livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()) || livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth() || livingEntity instanceof EntityEndergrade);
-                        } else return !(livingEntity instanceof EntityEnderiophage) && (livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get())  || livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth() || livingEntity instanceof EntityEndergrade);
+                    if (AMInteractionConfig.INFECT_WEAK_ENABLED){
+                        if (AMInteractionConfig.INFECT_IMMUNITY_ENABLED){
+                            return !(livingEntity instanceof EntityEnderiophage) && (livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) || livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth()) && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
+                        } else {
+                            return !(livingEntity instanceof EntityEnderiophage) && livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth() && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
+                        }
                     } else {
-                        if (AMInteractionConfig.INFECT_IMMUNITY_ENABLED) {
-                            return !livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && !(livingEntity instanceof EntityEnderiophage) && (livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()) || livingEntity instanceof EntityEndergrade);
-                        } else return !(livingEntity instanceof EntityEnderiophage) && (livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()) || livingEntity instanceof EntityEndergrade);
+                        if (AMInteractionConfig.INFECT_IMMUNITY_ENABLED){
+                            return !(livingEntity instanceof EntityEnderiophage) && livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
+                        } else {
+                            return !(livingEntity instanceof EntityEnderiophage)  && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
+                        }
                     }
                 }) {
                     public boolean canUse() {
@@ -410,20 +414,31 @@ public class AMInteractionEvents {
         }
 
         if (entity instanceof EntityKomodoDragon komodoDragon){
+            komodoDragon.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(komodoDragon, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.KOMODO_DRAGON_TARGETS)));
+
             if (!AMInteractionConfig.FRIENDLY_KOMODO_ENABLED)
-                return;
-            if (komodoDragon.isTame())
                 return;
 
             komodoDragon.targetSelector.removeAllGoals(goal -> {
-                return goal instanceof NearestAttackableTargetGoal || goal instanceof EntityAINearestTarget3D;
+                return goal instanceof NearestAttackableTargetGoal;
             });
-            komodoDragon.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(komodoDragon, EntityKomodoDragon.class, 50, true, false, (p_213616_0_) -> {
-                return p_213616_0_.isBaby() || p_213616_0_.getHealth() <= 0.7F * p_213616_0_.getMaxHealth();
-            }));
-            komodoDragon.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(komodoDragon, Player.class, 150, true, true, (Predicate)null));
-            komodoDragon.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(komodoDragon, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.KOMODO_DRAGON_TARGETS)));
-
+            komodoDragon.targetSelector.removeAllGoals(goal -> {
+                return goal instanceof EntityAINearestTarget3D;
+            });
+            komodoDragon.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(komodoDragon, EntityKomodoDragon.class, 50, true, false, (livingEntity) -> {
+                return livingEntity.isBaby() || livingEntity.getHealth() <= 0.7F * livingEntity.getMaxHealth();
+            }){
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !komodoDragon.isTame();
+                }
+            });
+            komodoDragon.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(komodoDragon, Player.class, 150, true, true, (Predicate)null){
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !komodoDragon.isTame();
+                }
+            });
 
 
         }
@@ -470,7 +485,7 @@ public class AMInteractionEvents {
             });
             if (AMInteractionConfig.RATTLESNAKE_CANNIBALIZE_ENABLED) {
                 rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, EntityRattlesnake.class, 1500, true, true, (livingEntity) -> {
-                    return (livingEntity.getHealth() <= 0.60F * livingEntity.getMaxHealth() || livingEntity.isBaby());
+                    return livingEntity.getHealth() <= 0.60F * livingEntity.getMaxHealth() || livingEntity.isBaby();
                 }));
             }
 
@@ -589,7 +604,10 @@ public class AMInteractionEvents {
             });
             if (AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED) {
                 grizzlyBear.targetSelector.removeAllGoals(goal -> {
-                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear$AttackPlayerGoal") || goal instanceof NearestAttackableTargetGoal<?>;
+                    return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear$AttackPlayerGoal");
+                });
+                grizzlyBear.targetSelector.removeAllGoals(goal -> {
+                    return goal instanceof NearestAttackableTargetGoal<?>;
                 });
                 grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)) {
                     public boolean canUse() {
@@ -607,8 +625,21 @@ public class AMInteractionEvents {
         if (entity instanceof EntityAlligatorSnappingTurtle snappingturtle){
             if (AMInteractionConfig.SNAPPING_DORMANCY_ENABLED){
                 snappingturtle.goalSelector.removeAllGoals(goal -> {
-                    return goal instanceof AnimalAIFindWater || goal instanceof AnimalAILeaveWater || goal instanceof BottomFeederAIWander || goal instanceof RandomLookAroundGoal || goal instanceof LookAtPlayerGoal;
+                    return goal instanceof AnimalAIFindWater ;
                 });
+                snappingturtle.goalSelector.removeAllGoals(goal -> {
+                    return goal instanceof AnimalAILeaveWater;
+                });
+                snappingturtle.goalSelector.removeAllGoals(goal -> {
+                    return goal instanceof BottomFeederAIWander;
+                });
+                snappingturtle.goalSelector.removeAllGoals(goal -> {
+                    return goal instanceof RandomLookAroundGoal;
+                });
+                snappingturtle.goalSelector.removeAllGoals(goal -> {
+                    return goal instanceof LookAtPlayerGoal;
+                });
+
                 snappingturtle.goalSelector.addGoal(2, new AnimalAIFindWater(snappingturtle){
                     @Override
                     public boolean canContinueToUse() {
@@ -619,31 +650,29 @@ public class AMInteractionEvents {
                 snappingturtle.goalSelector.addGoal(2, new AnimalAILeaveWater(snappingturtle){
                     @Override
                     public boolean canContinueToUse() {
-                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                        Level level = snappingturtle.level();
+                        return super.canContinueToUse() && (level.isNight() || level.isRaining() || level.isThundering());
                     }
                 });
                 snappingturtle.goalSelector.addGoal(3, new BottomFeederAIWander(snappingturtle, 1.0, 120, 150, 10){
                     @Override
                     public boolean canContinueToUse() {
-                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
-                    }
-                });
-                snappingturtle.goalSelector.addGoal(3, new BreedGoal(snappingturtle, 1.0){
-                    @Override
-                    public boolean canContinueToUse() {
-                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                        Level level = snappingturtle.level();
+                        return super.canContinueToUse() && (level.isNight() || level.isRaining() || level.isThundering());
                     }
                 });
                 snappingturtle.goalSelector.addGoal(5, new RandomLookAroundGoal(snappingturtle){
                     @Override
                     public boolean canContinueToUse() {
-                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                        Level level = snappingturtle.level();
+                        return super.canContinueToUse() && (level.isNight() || level.isRaining() || level.isThundering());
                     }
                 });
                 snappingturtle.goalSelector.addGoal(6, new LookAtPlayerGoal(snappingturtle, Player.class, 6.0F){
                     @Override
                     public boolean canContinueToUse() {
-                        return super.canContinueToUse() && (snappingturtle.level().isNight() || snappingturtle.level().isRaining());
+                        Level level = snappingturtle.level();
+                        return super.canContinueToUse() && (level.isNight() || level.isRaining() || level.isThundering());
                     }
                 });
                 snappingturtle.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(snappingturtle, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SNAPPING_TURTLE_KILL)){
@@ -829,9 +858,9 @@ public class AMInteractionEvents {
                 return;
             if (centipede.getLastHurtByMob() == target)
                 return;
-            if (!(target.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || target instanceof Player player && curiosLight(player)))
-                return;
-            centipede.setTarget(null);
+            if (target.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || target instanceof Player player && curiosLight(player)) {
+                centipede.setTarget(null);
+            }
         }
 
         if(livingEntity instanceof Player player){
@@ -951,12 +980,12 @@ public class AMInteractionEvents {
             if (living instanceof EntitySugarGlider sugarGlider) {
                 if (!AMInteractionConfig.SUGAR_RUSH_ENABLED)
                     return;
-                if (!(itemStack.getItem() == Items.SUGAR || itemStack.getItem() == Items.SUGAR_CANE))
-                    return;
-                if (!player.isCreative()) itemStack.shrink(1);
-                sugarGlider.gameEvent(GameEvent.EAT);
-                sugarGlider.playSound(SoundEvents.FOX_EAT, 1, sugarGlider.getVoicePitch());
-                sugarGlider.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 900, 1));
+                if (itemStack.getItem() == Items.SUGAR || itemStack.getItem() == Items.SUGAR_CANE) {
+                    if (!player.isCreative()) itemStack.shrink(1);
+                    sugarGlider.gameEvent(GameEvent.EAT);
+                    sugarGlider.playSound(SoundEvents.FOX_EAT, 1, sugarGlider.getVoicePitch());
+                    sugarGlider.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 900, 1));
+                }
             }
 
             if (living instanceof EntityGrizzlyBear grizzlyBear) {
