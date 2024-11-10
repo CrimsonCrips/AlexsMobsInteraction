@@ -476,28 +476,11 @@ public class AMInteractionEvents {
 
             if (AMInteractionConfig.RATTLESNAKE_TERRITORIAL_ENABLED) {
 
-
-                if (rattlesnake.getRandom().nextDouble() < 0.3) {
-                    rattlesnake.goalSelector.removeAllGoals(goal -> {
+                rattlesnake.goalSelector.removeAllGoals(goal -> {
                         return goal.getClass().getName().equals("com.github.alexthe666.alexsmobs.entity.EntityRattlesnake$WarnPredatorsGoal");
-                    });
-                    rattlesnake.goalSelector.addGoal(2, new AMIWarnPredator(rattlesnake));
+                });
+                rattlesnake.goalSelector.addGoal(2, new AMIWarnPredator(rattlesnake));
 
-                } else if (rattlesnake.getRandom().nextDouble() < 0.2) {
-                    rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, EntityRattlesnake.class, 300, true, false, livingEntity -> {
-                        return livingEntity instanceof EntityRattlesnake rattlesnake1 && rattlesnake1.isRattling();
-                    }) {
-                        @Override
-                        public boolean canContinueToUse() {
-                            return super.canContinueToUse() && !rattlesnake.isBaby();
-                        }
-                    });
-                } else {
-                    rattlesnake.goalSelector.addGoal(3, new AvoidEntityGoal<>(rattlesnake, EntityRattlesnake.class, 8.0F, 1.2, 1.5, livingEntity -> {
-                        return livingEntity instanceof EntityRattlesnake rattlesnake1 && rattlesnake1.isRattling();
-                    }));
-
-                }
             }
         }
 
