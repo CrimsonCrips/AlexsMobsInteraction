@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Added compatibility with Curious Lanterns for Light Fear,$(br) New feature where baby anacondas get abandoned by large anacondas,$(br) New feature where rattlesnakes are territorial towards other rattlesnakes",
+      "text": "Added compatibility with Curious Lanterns for Light Fear,$(br) New feature where baby anacondas get abandoned by large anacondas,$(br) New feature where rattlesnakes are territorial towards other rattlesnakes,$(br) Fixed Dimension Carver where it will only spawn a portal at world spawn unless you have a lodestone compass at offhand,$(br) Removed Tusklin Trample, $(br) Added villager in the cave_centipede kill list, $(br) Couple of fixes ",
       "title": "Changes"
     }
   ]

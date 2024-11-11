@@ -64,8 +64,9 @@ public class AMIWarnPredator extends Goal {
     public void tick() {
         rattlesnake.setRattling(true);
         rattlesnake.setCurled(true);
-        rattlesnake.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-        target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
+        if (target != null) {
+            rattlesnake.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+        }
     }
 }
 
