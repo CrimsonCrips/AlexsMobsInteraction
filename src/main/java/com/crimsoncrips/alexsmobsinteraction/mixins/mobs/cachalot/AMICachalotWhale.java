@@ -1,14 +1,22 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cachalot;
 
+import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
+import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
+import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCachalotWhale;
+import com.github.alexthe666.alexsmobs.entity.EntityCaiman;
+import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,15 +25,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(EntityCachalotWhale.class)
-public abstract class AMICachalotWhale extends Mob {
+public abstract class AMICachalotWhale extends Animal {
 
 
 
-    protected AMICachalotWhale(EntityType<? extends Mob> p_21368_, Level p_21369_) {
-        super(p_21368_, p_21369_);
-    }
 
     boolean stun = false;
+
+    protected AMICachalotWhale(EntityType<? extends Animal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
 
     protected boolean isImmobile() {
         return stun;
@@ -49,6 +58,13 @@ public abstract class AMICachalotWhale extends Mob {
             }
 
         }
+    }
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityCachalotWhale cachalotWhale = (EntityCachalotWhale)(Object)this;
+
+        cachalotWhale.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(cachalotWhale, LivingEntity.class, 300, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CACHALOT_WHALE_KILL_CHANCE)));
+
     }
 
 }

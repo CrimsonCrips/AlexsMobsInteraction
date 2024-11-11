@@ -63,8 +63,6 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
     public final ForgeConfigSpec.BooleanValue PREY_FEAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FEAR_LEOPARD_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FEAR_TIGER_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
 
@@ -360,7 +358,6 @@ public class AMIConfigList {
         builder.push("Snow Leopard");
         this.SNOW_LUCK_ENABLED = buildBoolean(builder, "SNOW_LUCK_ENABLED", " ", true, "Snow Leopard can cause certain animals to drop certain items related to the prey");
         this.LEOPARD_DESIRES_ENABLED = buildBoolean(builder, "LEOPARD_DESIRES_ENABLED", " ", true, "Snow Leopard will hunt weaker moose, but will also mistakenly hunt players with moose headgear");
-        this.FEAR_LEOPARD_ENABLED = buildBoolean(builder, "FEAR_LEOPARD_ENABLED", " ", true, "Creepers will fear Snow Leopards, similar to how they fear cats");
 
         builder.pop();
         builder.push("Soul Vulture");
@@ -386,7 +383,6 @@ public class AMIConfigList {
         builder.pop();
         builder.push("Tiger");
         this.TIGER_STEALTH_ENABLED = buildBoolean(builder, "TIGER_STEALTH_ENABLED", " ", true, "Tigers Blessing will give invisibility when moving in a normal pace");
-        this.FEAR_TIGER_ENABLED = buildBoolean(builder, "FEAR_TIGER_ENABLED", " ", true, "Creepers will fear Tigers, similar to how they fear cats");
 
         builder.pop();
         builder.push("Tusklin");

@@ -15,8 +15,6 @@ public class AMInteractionConfig {
     public static boolean BLEEDING_HUNGER_ENABLED;
     public static boolean RATTLESNAKE_TERRITORIAL_ENABLED;
     public static boolean BLOODED_ENABLED;
-    public static boolean FEAR_LEOPARD_ENABLED;
-    public static boolean FEAR_TIGER_ENABLED;
     public static boolean BLOOD_DAMAGE_DIFFERENCE_ENABLED;
     public static boolean BLOODED_EFFECT_ENABLED;
     public static boolean BLOOD_PROTECTION_ENABLED;
@@ -215,8 +213,6 @@ public class AMInteractionConfig {
             CROW_WARRIORS_ENABLED = AMIConfigHolder.INTERACT.CROW_WARRIORS_ENABLED.get();
             FARSEER_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FARSEER_EFFECTS_ENABLED.get();
             WITCH_ADDITIONS_ENABLED = AMIConfigHolder.INTERACT.WITCH_ADDITIONS_ENABLED.get();
-            FEAR_LEOPARD_ENABLED = AMIConfigHolder.INTERACT.FEAR_LEOPARD_ENABLED.get();
-            FEAR_TIGER_ENABLED = AMIConfigHolder.INTERACT.FEAR_TIGER_ENABLED.get();
             COCKROACH_CHAMBER_ENABLED = AMIConfigHolder.INTERACT.COCKROACH_CHAMBER_ENABLED.get();
             GUSTING_ENABLED = AMIConfigHolder.INTERACT.GUSTING_ENABLED.get();
             BLEEDING_HUNGER_ENABLED = AMIConfigHolder.INTERACT.BLEEDING_HUNGER_ENABLED.get();

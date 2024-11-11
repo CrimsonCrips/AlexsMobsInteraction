@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.rainfrog;
 
+import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -65,6 +67,14 @@ public class AMIRainfrog extends Mob implements AMITransform {
                 }
 
             }
+        }
+    }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityRainFrog rainFrog = (EntityRainFrog)(Object)this;
+        if (AMInteractionConfig.PREY_FEAR_ENABLED) {
+            rainFrog.goalSelector.addGoal(3, new AvoidEntityGoal<>(rainFrog, LivingEntity.class, 7.0F, 1.7D, 1.4,AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.JERBOAFEAR)));
         }
     }
 

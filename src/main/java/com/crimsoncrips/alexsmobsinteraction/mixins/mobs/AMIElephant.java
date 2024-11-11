@@ -1,12 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityBison;
-import com.github.alexthe666.alexsmobs.entity.EntityElephant;
-import com.github.alexthe666.alexsmobs.entity.EntityTossedItem;
+import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.item.ItemMysteriousWorm;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +23,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
@@ -74,5 +76,21 @@ public abstract class AMIElephant extends Mob {
             }
 
         }
+    }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityElephant elephant = (EntityElephant)(Object)this;
+        if (AMInteractionConfig.ELEPHANT_TERRITORIAL_ENABLED){
+            elephant.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(elephant, Player.class, 1000, true, true, (entity1 -> {
+                return entity1.isHolding(Ingredient.of(AMItemRegistry.ACACIA_BLOSSOM.get()));
+            })) {
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && elephant.isTusked() && !elephant.isTame();
+                }
+            });
+        }
+
     }
 }

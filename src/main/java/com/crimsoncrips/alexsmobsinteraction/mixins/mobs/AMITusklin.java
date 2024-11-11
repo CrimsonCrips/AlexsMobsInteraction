@@ -1,11 +1,10 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
-import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
-import com.github.alexthe666.alexsmobs.entity.EntityTusklin;
+import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -260,6 +259,17 @@ public abstract class AMITusklin extends Mob {
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
             setPermTrusted(true);
+        }
+    }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityTusklin tusklin = (EntityTusklin)(Object)this;
+        if(AMInteractionConfig.TUSKLIN_FLEE_ENABLED){
+            tusklin.goalSelector.addGoal(3, new AvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
+                BlockState state = tusklin.level().getBlockState(pos);
+                return state.is(BlockTags.HOGLIN_REPELLENTS);
+            }));
         }
     }
 

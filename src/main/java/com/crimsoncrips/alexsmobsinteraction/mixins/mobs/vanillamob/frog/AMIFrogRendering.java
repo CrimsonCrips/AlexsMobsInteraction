@@ -3,21 +3,16 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.vanillamob;
+package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.vanillamob.frog;
 
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
-import com.github.alexthe666.alexsmobs.client.model.ModelRainFrog;
-import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.FrogModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.FrogRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.frog.Frog;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(FrogRenderer.class)
 public abstract class AMIFrogRendering extends MobRenderer<Frog, FrogModel<Frog>> {

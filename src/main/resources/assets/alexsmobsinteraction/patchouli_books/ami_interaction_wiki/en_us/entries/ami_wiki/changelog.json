@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Added compatibility with Curious Lanterns for Light Fear,$(br) New feature that makes creepers fear Snow Leopards,$(br) New feature that makes creepers fear Tigers,$(br) New feature where baby anacondas get abandoned by large anacondas,$(br) New feature where rattlesnakes can be territorial towards other rattlesnakes",
+      "text": "Added compatibility with Curious Lanterns for Light Fear,$(br) New feature where baby anacondas get abandoned by large anacondas,$(br) New feature where rattlesnakes are territorial towards other rattlesnakes",
       "title": "Changes"
     }
   ]

@@ -4,6 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
+import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
 import com.github.alexthe666.alexsmobs.entity.EntityCrow;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAIFindWater;
 import com.github.alexthe666.alexsmobs.entity.ai.AnimalAILeaveWater;
@@ -34,6 +35,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Predicate;
+
+import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.CROCODILE_BABY_KILL;
 
 
 @Mixin(EntityCrow.class)
@@ -71,6 +74,22 @@ public abstract class AMICrow extends Mob {
 
 
             return prev;
+        }
+    }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityCrow crow = (EntityCrow)(Object)this;
+        crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CROW_KILL)));
+        if (AMInteractionConfig.CROW_CANNIBALIZE_ENABLED){
+            crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, EntityCrow.class, 500, true, true, (livingEntity) -> {
+                return livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth();
+            }){
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !crow.isTame() && !crow.isBaby();
+                }
+            });
         }
     }
 }

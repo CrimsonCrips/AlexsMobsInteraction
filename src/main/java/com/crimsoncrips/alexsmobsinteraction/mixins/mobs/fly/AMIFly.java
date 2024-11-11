@@ -1,9 +1,13 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.fly;
 
+import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
+import com.crimsoncrips.alexsmobsinteraction.goal.AMIFollowNearestGoal;
+import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
+import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -13,6 +17,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,14 +30,19 @@ import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.function.Predicate;
 
 
 @Mixin(EntityFly.class)
@@ -84,6 +94,24 @@ public class AMIFly extends Mob implements AMITransform {
             }
         }
 
+    }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityFly fly = (EntityFly)(Object)this;
+
+        Predicate<LivingEntity> PESTERTARGET = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.PESTER_ENTITY);
+        if(AMInteractionConfig.CANDLE_REPEL_ENABLED){
+            fly.goalSelector.addGoal(3, new AvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
+                BlockState state = fly.level().getBlockState(pos);
+                if (state.is(BlockTags.CANDLES)){
+                    return state.getValue(CandleBlock.LIT);
+                } else return false;
+            }));
+        }
+        if(AMInteractionConfig.FLY_PESTER_ENABLED) {
+            fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, PESTERTARGET));
+        }
     }
 
 

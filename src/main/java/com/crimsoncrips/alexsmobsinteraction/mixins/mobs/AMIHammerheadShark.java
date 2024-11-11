@@ -1,9 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.goal.AMICosmawOwner;
 import com.github.alexthe666.alexsmobs.entity.*;
+import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,6 +17,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(EntityHammerheadShark.class)
@@ -51,6 +57,19 @@ public class AMIHammerheadShark extends Mob {
         }
 
     }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityHammerheadShark hammerheadShark = (EntityHammerheadShark)(Object)this;
+        if (AMInteractionConfig.HAMMERHEAD_MANTIS_EAT_ENABLED){
+            hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, EntityMantisShrimp.class, 50, true, false, (mob) -> {
+                return mob.getHealth() <= 0.2 * mob.getMaxHealth();
+            }));
+        }
+        hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.HAMMERHEAD_KILL)));
+
+    }
+
 
 
 }

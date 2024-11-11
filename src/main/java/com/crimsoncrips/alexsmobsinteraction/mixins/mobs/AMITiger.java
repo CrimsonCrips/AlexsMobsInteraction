@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -87,6 +88,12 @@ public abstract class AMITiger extends Mob {
             }
 
         }
+    }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void registerGoals(CallbackInfo ci) {
+        EntityTiger tiger = (EntityTiger)(Object)this;
+        tiger.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(tiger, Pillager.class, true));
     }
 
 }
