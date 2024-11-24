@@ -6,6 +6,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,6 +36,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
+import java.util.Objects;
 
 
 @Mixin(EntityRainFrog.class)
@@ -138,6 +143,19 @@ public class AMIRainfrog extends Mob implements AMITransform {
                 entityToSpawn = AMEntityRegistry.GUSTER.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
                 if (entityToSpawn != null && !this.level().isClientSide) {
                     this.remove(RemovalReason.DISCARDED);
+                }
+            }
+        }
+    }
+
+    @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
+    private void getItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+            this.heal(5);
+            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            if (!test.isEmpty()){
+                for (int i = 0; i < test.size(); i++){
+                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
                 }
             }
         }

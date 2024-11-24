@@ -52,7 +52,7 @@ public abstract class AMICrimsonSpit extends Entity {
         } else damageAmount = 4.0F;
 
         if (AMInteractionConfig.BLOOD_PROTECTION_ENABLED) {
-            if (livingHitEntity instanceof EntityCrimsonMosquito mosquito && !this.level().isClientSide && mosquito.getRandom().nextDouble() < 0.2 && AMInteractionConfig.BLOODED_ENABLED) {
+            if (livingHitEntity instanceof EntityCrimsonMosquito mosquito && !this.level().isClientSide && mosquito.getRandom().nextDouble() < 0.2 && AMInteractionConfig.BLOODED_CHANCE > 0) {
                 mosquito.setBloodLevel(mosquito.getBloodLevel() + 1);
             }
             if (!(livingHitEntity instanceof EntityCrimsonMosquito || livingHitEntity instanceof EntityWarpedMosco)) {

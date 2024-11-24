@@ -5,16 +5,18 @@ import static com.mojang.text2speech.Narrator.LOGGER;
 public class AMInteractionConfig {
 
     public static boolean ACCIDENTAL_BETRAYAL_ENABLED;
+    public static boolean FOOD_TARGET_EFFECTS_ENABLED;
     public static boolean ORPHANED_ANACONDAS_ENABLED;
     public static boolean ANACONDA_CANNIBALIZE_ENABLED;
     public static boolean MAGGOT_FISHING_ENABLED;
     public static boolean CRIMSON_WIKI_ENABLED;
     public static boolean BANANA_SHEAR_ENABLED;
     public static boolean HELD_FOOD_ENABLED;
+    public static boolean COCKROACH_MUTATION_ENABLED;
     public static boolean DEVILS_TRADE_ENABLED;
     public static boolean BLEEDING_HUNGER_ENABLED;
     public static boolean RATTLESNAKE_TERRITORIAL_ENABLED;
-    public static boolean BLOODED_ENABLED;
+    public static double BLOODED_CHANCE;
     public static boolean BLOOD_DAMAGE_DIFFERENCE_ENABLED;
     public static boolean BLOODED_EFFECT_ENABLED;
     public static boolean BLOOD_PROTECTION_ENABLED;
@@ -116,6 +118,8 @@ public class AMInteractionConfig {
 
     public static void bake() {
         try {
+            COCKROACH_MUTATION_ENABLED = AMIConfigHolder.INTERACT.COCKROACH_MUTATION_ENABLED.get();
+
             MAGGOT_FISHING_ENABLED = AMIConfigHolder.INTERACT.MAGGOT_FISHING_ENABLED.get();
             DEVILS_TRADE_ENABLED = AMIConfigHolder.INTERACT.DEVILS_TRADE_ENABLED.get();
             POISONOUS_BATH_ENABLED = AMIConfigHolder.INTERACT.POISONOUS_BATH_ENABLED.get();
@@ -166,7 +170,7 @@ public class AMInteractionConfig {
             BANANA_SHEAR_ENABLED = AMIConfigHolder.INTERACT.BANANA_SHEAR_ENABLED.get();
             ACCIDENTAL_BETRAYAL_ENABLED = AMIConfigHolder.INTERACT.ACCIDENTAL_BETRAYAL_ENABLED.get();
             BLOOD_DAMAGE_DIFFERENCE_ENABLED = AMIConfigHolder.INTERACT.BLOOD_DAMAGE_DIFFERENCE_ENABLED.get();
-            BLOODED_ENABLED = AMIConfigHolder.INTERACT.BLOODED_ENABLED.get();
+            BLOODED_CHANCE = AMIConfigHolder.INTERACT.BLOODED_CHANCE.get();
             CAIMAN_AGGRO_ENABLED = AMIConfigHolder.INTERACT.CAIMAN_AGGRO_ENABLED.get();
             CAPUCHIN_HUNT_ENABLED = AMIConfigHolder.INTERACT.CAPUCHIN_HUNT_ENABLED.get();
             CATFISH_CANNIBALIZE_ENABLED = AMIConfigHolder.INTERACT.CATFISH_CANNIBALIZE_ENABLED.get();
@@ -222,6 +226,8 @@ public class AMInteractionConfig {
             CRIMSON_WIKI_ENABLED = AMIConfigHolder.INTERACT.CRIMSON_WIKI_ENABLED.get();
             TUSKLIN_STRUCK_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_STRUCK_ENABLED.get();
             ORPHANED_ANACONDAS_ENABLED = AMIConfigHolder.INTERACT.ORPHANED_ANACONDAS_ENABLED.get();
+            FOOD_TARGET_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FOOD_TARGET_EFFECTS_ENABLED.get();
+
 
 
 

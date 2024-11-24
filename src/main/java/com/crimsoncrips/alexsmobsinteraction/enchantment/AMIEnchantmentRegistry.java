@@ -53,13 +53,13 @@ public class AMIEnchantmentRegistry {
         ROLLER  = EnchantmentCategory.create("rocky_chestplate", item -> item == AMItemRegistry.ROCKY_CHESTPLATE.get());
 
         LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
-        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, ROLLER,EquipmentSlot.CHEST));
+        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, ROLLER,EquipmentSlot.CHEST));
 
         STABILIZER = DEF_REG.register("stabilizer", () -> new AMIBasicEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
         STRETCHY_ACCUMULATION = DEF_REG.register("stretchy_accumulation", () -> {
             return new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, TENDON_WHIP, EquipmentSlot.MAINHAND);
         });
-        FINAL_STAND = DEF_REG.register("final_stand", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, SHIELD,EquipmentSlot.OFFHAND));
+        FINAL_STAND = DEF_REG.register("final_stand", () -> new AMIBasicEnchantment(Enchantment.Rarity.RARE, SHIELD,EquipmentSlot.OFFHAND));
 
     }
 }

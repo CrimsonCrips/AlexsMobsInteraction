@@ -44,7 +44,7 @@ public abstract class AMIHummingbird extends Animal {
             });
         }
         if(AMInteractionConfig.HUMMING_FOLLOW_ENABLED) {
-            hummingbird.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(hummingbird, EntityFlutter.class, 10, 1.2, (livingEntity) -> true) {
+            hummingbird.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(hummingbird, EntityFlutter.class, 10, 1.2, null) {
                 public boolean canContinueToUse() {
                     return hummingbird.level().isDay();
                 }

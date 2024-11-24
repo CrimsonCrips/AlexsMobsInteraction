@@ -44,4 +44,6 @@ public abstract class AMIFlyingFishBoots {
             return x * (speed + 0.4);
         } else return x;
     }
+
+    
 }

@@ -44,7 +44,7 @@ public class AMInteractionTagRegistry {
     public static final TagKey<EntityType<?>> SMALLINSECTFEAR = registerEntityTag("smallinsectfear");
     public static final TagKey<EntityType<?>> SNAPPING_TURTLE_KILL = registerEntityTag("snapping_turtle_kill");
     public static final TagKey<EntityType<?>> TASMANIAN_KILL = registerEntityTag("tasmanian_kill");
-    public static final TagKey<Item> CENTIPEDE_LIGHT_FEAR = registerItemTag("light_fear");
+    public static final TagKey<Item> CENTIPEDE_LIGHT_FEAR = registerItemTag("centipede_light_fear");
     public static final TagKey<Item> CROW_WEAPON = registerItemTag("crow_weapon");
     public static final TagKey<Item> EMU_TRIGGER = registerItemTag("emu_trigger");
     public static final TagKey<Item> GRIZZLY_ENTICE = registerItemTag("grizzly_entice");

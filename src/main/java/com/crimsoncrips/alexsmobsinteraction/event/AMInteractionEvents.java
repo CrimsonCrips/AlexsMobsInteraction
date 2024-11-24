@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
+import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.goal.*;
 import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
@@ -17,6 +18,7 @@ import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import com.github.alexthe666.alexsmobs.misc.EmeraldsForItemsTrade;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -29,6 +31,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -81,6 +84,7 @@ import top.theillusivec4.curios.common.inventory.CurioSlot;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.*;
 import static com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED;
@@ -95,7 +99,7 @@ public class AMInteractionEvents {
         final var entity = event.getEntity();
 
         if (entity instanceof EntityCrimsonMosquito crimsonMosquito){
-            if (AMInteractionConfig.BLOODED_ENABLED && crimsonMosquito.getRandom().nextDouble() < 0.2){
+            if (crimsonMosquito.getRandom().nextDouble() < AMInteractionConfig.BLOODED_CHANCE){
                 crimsonMosquito.setBloodLevel(crimsonMosquito.getBloodLevel() + 1);
             }
         }
@@ -226,8 +230,8 @@ public class AMInteractionEvents {
             if(AMInteractionConfig.SUNBIRD_UPGRADE_ENABLED){
 
                 for (LivingEntity entity : player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7, 4, 7))) {
-                    EntityType<?> entityType = entity.getType();
-                    if (entityType.is(AMInteractionTagRegistry.BURNABLE_DEAD) && !entity.isInWater()) {
+                    MobType entityType = entity.getMobType();
+                    if (entityType == MobType.UNDEAD && !entity.isInWater()) {
                         if (player.hasEffect(AMEffectRegistry.SUNBIRD_BLESSING.get())) {
                             entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 0));
                             entity.setSecondsOnFire(3);
@@ -355,7 +359,7 @@ public class AMInteractionEvents {
 
 
         if (AMInteractionConfig.SKREECHER_WARD_ENABLED){
-            if (event.getItemStack().is(AMItemRegistry.SKREECHER_SOUL.get()) && blockState.is(Blocks.SCULK_SHRIEKER) && blockState.getValue(CAN_SUMMON)) {
+            if (event.getItemStack().is(AMItemRegistry.SKREECHER_SOUL.get()) && blockState.is(Blocks.SCULK_SHRIEKER) && !blockState.getValue(CAN_SUMMON)) {
                 for (int x = 0; x < 5; x++) {
                     for (int z = 0; z < 5; z++) {
                         BlockPos sculkPos = new BlockPos(pos.getX() + x - 2, pos.getY() - 1, pos.getZ() + z - 2);

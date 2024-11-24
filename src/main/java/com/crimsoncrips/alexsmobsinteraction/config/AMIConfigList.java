@@ -15,6 +15,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue CRIMSON_WIKI_ENABLED;
     public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue SNAPPING_MOSS_ENABLED;
     public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
@@ -24,7 +25,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue CHARGE_STUN_ENABLED;
     public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLOODED_ENABLED;
+    public final ForgeConfigSpec.DoubleValue BLOODED_CHANCE;
     public final ForgeConfigSpec.BooleanValue CAIMAN_AGGRO_ENABLED;
     public final ForgeConfigSpec.BooleanValue CAPUCHIN_HUNT_ENABLED;
     public final ForgeConfigSpec.BooleanValue CATFISH_CANNIBALIZE_ENABLED;
@@ -169,14 +170,15 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue ORPHANED_ANACONDAS_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue RATTLESNAKE_TERRITORIAL_ENABLED;
-    
+
+    public final ForgeConfigSpec.BooleanValue FOOD_TARGET_EFFECTS_ENABLED;
 
 
 
     public AMIConfigList(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
         this.CRIMSON_WIKI_ENABLED = buildBoolean(builder, "CRIMSON_WIKI_ENABLED", " ", true, "Gives you the crimson wiki book at start");
-
+        this.FOOD_TARGET_EFFECTS_ENABLED = buildBoolean(builder, "FOOD_TARGET_EFFECTS_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
         this.PREY_FEAR_ENABLED = buildBoolean(builder, "PREY_FEAR_ENABLED", " ", true, "Prey like animals flee from predator like animals");
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Stuns charging animals when targeting the player with the new enchantment, 'Final Stand'");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
@@ -226,12 +228,15 @@ public class AMIConfigList {
         builder.push("Cave Centipede");
         this.LIGHT_FEAR_ENABLED = buildBoolean(builder, "LIGHT_FEAR_ENABLED", " ", true, "Cave Centipedes fear light and players that hold light, They will attack if attacked");
         builder.pop();
+        builder.push("Cockroach");
+        this.COCKROACH_MUTATION_ENABLED = buildBoolean(builder, "COCKROACH_MUTATION_ENABLED", " ", true, "Cockroaches will mutate into Gammaroaches from Alex's Caves when in the Toxic Caves (if the mod is present)");
+        builder.pop();
         builder.push("Cosmaw");
         this.COSMAW_WEAKENED_ENABLED = buildBoolean(builder, "COSMAW_WEAKENED_ENABLED", " ", true, "Cosmaws will get weak when they carry a heavy player, while weak, they cannot carry their owners at all");
         builder.pop();
         builder.push("Crimson Mosquito");
         this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened");
-        this.BLOODED_ENABLED = buildBoolean(builder, "BLOODED_ENABLED", " ", true, "Crimson Mosquitoes will gain blood level when hit by blood or a 20% chance to gain blood when spawning");
+        this.BLOODED_CHANCE = buildDouble(builder, "BLOODED_CHANCE", " ", 0.2,0.0,1.0, "Chance of crimson mosquitoes to spawn with blood inside them");
         this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Crimson Mosquitoes is immune to blood spits");
 
         builder.pop();
@@ -416,6 +421,10 @@ public class AMIConfigList {
     }
 
     private static ForgeConfigSpec.IntValue buildInt(ForgeConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment){
+        return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
+    }
+
+    private static ForgeConfigSpec.DoubleValue buildDouble(ForgeConfigSpec.Builder builder, String name, String catagory, double defaultValue, double min, double max, String comment){
         return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
     }
 }

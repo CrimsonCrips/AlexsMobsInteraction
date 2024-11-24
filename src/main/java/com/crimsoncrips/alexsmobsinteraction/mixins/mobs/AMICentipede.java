@@ -32,7 +32,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 
-@Mixin(Ravager.class)
+@Mixin(EntityCentipedeHead.class)
 public abstract class AMICentipede extends Monster {
 
 
@@ -50,6 +50,7 @@ public abstract class AMICentipede extends Monster {
             centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, Player.class, 50, true, false, livingEntity -> {
                 return !livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) && !(livingEntity instanceof Player player && curiosLight(player));
             }));
+
 
             centipede.goalSelector.addGoal(1, new AvoidEntityGoal<>(centipede, LivingEntity.class, 4.0F, 1.5, 2, (livingEntity) -> {
                 return centipede.getLastAttacker() != livingEntity && (livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || (livingEntity instanceof Player player && curiosLight(player))) ;

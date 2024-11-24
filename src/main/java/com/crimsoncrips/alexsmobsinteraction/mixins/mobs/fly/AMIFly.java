@@ -6,6 +6,7 @@ import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.goal.AMIFollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
+import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -26,12 +27,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -112,6 +115,13 @@ public class AMIFly extends Mob implements AMITransform {
         if(AMInteractionConfig.FLY_PESTER_ENABLED) {
             fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, PESTERTARGET));
         }
+        fly.goalSelector.addGoal(2, new MoveToBlockGoal(fly,2,15) {
+            @Override
+            protected boolean isValidTarget(LevelReader levelReader, BlockPos blockPos) {
+                BlockState blockState = levelReader.getBlockState(blockPos);
+                return blockState.is(ACBlockRegistry.GUANO_LAYER.get()) || blockState.is(ACBlockRegistry.GUANO_BLOCK.get());
+            }
+        });
     }
 
 

@@ -73,3 +73,11 @@ mandatory=true
 versionRange="[1.20.1-84-forge,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.alexsmobsinteraction]]
+modId = "alexscaves"
+mandatory = true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange = "[2.0.2]"
+ordering = "NONE"
+side = "BOTH"

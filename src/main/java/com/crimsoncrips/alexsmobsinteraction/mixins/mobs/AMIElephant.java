@@ -8,6 +8,7 @@ import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.item.ItemMysteriousWorm;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,6 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,6 +37,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 
 @Mixin(EntityElephant.class)
@@ -92,5 +96,18 @@ public abstract class AMIElephant extends Mob {
             });
         }
 
+    }
+
+    @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
+    private void getItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+            this.heal(5);
+            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            if (!test.isEmpty()){
+                for (int i = 0; i < test.size(); i++){
+                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                }
+            }
+        }
     }
 }
