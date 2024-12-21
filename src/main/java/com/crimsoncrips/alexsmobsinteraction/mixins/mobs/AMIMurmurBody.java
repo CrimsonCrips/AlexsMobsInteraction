@@ -1,16 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
+import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.EntityMurmur;
-import com.github.alexthe666.alexsmobs.entity.EntityMurmurHead;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -54,7 +50,7 @@ public abstract class AMIMurmurBody extends Mob {
             Entity head = murmur.getHead();
             if (head == null && !(AMInteractionConfig.GOOFY_MURMUR_DECAPITATED_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED)) {
                 LivingEntity created;
-                ReflectionUtil.callMethod(created = this, "createHead", new Class[0], new Object[0]);
+                AMIReflectionUtil.callMethod(created = this, "createHead", new Class[0], new Object[0]);
                 murmur.setHeadUUID(created.getUUID());
                 murmur.getEntityData().set(HEAD_ID, created.getId());
             }

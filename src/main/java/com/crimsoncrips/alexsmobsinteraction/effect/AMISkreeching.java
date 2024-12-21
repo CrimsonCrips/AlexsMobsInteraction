@@ -48,7 +48,7 @@ public class AMISkreeching extends MobEffect {
             level.addParticle(AMParticleRegistry.SKULK_BOOM.get(), entity.getX(), entity.getY() + 0.1, entity.getZ(), 0, 0, 0);
         }
 
-        if (lastDuration == 10){
+        if (lastDuration <= 1){
             if (!entity.onGround()){
                 level.playSound(null,entity.getOnPos(),SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 2, 1);
                 entity.hurt(entity.damageSources().generic(),damage);
@@ -100,7 +100,11 @@ public class AMISkreeching extends MobEffect {
     }
 
     public String getDescriptionId() {
-        return "alexsmobsinteraction.potion.skreeching";
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+            return "alexsmobsinteraction.potion.skreeching";
+        } else {
+            return "alexscavesexemplified.feature_disabled";
+        }
     }
 
 }

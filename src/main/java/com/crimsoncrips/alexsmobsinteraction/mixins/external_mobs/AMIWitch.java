@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
+package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;

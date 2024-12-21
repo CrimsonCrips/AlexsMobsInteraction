@@ -6,7 +6,6 @@ import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -20,7 +19,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 
 @Mixin(Player.class)
-public abstract class AMIPlayer extends LivingEntity {
+public abstract class AMIPlayerMixin extends LivingEntity {
 
 
     @Shadow protected abstract void hurtArmor(DamageSource pDamageSource, float pDamage);
@@ -29,7 +28,7 @@ public abstract class AMIPlayer extends LivingEntity {
 
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot pSlot);
 
-    protected AMIPlayer(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
+    protected AMIPlayerMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 

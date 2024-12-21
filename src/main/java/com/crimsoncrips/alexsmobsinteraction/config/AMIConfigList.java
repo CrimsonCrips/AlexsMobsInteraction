@@ -21,7 +21,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue FARSEER_EFFECTS_ENABLED;
-
+    public final ForgeConfigSpec.BooleanValue ACIDIC_LEAFCUTTER_ENABLED;
     public final ForgeConfigSpec.BooleanValue CHARGE_STUN_ENABLED;
     public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
@@ -88,8 +88,8 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue SERPENT_FEAR_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue EMU_EGG_ATTACK_ENABLED
-;
+    public final ForgeConfigSpec.BooleanValue EMU_EGG_ATTACK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ENDERIOPHAGE_ADAPTION_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue WARPED_FRIENDLY_ENABLED;
 
@@ -173,6 +173,8 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue FOOD_TARGET_EFFECTS_ENABLED;
 
+    public final ForgeConfigSpec.BooleanValue LEAFCUTTER_THROWABLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue LEAFCUTTER_VARIANTS_ENABLED;
 
 
     public AMIConfigList(final ForgeConfigSpec.Builder builder) {
@@ -256,6 +258,8 @@ public class AMIConfigList {
         builder.push("Enderiophage");
         this.INFECT_WEAK_ENABLED = buildBoolean(builder, "INFECT_WEAK_ENABLED", " ", true, "Enderiophage will attack any that are below 30% health");
         this.INFECT_IMMUNITY_ENABLED = buildBoolean(builder, "INFECT_IMMUNITY_ENABLED", " ", true, "Enderiophage will ignore any that have damage resistance, unless if attacked");
+        this.ENDERIOPHAGE_ADAPTION_ENABLED = buildBoolean(builder, "ENDERIOPHAGE_ADAPTION_ENABLED", " ", true, "Enderiophage when created will adapt to their dimension");
+
         builder.pop();
         builder.push("Devils Hole Pupfish");
         this.DEVILS_TRADE_ENABLED = buildBoolean(builder, "DEVILS_TRADE_ENABLED", " ", true, "Adds Trade for Fisherman with Devils Hole Pupfish ");
@@ -311,6 +315,10 @@ public class AMIConfigList {
         builder.pop();
         builder.push("Leafcutter Ants");
         this.COCKROACH_CHAMBER_ENABLED = buildBoolean(builder, "COCKROACH_CHAMBER_ENABLED", " ", true, "Leafcutter Chambers that are bustling with fungus can burst out cockroaches");
+        this.ACIDIC_LEAFCUTTER_ENABLED = buildBoolean(builder, "ACIDIC_LEAFCUTTER_ENABLED", " ", true, "Leafcutter ants inflict quick poisons at hit");
+        this.LEAFCUTTER_THROWABLE_ENABLED = buildBoolean(builder, "LEAFCUTTER_THROWABLE_ENABLED", " ", true, "Whether leafcutter pupi is throwable that places anthills like normal");
+        this.LEAFCUTTER_VARIANTS_ENABLED = buildBoolean(builder, "LEAFCUTTER_VARIANTS_ENABLED", " ", true, "Leafcutters have variants which also causes rivalry");
+
         builder.pop();
         builder.push("Lobster");
         this.LOBSTER_NIGHT_ENABLED = buildBoolean(builder, "LOBSTER_NIGHT_ENABLED", " ", true, "Lobster will only spawn at night");

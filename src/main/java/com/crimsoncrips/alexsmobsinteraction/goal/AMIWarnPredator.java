@@ -1,12 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.goal;
 
-import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.EntityRattlesnake;
 import com.github.alexthe666.alexsmobs.entity.EntityRoadrunner;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;

@@ -44,6 +44,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import javax.annotation.Nonnull;
 
@@ -51,8 +52,7 @@ import javax.annotation.Nonnull;
 @Mixin(EntityStradpole.class)
 public abstract class AMIStradpole extends Mob {
 
-    @Shadow @Final private static EntityDataAccessor<Boolean> LAUNCHED;
-    private int despawnTimer = 0;
+     private int despawnTimer = 0;
 
     @Shadow public abstract boolean isDespawnSoon();
 
@@ -122,57 +122,11 @@ public abstract class AMIStradpole extends Mob {
     }
 
 
-    @Inject(method = "onEntityHit", at = @At("HEAD"),cancellable = true,remap = false)
-    private void entityhit(EntityHitResult raytraceresult, CallbackInfo ci) {
-        ci.cancel();
-        EntityStradpole stradpole = (EntityStradpole)(Object)this;
-        Entity entity = stradpole.getParent();
-        if (entity instanceof LivingEntity && !this.level().isClientSide) {
-            Entity var4 = raytraceresult.getEntity();
-            if (var4 instanceof LivingEntity) {
-                LivingEntity target = (LivingEntity)var4;
-                if(AMInteractionConfig.STRADPOLE_FLAME_ENABLED && random.nextDouble() < 0.2){
-                    target.setSecondsOnFire(2);
-                }
-                if (!target.isBlocking()) {
-                    target.hurt(this.damageSources().mobProjectile(this, (LivingEntity)entity), 3.0F);
-                    target.knockback(0.699999988079071, entity.getX() - this.getX(), entity.getZ() - this.getZ());
-                } else if (this.getTarget() instanceof Player) {
-                    this.damageShieldFor((Player)this.getTarget(), 3.0F);
-                }
-
-                this.entityData.set(LAUNCHED, false);
-            }
+    @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"),remap = false,locals = LocalCapture.CAPTURE_FAILSOFT)
+    private void entityhit(EntityHitResult raytraceresult, CallbackInfo ci, Entity entity, LivingEntity target, Entity var4) {
+        if(AMInteractionConfig.STRADPOLE_FLAME_ENABLED && random.nextDouble() < 0.2){
+            target.setSecondsOnFire(2);
         }
-
-
-    }
-
-    protected void damageShieldFor(Player holder, float damage) {
-        if (holder.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
-            if (!this.level().isClientSide) {
-                holder.awardStat(Stats.ITEM_USED.get(holder.getUseItem().getItem()));
-            }
-
-            if (damage >= 3.0F) {
-                int i = 1 + Mth.floor(damage);
-                InteractionHand hand = holder.getUsedItemHand();
-                holder.getUseItem().hurtAndBreak(i, holder, (p_213833_1_) -> {
-                    p_213833_1_.broadcastBreakEvent(hand);
-                    ForgeEventFactory.onPlayerDestroyItem(holder, holder.getUseItem(), hand);
-                });
-                if (holder.getUseItem().isEmpty()) {
-                    if (hand == InteractionHand.MAIN_HAND) {
-                        holder.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                    } else {
-                        holder.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
-                    }
-
-                    holder.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level().random.nextFloat() * 0.4F);
-                }
-            }
-        }
-
     }
 
 

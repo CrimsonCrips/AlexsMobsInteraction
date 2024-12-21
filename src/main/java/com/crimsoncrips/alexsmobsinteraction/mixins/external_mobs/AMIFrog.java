@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.vanillamob.frog;
+package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;

@@ -23,8 +23,13 @@ public class AMIDisabled extends MobEffect {
         super(MobEffectCategory.HARMFUL, 0Xfaedc8);
     }
 
+
     public String getDescriptionId() {
-        return "alexsmobsinteraction.potion.disabled";
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+            return "alexsmobsinteraction.potion.disabled";
+        } else {
+            return "alexscavesexemplified.feature_disabled";
+        }
     }
 
 }

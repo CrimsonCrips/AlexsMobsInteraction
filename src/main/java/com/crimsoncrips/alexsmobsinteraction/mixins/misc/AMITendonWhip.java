@@ -35,7 +35,7 @@ public abstract class AMITendonWhip extends Entity {
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tickBison(CallbackInfo ci) {
+    private void tick(CallbackInfo ci) {
         EntityTendonSegment tendonSegment = (EntityTendonSegment)(Object)this;
         if (AMInteractionConfig.TENDON_GRAB_ENABLED) {
             creator = tendonSegment.getCreatorEntity();

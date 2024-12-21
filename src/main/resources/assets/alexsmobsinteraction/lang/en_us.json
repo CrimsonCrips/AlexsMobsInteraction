@@ -2,6 +2,8 @@
   "item.alexsmobsinteraction.ami_book": "AMI Book Icon",
 
   "ami_book.description":"Welcome to a new interactive universe!",
+  "alexsmobsinteraction.feature_disabled" :  "Feature Disabled",
+
   "ami_book.title":"Alexs Mobs Interaction",
 
   "item.minecraft.splash_potion.effect.health_boost": "Splash Potion of Health Boost",
@@ -34,6 +36,10 @@
   "effect.alexsmobsinteraction.disabled.description": "Stuns the affected (this applies to mobs that implement this effect)",
 
   "alexsmobsinteraction.potion.blooded": "Blooded",
-  "effect.alexsmobsinteraction.blooded.description": "Reduces Speed,Armor and Strength"
+  "effect.alexsmobsinteraction.blooded.description": "Reduces Speed,Armor and Strength",
+
+
+  "death.attack.banana_slip_0": "%s f*cking slipped"
+
 }
 

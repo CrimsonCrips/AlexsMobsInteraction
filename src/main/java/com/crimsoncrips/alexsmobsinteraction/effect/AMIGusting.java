@@ -86,8 +86,13 @@ public class AMIGusting extends MobEffect {
         return duration > 0;
     }
 
+
     public String getDescriptionId() {
-        return "alexsmobsinteraction.potion.gusting";
+        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+            return "alexsmobsinteraction.potion.gusting";
+        } else {
+            return "alexscavesexemplified.feature_disabled";
+        }
     }
 
     public void removeAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int level) {

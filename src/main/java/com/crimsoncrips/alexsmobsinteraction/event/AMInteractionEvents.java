@@ -1,72 +1,49 @@
 package com.crimsoncrips.alexsmobsinteraction.event;
 
 import biomesoplenty.api.block.BOPBlocks;
-import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.ReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
-import com.crimsoncrips.alexsmobsinteraction.enchantment.AMIEnchantmentRegistry;
-import com.crimsoncrips.alexsmobsinteraction.goal.*;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
 import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.MeltedCaramelEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.CaramelCubeEntity;
+import com.github.alexmodguy.alexscaves.server.misc.ACDamageTypes;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
-import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
-import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import com.github.alexthe666.alexsmobs.misc.EmeraldsForItemsTrade;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.monster.hoglin.Hoglin;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CandleBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -79,13 +56,9 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-import top.theillusivec4.curios.common.CuriosRegistry;
-import top.theillusivec4.curios.common.inventory.CurioSlot;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
+
 import static com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry.*;
 import static com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED;
 import static com.github.alexthe666.alexsmobs.block.BlockLeafcutterAntChamber.FUNGUS;
@@ -102,6 +75,10 @@ public class AMInteractionEvents {
             if (crimsonMosquito.getRandom().nextDouble() < AMInteractionConfig.BLOODED_CHANCE){
                 crimsonMosquito.setBloodLevel(crimsonMosquito.getBloodLevel() + 1);
             }
+        }
+
+        if (entity instanceof EntityEnderiophage enderiophage && AMInteractionConfig.ENDERIOPHAGE_ADAPTION_ENABLED){
+            enderiophage.setSkinForDimension();
         }
 
     }
@@ -126,6 +103,22 @@ public class AMInteractionEvents {
             if (ModList.get().isLoaded("biomesoplenty") && livingEntity.getFeetBlockState().is(BOPBlocks.BLOOD)) {
                 livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
             }
+
+            MobEffectInstance blooded = livingEntity.getEffect(AMIEffects.BLOODED.get());
+            if (livingEntity.isInWaterRainOrBubble() && blooded != null){
+                livingEntity.removeEffect(AMIEffects.BLOODED.get());
+                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), blooded.getDuration() - 300, blooded.getAmplifier()));
+            }
+
+            for (LivingEntity entity : livingEntity.level().getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(1.2))) {
+                if (entity != livingEntity && livingEntity.getRandom().nextDouble() < 0.01 && livingEntity.hasEffect(AMEffectRegistry.EXSANGUINATION.get())) {
+                    livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 300, 1));
+                }
+            }
+        }
+
+        if (livingEntity instanceof EntityCombJelly entityCombJelly && entityCombJelly.getHealth() < entityCombJelly.getMaxHealth()){
+            entityCombJelly.heal(0.05F);
         }
 
         if (livingEntity instanceof EntityCrimsonMosquito crimsonMosquito){
@@ -137,6 +130,21 @@ public class AMInteractionEvents {
                     attach.remove(Entity.RemovalReason.DISCARDED);
                 }
 
+            }
+        }
+
+        if(AMInteractionConfig.TUSKLIN_TRAMPLE_ENABLED && livingEntity instanceof EntityTusklin tusklin && tusklin.isVehicle()){
+            for (LivingEntity entity : tusklin.level().getEntitiesOfClass(LivingEntity.class, tusklin.getBoundingBox().expandTowards(0.2, -2, 0.2))) {
+                if (entity != tusklin && entity.getBbHeight() <= 1.8F) {
+                    entity.hurt(tusklin.damageSources().mobAttack(tusklin), 1.3F);
+                    if (entity.onGround()) {
+                        double d0 = entity.getX() - tusklin.getX();
+                        double d1 = entity.getZ() - tusklin.getZ();
+                        double d2 = Math.max(d0 * d0 + d1 * d1, 0.001);
+                        float f = 0.5F;
+                        entity.push(d0 / d2 * (double) f, (double) f, d1 / d2 * (double) f);
+                    }
+                }
             }
         }
 
@@ -162,7 +170,7 @@ public class AMInteractionEvents {
                     while (var4.hasNext()) {
                         LivingEntity entity = var4.next();
                         if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.0F) {
-                            entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 8.0F + elephant.getRandom().nextFloat() * 2.0F);
+                            entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 3);
                         }
                     }
                 }
@@ -177,8 +185,8 @@ public class AMInteractionEvents {
             if (!AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
                 return;
             for (LivingEntity livingEntitys : bananaSlug.level().getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
-                if (livingEntitys instanceof Player) {
-                    ((Entity) livingEntitys).kill();
+                if (livingEntitys instanceof Player player) {
+                    player.hurt(AMIDamageTypes.causeBananaSlip(player.level().registryAccess()),100);
                 }
             }
         }
@@ -201,7 +209,7 @@ public class AMInteractionEvents {
                 return;
             if (centipede.getLastHurtByMob() == target)
                 return;
-            if (target.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || target instanceof Player player && curiosLight(player)) {
+            if (target.isHolding(Ingredient.of(CENTIPEDE_LIGHT_FEAR)) || target instanceof Player player && curiosLight(player)) {
                 centipede.setTarget(null);
             }
         }
@@ -223,7 +231,7 @@ public class AMInteractionEvents {
 
             if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED){
                 if (feetBlockstate.is(AMBlockRegistry.BANANA_PEEL.get())){
-                    player.kill();
+                    player.hurt(AMIDamageTypes.causeBananaSlip(player.level().registryAccess()),100);
                 }
             }
 
@@ -264,15 +272,25 @@ public class AMInteractionEvents {
         RandomSource random = player.getRandom();
         if (event.getTarget() instanceof LivingEntity living) {
             if (itemStack.getItem() == AMItemRegistry.LAVA_BOTTLE.get() && AMInteractionConfig.MOLTEN_BATH_ENABLED){
-                if (!player.isCreative()) itemStack.shrink(1);
+                if (!player.isCreative()) {
+                    itemStack.shrink(1);
+                    player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
+                }
                 living.setSecondsOnFire(10);
-                player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
+                player.playSound(SoundEvents.LAVA_POP, 1F, 1F);
+                player.swing(event.getHand());
             }
+
 
             if (itemStack.getItem() == AMItemRegistry.POISON_BOTTLE.get() && AMInteractionConfig.POISONOUS_BATH_ENABLED){
                 if (!player.isCreative()) itemStack.shrink(1);
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 150, 1));
-                player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
+                if (!player.isCreative()) {
+                    itemStack.shrink(1);
+                    player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
+                }
+                player.playSound(SoundEvents.FIRE_EXTINGUISH, 1F, 1F);
+                player.swing(event.getHand());
             }
 
             if(living instanceof EntityCrimsonMosquito crimsonMosquito){
@@ -410,7 +428,6 @@ public class AMInteractionEvents {
         CompoundTag playerData = event.getEntity().getPersistentData();
         CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
         if (!data.getBoolean("ami_book") && AMInteractionConfig.CRIMSON_WIKI_ENABLED) {
-            System.out.println("testing");
             CrimsonAdvancementTriggerRegistry.AMI_BOOK.trigger((ServerPlayer) player);
             data.putBoolean("ami_book", true);
             playerData.put(Player.PERSISTED_NBT_TAG, data);
@@ -504,12 +521,24 @@ public class AMInteractionEvents {
         }
     }
 
+    @SubscribeEvent
+    public void livingDamage(LivingDamageEvent livingDamageEvent) {
+        Entity damager = livingDamageEvent.getSource().getEntity();
+        LivingEntity damaged = livingDamageEvent.getEntity();
+
+        if(AMInteractionConfig.ACIDIC_LEAFCUTTER_ENABLED && damager instanceof EntityLeafcutterAnt leafcutterAnt){
+            damaged.addEffect(new MobEffectInstance(MobEffects.POISON, 100 * (leafcutterAnt.isQueen() ? 4 : 2), leafcutterAnt.isQueen() ? 2 : 0));
+        }
+    }
+
     public boolean curiosLight(Player player){
         if (ModList.get().isLoaded("curiouslanterns")) {
             ICuriosItemHandler handler = CuriosApi.getCuriosInventory(player).orElseThrow(() -> new IllegalStateException("Player " + player.getName() + " has no curios inventory!"));
-            return handler.getStacksHandler("belt").orElseThrow().getStacks().getStackInSlot(0).is(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR);
+            return handler.getStacksHandler("belt").orElseThrow().getStacks().getStackInSlot(0).is(CENTIPEDE_LIGHT_FEAR);
         } else return false;
     }
+
+
 
 
 

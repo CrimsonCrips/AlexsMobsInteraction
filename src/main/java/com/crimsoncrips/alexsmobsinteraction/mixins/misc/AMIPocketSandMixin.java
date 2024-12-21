@@ -6,7 +6,6 @@ import com.github.alexthe666.alexsmobs.item.ItemPocketSand;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.HumanoidArm;
@@ -25,11 +24,11 @@ import java.util.function.Predicate;
 
 
 @Mixin(ItemPocketSand.class)
-public class AMIPocketSand extends Item {
+public class AMIPocketSandMixin extends Item {
 
     @Shadow @Final public static Predicate<ItemStack> IS_SAND;
 
-    public AMIPocketSand(Item.Properties properties) {
+    public AMIPocketSandMixin(Item.Properties properties) {
         super(properties);
     }
 

@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.lavithan;
 
 
+import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMILavithanInterface;
 import com.github.alexthe666.alexsmobs.client.model.ModelLaviathan;
 import com.github.alexthe666.alexsmobs.client.render.RenderLaviathan;
@@ -9,6 +10,9 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RenderLaviathan.class)
 
@@ -26,11 +30,7 @@ public class AMILavithanRendering extends MobRenderer<EntityLaviathan, ModelLavi
     public ResourceLocation getTextureLocation(EntityLaviathan entity) {
         AMILavithanInterface myAccessor = (AMILavithanInterface) entity;
         boolean isRelava = myAccessor.isRelava();
-        if (entity.isObsidian()){
-            return TEXTURE_OBSIDIAN;
-        } else if (isRelava){
-            return TEXTURE_RELAVA;
-        } else return TEXTURE;
+        return entity.isObsidian() ? TEXTURE_OBSIDIAN : (isRelava ? TEXTURE_RELAVA : TEXTURE);
     }
 
 

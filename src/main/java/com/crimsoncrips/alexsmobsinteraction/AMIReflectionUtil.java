@@ -1,11 +1,9 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
-public class ReflectionUtil {
+public class AMIReflectionUtil {
     public static Object createInstance(String className, Class<?>[] argTypes, Object[] args) {
         try {
             // Get the class object for the specified class name

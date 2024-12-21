@@ -26,25 +26,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityTerrapin.class)
 public abstract class AMITerrapin extends Mob {
 
-     boolean retreatStomp = false;
-
-
     protected AMITerrapin(EntityType<? extends Mob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    @Inject(method = "tick", at = @At("TAIL"))
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityTerrapin;spinFor(I)V"))
     private void tickBison(CallbackInfo ci) {
         EntityTerrapin terrapin = (EntityTerrapin)(Object)this;
         if (!AMInteractionConfig.TERRAPIN_STOMP_ENABLED)
             return;
-        if (terrapin.isSpinning() && !retreatStomp) {
-            terrapin.hurt(terrapin.damageSources().generic(),2);
-            retreatStomp = true;
-        }
-        if (!terrapin.isSpinning() && retreatStomp) {
-            retreatStomp = false;
-        }
+        terrapin.hurt(terrapin.damageSources().generic(),2);
 
     }
 

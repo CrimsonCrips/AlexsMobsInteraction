@@ -2,7 +2,6 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.util.FlyingFishBootsUtil;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
@@ -10,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(FlyingFishBootsUtil.class)
-public abstract class AMIFlyingFishBoots {
+public abstract class AMIFlyingFishBootsMixin {
 
     private static double speed;
     private static double lookAngle;

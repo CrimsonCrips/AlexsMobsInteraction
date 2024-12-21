@@ -13,6 +13,8 @@ public class AMInteractionConfig {
     public static boolean BANANA_SHEAR_ENABLED;
     public static boolean HELD_FOOD_ENABLED;
     public static boolean COCKROACH_MUTATION_ENABLED;
+    public static boolean ENDERIOPHAGE_ADAPTION_ENABLED;
+    public static boolean ACIDIC_LEAFCUTTER_ENABLED;
     public static boolean DEVILS_TRADE_ENABLED;
     public static boolean BLEEDING_HUNGER_ENABLED;
     public static boolean RATTLESNAKE_TERRITORIAL_ENABLED;
@@ -114,11 +116,14 @@ public class AMInteractionConfig {
     public static boolean WITCH_ADDITIONS_ENABLED;
     public static boolean TUSKLIN_STRUCK_ENABLED;
     public static int STRADDLER_SHOTS_AMOUNT;
+    public static boolean LEAFCUTTER_THROWABLE_ENABLED;
+    public static boolean LEAFCUTTER_VARIANTS_ENABLED;
 
 
     public static void bake() {
         try {
             COCKROACH_MUTATION_ENABLED = AMIConfigHolder.INTERACT.COCKROACH_MUTATION_ENABLED.get();
+            ENDERIOPHAGE_ADAPTION_ENABLED = AMIConfigHolder.INTERACT.ENDERIOPHAGE_ADAPTION_ENABLED.get();
 
             MAGGOT_FISHING_ENABLED = AMIConfigHolder.INTERACT.MAGGOT_FISHING_ENABLED.get();
             DEVILS_TRADE_ENABLED = AMIConfigHolder.INTERACT.DEVILS_TRADE_ENABLED.get();
@@ -227,6 +232,9 @@ public class AMInteractionConfig {
             TUSKLIN_STRUCK_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_STRUCK_ENABLED.get();
             ORPHANED_ANACONDAS_ENABLED = AMIConfigHolder.INTERACT.ORPHANED_ANACONDAS_ENABLED.get();
             FOOD_TARGET_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FOOD_TARGET_EFFECTS_ENABLED.get();
+            ACIDIC_LEAFCUTTER_ENABLED = AMIConfigHolder.INTERACT.ACIDIC_LEAFCUTTER_ENABLED.get();
+            LEAFCUTTER_THROWABLE_ENABLED = AMIConfigHolder.INTERACT.LEAFCUTTER_THROWABLE_ENABLED.get();
+            LEAFCUTTER_VARIANTS_ENABLED = AMIConfigHolder.INTERACT.LEAFCUTTER_VARIANTS_ENABLED.get();
 
 
 

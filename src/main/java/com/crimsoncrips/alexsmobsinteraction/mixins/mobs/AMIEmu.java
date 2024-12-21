@@ -41,12 +41,7 @@ public abstract class AMIEmu extends Animal {
         if (AMInteractionConfig.EMU_EGG_ATTACK_ENABLED){
             emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 5, true, false, (livingEntity) -> {
                 return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get())) || livingEntity.isHolding( Ingredient.of(AMItemRegistry.BOILED_EMU_EGG.get()));
-            }){
-                @Override
-                public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !emu.isBaby();
-                }
-            });
+            }));
         }
         if (AMInteractionConfig.RANGED_AGGRO_ENABLED){
             emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 70, true, false, (livingEntity) -> {
