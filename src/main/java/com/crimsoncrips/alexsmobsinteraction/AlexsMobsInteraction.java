@@ -10,18 +10,7 @@ import com.crimsoncrips.alexsmobsinteraction.event.AMInteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.item.AMIItemRegistry;
 import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
-import com.github.alexthe666.alexsmobs.ClientProxy;
-import com.github.alexthe666.alexsmobs.CommonProxy;
-import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.alexsmobs.message.*;
-import com.github.alexthe666.alexsmobs.misc.AMAdvancementTriggerRegistry;
-import com.github.alexthe666.alexsmobs.misc.AMRecipeRegistry;
-import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,8 +22,6 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.slf4j.Logger;
 
 import java.util.Locale;
 

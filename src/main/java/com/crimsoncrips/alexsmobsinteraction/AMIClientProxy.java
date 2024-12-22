@@ -73,6 +73,8 @@ public class AMIClientProxy extends AMICommonProxy {
         });
     }
 
+
+
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onRegisterEntityRenders(EntityRenderersEvent.RegisterLayerDefinitions event) {

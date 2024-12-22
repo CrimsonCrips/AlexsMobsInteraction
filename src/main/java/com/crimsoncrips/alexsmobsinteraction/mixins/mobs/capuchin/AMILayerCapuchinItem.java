@@ -71,7 +71,7 @@ public abstract class AMILayerCapuchinItem extends RenderLayer<EntityCapuchinMon
             matrixStackIn.popPose();
         } else if (entitylivingbaseIn.getAnimation() == EntityCapuchinMonkey.ANIMATION_THROW && entitylivingbaseIn.getAnimationTick() <= 5) {
             ItemStack itemstack;
-            if (AMInteractionConfig.GOOFY_CAPUCHIN_BOMB_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) itemstack = new ItemStack(Items.TNT);
+            if (AMInteractionConfig.GOOFY_CAPUCHIN_BOMB_ENABLED) itemstack = new ItemStack(Items.TNT);
             else itemstack = new ItemStack(Items.COBBLESTONE);
             matrixStackIn.pushPose();
             if (entitylivingbaseIn.isBaby()) {

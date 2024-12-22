@@ -132,7 +132,7 @@ public class AMIRainfrog extends Mob implements AMITransform {
 
 
     public void spawnGusters(){
-        if (AMInteractionConfig.GOOFY_RAINFROG_SPAWNAGE_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED) {
+        if (AMInteractionConfig.GOOFY_RAINFROG_SPAWNAGE_ENABLED) {
             for (int i = 0; i < 10; i++) {
                 LivingEntity entityToSpawn;
                 entityToSpawn = AMEntityRegistry.GUSTER.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);

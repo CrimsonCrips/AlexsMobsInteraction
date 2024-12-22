@@ -133,8 +133,6 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue GOOFY_STRADDLER_SHOTGUN_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue GOOFY_MODE_ENABLED;
-
     public final ForgeConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
@@ -414,7 +412,6 @@ public class AMIConfigList {
         this.WARPED_FRIENDLY_ENABLED = buildBoolean(builder, "WARPED_FRIENDLY_ENABLED", " ", true, "Warped Toads will not attack food unless given the orders so");
         builder.pop(2);
         builder.push("April Fools");
-        this.GOOFY_MODE_ENABLED = buildBoolean(builder, "GOOFY_MODE_ENABLED", " ", false, "AMI April Fools Activation");
         this.GOOFY_BANANA_SLIP_ENABLED = buildBoolean(builder, "GOOFY_BANANA_SLIP_ENABLED", " ", true, "April Fools Banana Slug and Banana Effects");
         this.GOOFY_MURMUR_DECAPITATED_ENABLED = buildBoolean(builder, "GOOFY_MURMUR_DECAPITATED_ENABLED", " ", true, "April Fools Murmur Effects");
         this.GOOFY_CRIMSON_MULTIPLY_ENABLED = buildBoolean(builder, "GOOFY_CRIMSON_MULTIPLY_ENABLED", " ", true, "April Fools Crimson Mosquito Effects");

@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.event;
 
 import biomesoplenty.api.block.BOPBlocks;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
@@ -100,7 +101,9 @@ public class AMInteractionEvents {
 
 
         if (AMInteractionConfig.BLOODED_EFFECT_ENABLED){
-            if (ModList.get().isLoaded("biomesoplenty") && livingEntity.getFeetBlockState().is(BOPBlocks.BLOOD)) {
+            if (ModList.get().isLoaded("biomesoplenty")) {
+                if (!livingEntity.getFeetBlockState().is(BOPCompat.getBOPBlock()))
+                    return;
                 livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
             }
 
@@ -124,7 +127,7 @@ public class AMInteractionEvents {
         if (livingEntity instanceof EntityCrimsonMosquito crimsonMosquito){
             Entity attach = crimsonMosquito.getVehicle();
 
-            if ((AMInteractionConfig.GOOFY_MODE_ENABLED && AMInteractionConfig.GOOFY_CRIMSON_MULTIPLY_ENABLED &&  attach != null && crimsonMosquito.getBloodLevel() > 1)) {
+            if (AMInteractionConfig.GOOFY_CRIMSON_MULTIPLY_ENABLED &&  attach != null && crimsonMosquito.getBloodLevel() > 1) {
                 if (!(attach instanceof Player)){
                     AMEntityRegistry.GUST.get().spawn((ServerLevel) crimsonMosquito.level(), BlockPos.containing(crimsonMosquito.getX(), crimsonMosquito.getY() + 0.2, crimsonMosquito.getZ()), MobSpawnType.MOB_SUMMONED);
                     attach.remove(Entity.RemovalReason.DISCARDED);
@@ -154,10 +157,8 @@ public class AMInteractionEvents {
                 String freddy = "Freddy Fazbear";
                 if (grizzlyBear.getName().getString().equals(freddy)) {
                     grizzlyBear.setAprilFoolsFlag(2);
-                    if(!AMInteractionConfig.GOOFY_MODE_ENABLED){
-                        grizzlyBear.setTame(false);
-                        grizzlyBear.setOwnerUUID(null);
-                    }
+                    grizzlyBear.setTame(false);
+                    grizzlyBear.setOwnerUUID(null);
                 }
             }
         }
@@ -180,8 +181,6 @@ public class AMInteractionEvents {
 
 
         if(livingEntity instanceof EntityBananaSlug bananaSlug){
-            if (!AMInteractionConfig.GOOFY_MODE_ENABLED)
-                return;
             if (!AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
                 return;
             for (LivingEntity livingEntitys : bananaSlug.level().getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
@@ -229,7 +228,7 @@ public class AMInteractionEvents {
 
             }
 
-            if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED){
+            if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED){
                 if (feetBlockstate.is(AMBlockRegistry.BANANA_PEEL.get())){
                     player.hurt(AMIDamageTypes.causeBananaSlip(player.level().registryAccess()),100);
                 }

@@ -55,7 +55,6 @@ public class AMInteractionConfig {
     public static boolean GOOFY_BANANA_SLIP_ENABLED;
     public static boolean GOOFY_CAPUCHIN_BOMB_ENABLED;
     public static boolean GOOFY_CRIMSON_MULTIPLY_ENABLED;
-    public static boolean GOOFY_MODE_ENABLED;
     public static boolean GOOFY_MURMUR_DECAPITATED_ENABLED;
     public static boolean GOOFY_STRADDLER_SHOTGUN_ENABLED;
     public static boolean GRIZZLY_FRIENDLY_ENABLED;
@@ -143,7 +142,6 @@ public class AMInteractionConfig {
             GOOFY_MURMUR_DECAPITATED_ENABLED = AMIConfigHolder.INTERACT.GOOFY_MURMUR_DECAPITATED_ENABLED.get();
             COSMAW_WEAKENED_ENABLED = AMIConfigHolder.INTERACT.COSMAW_WEAKENED_ENABLED.get();
             GOOFY_BANANA_SLIP_ENABLED = AMIConfigHolder.INTERACT.GOOFY_BANANA_SLIP_ENABLED.get();
-            GOOFY_MODE_ENABLED = AMIConfigHolder.INTERACT.GOOFY_MODE_ENABLED.get();
             STRADPOLE_FLAME_ENABLED = AMIConfigHolder.INTERACT.STRADPOLE_FLAME_ENABLED.get();
             FREDDYABLE_ENABLED = AMIConfigHolder.INTERACT.FREDDYABLE_ENABLED.get();
             GOOFY_STRADDLER_SHOTGUN_ENABLED = AMIConfigHolder.INTERACT.GOOFY_STRADDLER_SHOTGUN_ENABLED.get();

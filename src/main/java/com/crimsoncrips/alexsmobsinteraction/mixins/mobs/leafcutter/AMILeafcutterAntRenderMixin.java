@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.leafcutter;
 
+import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
 import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMIVariant;
 import com.github.alexthe666.alexsmobs.client.render.RenderLeafcutterAnt;
@@ -45,7 +46,7 @@ public abstract class AMILeafcutterAntRenderMixin extends MobRenderer<EntityLeaf
     }
 
     public ResourceLocation getTextureLocation(EntityLeafcutterAnt entity) {
-        if (true){
+        if (AMInteractionConfig.LEAFCUTTER_VARIANTS_ENABLED){
             AMIVariant myAccessor = (AMIVariant) entity;
             if (myAccessor.getVariant() == 1){
                 if(entity.getRemainingPersistentAngerTime() > 0){

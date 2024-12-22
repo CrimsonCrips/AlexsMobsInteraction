@@ -103,7 +103,7 @@ public abstract class AMIStradpole extends Mob {
                 y2 = 0;
             }
         }
-        if (AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED && AMInteractionConfig.GOOFY_MODE_ENABLED && isDespawnSoon()){
+        if (AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED  && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();
             int z = this.getBlockZ();

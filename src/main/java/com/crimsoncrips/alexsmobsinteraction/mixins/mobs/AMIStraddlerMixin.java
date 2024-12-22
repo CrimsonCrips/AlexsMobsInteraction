@@ -106,7 +106,7 @@ public class AMIStraddlerMixin extends Mob {
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"),remap = false)
     private void addExplosiveShots(CallbackInfo ci){
-        if (AMInteractionConfig.GOOFY_MODE_ENABLED && AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED) {
+        if (AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED) {
             for (int i = 0; i < 15; i++) {
                 int spread = random.nextInt(10);
                 EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
