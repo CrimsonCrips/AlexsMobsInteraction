@@ -40,11 +40,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -98,6 +103,7 @@ public class AMInteractionEvents {
     @SubscribeEvent
     public void mobTickEvents(LivingEvent.LivingTickEvent livingTickEvent){
         LivingEntity livingEntity = livingTickEvent.getEntity();
+        Level level = livingTickEvent.getEntity().level();
 
 
         if (AMInteractionConfig.BLOODED_EFFECT_ENABLED){
@@ -113,7 +119,7 @@ public class AMInteractionEvents {
                 livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), blooded.getDuration() - 300, blooded.getAmplifier()));
             }
 
-            for (LivingEntity entity : livingEntity.level().getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(1.2))) {
+            for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(1.2))) {
                 if (entity != livingEntity && livingEntity.getRandom().nextDouble() < 0.01 && livingEntity.hasEffect(AMEffectRegistry.EXSANGUINATION.get())) {
                     livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 300, 1));
                 }
@@ -129,7 +135,7 @@ public class AMInteractionEvents {
 
             if (AMInteractionConfig.GOOFY_CRIMSON_MULTIPLY_ENABLED &&  attach != null && crimsonMosquito.getBloodLevel() > 1) {
                 if (!(attach instanceof Player)){
-                    AMEntityRegistry.GUST.get().spawn((ServerLevel) crimsonMosquito.level(), BlockPos.containing(crimsonMosquito.getX(), crimsonMosquito.getY() + 0.2, crimsonMosquito.getZ()), MobSpawnType.MOB_SUMMONED);
+                    AMEntityRegistry.GUST.get().spawn((ServerLevel) level, BlockPos.containing(crimsonMosquito.getX(), crimsonMosquito.getY() + 0.2, crimsonMosquito.getZ()), MobSpawnType.MOB_SUMMONED);
                     attach.remove(Entity.RemovalReason.DISCARDED);
                 }
 
@@ -137,7 +143,7 @@ public class AMInteractionEvents {
         }
 
         if(AMInteractionConfig.TUSKLIN_TRAMPLE_ENABLED && livingEntity instanceof EntityTusklin tusklin && tusklin.isVehicle()){
-            for (LivingEntity entity : tusklin.level().getEntitiesOfClass(LivingEntity.class, tusklin.getBoundingBox().expandTowards(0.2, -2, 0.2))) {
+            for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, tusklin.getBoundingBox().expandTowards(0.2, -2, 0.2))) {
                 if (entity != tusklin && entity.getBbHeight() <= 1.8F) {
                     entity.hurt(tusklin.damageSources().mobAttack(tusklin), 1.3F);
                     if (entity.onGround()) {
@@ -165,7 +171,7 @@ public class AMInteractionEvents {
 
         if (livingEntity instanceof EntityElephant elephant){
             if(ELEPHANT_TRAMPLE_ENABLED){
-                Iterator<LivingEntity> var4 = elephant.level().getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator();
+                Iterator<LivingEntity> var4 = level.getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator();
 
                 if (elephant.isVehicle() && elephant.isTame()) {
                     while (var4.hasNext()) {
@@ -183,9 +189,9 @@ public class AMInteractionEvents {
         if(livingEntity instanceof EntityBananaSlug bananaSlug){
             if (!AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED)
                 return;
-            for (LivingEntity livingEntitys : bananaSlug.level().getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
+            for (LivingEntity livingEntitys : level.getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
                 if (livingEntitys instanceof Player player) {
-                    player.hurt(AMIDamageTypes.causeBananaSlip(player.level().registryAccess()),100);
+                    player.hurt(AMIDamageTypes.causeBananaSlip(level.registryAccess()),100);
                 }
             }
         }
@@ -195,7 +201,7 @@ public class AMInteractionEvents {
                 return;
             if (!(snappingturtle.getRandom().nextDouble() < 0.0001))
                 return;
-            if (snappingturtle.level().isRaining() || snappingturtle.level().isThundering() || snappingturtle.isInWater()){
+            if (level.isRaining() || level.isThundering() || snappingturtle.isInWater()){
                 snappingturtle.setMoss(Math.min(10, snappingturtle.getMoss() + 1));
             }
         }
@@ -230,13 +236,13 @@ public class AMInteractionEvents {
 
             if(AMInteractionConfig.GOOFY_BANANA_SLIP_ENABLED){
                 if (feetBlockstate.is(AMBlockRegistry.BANANA_PEEL.get())){
-                    player.hurt(AMIDamageTypes.causeBananaSlip(player.level().registryAccess()),100);
+                    player.hurt(AMIDamageTypes.causeBananaSlip(level.registryAccess()),100);
                 }
             }
 
             if(AMInteractionConfig.SUNBIRD_UPGRADE_ENABLED){
 
-                for (LivingEntity entity : player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7, 4, 7))) {
+                for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7, 4, 7))) {
                     MobType entityType = entity.getMobType();
                     if (entityType == MobType.UNDEAD && !entity.isInWater()) {
                         if (player.hasEffect(AMEffectRegistry.SUNBIRD_BLESSING.get())) {
@@ -251,11 +257,14 @@ public class AMInteractionEvents {
                 }
             }
 
-
-
             if (AMInteractionConfig.TIGER_STEALTH_ENABLED && player.hasEffect(AMEffectRegistry.TIGERS_BLESSING.get()) && !player.isSprinting() && !player.isSwimming()){
-                player.addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 30, 0));
+                player.addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 60, 0,false,false));
             }
+
+//            if (getClosestLookingAtEntityFor(level,player,32D) != null){
+//                System.out.println("looking at blobfish");
+//                player.addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 30, 0));
+//            }
 
 
         }
@@ -535,6 +544,22 @@ public class AMInteractionEvents {
             ICuriosItemHandler handler = CuriosApi.getCuriosInventory(player).orElseThrow(() -> new IllegalStateException("Player " + player.getName() + " has no curios inventory!"));
             return handler.getStacksHandler("belt").orElseThrow().getStacks().getStackInSlot(0).is(CENTIPEDE_LIGHT_FEAR);
         } else return false;
+    }
+
+    public static Entity getClosestLookingAtEntityFor(Level level, Player player, double dist) {
+        Entity closestValid = null;
+        Vec3 playerEyes = player.getEyePosition(1.0F);
+        HitResult hitresult = level.clip(new ClipContext(playerEyes, playerEyes.add(player.getLookAngle().scale(dist)), ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, player));
+        Vec3 at = hitresult.getLocation();
+        AABB around = new AABB(at.add(-0.5F, -0.5F, -0.5F), at.add(0.5F, 0.5F, 0.5F)).inflate(15);
+        for (Entity entity : level.getEntitiesOfClass(LivingEntity.class, around.inflate(dist))) {
+            if (!entity.equals(player) && !player.isAlliedTo(entity) && !entity.isAlliedTo(player) && entity instanceof Mob && player.hasLineOfSight(entity)) {
+                if (closestValid == null || entity.distanceToSqr(at) < closestValid.distanceToSqr(at)) {
+                    closestValid = entity;
+                }
+            }
+        }
+        return closestValid;
     }
 
 

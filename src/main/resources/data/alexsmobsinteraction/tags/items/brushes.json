@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:brushes",
+    "minecraft:brush",
     "#c:brushitems"
   ]
 }
