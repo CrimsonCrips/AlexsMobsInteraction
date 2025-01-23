@@ -33,8 +33,8 @@ public class AMIEffects {
     public static final RegistryObject<MobEffect> DISABLED = EFFECT_REGISTER.register("disabled", AMIDisabled::new);
     public static final RegistryObject<Potion> SKREECHING_POTION = POTION_REGISTER.register("skreeching", ()-> new Potion(new MobEffectInstance(SKREECHING.get(), 72000)));
     public static final RegistryObject<MobEffect> GUSTING = EFFECT_REGISTER.register("gusting", AMIGusting::new);
-    public static final RegistryObject<Potion> GUSTING_POTION = POTION_REGISTER.register("gusting", ()-> new Potion(new MobEffectInstance(GUSTING.get(), 1600)));
-    public static final RegistryObject<Potion> LONGER_GUSTING_POTION = POTION_REGISTER.register("long_gusting", ()-> new Potion(new MobEffectInstance(GUSTING.get(), 4000)));
+    public static final RegistryObject<Potion> GUSTING_POTION = POTION_REGISTER.register("gusting", ()-> new Potion(new MobEffectInstance(GUSTING.get(), 800)));
+    public static final RegistryObject<Potion> LONGER_GUSTING_POTION = POTION_REGISTER.register("long_gusting", ()-> new Potion(new MobEffectInstance(GUSTING.get(), 1600)));
     public static final RegistryObject<Potion> HEALTH_BOOST_POTION = POTION_REGISTER.register("health_boost",() -> new Potion(new MobEffectInstance(MobEffects.HEALTH_BOOST, 1600,1)));
 
 

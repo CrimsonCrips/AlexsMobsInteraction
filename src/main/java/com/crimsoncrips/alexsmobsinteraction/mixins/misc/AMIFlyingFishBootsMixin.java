@@ -34,14 +34,16 @@ public abstract class AMIFlyingFishBootsMixin {
     private static double adjustY(double y) {
         if(AMInteractionConfig.WEAVING_WATERS_ENABLED){
             return speed + lookAngle * speed + 0.3;
-        } else return y;
+        }
+        return y;
     }
 
     @ModifyArg(method = "tickFlyingFishBoots", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V"), index = 0)
     private static double adjustX(double x) {
         if(AMInteractionConfig.WEAVING_WATERS_ENABLED){
             return x * (speed + 0.4);
-        } else return x;
+        }
+        return x;
     }
 
     

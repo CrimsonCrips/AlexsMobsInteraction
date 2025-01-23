@@ -22,26 +22,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(EntityFrilledShark.class)
-public abstract class AMIFrilledShark extends WaterAnimal {
-
-
-    protected AMIFrilledShark(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
-
-    @Shadow protected abstract void registerGoals();
-
+public abstract class AMIFrilledShark {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityFrilledShark frilledShark = (EntityFrilledShark)(Object)this;
         if (AMInteractionConfig.BLEEDING_HUNGER_ENABLED){
-            frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 1, false, true, (mob) -> {
+            frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 50, true, true, (mob) -> {
                 return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
             }));
         }
-        frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, LivingEntity.class, 1, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FRILLED_KILL)));
-        frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, EntityGiantSquid.class, 1, false, true,(livingEntity) -> {
+        frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, LivingEntity.class, 20, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FRILLED_KILL)));
+        frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, EntityGiantSquid.class, 300, false, true,(livingEntity) -> {
             return livingEntity.getHealth() <= 0.25F * livingEntity.getMaxHealth();
         }));
     }
