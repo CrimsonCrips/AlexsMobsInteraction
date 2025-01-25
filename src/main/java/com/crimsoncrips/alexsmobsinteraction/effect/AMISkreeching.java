@@ -1,12 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.effect;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -16,13 +18,19 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AMISkreeching extends MobEffect {
 
@@ -34,25 +42,34 @@ public class AMISkreeching extends MobEffect {
         super(MobEffectCategory.HARMFUL, 0X142d40);
     }
 
+
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
         if (!AMInteractionConfig.SKREECH_YOUR_LAST_ENABLED)
             return;
-        if (entity.isDeadOrDying())
-            return;
         if (!(entity instanceof Player))
             return;
 
-        if (lastDuration == 100 || lastDuration == 95) {
+        if (lastDuration == 100 || lastDuration == 95 || lastDuration == 90 || lastDuration == 85) {
             entity.playSound(AMSoundRegistry.SKREECHER_CALL.get(),1 * 3F,1);
             level.addParticle(AMParticleRegistry.SKULK_BOOM.get(), entity.getX(), entity.getY() + 0.1, entity.getZ(), 0, 0, 0);
+        }
+
+        if (entity.getRandom().nextDouble() < 0.001 && lastDuration > 100){
+            SoundEvent soundEvents = switch (entity.getRandom().nextInt(0, 3)) {
+                case 0 -> SoundEvents.WARDEN_NEARBY_CLOSE;
+                case 1 -> SoundEvents.WARDEN_NEARBY_CLOSER;
+                default -> SoundEvents.WARDEN_NEARBY_CLOSEST;
+            };
+            level.playSound(null,entity.getOnPos(),soundEvents, SoundSource.AMBIENT, 1, -1);
+            entity.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 60, 0));
         }
 
         if (lastDuration <= 1){
             if (!entity.onGround()){
                 level.playSound(null,entity.getOnPos(),SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 2, 1);
                 entity.hurt(entity.damageSources().generic(),damage);
-                damage = damage * 1.2F;
+                damage = damage * 1.1F;
                 System.out.println(damage);
                 for (int i = 0; i < 50; ++i) {
                     double d0 = entity.getRandom().nextGaussian() * 0.02D;
@@ -81,12 +98,13 @@ public class AMISkreeching extends MobEffect {
                 if (!level.isClientSide) {
                     LivingEntity entityToSpawn;
                     entityToSpawn = EntityType.WARDEN.spawn((ServerLevel) level, BlockPos.containing(entity.getX() + 0.5, entity.getY() + 1.0, entity.getZ() + 0.5), MobSpawnType.TRIGGERED);
-                    if (entityToSpawn != null) {
+                    if (entityToSpawn instanceof Warden warden) {
                         entity.removeEffect(AMIEffects.SKREECHING.get());
+                        warden.setTarget(entity);
                         final CompoundTag emptyNbt = new CompoundTag();
-                        entityToSpawn.addAdditionalSaveData(emptyNbt);
+                        warden.addAdditionalSaveData(emptyNbt);
                         emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
-                        entityToSpawn.skipDropExperience();
+                        warden.skipDropExperience();
                     }
                 }
             }
@@ -107,4 +125,7 @@ public class AMISkreeching extends MobEffect {
         }
     }
 
+    public List<ItemStack> getCurativeItems() {
+        return List.of();
+    }
 }

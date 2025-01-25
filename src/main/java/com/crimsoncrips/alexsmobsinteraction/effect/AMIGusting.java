@@ -28,36 +28,41 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
+import java.util.List;
+import java.util.UUID;
+
 public class AMIGusting extends MobEffect {
 
     private int timer;
 
-
-
     public AMIGusting() {
         super(MobEffectCategory.BENEFICIAL, 0Xfae6af);
-        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "44d3ee68-a7cb-4da4-b7dc-c17d1746f950", 0.35000000596046448, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, String.valueOf(UUID.randomUUID()), 0.35000000596046448, AttributeModifier.Operation.MULTIPLY_BASE);
     }
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
         if (!AMInteractionConfig.GUSTING_ENABLED)
             return;
-        if (entity.isDeadOrDying())
-            return;
         if (entity.getRandom().nextDouble() < 0.5){
-            for (int i = 0; i < 1 + entity.getRandom().nextInt(1); ++i) {
-                entity.level().addParticle((ParticleOptions) AMParticleRegistry.GUSTER_SAND_SPIN.get(), entity.getX() + (double) (0.5F * (entity.getRandom().nextFloat() - 0.5F)), entity.getY() + (double) (0.5F * (entity.getRandom().nextFloat() - 0.5F) + 1.5), entity.getZ() + (double) (0.5F * (entity.getRandom().nextFloat() - 0.5F)), entity.getX(), entity.getY() + 0.5, entity.getZ());
+            for (int j = 0; j < 4; ++j) {
+                float f1 = (entity.getRandom().nextFloat() * 2.0F - 1.0F) * entity.getBbWidth() * 0.95F;
+                float f2 = (entity.getRandom().nextFloat() * 2.0F - 1.0F) * entity.getBbWidth() * 0.95F;
+                level.addParticle(AMParticleRegistry.GUSTER_SAND_SPIN.get(), entity.getX() + (double) f1, entity.getY(), entity.getZ() + (double) f2, entity.getX(), entity.getY() + entity.getRandom().nextFloat() * entity.getBbHeight() + 0.2F, entity.getZ());
             }
         }
-        if (entity.level().isClientSide)
-            return;
+        if (timer < 0){
+            timer = 40;
+        }
         timer--;
+        if (level.isClientSide)
+            return;
         if(timer == 39 && entity instanceof LivingEntity){
             int z = 1;
             for (int x = -2; x != 2; x ++) {
@@ -76,10 +81,6 @@ public class AMIGusting extends MobEffect {
                 summonGust(entity, -2, 0);
             }
         }
-        if (timer < 0){
-            timer = 40;
-        }
-
     }
 
     public boolean isDurationEffectTick(int duration, int amplifier) {
@@ -93,10 +94,6 @@ public class AMIGusting extends MobEffect {
         } else {
             return "alexscavesexemplified.feature_disabled";
         }
-    }
-
-    public void removeAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int level) {
-        timer = 40;
     }
 
     private void summonGust(LivingEntity entity,double x, double z){
