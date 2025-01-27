@@ -1,7 +1,6 @@
-package com.crimsoncrips.alexsmobsinteraction.effect;
+package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -18,18 +17,14 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AMISkreeching extends MobEffect {

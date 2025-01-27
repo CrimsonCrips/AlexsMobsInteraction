@@ -1,13 +1,10 @@
-package com.crimsoncrips.alexsmobsinteraction.enchantment;
+package com.crimsoncrips.alexsmobsinteraction.server.enchantment;
 
 
-import com.github.alexthe666.alexsmobs.entity.util.TendonWhipUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.alexsmobs.item.ItemPigshoes;
 import com.github.alexthe666.alexsmobs.item.ItemShieldOfTheDeep;
 import com.github.alexthe666.alexsmobs.item.ItemTendonWhip;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;

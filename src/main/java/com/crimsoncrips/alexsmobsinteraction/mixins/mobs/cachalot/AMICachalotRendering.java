@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cachalot;
 
 
-import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
+import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.github.alexthe666.alexsmobs.client.model.ModelCachalotWhale;
 import com.github.alexthe666.alexsmobs.client.render.RenderCachalotWhale;
 import com.github.alexthe666.alexsmobs.entity.EntityCachalotWhale;

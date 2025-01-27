@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.goal;
+package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import com.github.alexthe666.alexsmobs.entity.EntitySkelewag;
 import com.github.alexthe666.alexsmobs.misc.AMBlockPos;

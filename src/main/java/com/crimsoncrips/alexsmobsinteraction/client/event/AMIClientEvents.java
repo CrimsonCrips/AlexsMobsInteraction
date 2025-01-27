@@ -1,7 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.client.event;
 
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
-import com.github.alexmodguy.alexscaves.server.entity.living.WatcherEntity;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMITransform;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
 import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
 import net.minecraft.world.entity.animal.frog.Frog;

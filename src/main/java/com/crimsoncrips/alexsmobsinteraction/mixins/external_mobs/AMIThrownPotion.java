@@ -1,10 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMIConfigList;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
-import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
+import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

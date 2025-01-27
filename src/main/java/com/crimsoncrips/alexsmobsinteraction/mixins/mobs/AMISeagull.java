@@ -1,11 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.goal.AMISeagullSteal;
-import com.github.alexthe666.alexsmobs.entity.EntityBaldEagle;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISeagullSteal;
 import com.github.alexthe666.alexsmobs.entity.EntitySeagull;
-import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
-import com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.effect.MobEffectInstance;

@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.effect;
+package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;

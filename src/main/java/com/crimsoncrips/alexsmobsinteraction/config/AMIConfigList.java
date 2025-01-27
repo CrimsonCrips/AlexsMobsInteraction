@@ -17,7 +17,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue SNAPPING_MOSS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue FARSEER_EFFECTS_ENABLED;
@@ -173,6 +173,7 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue LEAFCUTTER_THROWABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue LEAFCUTTER_VARIANTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
 
 
     public AMIConfigList(final ForgeConfigSpec.Builder builder) {
@@ -197,8 +198,8 @@ public class AMIConfigList {
 
         builder.pop();
         builder.push("Alligator Snapping Turtle");
-        this.SNAPPING_DORMANCY_ENABLED = buildBoolean(builder, "SNAPPING_DORMANCY_ENABLED", " ", true, "Alligator Snapping Turtle will rarely accumulate moss when raining or within water");
-        this.SNAPPING_MOSS_ENABLED = buildBoolean(builder, "SNAPPING_MOSS_ENABLED", " ", true, "Alligator Snapping Turtle will be active at night or when raining only unless when disturbed");
+        this.SNAPPING_DORMANCY_ENABLED = buildBoolean(builder, "SNAPPING_DORMANCY_ENABLED", " ", true, "Snapping Turtles will be active at night or when raining only unless when disturbed");
+        this.MOSS_PROPOGATION_ENABLED = buildBoolean(builder, "MOSS_PROPOGATION_ENABLED", " ", true, "Snapping Turtles will rarely accumulate moss when raining or within water or grown by bonemealing watered turtles");
 
         builder.pop();
         builder.push("Anaconda");
@@ -208,6 +209,8 @@ public class AMIConfigList {
         builder.pop();
         builder.push("Bald Eagle");
         this.EAGLE_CANNIBALIZE_ENABLED = buildBoolean(builder, "EAGLE_CANNIBALIZE_ENABLED", " ", true, "Bald Eagle will rarely cannibalize weaker eagles");
+        this.BIRD_BOMBING_ENABLED = buildBoolean(builder, "BIRD_BOMBING_ENABLED", " ", true, "Bald Eagle can bomb targetted areas when being controlled");
+
         builder.pop();
         builder.push("Banana Slug");
         this.BANANA_SHEAR_ENABLED = buildBoolean(builder, "BANANA_SHEAR_ENABLED", " ", true, "Banana Slugs can be lethally sheared for bananas");

@@ -26,6 +26,7 @@ public class AMInteractionConfig {
     public static boolean CAIMAN_AGGRO_ENABLED;
     public static boolean CAIMAN_EGG_ATTACK_ENABLED;
     public static boolean CANDLE_REPEL_ENABLED;
+    public static boolean BIRD_BOMBING_ENABLED;
     public static boolean CAPUCHIN_HUNT_ENABLED;
     public static boolean CATFISH_CANNIBALIZE_ENABLED;
     public static boolean CAVESPIDER_EAT_ENABLED;
@@ -93,7 +94,7 @@ public class AMInteractionConfig {
     public static boolean SKREECHER_WARD_ENABLED;
     public static boolean SKREECH_YOUR_LAST_ENABLED;
     public static boolean SNAPPING_DORMANCY_ENABLED;
-    public static boolean SNAPPING_MOSS_ENABLED;
+    public static boolean MOSS_PROPOGATION_ENABLED;
     public static boolean SNOW_LUCK_ENABLED;
     public static boolean SOMBRERO_PROTECTION_ENABLED;
     public static boolean SPIDER_EAT_ENABLED;
@@ -158,7 +159,7 @@ public class AMInteractionConfig {
             TUSKLIN_TRUST_ENABLED = AMIConfigHolder.INTERACT.TUSKLIN_TRUST_ENABLED.get();
             CHARGE_STUN_ENABLED = AMIConfigHolder.INTERACT.CHARGE_STUN_ENABLED.get();
             SKELEWAG_CIRCLE_ENABLED = AMIConfigHolder.INTERACT.SKELEWAG_CIRCLE_ENABLED.get();
-            SNAPPING_MOSS_ENABLED = AMIConfigHolder.INTERACT.SNAPPING_MOSS_ENABLED.get();
+            MOSS_PROPOGATION_ENABLED = AMIConfigHolder.INTERACT.MOSS_PROPOGATION_ENABLED.get();
             FROG_TRANSFORM_ENABLED = AMIConfigHolder.INTERACT.FROG_TRANSFORM_ENABLED.get();
             CRIMSON_TRANSFORM_ENABLED = AMIConfigHolder.INTERACT.CRIMSON_TRANSFORM_ENABLED.get();
             ORCA_HUNT_ENABLED = AMIConfigHolder.INTERACT.ORCA_HUNT_ENABLED.get();
@@ -233,6 +234,7 @@ public class AMInteractionConfig {
             ACIDIC_LEAFCUTTER_ENABLED = AMIConfigHolder.INTERACT.ACIDIC_LEAFCUTTER_ENABLED.get();
             LEAFCUTTER_THROWABLE_ENABLED = AMIConfigHolder.INTERACT.LEAFCUTTER_THROWABLE_ENABLED.get();
             LEAFCUTTER_VARIANTS_ENABLED = AMIConfigHolder.INTERACT.LEAFCUTTER_VARIANTS_ENABLED.get();
+            BIRD_BOMBING_ENABLED = AMIConfigHolder.INTERACT.BIRD_BOMBING_ENABLED.get();
 
 
 

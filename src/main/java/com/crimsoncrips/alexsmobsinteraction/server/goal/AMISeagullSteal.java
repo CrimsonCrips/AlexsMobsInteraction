@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.crimsoncrips.alexsmobsinteraction.goal;
+package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.config.AMConfig;

@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.goal;
+package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;

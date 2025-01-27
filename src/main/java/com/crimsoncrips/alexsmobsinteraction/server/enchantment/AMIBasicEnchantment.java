@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.enchantment;
+package com.crimsoncrips.alexsmobsinteraction.server.enchantment;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;

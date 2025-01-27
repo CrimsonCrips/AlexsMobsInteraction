@@ -1,9 +1,9 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
+import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;

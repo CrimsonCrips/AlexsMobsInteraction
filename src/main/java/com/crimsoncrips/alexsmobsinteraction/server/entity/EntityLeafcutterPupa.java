@@ -1,7 +1,7 @@
-package com.crimsoncrips.alexsmobsinteraction.entity;
+package com.crimsoncrips.alexsmobsinteraction.server.entity;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMIVariant;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIVariant;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;

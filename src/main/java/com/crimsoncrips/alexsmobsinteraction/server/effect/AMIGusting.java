@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.effect;
+package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
@@ -18,10 +18,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -43,7 +40,15 @@ public class AMIGusting extends MobEffect {
 
     public AMIGusting() {
         super(MobEffectCategory.BENEFICIAL, 0Xfae6af);
-        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, String.valueOf(UUID.randomUUID()), 0.35000000596046448, AttributeModifier.Operation.MULTIPLY_BASE);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "9015e1e9-ce4f-4bfa-ad17-b64d01056aa6", 0.35000000596046448, AttributeModifier.Operation.MULTIPLY_BASE);
+    }
+
+    public void removeAttributeModifiers(LivingEntity entityLivingBaseIn, AttributeMap attributeMapIn, int amplifier) {
+        super.removeAttributeModifiers(entityLivingBaseIn, attributeMapIn, amplifier);
+    }
+
+    public void addAttributeModifiers(LivingEntity entityLivingBaseIn, AttributeMap attributeMapIn, int amplifier) {
+        super.addAttributeModifiers(entityLivingBaseIn, attributeMapIn, amplifier);
     }
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {
@@ -86,7 +91,6 @@ public class AMIGusting extends MobEffect {
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return duration > 0;
     }
-
 
     public String getDescriptionId() {
         if (AMInteractionConfig.CHARGE_STUN_ENABLED) {

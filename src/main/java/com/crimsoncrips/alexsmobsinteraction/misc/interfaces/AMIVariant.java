@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces;
+package com.crimsoncrips.alexsmobsinteraction.misc.interfaces;
 
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 

@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMITransform;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;

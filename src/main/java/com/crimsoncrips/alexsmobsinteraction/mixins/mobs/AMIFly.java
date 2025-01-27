@@ -1,11 +1,11 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.AMInteractionTagRegistry;
+import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
-import com.crimsoncrips.alexsmobsinteraction.goal.AMIFollowNearestGoal;
-import com.crimsoncrips.alexsmobsinteraction.goal.AvoidBlockGoal;
-import com.crimsoncrips.alexsmobsinteraction.mobmodification.interfaces.AMITransform;
+import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMITransform;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;

@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction;//
+package com.crimsoncrips.alexsmobsinteraction.server;//
 
 
 

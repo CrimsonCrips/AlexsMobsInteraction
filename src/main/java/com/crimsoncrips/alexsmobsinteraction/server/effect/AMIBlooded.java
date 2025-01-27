@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.effect;
+package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;

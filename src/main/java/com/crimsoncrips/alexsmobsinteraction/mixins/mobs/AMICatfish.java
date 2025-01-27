@@ -1,9 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.effect.AMIEffects;
-import com.crimsoncrips.alexsmobsinteraction.goal.AMITargetFood;
-import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMITargetFood;
 import com.github.alexthe666.alexsmobs.entity.EntityCatfish;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.world.damagesource.DamageSource;

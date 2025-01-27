@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.item;
+package com.crimsoncrips.alexsmobsinteraction.server.item;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import net.minecraft.world.item.*;
