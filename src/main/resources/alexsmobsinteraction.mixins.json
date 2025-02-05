@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "alexsmobsinteraction.refmap.json",
   "mixins": [
+    "external_mobs.AMIBeeMixin",
     "external_mobs.AMIFrog",
     "external_mobs.AMISpider",
     "external_mobs.AMIThrownPotion",
@@ -33,7 +34,6 @@
     "mobs.AMICockroach",
     "mobs.AMICosmaw",
     "mobs.AMICrimsonSpit",
-    "mobs.AMICrocodile",
     "mobs.AMICrow",
     "mobs.AMIDropbear",
     "mobs.AMIElephant",
@@ -86,15 +86,18 @@
     "mobs.cachalot.AMICachalotWhale",
     "mobs.capuchin.AMICapuchinMonkey",
     "mobs.capuchin.AMITossedItem",
+    "mobs.crocodile.AMICrocodileMixin",
     "mobs.lavithan.AMILavithan",
     "mobs.leafcutter.AMILeafcutterAntMixin",
     "mobs.leafcutter.AMILeafcutterAntRenderMixin"
   ],
   "client": [
+    "misc.AMIParticleInvertDigMixin",
     "mobs.cachalot.AMICachalotRendering",
     "mobs.capuchin.AMILayerCapuchinItem",
-    "mobs.lavithan.AMILavithanRendering",
-    "mobs.lavithan.AMILayerOverlays"
+    "mobs.crocodile.AMICrocodileLayerRenderingMixin",
+    "mobs.lavithan.AMILaviathanLayerRenderingMixin",
+    "mobs.lavithan.AMILavithanRendering"
   ],
   "injectors": {
     "defaultRequire": 1

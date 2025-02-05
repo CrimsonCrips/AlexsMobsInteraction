@@ -10,6 +10,8 @@ import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
 import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.NuclearBombEntity;
+import com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.RaycatEntity;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -21,6 +23,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -30,6 +33,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.goat.Goat;
@@ -52,6 +57,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -66,6 +72,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 import static com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry.*;
 import static com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig.ELEPHANT_TRAMPLE_ENABLED;
@@ -508,9 +515,20 @@ public class AMInteractionEvents {
     }
 
     @SubscribeEvent
-    public void mobHurt(LivingHurtEvent hurtEvent){
+    public void talkEvent(ServerChatEvent serverChatEvent){
+        Player player = serverChatEvent.getPlayer();
 
+        for (EntityMimicube entity : player.level().getEntitiesOfClass(EntityMimicube.class, player.getBoundingBox().inflate(9))) {
+            if (entity != null && entity.getRandom().nextDouble() < 1 && entity.getTarget() == player && AMInteractionConfig.MIMICKRY_ENABLED) {
+                String message = serverChatEvent.getMessage().getString();
+                for (int i = 0;i < 4; i++){
+                    char randomLetter = (char) ('a' + player.getRandom().nextInt(26));
+                    message = message.replaceAll(String.valueOf(randomLetter), "§k" + randomLetter + randomLetter + "§r");
+                }
 
+                player.sendSystemMessage(Component.nullToEmpty("<" + player.getDisplayName().getString() + "> " + message));
+            }
+        }
     }
 
     @SubscribeEvent

@@ -67,7 +67,7 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
         Level world = this.level();
         BlockPos blockpos = new BlockPos((int) result.getLocation().x,(int)result.getLocation().y,(int)result.getLocation().z);
         BlockState blockstate = world.getBlockState(blockpos);
-        if (blockstate.is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && world.getBlockState(blockpos.below()).is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && AMInteractionConfig.LEAFCUTTER_THROWABLE_ENABLED) {
+        if (blockstate.is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && world.getBlockState(blockpos.below()).is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && AMInteractionConfig.THROWABLE_PUPI_ENABLED) {
             world.playSound(this, blockpos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!world.isClientSide) {
                 world.setBlock(blockpos, AMBlockRegistry.LEAFCUTTER_ANTHILL.get().defaultBlockState(), 3);

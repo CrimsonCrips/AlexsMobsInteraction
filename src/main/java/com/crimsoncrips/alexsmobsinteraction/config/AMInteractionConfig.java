@@ -63,7 +63,7 @@ public class AMInteractionConfig {
     public static boolean GUSTER_WEIGHT_ENABLED;
     public static boolean GUSTING_ENABLED;
     public static boolean HAMMERHEAD_MANTIS_EAT_ENABLED;
-    public static boolean HUMMING_FOLLOW_ENABLED;
+    public static boolean FLOWERING_ATTRACTION_ENABLED;
     public static boolean INFECT_IMMUNITY_ENABLED;
     public static boolean INFECT_WEAK_ENABLED;
     public static boolean LEOPARD_DESIRES_ENABLED;
@@ -116,8 +116,11 @@ public class AMInteractionConfig {
     public static boolean WITCH_ADDITIONS_ENABLED;
     public static boolean TUSKLIN_STRUCK_ENABLED;
     public static int STRADDLER_SHOTS_AMOUNT;
-    public static boolean LEAFCUTTER_THROWABLE_ENABLED;
+    public static boolean THROWABLE_PUPI_ENABLED;
     public static boolean LEAFCUTTER_VARIANTS_ENABLED;
+    public static boolean EMOTIONAL_REMEMEMBRANCE_ENABLED;
+    public static boolean HASTY_CARVING_ENABLED;
+    public static boolean MIMICKRY_ENABLED;
 
 
     public static void bake() {
@@ -215,7 +218,7 @@ public class AMInteractionConfig {
             EMU_EGG_ATTACK_ENABLED = AMIConfigHolder.INTERACT.EMU_EGG_ATTACK_ENABLED.get();
             CAIMAN_EGG_ATTACK_ENABLED = AMIConfigHolder.INTERACT.CAIMAN_EGG_ATTACK_ENABLED.get();
             MUDSKIPPER_HUNT_ENABLED = AMIConfigHolder.INTERACT.MUDSKIPPER_HUNT_ENABLED.get();
-            HUMMING_FOLLOW_ENABLED = AMIConfigHolder.INTERACT.HUMMING_FOLLOW_ENABLED.get();
+            FLOWERING_ATTRACTION_ENABLED = AMIConfigHolder.INTERACT.FLOWERING_ATTRACTION_ENABLED.get();
             COMBUSTABLE_ENABLED = AMIConfigHolder.INTERACT.COMBUSTABLE_ENABLED.get();
             MOLTEN_BATH_ENABLED = AMIConfigHolder.INTERACT.MOLTEN_BATH_ENABLED.get();
             CROW_WARRIORS_ENABLED = AMIConfigHolder.INTERACT.CROW_WARRIORS_ENABLED.get();
@@ -232,9 +235,12 @@ public class AMInteractionConfig {
             ORPHANED_ANACONDAS_ENABLED = AMIConfigHolder.INTERACT.ORPHANED_ANACONDAS_ENABLED.get();
             FOOD_TARGET_EFFECTS_ENABLED = AMIConfigHolder.INTERACT.FOOD_TARGET_EFFECTS_ENABLED.get();
             ACIDIC_LEAFCUTTER_ENABLED = AMIConfigHolder.INTERACT.ACIDIC_LEAFCUTTER_ENABLED.get();
-            LEAFCUTTER_THROWABLE_ENABLED = AMIConfigHolder.INTERACT.LEAFCUTTER_THROWABLE_ENABLED.get();
+            THROWABLE_PUPI_ENABLED = AMIConfigHolder.INTERACT.THROWABLE_PUPI_ENABLED.get();
             LEAFCUTTER_VARIANTS_ENABLED = AMIConfigHolder.INTERACT.LEAFCUTTER_VARIANTS_ENABLED.get();
             BIRD_BOMBING_ENABLED = AMIConfigHolder.INTERACT.BIRD_BOMBING_ENABLED.get();
+            EMOTIONAL_REMEMEMBRANCE_ENABLED = AMIConfigHolder.INTERACT.EMOTIONAL_REMEMEMBRANCE_ENABLED.get();
+            HASTY_CARVING_ENABLED = AMIConfigHolder.INTERACT.HASTY_CARVING_ENABLED.get();
+            MIMICKRY_ENABLED = AMIConfigHolder.INTERACT.MIMICKRY_ENABLED.get();
 
 
 

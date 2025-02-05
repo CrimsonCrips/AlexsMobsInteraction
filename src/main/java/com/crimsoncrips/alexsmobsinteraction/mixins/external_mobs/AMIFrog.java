@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMITransform;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(Frog.class)
-public class AMIFrog extends Mob implements AMITransform {
+public class AMIFrog extends Mob implements TransformingEntities {
 
     private static final EntityDataAccessor<Boolean> TRANFORMING = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.BOOLEAN);
 

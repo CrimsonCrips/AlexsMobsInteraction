@@ -10,7 +10,10 @@ import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
+import com.github.alexmodguy.alexscaves.client.config.ACClientConfig;
+import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,7 +25,10 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @Mod(AlexsMobsInteraction.MODID)
@@ -30,6 +36,20 @@ public class AlexsMobsInteraction {
 
     public static final String MODID = "alexsmobsinteraction";
     public static final AMICommonProxy PROXY = DistExecutor.runForDist(() -> AMIClientProxy::new, () -> AMICommonProxy::new);
+
+    public static final ACServerConfig COMMON_CONFIG;
+    private static final ForgeConfigSpec COMMON_CONFIG_SPEC;
+    public static final ACClientConfig CLIENT_CONFIG;
+    private static final ForgeConfigSpec CLIENT_CONFIG_SPEC;
+
+    static {
+        final Pair<ACServerConfig, ForgeConfigSpec> serverPair = new ForgeConfigSpec.Builder().configure(ACServerConfig::new);
+        COMMON_CONFIG = serverPair.getLeft();
+        COMMON_CONFIG_SPEC = serverPair.getRight();
+        final Pair<ACClientConfig, ForgeConfigSpec> clientPair = new ForgeConfigSpec.Builder().configure(ACClientConfig::new);
+        CLIENT_CONFIG = clientPair.getLeft();
+        CLIENT_CONFIG_SPEC = clientPair.getRight();
+    }
 
     public AlexsMobsInteraction() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

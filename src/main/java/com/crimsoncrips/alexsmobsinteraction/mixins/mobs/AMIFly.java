@@ -5,7 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMITransform;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -40,7 +40,7 @@ import java.util.function.Predicate;
 
 
 @Mixin(EntityFly.class)
-public class AMIFly extends Mob implements AMITransform {
+public class AMIFly extends Mob implements TransformingEntities {
 
     private static final EntityDataAccessor<Boolean> TRANFORMING = SynchedEntityData.defineId(EntityFly.class, EntityDataSerializers.BOOLEAN);
 

@@ -20,7 +20,6 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue FARSEER_EFFECTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue ACIDIC_LEAFCUTTER_ENABLED;
     public final ForgeConfigSpec.BooleanValue CHARGE_STUN_ENABLED;
     public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
@@ -100,7 +99,7 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue VULTURE_STEAL_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue HUMMING_FOLLOW_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FLOWERING_ATTRACTION_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue GELADA_HUNT_ENABLED;
 
@@ -171,9 +170,12 @@ public class AMIConfigList {
 
     public final ForgeConfigSpec.BooleanValue FOOD_TARGET_EFFECTS_ENABLED;
 
-    public final ForgeConfigSpec.BooleanValue LEAFCUTTER_THROWABLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue THROWABLE_PUPI_ENABLED;
     public final ForgeConfigSpec.BooleanValue LEAFCUTTER_VARIANTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
 
 
     public AMIConfigList(final ForgeConfigSpec.Builder builder) {
@@ -243,6 +245,9 @@ public class AMIConfigList {
         this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Crimson Mosquitoes is immune to blood spits");
 
         builder.pop();
+        builder.push("Crocodile");
+        this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", " ", true, "Crocodile has a halo when named 'Wally'");
+        builder.pop();
         builder.push("Crow");
         this.CROW_CANNIBALIZE_ENABLED = buildBoolean(builder, "CROW_CANNIBALIZE_ENABLED", " ", true, "Crow will rarely eat their weaker selves unless if tamed");
         this.CROW_WARRIORS_ENABLED = buildBoolean(builder, "CROW_WARRIORS_ENABLED", " ", true, "Crows will not drop their weapons in their beak when attacked");
@@ -268,17 +273,18 @@ public class AMIConfigList {
         builder.push("Farseer");
         this.FARSEER_ALTERING_ENABLED = buildBoolean(builder, "FARSEER_ALTERING_ENABLED", " ", true, "Farseer will discombobulate players when targeted,by scrambling their inventory and flashing them with illusions");
         this.FARSEER_HUMANLIKE_ATTACK_ENABLED = buildBoolean(builder, "FARSEER_HUMANLIKE_ATTACK_ENABLED", " ", true, "Farseer will attack any that are human-like");
-        this.FARSEER_EFFECTS_ENABLED = buildBoolean(builder, "FARSEER_EFFECTS_ENABLED", " ", true, "Whether Farseer's effects are enabled (this is for sensitive types like photosensitivity)");
         builder.pop();
         builder.push("Flutter");
         this.FLUTTER_WITHERED_ENABLED = buildBoolean(builder, "FLUTTER_WITHERED_ENABLED", " ", true, "Flutter can be fed a wither flower to be inflicted with withered");
         this.FLUTTER_SHEAR_ENABLED = buildBoolean(builder, "FLUTTER_SHEAR_ENABLED", " ", true, "Flutter can be sheared for azalea and related");
+        this.FLOWERING_ATTRACTION_ENABLED = buildBoolean(builder, "FLOWERING_ATTRACTION_ENABLED", " ", true, "Flutters attract bees and hummingbirds");
+
         builder.pop();
         builder.push("Fly");
         this.FLY_PESTER_ENABLED = buildBoolean(builder, "FLY_PESTER_ENABLED", " ", true, "Flies will pester certain smelling animals");
         this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
         this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "CANDLE_REPEL_ENABLED", " ", true, "Lit candles will cause flies to run away from it");
-        this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", " ", true, "Holding a maggot while fishing will cause it to be consumed and increase luck for fishing");
+        this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", " ", true, "Hoflding a maggot while fishing will cause it to be consumed and increase luck for fishing");
 
         builder.pop();
         builder.push("Flying Fish");
@@ -305,7 +311,6 @@ public class AMIConfigList {
         this.HAMMERHEAD_MANTIS_EAT_ENABLED = buildBoolean(builder, "HAMMERHEAD_MANTIS_EAT_ENABLED", " ", true, "Hammerhead hunts mantis shrimp");
         builder.pop();
         builder.push("Hummingbird");
-        this.HUMMING_FOLLOW_ENABLED = buildBoolean(builder, "HUMMING_FOLLOW_ENABLED", " ", true, "Humming Birds follow flutters");
         this.POLINATE_DAY_ENABLED = buildBoolean(builder, "POLINATE_DAY_ENABLED", " ", true, "Humming Birds pollinate only in the day");
         builder.pop();
         builder.push("Komodo Dragon");
@@ -317,7 +322,7 @@ public class AMIConfigList {
         builder.push("Leafcutter Ants");
         this.COCKROACH_CHAMBER_ENABLED = buildBoolean(builder, "COCKROACH_CHAMBER_ENABLED", " ", true, "Leafcutter Chambers that are bustling with fungus can burst out cockroaches");
         this.ACIDIC_LEAFCUTTER_ENABLED = buildBoolean(builder, "ACIDIC_LEAFCUTTER_ENABLED", " ", true, "Leafcutter ants inflict quick poisons at hit");
-        this.LEAFCUTTER_THROWABLE_ENABLED = buildBoolean(builder, "LEAFCUTTER_THROWABLE_ENABLED", " ", true, "Whether leafcutter pupi is throwable that places anthills like normal");
+        this.THROWABLE_PUPI_ENABLED = buildBoolean(builder, "THROWABLE_PUPI_ENABLED", " ", true, "Whether leafcutter pupi is throwable that places anthills like normal");
         this.LEAFCUTTER_VARIANTS_ENABLED = buildBoolean(builder, "LEAFCUTTER_VARIANTS_ENABLED", " ", true, "Leafcutters have variants which also causes rivalry");
 
         builder.pop();
@@ -327,8 +332,11 @@ public class AMIConfigList {
         builder.push("Mantis Shrimp");
         this.MANTIS_CANNIBALIZE_ENABLED = buildBoolean(builder, "MANTIS_CANNIBALIZE_ENABLED", " ", true, "Mantis Shrimp will cannibalize on low health mantis shrimp");
         this.MANTIS_AGGRO_ENABLED = buildBoolean(builder, "MANTIS_AGGRO_ENABLED", " ", true, "Mantis will attack players, unless if holding tropical fish");
-
         builder.pop();
+        builder.push("Mimicube");
+        this.MIMICKRY_ENABLED = buildBoolean(builder, "MIMICKRY_ENABLED", " ", true, "Mimicubes attempt to mimic targetted player chats");
+        builder.pop();
+        
         builder.push("Mudskipper");
         this.MUDSKIPPER_HUNT_ENABLED = buildBoolean(builder, "MUDSKIPPER_HUNT_ENABLED", " ", true, "Mudskipper hunts insects and lobster");
         builder.pop();
@@ -407,6 +415,8 @@ public class AMIConfigList {
         builder.push("Void Worm");
         this.VOIDWORM_STUN_ENABLED = buildBoolean(builder, "VOIDWORM_STUN_ENABLED", " ", true, "Void Worm can be stunned and brought down when hit in the head enough");
         this.DIMENSIONAL_LODESTONE_ENABLED = buildBoolean(builder, "DIMENSIONAL_LODESTONE_ENABLED", " ", true, "Dimensional Carver can be used to make a portal to a linked lodestone when holding the compass off-hand");
+        this.HASTY_CARVING_ENABLED = buildBoolean(builder, "HASTY_CARVING_ENABLED", " ", true, "Dimensional Carver speeds up with haste");
+
         builder.pop();
         builder.push("Warped Mosco");
         this.MOSCO_CANNIBALISM_ENABLED = buildBoolean(builder, "MOSCO_CANNIBALISM_ENABLED", " ", true, "Warped Mosco rarely cannibalize on Crimson Mosquitoes");

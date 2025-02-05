@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.lavithan;
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMILavithanInterface;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.Relavaithan;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityLaviathan.class)
-public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdPanic , AMILavithanInterface {
+public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdPanic , Relavaithan {
 
 
     @Shadow protected abstract float getXForPart(float yaw, float degree);

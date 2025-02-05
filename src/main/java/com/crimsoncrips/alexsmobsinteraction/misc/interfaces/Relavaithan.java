@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.misc.interfaces;
 
-public interface AMILavithanInterface {
+public interface Relavaithan {
     boolean isRelava();
 
 }
