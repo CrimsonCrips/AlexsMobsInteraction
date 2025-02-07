@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityMurmur;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -48,7 +48,7 @@ public abstract class AMIMurmurBody extends Mob {
         this.yHeadRot = Mth.clamp(this.yHeadRot, this.yBodyRot - 70.0F, this.yBodyRot + 70.0F);
         if (!this.level().isClientSide) {
             Entity head = murmur.getHead();
-            if (head == null && !(AMInteractionConfig.GOOFY_MURMUR_DECAPITATED_ENABLED)) {
+            if (head == null && !(AlexsMobsInteraction.COMMON_CONFIG.GOOFY_MURMUR_DECAPITATED_ENABLED.get())) {
                 LivingEntity created;
                 AMIReflectionUtil.callMethod(created = this, "createHead", new Class[0], new Object[0]);
                 murmur.setHeadUUID(created.getUUID());

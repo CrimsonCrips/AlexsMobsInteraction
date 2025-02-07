@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.lavithan;
 
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.Relavaithan;
 import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,7 +19,7 @@ public class AMILaviathanLayerRenderingMixin {
     private void alter1(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityLaviathan laviathan, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
         Relavaithan myAccessor = (Relavaithan) laviathan;
         boolean isRelava = myAccessor.isRelava();
-        if (AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED && isRelava){
+        if (AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() && isRelava){
             ci.cancel();
         }
     }

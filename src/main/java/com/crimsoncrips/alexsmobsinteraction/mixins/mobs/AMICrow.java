@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCrow;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -48,7 +48,7 @@ public abstract class AMICrow extends Mob {
             }
 
             boolean prev = super.hurt(source, amount);
-            if (prev && AMInteractionConfig.CROW_WARRIORS_ENABLED){
+            if (prev && AlexsMobsInteraction.COMMON_CONFIG.CROW_WARRIORS_ENABLED.get()){
                 if(!this.isHolding(Ingredient.of(AMInteractionTagRegistry.CROW_WEAPON))){
                     this.spawnAtLocation(this.getMainHandItem().copy());
                     this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -67,7 +67,7 @@ public abstract class AMICrow extends Mob {
     private void registerGoals(CallbackInfo ci) {
         EntityCrow crow = (EntityCrow)(Object)this;
         crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CROW_KILL)));
-        if (AMInteractionConfig.CROW_CANNIBALIZE_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.CROW_CANNIBALIZE_ENABLED.get()){
             crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, EntityCrow.class, 500, true, true, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth();
             }){
@@ -81,7 +81,7 @@ public abstract class AMICrow extends Mob {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

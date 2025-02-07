@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntitySandShot;
 import com.github.alexthe666.alexsmobs.item.ItemPocketSand;
 import net.minecraft.sounds.SoundEvents;
@@ -54,7 +54,7 @@ public class AMIPocketSandMixin extends Item {
             ammo = new ItemStack(Items.SAND);
         }
 
-        if (!worldIn.isClientSide && (!ammo.isEmpty() || AMInteractionConfig.BOTTOMLESS_SAND_ENABLED)) {
+        if (!worldIn.isClientSide && (!ammo.isEmpty() || AlexsMobsInteraction.COMMON_CONFIG.BOTTOMLESS_SAND_ENABLED.get())) {
             livingEntityIn.gameEvent(GameEvent.ITEM_INTERACT_START);
             worldIn.playSound((Player)null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), SoundEvents.SAND_BREAK, SoundSource.PLAYERS, 0.5F, 0.4F + livingEntityIn.getRandom().nextFloat() * 0.4F + 0.8F);
             boolean left = false;
@@ -70,7 +70,7 @@ public class AMIPocketSandMixin extends Item {
             }
 
             livingEntityIn.getCooldowns().addCooldown(this, 2);
-            if (!AMInteractionConfig.BOTTOMLESS_SAND_ENABLED) ammo.shrink(1);
+            if (!AlexsMobsInteraction.COMMON_CONFIG.BOTTOMLESS_SAND_ENABLED.get()) ammo.shrink(1);
             itemstack.hurtAndBreak(1, livingEntityIn, (player) -> {
                 player.broadcastBreakEvent(livingEntityIn.getUsedItemHand());
             });

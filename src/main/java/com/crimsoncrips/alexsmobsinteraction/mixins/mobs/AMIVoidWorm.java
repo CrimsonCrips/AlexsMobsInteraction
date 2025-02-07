@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -79,7 +79,7 @@ public abstract class AMIVoidWorm extends Monster {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        if(AMInteractionConfig.VOIDWORM_STUN_ENABLED){
+        if(AlexsMobsInteraction.COMMON_CONFIG.VOIDWORM_STUN_ENABLED.get()){
             EntityVoidWorm voidWorm = (EntityVoidWorm) (Object) this;
 
             if (damageRetain > 0) damageRetain--;

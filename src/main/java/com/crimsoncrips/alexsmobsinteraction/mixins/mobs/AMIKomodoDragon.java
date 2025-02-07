@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityKomodoDragon;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -41,7 +41,7 @@ public abstract class AMIKomodoDragon extends TamableAnimal {
         EntityKomodoDragon komodoDragon = (EntityKomodoDragon)(Object)this;
         komodoDragon.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(komodoDragon, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.KOMODO_DRAGON_TARGETS)));
 
-        if (!AMInteractionConfig.FRIENDLY_KOMODO_ENABLED)
+        if (!AlexsMobsInteraction.COMMON_CONFIG.FRIENDLY_KOMODO_ENABLED.get())
             return;
 
         komodoDragon.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(komodoDragon, EntityKomodoDragon.class, 50, true, false, (livingEntity) -> {
@@ -62,22 +62,22 @@ public abstract class AMIKomodoDragon extends TamableAnimal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 15))
     private boolean nearestTarget(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.FRIENDLY_KOMODO_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.FRIENDLY_KOMODO_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 16))
     private boolean nearestTarget2(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.FRIENDLY_KOMODO_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.FRIENDLY_KOMODO_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 17))
     private boolean target3D(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.FRIENDLY_KOMODO_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.FRIENDLY_KOMODO_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

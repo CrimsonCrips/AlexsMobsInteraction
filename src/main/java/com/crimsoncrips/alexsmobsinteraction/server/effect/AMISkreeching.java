@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -40,7 +40,7 @@ public class AMISkreeching extends MobEffect {
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
-        if (!AMInteractionConfig.SKREECH_YOUR_LAST_ENABLED)
+        if (!AlexsMobsInteraction.COMMON_CONFIG.SKREECH_YOUR_LAST_ENABLED.get())
             return;
         if (!(entity instanceof Player))
             return;
@@ -65,7 +65,6 @@ public class AMISkreeching extends MobEffect {
                 level.playSound(null,entity.getOnPos(),SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 2, 1);
                 entity.hurt(entity.damageSources().generic(),damage);
                 damage = damage * 1.1F;
-                System.out.println(damage);
                 for (int i = 0; i < 50; ++i) {
                     double d0 = entity.getRandom().nextGaussian() * 0.02D;
                     double d1 = entity.getRandom().nextGaussian() * 0.02D;
@@ -113,7 +112,7 @@ public class AMISkreeching extends MobEffect {
     }
 
     public String getDescriptionId() {
-        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
             return "alexsmobsinteraction.potion.skreeching";
         } else {
             return "alexscavesexemplified.feature_disabled";

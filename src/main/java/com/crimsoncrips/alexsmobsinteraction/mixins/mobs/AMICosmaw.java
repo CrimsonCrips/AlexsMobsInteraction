@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMICosmawOwner;
 import com.github.alexthe666.alexsmobs.entity.EntityCosmaw;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -32,19 +32,19 @@ public abstract class AMICosmaw extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
-        if (AMInteractionConfig.COSMAW_WEAKENED_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.COSMAW_WEAKENED_ENABLED.get()) {
             cosmaw.goalSelector.addGoal(4, new AMICosmawOwner(cosmaw));
         }
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 4))
     private boolean findWater(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.COSMAW_WEAKENED_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.COSMAW_WEAKENED_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

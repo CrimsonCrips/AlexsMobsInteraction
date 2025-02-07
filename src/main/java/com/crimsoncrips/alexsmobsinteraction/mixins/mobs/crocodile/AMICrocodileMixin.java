@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.crocodile;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.WallyCrocodile;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
@@ -63,7 +63,7 @@ public abstract class AMICrocodileMixin extends TamableAnimal implements WallyCr
 
     @Inject(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 13), cancellable = true)
     private void nearestTarget2(CallbackInfo ci) {
-        if (AMInteractionConfig.EMOTIONAL_REMEMEMBRANCE_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.EMOTIONAL_REMEMEMBRANCE_ENABLED.get()){
             ci.cancel();
         }
     }
@@ -71,7 +71,7 @@ public abstract class AMICrocodileMixin extends TamableAnimal implements WallyCr
     @Override
     public boolean isWally() {
         String name = this.getName().getString().toLowerCase();
-        return name.contains("wally") && this.isTame() && AMInteractionConfig.EMOTIONAL_REMEMEMBRANCE_ENABLED;
+        return name.contains("wally") && this.isTame() && AlexsMobsInteraction.COMMON_CONFIG.EMOTIONAL_REMEMEMBRANCE_ENABLED.get();
     }
 
 }

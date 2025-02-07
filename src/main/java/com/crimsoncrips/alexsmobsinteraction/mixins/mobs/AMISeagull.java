@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISeagullSteal;
 import com.github.alexthe666.alexsmobs.entity.EntitySeagull;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -34,7 +34,7 @@ public abstract class AMISeagull extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntitySeagull seagull = (EntitySeagull)(Object)this;
-        if (AMInteractionConfig.SEAGULL_WEAKEN_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.SEAGULL_WEAKEN_ENABLED.get()){
             seagull.targetSelector.addGoal(2, new AMISeagullSteal(seagull){
                 public boolean canUse() {
                     return super.canUse() && !(seagull.getHealth() <= 0.40F * seagull.getMaxHealth());
@@ -45,12 +45,12 @@ public abstract class AMISeagull extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 2))
     private boolean targetFood(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.SEAGULL_WEAKEN_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.SEAGULL_WEAKEN_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

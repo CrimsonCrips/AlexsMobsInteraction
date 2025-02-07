@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
 import com.github.alexthe666.alexsmobs.entity.EntityFlutter;
 import com.github.alexthe666.alexsmobs.entity.EntityHummingbird;
@@ -30,7 +30,7 @@ public abstract class AMIHummingbird extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityHummingbird hummingbird = (EntityHummingbird)(Object)this;
-        if(AMInteractionConfig.POLINATE_DAY_ENABLED) {
+        if(AlexsMobsInteraction.COMMON_CONFIG.POLINATE_DAY_ENABLED.get()) {
 
             hummingbird.goalSelector.addGoal(4, new HummingbirdAIPollinate(hummingbird){
                 public boolean canUse() {
@@ -38,7 +38,7 @@ public abstract class AMIHummingbird extends Animal {
                 }
             });
         }
-        if(AMInteractionConfig.FLOWERING_ATTRACTION_ENABLED) {
+        if(AlexsMobsInteraction.COMMON_CONFIG.FLOWERING_ATTRACTION_ENABLED.get()) {
             hummingbird.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(hummingbird, EntityFlutter.class, 10, 1.2, EntityFlutter::isAlive) {
                 public boolean canContinueToUse() {
                     return hummingbird.level().isDay();
@@ -49,7 +49,7 @@ public abstract class AMIHummingbird extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 4))
     private boolean polinate(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.POLINATE_DAY_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.POLINATE_DAY_ENABLED.get();
     }
 
 }

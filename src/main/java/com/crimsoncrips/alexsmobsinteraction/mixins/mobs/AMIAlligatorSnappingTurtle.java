@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -29,7 +29,7 @@ public abstract class AMIAlligatorSnappingTurtle extends Animal {
     private Vec3 alexsMobsInteraction$travel(Vec3 par1) {
         Level level = this.level();
         boolean dormancy = level.isNight() || level.isRaining() || level.isThundering();
-        if (AMInteractionConfig.SNAPPING_DORMANCY_ENABLED && !dormancy){
+        if (AlexsMobsInteraction.COMMON_CONFIG.SNAPPING_DORMANCY_ENABLED.get() && !dormancy){
             return (Vec3.ZERO);
         }
         return par1;

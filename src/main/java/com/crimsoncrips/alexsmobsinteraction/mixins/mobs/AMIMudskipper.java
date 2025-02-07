@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityMudskipper;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -27,7 +27,7 @@ public abstract class AMIMudskipper extends TamableAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityMudskipper mudskipper = (EntityMudskipper)(Object)this;
-        if (AMInteractionConfig.MUDSKIPPER_HUNT_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.MUDSKIPPER_HUNT_ENABLED.get()) {
             mudskipper.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(mudskipper, LivingEntity.class, 200, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.MUDSKIPPER_KILL)));
         }
     }

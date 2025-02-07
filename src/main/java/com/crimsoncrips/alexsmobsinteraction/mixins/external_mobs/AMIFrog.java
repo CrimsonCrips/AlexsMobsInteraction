@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.BlockPos;
@@ -65,7 +65,7 @@ public class AMIFrog extends Mob implements TransformingEntities {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (AMInteractionConfig.FROG_TRANSFORM_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.FROG_TRANSFORM_ENABLED.get()) {
             if (itemstack.getItem() == Items.WARPED_FUNGUS && this.hasEffect(MobEffects.WEAKNESS) ){
                 if (!player.isCreative()) {
                     itemstack.shrink(1);

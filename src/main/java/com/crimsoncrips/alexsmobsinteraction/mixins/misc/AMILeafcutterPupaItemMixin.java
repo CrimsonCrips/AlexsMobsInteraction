@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.EntityLeafcutterPupa;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIVariant;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
@@ -42,7 +42,7 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (AMInteractionConfig.THROWABLE_PUPI_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.THROWABLE_PUPI_ENABLED.get()){
             playerIn.gameEvent(GameEvent.ITEM_INTERACT_START);
             worldIn.playSound((Player) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 0.5F, 0.4F / (playerIn.getRandom().nextFloat() * 0.4F + 0.8F));
             if (!worldIn.isClientSide) {
@@ -69,7 +69,7 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"),remap = false,locals = LocalCapture.CAPTURE_FAILHARD)
     private void variable(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, Level world, BlockPos blockpos, BlockState blockstate, Player playerentity, BlockEntity tileentity, TileEntityLeafcutterAnthill beehivetileentity, int j, int k, EntityLeafcutterAnt beeentity){
-        if (AMInteractionConfig.LEAFCUTTER_VARIANTS_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
             ((AMIVariant) beeentity).setVariant(variant);
         } else {
             ((AMIVariant) beeentity).setVariant(1);

@@ -1,8 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISkelewagCircleGoal;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -44,7 +44,7 @@ public class AMISkelewag extends Mob {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
             stun = this.hasEffect(AMIEffects.DISABLED.get());
 
             LivingEntity target = getTarget();
@@ -67,10 +67,10 @@ public class AMISkelewag extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntitySkelewag skelewag = (EntitySkelewag)(Object)this;
-        if (AMInteractionConfig.SKELEWAG_CIRCLE_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.SKELEWAG_CIRCLE_ENABLED.get()){
             skelewag.goalSelector.addGoal(1, new AMISkelewagCircleGoal(skelewag,1F));
         }
-        if (AMInteractionConfig.MIGHT_UPGRADE_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.MIGHT_UPGRADE_ENABLED.get()){
             skelewag.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(skelewag, Player.class, 100, true, false, (livingEntity) -> {
                 return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT.get());
             }));
@@ -79,17 +79,17 @@ public class AMISkelewag extends Mob {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 1))
     private boolean attackGoal(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.SKELEWAG_CIRCLE_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.SKELEWAG_CIRCLE_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 4))
     private boolean nearestTarget(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.MIGHT_UPGRADE_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.MIGHT_UPGRADE_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 5))
     private boolean nearestTarget2(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.MIGHT_UPGRADE_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.MIGHT_UPGRADE_ENABLED.get();
     }
 
 }

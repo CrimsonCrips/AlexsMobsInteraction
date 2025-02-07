@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityRhinoceros;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.world.entity.EntityType;
@@ -29,12 +29,11 @@ public abstract class AMIRhino extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRhinoceros rhinoceros = (EntityRhinoceros)(Object)this;
-        if (AMInteractionConfig.ACCIDENTAL_BETRAYAL_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.ACCIDENTAL_BETRAYAL_ENABLED.get()){
 
             rhinoceros.targetSelector.addGoal(1, new HurtByTargetGoal(rhinoceros, new Class[]{EntityRhinoceros.class}));
 
             rhinoceros.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(rhinoceros, EntityRhinoceros.class, 200, true, true, (mob) -> {
-                System.out.println(mob.getDeltaMovement().horizontalDistance());
                 return mob.isBaby() && mob.getDeltaMovement().horizontalDistance() >= 0.08 && mob.getLastAttacker() != rhinoceros;
             }) {
                 public boolean canContinueToUse() {
@@ -50,7 +49,7 @@ public abstract class AMIRhino extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 13))
     private boolean targetFood(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.ACCIDENTAL_BETRAYAL_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.ACCIDENTAL_BETRAYAL_ENABLED.get();
     }
 
 

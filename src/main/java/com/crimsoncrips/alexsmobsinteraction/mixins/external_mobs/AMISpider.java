@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -25,7 +25,7 @@ public abstract class AMISpider extends Monster {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
-        if (AMInteractionConfig.SPIDER_EAT_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.SPIDER_EAT_ENABLED.get()) {
             this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, EntityCockroach.class, 2, true, false, null));
             this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Silverfish.class, 2, true, false, null));
             this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Bee.class, 2, true, false, null));

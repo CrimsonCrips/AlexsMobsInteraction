@@ -17,9 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class AMIEffects {
-    private static MobEffect register(int pId, String pKey, MobEffect pEffect) {
-        return (MobEffect) Registry.registerMapping(BuiltInRegistries.MOB_EFFECT, pId, pKey, pEffect);
-    }
+
 
     public static final DeferredRegister<MobEffect> EFFECT_REGISTER = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, AlexsMobsInteraction.MODID);
     public static final DeferredRegister<Potion> POTION_REGISTER = DeferredRegister.create(ForgeRegistries.POTIONS, AlexsMobsInteraction.MODID);

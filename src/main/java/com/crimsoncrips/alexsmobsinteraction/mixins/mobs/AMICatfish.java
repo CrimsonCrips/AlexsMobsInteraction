@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMITargetFood;
 import com.github.alexthe666.alexsmobs.entity.EntityCatfish;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -36,14 +36,14 @@ public abstract class AMICatfish extends WaterAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsmobsinteraction$registerGoals(CallbackInfo ci) {
         EntityCatfish catfish = (EntityCatfish)(Object)this;
-        if (AMInteractionConfig.CATFISH_CANNIBALIZE_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CATFISH_CANNIBALIZE_ENABLED.get()) {
             this.goalSelector.addGoal(3, new AMITargetFood(catfish));
         }
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 2))
     private boolean alexsmobsinteraction$targetFood(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.CATFISH_CANNIBALIZE_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.CATFISH_CANNIBALIZE_ENABLED.get();
     }
 
     @Inject(method = "hurt", at = @At(value = "HEAD"))

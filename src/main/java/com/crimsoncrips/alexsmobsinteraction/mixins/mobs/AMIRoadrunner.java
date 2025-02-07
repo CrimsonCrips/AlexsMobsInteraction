@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityRoadrunner;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -29,7 +29,7 @@ public abstract class AMIRoadrunner extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRoadrunner roadrunner = (EntityRoadrunner)(Object)this;
-        if (AMInteractionConfig.ROADRUNNER_DAY_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.ROADRUNNER_DAY_ENABLED.get()){
             roadrunner.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(roadrunner, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.ROADRUNNER_KILL)) {
                 public boolean canContinueToUse() {
                     return super.canContinueToUse() && roadrunner.level().isDay();
@@ -41,7 +41,7 @@ public abstract class AMIRoadrunner extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 9))
     private boolean nearestAttackable(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.ROADRUNNER_DAY_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.ROADRUNNER_DAY_ENABLED.get();
     }
 
 }

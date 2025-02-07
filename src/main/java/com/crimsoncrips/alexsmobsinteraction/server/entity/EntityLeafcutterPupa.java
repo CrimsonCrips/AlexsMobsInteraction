@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.entity;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIVariant;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
@@ -67,7 +67,7 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
         Level world = this.level();
         BlockPos blockpos = new BlockPos((int) result.getLocation().x,(int)result.getLocation().y,(int)result.getLocation().z);
         BlockState blockstate = world.getBlockState(blockpos);
-        if (blockstate.is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && world.getBlockState(blockpos.below()).is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && AMInteractionConfig.THROWABLE_PUPI_ENABLED) {
+        if (blockstate.is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && world.getBlockState(blockpos.below()).is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && AlexsMobsInteraction.COMMON_CONFIG.THROWABLE_PUPI_ENABLED.get()) {
             world.playSound(this, blockpos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!world.isClientSide) {
                 world.setBlock(blockpos, AMBlockRegistry.LEAFCUTTER_ANTHILL.get().defaultBlockState(), 3);
@@ -79,7 +79,7 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
                     int variant = world.random.nextBoolean() ? 1 : 2;
                     for(int k = 0; k < j; ++k) {
                         EntityLeafcutterAnt beeentity = new EntityLeafcutterAnt(AMEntityRegistry.LEAFCUTTER_ANT.get(), world);
-                        if (AMInteractionConfig.LEAFCUTTER_VARIANTS_ENABLED){
+                        if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
                             ((AMIVariant) beeentity).setVariant(variant);
                         } else {
                             ((AMIVariant) beeentity).setVariant(1);

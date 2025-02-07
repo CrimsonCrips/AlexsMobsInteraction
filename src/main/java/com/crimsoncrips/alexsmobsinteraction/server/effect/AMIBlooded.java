@@ -1,19 +1,10 @@
 package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
-import net.minecraft.core.Holder;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.resources.ResourceLocation;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.level.Level;
 
 public class AMIBlooded extends MobEffect {
 
@@ -26,7 +17,7 @@ public class AMIBlooded extends MobEffect {
     }
 
     public String getDescriptionId() {
-        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
             return "alexsmobsinteraction.potion.blooded";
         } else {
             return "alexscavesexemplified.feature_disabled";

@@ -1,38 +1,18 @@
 package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityGust;
-import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-
-import java.util.List;
-import java.util.UUID;
 
 public class AMIGusting extends MobEffect {
 
@@ -53,7 +33,7 @@ public class AMIGusting extends MobEffect {
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
-        if (!AMInteractionConfig.GUSTING_ENABLED)
+        if (!AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get())
             return;
         if (entity.getRandom().nextDouble() < 0.5){
             for (int j = 0; j < 4; ++j) {
@@ -93,7 +73,7 @@ public class AMIGusting extends MobEffect {
     }
 
     public String getDescriptionId() {
-        if (AMInteractionConfig.CHARGE_STUN_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
             return "alexsmobsinteraction.potion.gusting";
         } else {
             return "alexscavesexemplified.feature_disabled";

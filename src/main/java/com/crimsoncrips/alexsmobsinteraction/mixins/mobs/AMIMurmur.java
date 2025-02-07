@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -21,7 +21,7 @@ public abstract class AMIMurmur extends Mob {
     @Override
     public boolean hurt(DamageSource source, float damage) {
         EntityMurmurHead murmurHead = (EntityMurmurHead)(Object)this;
-        if (AMInteractionConfig.MURMUR_REGROW_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.MURMUR_REGROW_ENABLED.get()) {
             boolean prev = super.hurt(source, damage);
             return prev;
         } else {

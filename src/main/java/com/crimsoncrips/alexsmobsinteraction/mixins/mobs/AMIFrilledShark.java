@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityFrilledShark;
@@ -21,7 +21,7 @@ public abstract class AMIFrilledShark {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityFrilledShark frilledShark = (EntityFrilledShark)(Object)this;
-        if (AMInteractionConfig.BLEEDING_HUNGER_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLEEDING_HUNGER_ENABLED.get()){
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 50, true, true, (mob) -> {
                 return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
             }));

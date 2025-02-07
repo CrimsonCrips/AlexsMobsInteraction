@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityRattlesnake;
 import com.github.alexthe666.alexsmobs.entity.EntityRoadrunner;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +18,7 @@ public class AMIWarnPredator extends Goal {
     EntityRattlesnake rattlesnake;
 
     private static final Predicate<LivingEntity> WARNABLE_PREDICATE = (mob) -> {
-        return mob instanceof Player && !((Player) mob).isCreative() && !mob.isSpectator() || mob instanceof EntityRoadrunner || (mob instanceof EntityRattlesnake && AMInteractionConfig.RATTLESNAKE_TERRITORIAL_ENABLED) ;
+        return mob instanceof Player && !((Player) mob).isCreative() && !mob.isSpectator() || mob instanceof EntityRoadrunner || (mob instanceof EntityRattlesnake && AlexsMobsInteraction.COMMON_CONFIG.RATTLESNAKE_TERRITORIAL_ENABLED.get()) ;
     };
 
     public AMIWarnPredator(EntityRattlesnake rattlesnake) {

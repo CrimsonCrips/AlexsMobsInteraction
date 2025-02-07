@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -83,7 +83,7 @@ public abstract class AMITusklinMixin extends Mob {
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-        if (AMInteractionConfig.TUSKLIN_TRUST_ENABLED && itemstack.getItem() == Items.MUSHROOM_STEW) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.TUSKLIN_TRUST_ENABLED.get() && itemstack.getItem() == Items.MUSHROOM_STEW) {
             itemstack.shrink(1);
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
@@ -94,7 +94,7 @@ public abstract class AMITusklinMixin extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityTusklin tusklin = (EntityTusklin)(Object)this;
-        if(AMInteractionConfig.TUSKLIN_FLEE_ENABLED){
+        if(AlexsMobsInteraction.COMMON_CONFIG.TUSKLIN_FLEE_ENABLED.get()){
             tusklin.goalSelector.addGoal(3, new AvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
                 BlockState state = tusklin.level().getBlockState(pos);
                 return state.is(BlockTags.HOGLIN_REPELLENTS);

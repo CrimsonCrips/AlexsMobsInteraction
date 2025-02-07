@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -82,9 +82,9 @@ public class AMIGuster extends Mob {
             double extraZ = this.getZ() + radius * Mth.cos(angle);
             double d0 = (extraX - lifted.getX()) * resist;
             double d1 = (extraZ - lifted.getZ()) * resist;
-            if (lifted instanceof Player player && AMInteractionConfig.GUSTER_WEIGHT_ENABLED) {
+            if (lifted instanceof Player player && AlexsMobsInteraction.COMMON_CONFIG.GUSTER_WEIGHT_ENABLED.get()) {
                 int lift = player.getArmorValue();
-                if(AMInteractionConfig.GUSTING_ENABLED){
+                if(AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get()){
                     if(player.hasEffect(AMIEffects.GUSTING.get()))
                         return;
                     lifted(lift,player,d0,d1,resist);
@@ -163,7 +163,7 @@ public class AMIGuster extends Mob {
 
     @Override
     public boolean canBeHitByProjectile() {
-        return !AMInteractionConfig.GUSTER_PROJECTILE_PROT_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.GUSTER_PROJECTILE_PROT_ENABLED.get();
     }
 
     public void lifted(int lift,Player lifted, double d0,double d1,float resist){

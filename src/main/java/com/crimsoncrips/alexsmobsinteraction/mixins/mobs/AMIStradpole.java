@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -62,7 +62,7 @@ public abstract class AMIStradpole extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        if (AMInteractionConfig.STRADPOLE_BOB_UP_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.STRADPOLE_BOB_UP_ENABLED.get()) {
             setHopUpTick(getHopUpTick() + 1);
             if (getHopUpTick() >= 200 + random.nextInt(600) && this.isInLava()){
                 y2 = 0.05 + y2;
@@ -73,7 +73,7 @@ public abstract class AMIStradpole extends Mob {
                 y2 = 0;
             }
         }
-        if (AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED  && isDespawnSoon()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get()  && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();
             int z = this.getBlockZ();
@@ -94,7 +94,7 @@ public abstract class AMIStradpole extends Mob {
 
     @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"),remap = false,locals = LocalCapture.CAPTURE_FAILSOFT)
     private void entityhit(EntityHitResult raytraceresult, CallbackInfo ci, Entity entity, LivingEntity target, Entity var4) {
-        if(AMInteractionConfig.STRADPOLE_FLAME_ENABLED && random.nextDouble() < 0.2){
+        if(AlexsMobsInteraction.COMMON_CONFIG.STRADPOLE_FLAME_ENABLED.get() && random.nextDouble() < 0.2){
             target.setSecondsOnFire(2);
         }
     }

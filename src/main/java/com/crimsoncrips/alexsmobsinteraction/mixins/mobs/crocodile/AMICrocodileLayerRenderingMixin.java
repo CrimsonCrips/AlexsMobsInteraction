@@ -1,8 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.crocodile;
 
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIVariant;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.WallyCrocodile;
 import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;

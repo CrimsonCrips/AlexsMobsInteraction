@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
 import com.github.alexthe666.alexsmobs.entity.EntityEnderiophage;
@@ -34,7 +34,7 @@ public abstract class AMIEnderiophage extends Animal {
         EntityEnderiophage enderiophage = (EntityEnderiophage)(Object)this;
 
         enderiophage.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(enderiophage, EnderMan.class, 15, true, true, (livingEntity) -> {
-            if (AMInteractionConfig.INFECT_IMMUNITY_ENABLED) {
+            if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_IMMUNITY_ENABLED.get()) {
                 return !(livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE));
             } else return true;
         }) {
@@ -44,14 +44,14 @@ public abstract class AMIEnderiophage extends Animal {
         });
 
         enderiophage.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(enderiophage, LivingEntity.class, 15, true, true, (livingEntity) -> {
-            if (AMInteractionConfig.INFECT_WEAK_ENABLED){
-                if (AMInteractionConfig.INFECT_IMMUNITY_ENABLED){
+            if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_WEAK_ENABLED.get()){
+                if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_IMMUNITY_ENABLED.get()){
                     return !(livingEntity instanceof EntityEnderiophage) && (livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) || livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth()) && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
                 } else {
                     return !(livingEntity instanceof EntityEnderiophage) && livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth() && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
                 }
             } else {
-                if (AMInteractionConfig.INFECT_IMMUNITY_ENABLED){
+                if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_IMMUNITY_ENABLED.get()){
                     return !(livingEntity instanceof EntityEnderiophage) && livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
                 } else {
                     return !(livingEntity instanceof EntityEnderiophage)  && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));

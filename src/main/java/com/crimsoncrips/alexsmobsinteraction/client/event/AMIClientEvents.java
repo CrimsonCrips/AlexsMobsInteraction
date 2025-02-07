@@ -12,6 +12,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 @OnlyIn(Dist.CLIENT)
 public class AMIClientEvents {
 
+
+
     private double vibrate;
 
 

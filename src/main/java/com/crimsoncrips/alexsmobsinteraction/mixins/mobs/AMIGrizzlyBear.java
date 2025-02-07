@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
@@ -46,7 +46,7 @@ public abstract class AMIGrizzlyBear extends Animal {
                     return super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isHoneyed();
                 }
             });
-            if (AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED) {
+            if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_FRIENDLY_ENABLED.get()) {
                 grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)) {
                     public boolean canUse() {
                         return super.canUse() && !grizzlyBear.isTame();
@@ -67,17 +67,17 @@ public abstract class AMIGrizzlyBear extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 18))
     private boolean attackPlayer(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_FRIENDLY_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 19))
     private boolean nearbyAttack(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.GRIZZLY_FRIENDLY_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_FRIENDLY_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

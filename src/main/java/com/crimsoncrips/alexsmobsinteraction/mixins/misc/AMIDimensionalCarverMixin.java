@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.github.alexthe666.alexsmobs.item.ItemDimensionalCarver;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -48,7 +48,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
         if (player instanceof ServerPlayer serverPlayer) {
             ItemStack offhandItem = serverPlayer.getOffhandItem();
 
-            if (AMInteractionConfig.DIMENSIONAL_LODESTONE_ENABLED && offhandItem.getItem() == Items.COMPASS){
+            if (AlexsMobsInteraction.COMMON_CONFIG.DIMENSIONAL_LODESTONE_ENABLED.get() && offhandItem.getItem() == Items.COMPASS){
                 CompoundTag tag = offhandItem.getTag();
                 if (tag != null){
                     globalLodestone = CompassItem.getLodestonePosition(tag);
@@ -80,7 +80,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
     @ModifyConstant(method = "onUseTick",constant = @Constant(intValue = 1))
     private int modifyAmount(int amount, @Local(ordinal = 0, argsOnly = true) LivingEntity player) {
         MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
-        if (AMInteractionConfig.HASTY_CARVING_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.HASTY_CARVING_ENABLED.get()) {
             return amount + (haste != null ? (haste.getAmplifier() == 0 ? 100 : 150) : 0);
         }
         return amount;

@@ -1,8 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.mojang.datafixers.util.Pair;
@@ -73,7 +73,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRainFrog rainFrog = (EntityRainFrog)(Object)this;
-        if (AMInteractionConfig.PREY_FEAR_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.PREY_FEAR_ENABLED.get()) {
             rainFrog.goalSelector.addGoal(3, new AvoidEntityGoal<>(rainFrog, LivingEntity.class, 7.0F, 1.7D, 1.4,AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.JERBOAFEAR)));
         }
     }
@@ -81,7 +81,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (AMInteractionConfig.FROG_TRANSFORM_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.FROG_TRANSFORM_ENABLED.get()) {
             if (itemstack.getItem() == Items.WARPED_FUNGUS && this.hasEffect(MobEffects.WEAKNESS) ){
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
@@ -132,7 +132,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
 
 
     public void spawnGusters(){
-        if (AMInteractionConfig.GOOFY_RAINFROG_SPAWNAGE_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_RAINFROG_SPAWNAGE_ENABLED.get()) {
             for (int i = 0; i < 10; i++) {
                 LivingEntity entityToSpawn;
                 entityToSpawn = AMEntityRegistry.GUSTER.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
@@ -145,7 +145,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AMInteractionConfig.FOOD_TARGET_EFFECTS_ENABLED) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

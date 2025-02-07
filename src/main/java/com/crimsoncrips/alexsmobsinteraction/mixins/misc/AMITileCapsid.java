@@ -1,7 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
-import com.github.alexthe666.alexsmobs.entity.EntityEnderiophage;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.tileentity.TileEntityCapsid;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -24,7 +23,7 @@ public abstract class AMITileCapsid extends BaseContainerBlockEntity {
 
     @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityEnderiophage;setVariant(I)V"), index = 0,remap = false)
     private int adjustY(int variant) {
-        if (AMInteractionConfig.ENDERIOPHAGE_ADAPTION_ENABLED){
+        if (AlexsMobsInteraction.COMMON_CONFIG.ENDERIOPHAGE_ADAPTION_ENABLED.get()){
             ResourceKey<Level> dimension = this.level.dimension();
 
             if(dimension == Level.NETHER){

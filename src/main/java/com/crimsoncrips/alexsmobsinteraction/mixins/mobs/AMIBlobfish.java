@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -28,7 +28,7 @@ public abstract class AMIBlobfish extends WaterAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityBlobfish blobfish = (EntityBlobfish)(Object)this;
-        if (AMInteractionConfig.PREY_FEAR_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.PREY_FEAR_ENABLED.get()) {
             blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, Player.class, 3.0F, 0.8, 1.2));
             blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, EntityGiantSquid.class, 5.0F, 1, 1.4));
             blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, EntityFrilledShark.class, 2.0F, 0.8, 1));

@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCaiman;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -29,7 +29,7 @@ public abstract class AMICaiman extends TamableAnimal {
     private void registerGoals(CallbackInfo ci) {
         EntityCaiman caiman = (EntityCaiman)(Object)this;
 
-        if (AMInteractionConfig.CAIMAN_AGGRO_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CAIMAN_AGGRO_ENABLED.get()) {
             caiman.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(caiman, Player.class, 150, true, true, null) {
                 @Override
                 public boolean canContinueToUse() {
@@ -37,7 +37,7 @@ public abstract class AMICaiman extends TamableAnimal {
                 }
             });
         }
-        if (AMInteractionConfig.CAIMAN_EGG_ATTACK_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CAIMAN_EGG_ATTACK_ENABLED.get()) {
             caiman.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(caiman, LivingEntity.class, 0, true, false, (livingEntity) -> {
                 return livingEntity.isHolding(Ingredient.of(AMBlockRegistry.CAIMAN_EGG.get()));
             }) {

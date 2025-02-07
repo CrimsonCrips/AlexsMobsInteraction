@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityTendonSegment;
 import net.minecraft.world.entity.*;
@@ -30,7 +30,7 @@ public abstract class AMITendonWhip extends Entity {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         EntityTendonSegment tendonSegment = (EntityTendonSegment)(Object)this;
-        if (AMInteractionConfig.TENDON_GRAB_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.TENDON_GRAB_ENABLED.get()) {
             creator = tendonSegment.getCreatorEntity();
 
             if (creator instanceof Player player && player.getMainHandItem().getEnchantmentLevel(AMIEnchantmentRegistry.STRETCHY_ACCUMULATION.get()) > 0) {

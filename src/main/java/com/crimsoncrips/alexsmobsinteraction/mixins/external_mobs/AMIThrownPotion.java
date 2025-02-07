@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
@@ -29,7 +29,7 @@ public abstract class AMIThrownPotion extends ThrowableItemProjectile {
             double d0 = this.distanceToSqr(livingentity);
             if (d0 < 16.0D) {
 
-                if (AMInteractionConfig.BLOODED_EFFECT_ENABLED){
+                if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()){
                     MobEffectInstance blooded = livingentity.getEffect(AMIEffects.BLOODED.get());
                     if (blooded != null){
                         livingentity.removeEffect(AMIEffects.BLOODED.get());

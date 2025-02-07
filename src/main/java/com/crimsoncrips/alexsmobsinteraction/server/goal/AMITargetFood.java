@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityCatfish;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.sounds.SoundEvents;
@@ -85,7 +85,7 @@ public class AMITargetFood extends Goal {
     }
 
     private boolean isFood(Entity entity) {
-        if (AMInteractionConfig.CATFISH_CANNIBALIZE_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CATFISH_CANNIBALIZE_ENABLED.get()) {
             if (catfish.getCatfishSize() == 2) {
                 return !entity.getType().is(AMTagRegistry.CATFISH_IGNORE_EATING) && entity instanceof Mob && entity.getBbHeight() <= 1.0F;
             } else {

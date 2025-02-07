@@ -5,7 +5,7 @@
 
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.EntitySeagull;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -20,7 +20,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -44,7 +43,7 @@ public class AMISeagullSteal extends Goal {
             if ((this.seagull.getRandom().nextInt(12) == 0 || worldTime == 0L) && this.seagull.stealCooldown <= 0) {
                 if (this.seagull.getMainHandItem().isEmpty()) {
                     Player valid = this.getClosestValidPlayer();
-                    if(AMInteractionConfig.SOMBRERO_PROTECTION_ENABLED){
+                    if(AlexsMobsInteraction.COMMON_CONFIG.SOMBRERO_PROTECTION_ENABLED.get()){
                         if (valid != null && !valid.getItemBySlot(EquipmentSlot.HEAD).is((Item) AMItemRegistry.SOMBRERO.get())){{
                                 this.target = valid;
                                 return true;
@@ -148,7 +147,7 @@ public class AMISeagullSteal extends Goal {
     }
 
     private boolean hasFoods(Player player) {
-        if(AMInteractionConfig.HELD_FOOD_ENABLED){
+        if(AlexsMobsInteraction.COMMON_CONFIG.HELD_FOOD_ENABLED.get()){
             ItemStack offHand = player.getOffhandItem();
             ItemStack mainHand = player.getMainHandItem();
             return (mainHand.isEdible() && !this.isBlacklisted(mainHand)) || (offHand.isEdible() && !this.isBlacklisted(offHand));
@@ -183,7 +182,7 @@ public class AMISeagullSteal extends Goal {
     private ItemStack getFoodItemFrom(Player player) {
         List<ItemStack> foods = new ArrayList<>();
 
-        if(AMInteractionConfig.HELD_FOOD_ENABLED){
+        if(AlexsMobsInteraction.COMMON_CONFIG.HELD_FOOD_ENABLED.get()){
             ItemStack offHand = player.getOffhandItem();
             ItemStack mainHand = player.getMainHandItem();
             if (offHand.isEdible() && !this.isBlacklisted(offHand)) {

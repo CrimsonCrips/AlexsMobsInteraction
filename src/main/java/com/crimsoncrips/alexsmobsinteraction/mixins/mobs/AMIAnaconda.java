@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAnaconda;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -39,7 +39,7 @@ public abstract class AMIAnaconda extends Animal {
         anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 1000, true, false, (livingEntity) -> {
             return ANACONDA_BABY_TARGETS.test(livingEntity)  && livingEntity.isBaby();
         }));
-        if (AMInteractionConfig.ANACONDA_CANNIBALIZE_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ANACONDA_CANNIBALIZE_ENABLED.get()) {
             anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(this, EntityAnaconda.class));
             anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 2500, true, false, (livingEntity) -> {
                 return (livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth() || livingEntity.isBaby());
@@ -49,12 +49,12 @@ public abstract class AMIAnaconda extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 13))
     private boolean hurtByTarget(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.ANACONDA_CANNIBALIZE_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.ANACONDA_CANNIBALIZE_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 6))
     private boolean followParent(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.ORPHANED_ANACONDAS_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.ORPHANED_ANACONDAS_ENABLED.get();
     }
 
 }

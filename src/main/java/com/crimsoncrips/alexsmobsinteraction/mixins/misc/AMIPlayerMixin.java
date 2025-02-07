@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -34,7 +34,7 @@ public abstract class AMIPlayerMixin extends LivingEntity {
 
     @Override
     public boolean canStandOnFluid(FluidState pFluidState) {
-        if (AMInteractionConfig.ROLLING_THUNDER_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ROLLING_THUNDER_ENABLED.get()) {
             double z = this.getLookAngle().z;
             double x = this.getLookAngle().x;
             BlockState feetBlockstate = this.getBlockStateOn();

@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIWarnPredator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityRattlesnake;
@@ -35,13 +35,13 @@ public abstract class AMIRattlesnake extends Animal {
                 super.start();
             }
         });
-        if (AMInteractionConfig.RATTLESNAKE_CANNIBALIZE_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.RATTLESNAKE_CANNIBALIZE_ENABLED.get()) {
             rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, EntityRattlesnake.class, 1500, true, true, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.60F * livingEntity.getMaxHealth() || livingEntity.isBaby();
             }));
         }
 
-        if (AMInteractionConfig.RATTLESNAKE_TERRITORIAL_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.RATTLESNAKE_TERRITORIAL_ENABLED.get()) {
             rattlesnake.goalSelector.addGoal(2, new AMIWarnPredator(rattlesnake));
 
         }
@@ -49,7 +49,7 @@ public abstract class AMIRattlesnake extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 2))
     private boolean warnPredator(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AMInteractionConfig.RATTLESNAKE_TERRITORIAL_ENABLED;
+        return !AlexsMobsInteraction.COMMON_CONFIG.RATTLESNAKE_TERRITORIAL_ENABLED.get();
     }
 
 }

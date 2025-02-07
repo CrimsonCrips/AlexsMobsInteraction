@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
@@ -41,7 +41,7 @@ public class AMIFarseer extends Mob {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickFarseer(CallbackInfo ci) {
-        if (!AMInteractionConfig.FARSEER_ALTERING_ENABLED)
+        if (!AlexsMobsInteraction.COMMON_CONFIG.FARSEER_ALTERING_ENABLED.get())
             return;
         if (this.level().isClientSide())
             return;
@@ -62,13 +62,10 @@ public class AMIFarseer extends Mob {
                 inv.setItem(i, to);
             }
 
-            if (AMInteractionConfig.FARSEER_EFFECTS_ENABLED) {
+            if (alexsMobsInteraction$loop == 49) {
+                AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new FarseerPacket());
 
-                if (alexsMobsInteraction$loop == 49) {
-                        AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new FarseerPacket());
-
-                    player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
-                }
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
             }
 
         }

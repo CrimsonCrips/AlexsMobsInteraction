@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -77,7 +77,7 @@ public class AMIStraddlerMixin extends Mob {
 
 
     private boolean doSomething4() {
-        if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get() != 0) {
             return !(getShootShots() <= 0);
         }else {
             return true;
@@ -86,12 +86,12 @@ public class AMIStraddlerMixin extends Mob {
 
     @Inject(method = "tick", at = @At("TAIL"),remap = false)
     private void tick(CallbackInfo ci){
-        if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get() != 0) {
             if (getShootShots() <= 0) {
                 setShootCooldown(getShootCooldown() - 1);
             }
             if (getShootCooldown() <= 0 && getShootShots() <= 0) {
-                setShootShots(AMInteractionConfig.STRADDLER_SHOTS_AMOUNT);
+                setShootShots(AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get());
                 setShootCooldown(100);
             }
         }
@@ -99,14 +99,14 @@ public class AMIStraddlerMixin extends Mob {
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityStradpole;setXRot(F)V"),remap = false)
     private void addShots(CallbackInfo ci){
-        if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get() != 0) {
             setShootShots(getShootShots() - 1);
         }
     }
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"),remap = false)
     private void addExplosiveShots(CallbackInfo ci){
-        if (AMInteractionConfig.GOOFY_STRADDLER_SHOTGUN_ENABLED) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get()) {
             for (int i = 0; i < 15; i++) {
                 int spread = random.nextInt(10);
                 EntityStradpole pole = AMEntityRegistry.STRADPOLE.get().create(level());
@@ -125,7 +125,7 @@ public class AMIStraddlerMixin extends Mob {
                 if (!this.level().isClientSide) {
                     this.level().addFreshEntity(pole);
                 }
-                if (AMInteractionConfig.STRADDLER_SHOTS_AMOUNT != 0) {
+                if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get() != 0) {
                     setShootShots(getShootShots() - 1);
                 }
             }
@@ -137,7 +137,7 @@ public class AMIStraddlerMixin extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityStraddler straddler = (EntityStraddler)(Object)this;
-        if(AMInteractionConfig.STRADDLER_VENGEANCE_ENABLED) {
+        if(AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_VENGEANCE_ENABLED.get()) {
             straddler.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(straddler, EntityBoneSerpent.class, true));
             straddler.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(straddler, EntityCrimsonMosquito.class, true));
             straddler.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(straddler, EntityWarpedMosco.class, true));

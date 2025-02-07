@@ -1,8 +1,8 @@
-package com.crimsoncrips.alexsmobsinteraction.config;
+package com.crimsoncrips.alexsmobsinteraction.server;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class AMIConfigList {
+public class AMIServerConfig {
 
     public final ForgeConfigSpec.BooleanValue SKREECH_YOUR_LAST_ENABLED;
 
@@ -178,7 +178,7 @@ public class AMIConfigList {
     public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
 
 
-    public AMIConfigList(final ForgeConfigSpec.Builder builder) {
+    public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
         this.CRIMSON_WIKI_ENABLED = buildBoolean(builder, "CRIMSON_WIKI_ENABLED", " ", true, "Gives you the crimson wiki book at start");
         this.FOOD_TARGET_EFFECTS_ENABLED = buildBoolean(builder, "FOOD_TARGET_EFFECTS_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
@@ -425,12 +425,12 @@ public class AMIConfigList {
         this.WARPED_FRIENDLY_ENABLED = buildBoolean(builder, "WARPED_FRIENDLY_ENABLED", " ", true, "Warped Toads will not attack food unless given the orders so");
         builder.pop(2);
         builder.push("April Fools");
-        this.GOOFY_BANANA_SLIP_ENABLED = buildBoolean(builder, "GOOFY_BANANA_SLIP_ENABLED", " ", true, "April Fools Banana Slug and Banana Effects");
-        this.GOOFY_MURMUR_DECAPITATED_ENABLED = buildBoolean(builder, "GOOFY_MURMUR_DECAPITATED_ENABLED", " ", true, "April Fools Murmur Effects");
-        this.GOOFY_CRIMSON_MULTIPLY_ENABLED = buildBoolean(builder, "GOOFY_CRIMSON_MULTIPLY_ENABLED", " ", true, "April Fools Crimson Mosquito Effects");
-        this.GOOFY_RAINFROG_SPAWNAGE_ENABLED = buildBoolean(builder, "GOOFY_RAINFROG_SPAWNAGE_ENABLED", " ", true, "April Fools Rain Frog Effects");
-        this.GOOFY_CAPUCHIN_BOMB_ENABLED = buildBoolean(builder, "GOOFY_CAPUCHIN_BOMB_ENABLED", " ", true, "April Fools Capuchin Monkey Effects");
-        this.GOOFY_STRADDLER_SHOTGUN_ENABLED = buildBoolean(builder, "GOOFY_STRADDLER_SHOTGUN_ENABLED", " ", true, "April Fools Straddler Effects");
+        this.GOOFY_BANANA_SLIP_ENABLED = buildBoolean(builder, "GOOFY_BANANA_SLIP_ENABLED", " ", false, "April Fools Banana Slug and Banana Effects");
+        this.GOOFY_MURMUR_DECAPITATED_ENABLED = buildBoolean(builder, "GOOFY_MURMUR_DECAPITATED_ENABLED", " ", false, "April Fools Murmur Effects");
+        this.GOOFY_CRIMSON_MULTIPLY_ENABLED = buildBoolean(builder, "GOOFY_CRIMSON_MULTIPLY_ENABLED", " ", false, "April Fools Crimson Mosquito Effects");
+        this.GOOFY_RAINFROG_SPAWNAGE_ENABLED = buildBoolean(builder, "GOOFY_RAINFROG_SPAWNAGE_ENABLED", " ", false, "April Fools Rain Frog Effects");
+        this.GOOFY_CAPUCHIN_BOMB_ENABLED = buildBoolean(builder, "GOOFY_CAPUCHIN_BOMB_ENABLED", " ", false, "April Fools Capuchin Monkey Effects");
+        this.GOOFY_STRADDLER_SHOTGUN_ENABLED = buildBoolean(builder, "GOOFY_STRADDLER_SHOTGUN_ENABLED", " ", false, "April Fools Straddler Effects");
 
     }
 

@@ -1,8 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.lavithan;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.Relavaithan;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -85,7 +85,7 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci){
         EntityLaviathan laviathan = (EntityLaviathan)(Object)this;
-        if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && isRelava() && AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED) {
+        if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && isRelava() && AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get()) {
             if (getPersistentData().getInt("RelavaTicks") < 6000) {
                 getPersistentData().putInt("RelavaTicks",getPersistentData().getInt("RelavaTicks") + 1);
             } else {
@@ -93,7 +93,7 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
             }
         }
 
-        if (this.level().isClientSide && this.isRelava() && AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED) {
+        if (this.level().isClientSide && this.isRelava() && AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get()) {
             float yaw = laviathan.getYRot() * 0.017453292F;
             if (!this.isBaby() ) {
                 if (random.nextDouble() < 0.1) {
@@ -112,7 +112,7 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLaviathan;isObsidian()Z",ordinal = 1), cancellable = true)
     private void alter1(CallbackInfo ci) {
-        if (AMInteractionConfig.OBSIDIAN_EXTRACT_ENABLED && this.isRelava()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() && this.isRelava()){
             ci.cancel();
         }
     }

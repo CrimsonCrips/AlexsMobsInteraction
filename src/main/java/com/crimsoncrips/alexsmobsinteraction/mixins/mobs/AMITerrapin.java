@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -21,7 +21,7 @@ public abstract class AMITerrapin extends Mob {
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityTerrapin;spinFor(I)V"))
     private void tickBison(CallbackInfo ci) {
         EntityTerrapin terrapin = (EntityTerrapin)(Object)this;
-        if (!AMInteractionConfig.TERRAPIN_STOMP_ENABLED)
+        if (!AlexsMobsInteraction.COMMON_CONFIG.TERRAPIN_STOMP_ENABLED.get())
             return;
         terrapin.hurt(terrapin.damageSources().generic(),2);
 

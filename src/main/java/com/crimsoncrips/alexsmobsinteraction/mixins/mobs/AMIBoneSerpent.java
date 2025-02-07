@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
-import com.crimsoncrips.alexsmobsinteraction.config.AMInteractionConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityBoneSerpent;
 import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
@@ -33,7 +33,7 @@ public abstract class AMIBoneSerpent extends Monster {
     private void registerGoals(CallbackInfo ci) {
         EntityBoneSerpent boneSerpent = (EntityBoneSerpent)(Object)this;
         boneSerpent.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(boneSerpent, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.BONESERPENT_KILL)));
-        if(AMInteractionConfig.SERPENT_FEAR_ENABLED) {
+        if(AlexsMobsInteraction.COMMON_CONFIG.SERPENT_FEAR_ENABLED.get()) {
             boneSerpent.goalSelector.addGoal(7, new AvoidEntityGoal<>(boneSerpent, EntityLaviathan.class, 10.0F, 1.6, 2));
         }
 
