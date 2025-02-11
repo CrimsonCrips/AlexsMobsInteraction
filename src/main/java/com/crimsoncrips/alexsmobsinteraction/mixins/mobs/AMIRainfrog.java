@@ -4,6 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIPanicBurrow;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -73,8 +75,9 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRainFrog rainFrog = (EntityRainFrog)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.PREY_FEAR_ENABLED.get()) {
-            rainFrog.goalSelector.addGoal(3, new AvoidEntityGoal<>(rainFrog, LivingEntity.class, 7.0F, 1.7D, 1.4,AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.JERBOAFEAR)));
+
+        if (AlexsMobsInteraction.COMMON_CONFIG.BURROW_AWAY_ENABLED.get()){
+            this.goalSelector.addGoal(1, new AMIPanicBurrow(rainFrog, 1.25D));
         }
     }
 

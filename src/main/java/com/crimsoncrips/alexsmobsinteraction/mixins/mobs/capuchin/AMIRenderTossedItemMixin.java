@@ -43,7 +43,7 @@ public abstract class AMIRenderTossedItemMixin extends EntityRenderer<EntityToss
     @Inject(method = "render(Lcom/github/alexthe666/alexsmobs/entity/EntityTossedItem;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V",ordinal = 0),remap = false)
     private void alexsMobsInteraction$render(EntityTossedItem entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, CallbackInfo ci) {
         int color = ((AncientDartPotion) entityIn).getPotionColor();
-        if (color != -1) {
+        if (color != -1 && AlexsMobsInteraction.COMMON_CONFIG.ANCIENT_EFFECTS_ENABLED.get()) {
             float r = (float) (color >> 16 & 255) / 255.0F;
             float g = (float) (color >> 8 & 255) / 255.0F;
             float b = (float) (color & 255) / 255.0F;

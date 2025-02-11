@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs;
+package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;

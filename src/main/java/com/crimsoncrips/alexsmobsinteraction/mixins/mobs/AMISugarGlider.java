@@ -29,9 +29,6 @@ public abstract class AMISugarGlider extends TamableAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntitySugarGlider sugarGlider = (EntitySugarGlider)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.PREY_FEAR_ENABLED.get()) {
-            sugarGlider.goalSelector.addGoal(3, new AvoidEntityGoal<>(sugarGlider, LivingEntity.class, 2.0F, 1.2, 1.5, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SMALLINSECTFEAR)));
-        }
     }
 
 }

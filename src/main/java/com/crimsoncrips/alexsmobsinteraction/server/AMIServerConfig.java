@@ -62,7 +62,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue PREY_FEAR_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
 
@@ -176,20 +175,22 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
     public final ForgeConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
     public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ANCIENT_EFFECTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
 
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
         this.CRIMSON_WIKI_ENABLED = buildBoolean(builder, "CRIMSON_WIKI_ENABLED", " ", true, "Gives you the crimson wiki book at start");
         this.FOOD_TARGET_EFFECTS_ENABLED = buildBoolean(builder, "FOOD_TARGET_EFFECTS_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
-        this.PREY_FEAR_ENABLED = buildBoolean(builder, "PREY_FEAR_ENABLED", " ", true, "Prey like animals flee from predator like animals");
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Stuns charging animals when targeting the player with the new enchantment, 'Final Stand'");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
         this.MOLTEN_BATH_ENABLED = buildBoolean(builder, "MOLTEN_BATH_ENABLED", " ", true, "Pour lava bottles into mobs to combust them to flames");
         this.POISONOUS_BATH_ENABLED = buildBoolean(builder, "POISONOUS_BATH_ENABLED", " ", true, "Pour poison bottles into mobs to poison them alike");
-        this.BLOODED_EFFECT_ENABLED = buildBoolean(builder, "BLOODED_EFFECT_ENABLED", " ", true, "Blood spits will inflict you with the new 'Blooded' effect that cuases temporary substantial weakness");
-        this.BLOOD_DAMAGE_DIFFERENCE_ENABLED = buildBoolean(builder, "BLOOD_DAMAGE_DIFFERENCE_ENABLED", " ", true, "Damage from blood spits is dependant from the source");
         this.BOTTOMLESS_SAND_ENABLED = buildBoolean(builder, "BOTTOMLESS_SAND_ENABLED", " ", true, "Infinite ammo for pocket sand");
+
         builder.pop();
         builder.push("Mobs");
         builder.push("Vanilla Mob Tweaks");
@@ -226,6 +227,8 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Capuchin Monkey");
         this.CAPUCHIN_HUNT_ENABLED = buildBoolean(builder, "CAPUCHIN_HUNT_ENABLED", " ", true, "Capuchin Monkeys will hunt insects");
+        this.ANCIENT_EFFECTS_ENABLED = buildBoolean(builder, "ANCIENT_EFFECTS_ENABLED", " ", true, "Capuchin Monkeys's darts can be applied with potions");
+
         builder.pop();
         builder.push("Catfish");
         this.CATFISH_CANNIBALIZE_ENABLED = buildBoolean(builder, "CATFISH_CANNIBALIZE_ENABLED", " ", true, "Large Catfish will cannibalize on smaller catfish");
@@ -243,6 +246,8 @@ public class AMIServerConfig {
         this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened");
         this.BLOODED_CHANCE = buildDouble(builder, "BLOODED_CHANCE", " ", 0.2,0.0,1.0, "Chance of crimson mosquitoes to spawn with blood inside them");
         this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Crimson Mosquitoes is immune to blood spits");
+        this.BLOODED_EFFECT_ENABLED = buildBoolean(builder, "BLOODED_EFFECT_ENABLED", " ", true, "Blood spits will inflict you with the new 'Blooded' effect that causes temporary substantial weakness");
+        this.BLOOD_DAMAGE_DIFFERENCE_ENABLED = buildBoolean(builder, "BLOOD_DAMAGE_DIFFERENCE_ENABLED", " ", true, "Damage from blood spits is dependant from the source");
 
         builder.pop();
         builder.push("Crocodile");
@@ -343,10 +348,15 @@ public class AMIServerConfig {
         builder.push("Murmur");
         this.MURMUR_REGROW_ENABLED = buildBoolean(builder, "MURMUR_REGROW_ENABLED", " ", true, "Murmurs can regrow their head and its health is seperated from the main body");
         this.TENDON_GRAB_ENABLED = buildBoolean(builder, "TENDON_GRAB_ENABLED", " ", true, "Tendon Whip can pickup items and xp as it moves for its owner, with the new 'Stretchy Accumulation' enchantment");
+        this.UNSETTLING_BACKFIRE_ENABLED = buildBoolean(builder, "UNSETTLING_BACKFIRE_ENABLED", " ", true, "Unsettling Kimono will cause mobs that attack monsters to attack its wearer");
+
         builder.pop();
         builder.push("Orca");
         this.MIGHT_UPGRADE_ENABLED = buildBoolean(builder, "MIGHT_UPGRADE_ENABLED", " ", true, "Orca's Might can provide temporary neutrality with skelewags");
         this.ORCA_HUNT_ENABLED = buildBoolean(builder, "ORCA_HUNT_ENABLED", " ", true, "Orcas will hunt fish");
+        builder.pop();
+        builder.push("Rain Frog");
+        this.BURROW_AWAY_ENABLED = buildBoolean(builder, "BURROW_AWAY_ENABLED", " ", true, "Rainfrogs burrow away when threatened");
         builder.pop();
         builder.push("Raccoon");
         this.RACOON_HUNT_ENABLED = buildBoolean(builder, "RACOON_HUNT_ENABLED", " ", true, "Raccoons will hunt at night for food");
@@ -388,6 +398,8 @@ public class AMIServerConfig {
         builder.push("Straddler");
         this.STRADDLER_SHOTS_AMOUNT = buildInt(builder, "STRADDLER_SHOTS_AMOUNT", " ", 8, 0, Integer.MAX_VALUE, "Straddlers have ammo,once exhausted it requires time to reload (O Disables this feature)");
         this.STRADDLER_VENGEANCE_ENABLED = buildBoolean(builder, "STRADDLER_VENGEANCE_ENABLED", " ", true, "Straddlers have ammo,once exhausted it requires time to reload");
+        this.STRADDLE_SCAVENGE_ENABLED = buildBoolean(builder, "STRADDLE_SCAVENGE_ENABLED", " ", true, "Straddleboards drop half of its material costs if it doesnt drop itself");
+
         builder.pop();
         builder.push("Stradpole");
         this.STRADPOLE_BOB_UP_ENABLED = buildBoolean(builder, "STRADPOLE_BOB_UP_ENABLED", " ", true, "Stradpole can be seen bobbing up or hopping in lava");

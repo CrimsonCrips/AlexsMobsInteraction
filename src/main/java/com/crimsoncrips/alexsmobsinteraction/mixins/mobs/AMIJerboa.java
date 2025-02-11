@@ -27,9 +27,6 @@ public abstract class AMIJerboa extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityJerboa jerboa = (EntityJerboa)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.PREY_FEAR_ENABLED.get()) {
-            jerboa.goalSelector.addGoal(3, new AvoidEntityGoal<>(jerboa, LivingEntity.class, 7.0F, 1.7D, 1.4,AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.JERBOAFEAR)));
-        }
     }
 
 }

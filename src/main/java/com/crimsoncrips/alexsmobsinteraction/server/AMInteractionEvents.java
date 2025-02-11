@@ -103,7 +103,6 @@ public class AMInteractionEvents {
         LivingEntity livingEntity = livingTickEvent.getEntity();
         Level level = livingTickEvent.getEntity().level();
 
-        System.out.println(AlexsMobsInteraction.COMMON_CONFIG.GOOFY_BANANA_SLIP_ENABLED.get());
 
 
 

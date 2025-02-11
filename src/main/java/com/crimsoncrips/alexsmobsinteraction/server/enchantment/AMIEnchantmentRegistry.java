@@ -23,8 +23,8 @@ public class AMIEnchantmentRegistry {
 
     public static final EnchantmentCategory ROLLER;
 
-    public static final RegistryObject<Enchantment> STABILIZER;
 
+    public static final RegistryObject<Enchantment> STABILIZER;
 
     public static final RegistryObject<Enchantment> LIGHTWEIGHT;
 
@@ -52,7 +52,7 @@ public class AMIEnchantmentRegistry {
         LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
         ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, ROLLER,EquipmentSlot.CHEST));
 
-        STABILIZER = DEF_REG.register("stabilizer", () -> new AMIBasicEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
+        STABILIZER = DEF_REG.register("stabilizer", () -> new AMIStabilizerEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
         STRETCHY_ACCUMULATION = DEF_REG.register("stretchy_accumulation", () -> {
             return new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, TENDON_WHIP, EquipmentSlot.MAINHAND);
         });

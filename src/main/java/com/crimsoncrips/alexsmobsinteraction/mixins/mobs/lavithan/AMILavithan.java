@@ -41,6 +41,18 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
         RELAVA = SynchedEntityData.defineId(EntityLaviathan.class, EntityDataSerializers.BOOLEAN);
     }
 
+    @Override
+    public boolean shouldEnterWater() {
+        boolean relava = !AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() || isRelava();
+        return !this.isVehicle() && !relava;
+    }
+
+    @Override
+    public boolean shouldLeaveWater() {
+        boolean relava = !AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() || isRelava();
+        return this.isVehicle() && relava;
+    }
+
     private static final EntityDataAccessor<Boolean> RELAVA;
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
@@ -66,6 +78,10 @@ public abstract class AMILavithan extends Animal implements ISemiAquatic, IHerdP
         this.entityData.set(RELAVA, relava);
     }
 
+    @Override
+    public boolean isSensitiveToWater() {
+        return super.isSensitiveToWater() || isRelava();
+    }
 
     @Inject(method = "mobInteract", at = @At("TAIL"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){

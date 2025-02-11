@@ -33,6 +33,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(EntityTossedItem.class)
@@ -44,34 +45,32 @@ public abstract class AMITossedItemMixin extends ThrowableItemProjectile impleme
         super(pEntityType, pLevel);
     }
 
-    private static final EntityDataAccessor<Integer> POTION_LEVEL = SynchedEntityData.defineId(EntityRhinoceros.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<String> APPLIED_POTION = SynchedEntityData.defineId(EntityRhinoceros.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Integer> POTION_LEVEL = SynchedEntityData.defineId(EntityTossedItem.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<String> APPLIED_POTION = SynchedEntityData.defineId(EntityTossedItem.class, EntityDataSerializers.STRING);
     private static final Object2IntMap<String> potionToColor = new Object2IntOpenHashMap<>();
 
     protected Item getDefaultItem() {
         return isDart() ? AMItemRegistry.ANCIENT_DART.get() : AlexsMobsInteraction.COMMON_CONFIG.GOOFY_CAPUCHIN_BOMB_ENABLED.get() ? Items.TNT : Items.COBBLESTONE;
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    @Inject(method = "defineSynchedData", at = @At(value = "TAIL"))
+    private void alexsMobsInteraction$defineSynchedData(CallbackInfo ci) {
         this.entityData.define(APPLIED_POTION, "");
         this.entityData.define(POTION_LEVEL, 0);
     }
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putString("PotionName", this.getPotionId());
-        pCompound.putInt("PotionLevel", this.getPotionLevel());
+    @Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
+        compound.putString("PotionName", this.getPotionId());
+        compound.putInt("PotionLevel", this.getPotionLevel());
     }
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setPotionId(pCompound.getString("PotionName"));
-        this.setPotionLevel(pCompound.getInt("PotionLevel"));
+    @Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
+    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
+        this.setPotionId(compound.getString("PotionName"));
+        this.setPotionLevel(compound.getInt("PotionLevel"));
     }
+
 
     @Override
     public String getPotionId() {
@@ -114,31 +113,26 @@ public abstract class AMITossedItemMixin extends ThrowableItemProjectile impleme
 
 
     public MobEffect getPotionEffect() {
-        return ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(this.getPotionId()));
+        if (getPotionId() != null) {
+            return ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(this.getPotionId()));
+        } else return null;
     }
 
-
-    protected void onHit(HitResult result) {
-        super.onHit(result);
+    @Inject(method = "onHit", at = @At(value = "TAIL"))
+    private void alexsMobsInteraction$onHit(HitResult result, CallbackInfo ci) {
         int x = this.getBlockX();
         int y = this.getBlockY();
         int z = this.getBlockZ();
-        if (!this.level().isClientSide && (!this.isDart() || result.getType() == HitResult.Type.BLOCK)) {
-            this.level().broadcastEntityEvent(this, (byte)3);
-            this.remove(RemovalReason.DISCARDED);
-        }
-
         if (!isDart() && AlexsMobsInteraction.COMMON_CONFIG.GOOFY_CAPUCHIN_BOMB_ENABLED.get()) {
             this.level().explode(this, x + 1,y + 2,z + 1,2, Level.ExplosionInteraction.MOB);
         }
-
     }
 
     @Inject(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private void alexsMobsInteraction$onHitEntity(EntityHitResult p_213868_1_, CallbackInfo ci) {
-        MobEffect potion = this.getPotionEffect();
+        MobEffect potion = getPotionEffect();
 
-        if(potion != null && p_213868_1_.getEntity() instanceof LivingEntity livingEntity){
+        if(potion != null && p_213868_1_.getEntity() instanceof LivingEntity livingEntity && AlexsMobsInteraction.COMMON_CONFIG.ANCIENT_EFFECTS_ENABLED.get()){
             MobEffectInstance instance = new MobEffectInstance(potion, 100, getPotionLevel());
             livingEntity.addEffect(instance);
         }

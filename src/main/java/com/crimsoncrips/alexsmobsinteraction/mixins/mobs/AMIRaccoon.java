@@ -37,9 +37,6 @@ public abstract class AMIRaccoon extends TamableAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRaccoon raccoon = (EntityRaccoon)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.PREY_FEAR_ENABLED.get()) {
-            raccoon.goalSelector.addGoal(3, new AvoidEntityGoal<>(raccoon, LivingEntity.class, 8.0F, 1.2, 1.5,AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.RACCOON_FEAR)));
-        }
         if (AlexsMobsInteraction.COMMON_CONFIG.RACOON_HUNT_ENABLED.get()) {
             raccoon.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(raccoon, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.RACCOON_KILL)) {
                 @Override

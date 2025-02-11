@@ -28,11 +28,6 @@ public abstract class AMIBlobfish extends WaterAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityBlobfish blobfish = (EntityBlobfish)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.PREY_FEAR_ENABLED.get()) {
-            blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, Player.class, 3.0F, 0.8, 1.2));
-            blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, EntityGiantSquid.class, 5.0F, 1, 1.4));
-            blobfish.goalSelector.addGoal(3, new AvoidEntityGoal<>(blobfish, EntityFrilledShark.class, 2.0F, 0.8, 1));
-        }
     }
 
 }

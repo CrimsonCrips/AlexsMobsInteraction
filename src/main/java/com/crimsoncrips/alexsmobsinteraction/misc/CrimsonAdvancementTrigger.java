@@ -34,8 +34,6 @@ public class CrimsonAdvancementTrigger extends SimpleCriterionTrigger<CrimsonAdv
             super(res, p_i231507_1_);
         }
 
-
-
         public JsonObject serializeToJson(SerializationContext p_230240_1_) {
             JsonObject lvt_2_1_ = super.serializeToJson(p_230240_1_);
             return lvt_2_1_;
