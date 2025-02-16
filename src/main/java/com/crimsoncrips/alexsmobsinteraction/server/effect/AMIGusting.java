@@ -48,7 +48,7 @@ public class AMIGusting extends MobEffect {
         timer--;
         if (level.isClientSide)
             return;
-        if(timer == 39 && entity instanceof LivingEntity){
+        if(timer == 39 && entity instanceof Player){
             int z = 1;
             for (int x = -2; x != 2; x ++) {
                 if (x > -2) {

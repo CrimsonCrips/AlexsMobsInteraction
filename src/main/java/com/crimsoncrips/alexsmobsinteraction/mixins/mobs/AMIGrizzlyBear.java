@@ -1,7 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
@@ -25,8 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 import java.util.Objects;
 
-import static com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry.GRIZZLY_KILL;
-import static com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry.GRIZZLY_TERRITORIAL;
+
 
 
 @Mixin(EntityGrizzlyBear.class)
@@ -40,18 +38,7 @@ public abstract class AMIGrizzlyBear extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
-            grizzlyBear.goalSelector.addGoal(5, new TameableAITempt(grizzlyBear, 1.1D, Ingredient.of(AMInteractionTagRegistry.GRIZZLY_ENTICE), false));
-            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 4000, true, false, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_KILL)) {
-                public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isHoneyed();
-                }
-            });
-            if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_FRIENDLY_ENABLED.get()) {
-                grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(GRIZZLY_TERRITORIAL)) {
-                    public boolean canUse() {
-                        return super.canUse() && !grizzlyBear.isTame();
-                    }
-                });
+            if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get()) {
                 grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 10, true, true, null) {
                     public boolean canUse() {
                         return super.canUse() && !grizzlyBear.isTame();
@@ -67,12 +54,12 @@ public abstract class AMIGrizzlyBear extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 18))
     private boolean attackPlayer(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_FRIENDLY_ENABLED.get();
+        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 19))
     private boolean nearbyAttack(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_FRIENDLY_ENABLED.get();
+        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)

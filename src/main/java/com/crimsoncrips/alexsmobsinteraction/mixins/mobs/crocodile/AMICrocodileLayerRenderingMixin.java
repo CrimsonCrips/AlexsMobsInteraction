@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.crocodile;
 
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.WallyCrocodile;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -23,7 +23,7 @@ public class AMICrocodileLayerRenderingMixin {
     @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/github/alexthe666/alexsmobs/entity/EntityCrocodile;FFFFFF)V", at = @At(value = "TAIL"), remap = false)
     private void alexsMobsInteraction$render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityCrocodile entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 
-        if (!entitylivingbaseIn.isBaby() && ((WallyCrocodile) entitylivingbaseIn).isWally()) {
+        if (!entitylivingbaseIn.isBaby() && ((AMIBaseInterfaces) entitylivingbaseIn).isWally()) {
             ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
             ItemStack haloStack = new ItemStack(AMItemRegistry.HALO.get());
             matrixStackIn.pushPose();

@@ -2,13 +2,13 @@ package com.crimsoncrips.alexsmobsinteraction;
 
 import com.crimsoncrips.alexsmobsinteraction.client.AMIClientConfig;
 import com.crimsoncrips.alexsmobsinteraction.client.event.AMIClientEvents;
+import com.crimsoncrips.alexsmobsinteraction.datagen.AMIDatagen;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIServerConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.AMIEntityRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionEvents;
 import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
-import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -58,6 +58,8 @@ public class AlexsMobsInteraction {
         AMIEffects.POTION_REGISTER.register(modEventBus);
         AMIItemRegistry.DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new AMIClientEvents());
+        modEventBus.addListener(AMIDatagen::generateData);
+
         PROXY.init();
         modEventBus.addListener(this::setupClient);
         AMIEntityRegistry.DEF_REG.register(modEventBus);
@@ -69,7 +71,6 @@ public class AlexsMobsInteraction {
 
     private void setup(final FMLCommonSetupEvent event) {
         AMIEffects.init();
-        CrimsonAdvancementTriggerRegistry.init();
     }
 
     private void setupClient(FMLClientSetupEvent event) {

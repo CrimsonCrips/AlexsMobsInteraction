@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.crocodile;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.WallyCrocodile;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -25,7 +25,7 @@ import static com.github.alexthe666.alexsmobs.entity.EntityCrocodile.NOT_CREEPER
 
 
 @Mixin(EntityCrocodile.class)
-public abstract class AMICrocodileMixin extends TamableAnimal implements WallyCrocodile {
+public abstract class AMICrocodileMixin extends TamableAnimal implements AMIBaseInterfaces {
 
     protected AMICrocodileMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);

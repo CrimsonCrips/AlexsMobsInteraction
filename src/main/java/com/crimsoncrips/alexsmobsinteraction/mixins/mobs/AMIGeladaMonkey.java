@@ -1,7 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityGeladaMonkey;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;

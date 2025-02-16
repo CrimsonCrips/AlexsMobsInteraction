@@ -12,7 +12,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CRIMSON_WIKI_ENABLED;
+    public final ForgeConfigSpec.BooleanValue AMI_WIKI_ENABLED;
     public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
@@ -48,7 +48,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue BLOOD_PROTECTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GRIZZLY_FRIENDLY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GRIZZLY_PACIFIED_ENABLED;
     public final ForgeConfigSpec.BooleanValue GUSTER_WEIGHT_ENABLED;
     public final ForgeConfigSpec.BooleanValue HAMMERHEAD_MANTIS_EAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue POLINATE_DAY_ENABLED;
@@ -179,11 +179,15 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
     public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
     public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue WITHERED_SKELEWAG_ENABLED;
+    public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FUNGUS_POLLINATE_ENABLED;
 
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
-        this.CRIMSON_WIKI_ENABLED = buildBoolean(builder, "CRIMSON_WIKI_ENABLED", " ", true, "Gives you the crimson wiki book at start");
+        this.AMI_WIKI_ENABLED = buildBoolean(builder, "AMI_WIKI_ENABLED", " ", true, "Gives you the ami wiki book at start");
         this.FOOD_TARGET_EFFECTS_ENABLED = buildBoolean(builder, "FOOD_TARGET_EFFECTS_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
         this.CHARGE_STUN_ENABLED = buildBoolean(builder, "CHARGE_STUN_ENABLED", " ", true, "Stuns charging animals when targeting the player with the new enchantment, 'Final Stand'");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
@@ -201,7 +205,7 @@ public class AMIServerConfig {
 
         builder.pop();
         builder.push("Alligator Snapping Turtle");
-        this.SNAPPING_DORMANCY_ENABLED = buildBoolean(builder, "SNAPPING_DORMANCY_ENABLED", " ", true, "Snapping Turtles will be active at night or when raining only unless when disturbed");
+        this.SNAPPING_DORMANCY_ENABLED = buildBoolean(builder, "SNAPPING_DORMANCY_ENABLED", " ", true, "Snapping Turtles will be active at night or when raining and will remain dormant unless disturbed");
         this.MOSS_PROPOGATION_ENABLED = buildBoolean(builder, "MOSS_PROPOGATION_ENABLED", " ", true, "Snapping Turtles will rarely accumulate moss when raining or within water or grown by bonemealing watered turtles");
 
         builder.pop();
@@ -248,6 +252,7 @@ public class AMIServerConfig {
         this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Crimson Mosquitoes is immune to blood spits");
         this.BLOODED_EFFECT_ENABLED = buildBoolean(builder, "BLOODED_EFFECT_ENABLED", " ", true, "Blood spits will inflict you with the new 'Blooded' effect that causes temporary substantial weakness");
         this.BLOOD_DAMAGE_DIFFERENCE_ENABLED = buildBoolean(builder, "BLOOD_DAMAGE_DIFFERENCE_ENABLED", " ", true, "Damage from blood spits is dependant from the source");
+        this.FUNGUS_POLLINATE_ENABLED = buildBoolean(builder, "FUNGUS_POLLINATE_ENABLED", " ", true, "Crimson Mosquitoes with blood will pollinate nearby funguses");
 
         builder.pop();
         builder.push("Crocodile");
@@ -270,6 +275,10 @@ public class AMIServerConfig {
         this.INFECT_WEAK_ENABLED = buildBoolean(builder, "INFECT_WEAK_ENABLED", " ", true, "Enderiophage will attack any that are below 30% health");
         this.INFECT_IMMUNITY_ENABLED = buildBoolean(builder, "INFECT_IMMUNITY_ENABLED", " ", true, "Enderiophage will ignore any that have damage resistance, unless if attacked");
         this.ENDERIOPHAGE_ADAPTION_ENABLED = buildBoolean(builder, "ENDERIOPHAGE_ADAPTION_ENABLED", " ", true, "Enderiophage when created will adapt to their dimension");
+
+        builder.pop();
+        builder.push("Endergrade");
+        this.VOIDED_ENDERGRADE_ENABLED = buildBoolean(builder, "VOIDED_ENDERGRADE_ENABLED", " ", true, "Endergrade and its passengers are immune to the void");
 
         builder.pop();
         builder.push("Devils Hole Pupfish");
@@ -302,7 +311,7 @@ public class AMIServerConfig {
         this.GELADA_HUNT_ENABLED = buildBoolean(builder, "GELADA_HUNT_ENABLED", " ", true, "Gelada Monkey hunts insects");
         builder.pop();
         builder.push("Grizzly Bear");
-        this.GRIZZLY_FRIENDLY_ENABLED = buildBoolean(builder, "GRIZZLY_FRIENDLY_ENABLED", " ", true, "Grizzlies will not attack players when tamed");
+        this.GRIZZLY_PACIFIED_ENABLED = buildBoolean(builder, "GRIZZLY_PACIFIED_ENABLED", " ", true, "Grizzlies will not attack players when tamed");
         this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
         this.BRUSHED_ENABLED = buildBoolean(builder, "BRUSHED_ENABLED", " ", true, "Grizzlies that are pacified with honey can be brushed for hair");
         builder.pop();
@@ -321,7 +330,7 @@ public class AMIServerConfig {
         builder.push("Komodo Dragon");
         this.FRIENDLY_KOMODO_ENABLED = buildBoolean(builder, "FRIENDLY_KOMODO_ENABLED", " ", false, "Komodo Dragon is friendly towards players when tamed");
         builder.pop();
-        builder.push("Lavithan");
+        builder.push("Laviathan");
         this.OBSIDIAN_EXTRACT_ENABLED = buildBoolean(builder, "OBSIDIAN_EXTRACT_ENABLED", " ", true, "Obsidian Laviathans can be mined for obsidian, but will cause them slight harm");
         builder.pop();
         builder.push("Leafcutter Ants");
@@ -382,6 +391,8 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Skelewag");
         this.SKELEWAG_CIRCLE_ENABLED = buildBoolean(builder, "SKELEWAG_CIRCLE_ENABLED", " ", true, "Skelewag circle their prey like hammerhead sharks");
+        this.WITHERED_SKELEWAG_ENABLED = buildBoolean(builder, "WITHERED_SKELEWAG_ENABLED", " ", true, "Withered variants of skelewag that spawn in the nether");
+
         builder.pop();
         builder.push("Skreecher");
         this.SKREECHER_WARD_ENABLED = buildBoolean(builder, "SKREECHER_WARD_ENABLED", " ", true, "Skreecher souls can be used on a Screacher block to allow it to spawn wardens");
@@ -414,6 +425,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Terrapin");
         this.TERRAPIN_STOMP_ENABLED = buildBoolean(builder, "TERRAPIN_STOMP_ENABLED", " ", true, "Terrapin take damage when they get launched");
+
         builder.pop();
         builder.push("Tiger");
         this.TIGER_STEALTH_ENABLED = buildBoolean(builder, "TIGER_STEALTH_ENABLED", " ", true, "Tigers Blessing will give invisibility when moving in a normal pace");
@@ -443,6 +455,7 @@ public class AMIServerConfig {
         this.GOOFY_RAINFROG_SPAWNAGE_ENABLED = buildBoolean(builder, "GOOFY_RAINFROG_SPAWNAGE_ENABLED", " ", false, "April Fools Rain Frog Effects");
         this.GOOFY_CAPUCHIN_BOMB_ENABLED = buildBoolean(builder, "GOOFY_CAPUCHIN_BOMB_ENABLED", " ", false, "April Fools Capuchin Monkey Effects");
         this.GOOFY_STRADDLER_SHOTGUN_ENABLED = buildBoolean(builder, "GOOFY_STRADDLER_SHOTGUN_ENABLED", " ", false, "April Fools Straddler Effects");
+        this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", " ", false, "Mine Turtle");
 
     }
 

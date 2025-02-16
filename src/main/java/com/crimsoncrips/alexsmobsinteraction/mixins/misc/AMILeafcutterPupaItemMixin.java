@@ -1,8 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.EntityLeafcutterPupa;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIVariant;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.item.ItemLeafcutterPupa;
 import com.github.alexthe666.alexsmobs.tileentity.TileEntityLeafcutterAnthill;
@@ -70,9 +70,9 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"),remap = false,locals = LocalCapture.CAPTURE_FAILHARD)
     private void variable(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, Level world, BlockPos blockpos, BlockState blockstate, Player playerentity, BlockEntity tileentity, TileEntityLeafcutterAnthill beehivetileentity, int j, int k, EntityLeafcutterAnt beeentity){
         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
-            ((AMIVariant) beeentity).setVariant(variant);
+            ((AMIBaseInterfaces) beeentity).setVariant(variant);
         } else {
-            ((AMIVariant) beeentity).setVariant(1);
+            ((AMIBaseInterfaces) beeentity).setVariant(1);
         }
     }
 

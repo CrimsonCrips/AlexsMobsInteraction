@@ -1,7 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;

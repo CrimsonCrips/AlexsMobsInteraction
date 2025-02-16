@@ -3,9 +3,10 @@ package com.crimsoncrips.alexsmobsinteraction.server;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
-import com.crimsoncrips.alexsmobsinteraction.misc.CrimsonAdvancementTriggerRegistry;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -18,7 +19,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -57,14 +57,12 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.Iterator;
 
-import static com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry.*;
 import static com.github.alexthe666.alexsmobs.block.BlockLeafcutterAntChamber.FUNGUS;
 import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
@@ -183,8 +181,8 @@ public class AMInteractionEvents {
             }
         }
 
-        if(livingEntity instanceof EntityCentipedeHead centipede && AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get()){
-            if ((centipede.getTarget().isHolding(Ingredient.of(CENTIPEDE_LIGHT_FEAR)) || centipede.getTarget() instanceof Player player && curiosLight(player)) && centipede.getLastHurtByMob() != centipede.getTarget()) {
+        if(livingEntity instanceof EntityCentipedeHead centipede && AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get() && centipede.getTarget() instanceof LivingEntity){
+            if ((centipede.getTarget().isHolding(Ingredient.of(AMIBlockTagGenerator.LIGHT_FEAR)) || centipede.getTarget() instanceof Player player && curiosLight(player)) && centipede.getLastHurtByMob() != centipede.getTarget()) {
                 centipede.setTarget(null);
             }
         }
@@ -437,8 +435,13 @@ public class AMInteractionEvents {
         Player player = event.getEntity();
         CompoundTag playerData = event.getEntity().getPersistentData();
         CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-        if (!data.getBoolean("ami_book") && AlexsMobsInteraction.COMMON_CONFIG.CRIMSON_WIKI_ENABLED.get()) {
-            CrimsonAdvancementTriggerRegistry.AMI_BOOK.trigger((ServerPlayer) player);
+
+        ItemStack book = new ItemStack(PatchouliItems.BOOK);
+        book.getOrCreateTag().putString("patchouli:book","alexsmobsinteraction:ami_interaction_wiki");
+
+
+        if (!data.getBoolean("ami_book") && AlexsMobsInteraction.COMMON_CONFIG.AMI_WIKI_ENABLED.get()) {
+            player.addItem(book);
             data.putBoolean("ami_book", true);
             playerData.put(Player.PERSISTED_NBT_TAG, data);
         }
@@ -484,7 +487,7 @@ public class AMInteractionEvents {
         Player player = serverChatEvent.getPlayer();
 
         for (EntityMimicube entity : player.level().getEntitiesOfClass(EntityMimicube.class, player.getBoundingBox().inflate(9))) {
-            if (entity != null && entity.getRandom().nextDouble() < 1 && entity.getTarget() == player && AlexsMobsInteraction.COMMON_CONFIG.MIMICKRY_ENABLED.get()) {
+            if (entity != null && entity.getRandom().nextDouble() < 0.8 && entity.getTarget() == player && AlexsMobsInteraction.COMMON_CONFIG.MIMICKRY_ENABLED.get()) {
                 String message = serverChatEvent.getMessage().getString();
                 for (int i = 0;i < 4; i++){
                     char randomLetter = (char) ('a' + player.getRandom().nextInt(26));

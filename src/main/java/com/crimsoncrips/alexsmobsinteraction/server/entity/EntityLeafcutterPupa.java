@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.entity;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIVariant;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
@@ -80,9 +80,9 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
                     for(int k = 0; k < j; ++k) {
                         EntityLeafcutterAnt beeentity = new EntityLeafcutterAnt(AMEntityRegistry.LEAFCUTTER_ANT.get(), world);
                         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
-                            ((AMIVariant) beeentity).setVariant(variant);
+                            ((AMIBaseInterfaces) beeentity).setVariant(variant);
                         } else {
-                            ((AMIVariant) beeentity).setVariant(1);
+                            ((AMIBaseInterfaces) beeentity).setVariant(1);
                         }
                         beeentity.setQueen(k == 0);
                         beehivetileentity.tryEnterHive(beeentity, false, 100);
