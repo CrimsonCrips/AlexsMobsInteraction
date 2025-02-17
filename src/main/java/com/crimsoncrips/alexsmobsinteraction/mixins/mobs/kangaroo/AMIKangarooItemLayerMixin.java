@@ -54,7 +54,6 @@ public abstract class AMIKangarooItemLayerMixin extends RenderLayer<EntityKangar
         matrixStackIn.scale(0.8F, 0.8F, 0.8F);
         renderer.renderItem(entitylivingbaseIn, itemstackOF, left ? ItemDisplayContext.THIRD_PERSON_LEFT_HAND : ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, false, matrixStackIn, bufferIn, packedLightIn);
 
-
     }
 
 

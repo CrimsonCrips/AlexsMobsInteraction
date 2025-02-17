@@ -177,6 +177,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue FUNGUS_POLLINATE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ADD_TARGETS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue POTOO_VISION_ENABLED;
 
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
@@ -345,6 +346,9 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Orca");
         this.MIGHT_UPGRADE_ENABLED = buildBoolean(builder, "MIGHT_UPGRADE_ENABLED", " ", true, "Orca's Might can provide temporary neutrality with skelewags");
+        builder.pop();
+        builder.push("Potoo");
+        this.POTOO_VISION_ENABLED = buildBoolean(builder, "POTOO_VISION_ENABLED", " ", true, "Potoo give their holder temp night vision when dark enough");
         builder.pop();
         builder.push("Rain Frog");
         this.BURROW_AWAY_ENABLED = buildBoolean(builder, "BURROW_AWAY_ENABLED", " ", true, "Rainfrogs burrow away when threatened");
