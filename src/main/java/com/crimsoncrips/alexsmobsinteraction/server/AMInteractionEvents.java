@@ -2,9 +2,11 @@ package com.crimsoncrips.alexsmobsinteraction.server;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
+import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
@@ -12,12 +14,14 @@ import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.EmeraldsForItemsTrade;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -26,6 +30,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.goat.Goat;
@@ -43,6 +48,9 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -182,7 +190,7 @@ public class AMInteractionEvents {
         }
 
         if(livingEntity instanceof EntityCentipedeHead centipede && AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get() && centipede.getTarget() instanceof LivingEntity){
-            if ((centipede.getTarget().isHolding(Ingredient.of(AMIBlockTagGenerator.LIGHT_FEAR)) || centipede.getTarget() instanceof Player player && curiosLight(player)) && centipede.getLastHurtByMob() != centipede.getTarget()) {
+            if (CuriosCompat.hasLight(centipede.getTarget()) && centipede.getLastHurtByMob() != centipede.getTarget()) {
                 centipede.setTarget(null);
             }
         }
@@ -276,103 +284,7 @@ public class AMInteractionEvents {
             }
         }
 
-        if(entity instanceof EntityCrimsonMosquito crimsonMosquito){
-            if (AlexsMobsInteraction.COMMON_CONFIG.CRIMSON_TRANSFORM_ENABLED.get()) {
-                if (itemStack.getItem() == AMItemRegistry.WARPED_MUSCLE.get() && crimsonMosquito.hasEffect(MobEffects.WEAKNESS)) {
-                    if (!player.isCreative()) {
-                        itemStack.shrink(1);
-                    }
-                    crimsonMosquito.gameEvent(GameEvent.ENTITY_INTERACT);
-                    crimsonMosquito.gameEvent(GameEvent.EAT);
-                    crimsonMosquito.playSound(SoundEvents.GENERIC_EAT, 1, crimsonMosquito.getVoicePitch());
-                    crimsonMosquito.setSick(true);
-                }
-            }
-        }
 
-        if (entity instanceof EntityBananaSlug bananaSlug) {
-            if (!AlexsMobsInteraction.COMMON_CONFIG.BANANA_SHEAR_ENABLED.get())
-                return;
-            if (itemStack.getItem() != Items.SHEARS)
-                return;
-            if (!player.isCreative()) {
-                itemStack.hurtAndBreak(1, player, (p_233654_0_) -> {
-                });
-            }
-            bananaSlug.gameEvent(GameEvent.ENTITY_INTERACT);
-            bananaSlug.playSound(SoundEvents.SHEEP_SHEAR, 1, bananaSlug.getVoicePitch());
-            bananaSlug.spawnAtLocation(AMItemRegistry.BANANA.get());
-            bananaSlug.discard();
-        }
-
-        if (entity instanceof EntityAlligatorSnappingTurtle alligatorSnappingTurtle) {
-            if (!AlexsMobsInteraction.COMMON_CONFIG.MOSS_PROPOGATION_ENABLED.get())
-                return;
-            if (itemStack.getItem() != Items.BONE_MEAL)
-                return;
-            if (!player.isCreative()) {
-                itemStack.hurtAndBreak(1, player, (p_233654_0_) -> {
-                });
-            }
-            alligatorSnappingTurtle.gameEvent(GameEvent.ENTITY_INTERACT);
-            alligatorSnappingTurtle.playSound(SoundEvents.BONE_MEAL_USE, 1, 1);
-            RandomSource randomSource = alligatorSnappingTurtle.getRandom();
-            Position pPos = alligatorSnappingTurtle.position();
-            for(int i = 0; i < 15; ++i) {
-                double d2 = randomSource.nextGaussian() * 0.02D;
-                double d3 = randomSource.nextGaussian() * 0.02D;
-                double d4 = randomSource.nextGaussian() * 0.02D;
-                double d6 = pPos.x() + 0 + randomSource.nextDouble() * 0.5 * 2.0D;
-                double d7 = pPos.y() + randomSource.nextDouble();
-                double d8 = pPos.z() + 0 + randomSource.nextDouble() * 0.5 * 2.0D;
-                if (!level.getBlockState(BlockPos.containing(d6, d7, d8).below()).isAir()) {
-                    level.addParticle(ParticleTypes.HAPPY_VILLAGER, d6, d7, d8, d2, d3, d4);
-                }
-            }
-            if (randomSource.nextDouble() < 0.01)
-                alligatorSnappingTurtle.setMoss(alligatorSnappingTurtle.getMoss() + 1);
-        }
-
-        if (entity instanceof EntityFlutter flutter){
-            if (itemStack.getItem() == Items.WITHER_ROSE && AlexsMobsInteraction.COMMON_CONFIG.FLUTTER_WITHERED_ENABLED.get() && !flutter.isTame()) {
-                if (!player.isCreative())
-                    itemStack.hurtAndBreak(1, flutter, (p_233654_0_) -> {});
-                flutter.addEffect(new MobEffectInstance(MobEffects.WITHER, 900, 0));
-            }
-            if (itemStack.getItem() == Items.SHEARS && AlexsMobsInteraction.COMMON_CONFIG.FLUTTER_SHEAR_ENABLED.get() && !flutter.isTame()) {
-                flutter.playSound(SoundEvents.SHEEP_SHEAR, 1, flutter.getVoicePitch());
-                flutter.spawnAtLocation(Items.SPORE_BLOSSOM);
-                flutter.spawnAtLocation(Items.AZALEA);
-                flutter.spawnAtLocation(Items.AZALEA);
-                if (!player.isCreative()) itemStack.hurtAndBreak(6, flutter, (p_233654_0_) -> {});
-                flutter.discard();
-            }
-        }
-
-        if (entity instanceof EntitySugarGlider sugarGlider) {
-            if (!AlexsMobsInteraction.COMMON_CONFIG.SUGAR_RUSH_ENABLED.get())
-                return;
-            if (itemStack.getItem() == Items.SUGAR || itemStack.getItem() == Items.SUGAR_CANE) {
-                if (!player.isCreative()) itemStack.shrink(1);
-                sugarGlider.gameEvent(GameEvent.EAT);
-                sugarGlider.playSound(SoundEvents.FOX_EAT, 1, sugarGlider.getVoicePitch());
-                sugarGlider.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 900, 1));
-            }
-        }
-
-        if (entity instanceof EntityGrizzlyBear grizzlyBear) {
-            if (!AlexsMobsInteraction.COMMON_CONFIG.BRUSHED_ENABLED.get())
-                return;
-            if (itemStack.getItem() instanceof BrushItem)
-                return;
-            if (!player.isCreative()) {
-                itemStack.hurtAndBreak(32, player, (p_233654_0_) -> {
-                });
-            }
-            grizzlyBear.spawnAtLocation(AMItemRegistry.BEAR_FUR.get());
-            if(random.nextDouble() < 0.2) grizzlyBear.spawnAtLocation(AMItemRegistry.BEAR_FUR.get());
-            if(random.nextDouble() < 0.0002)grizzlyBear.spawnAtLocation(AMItemRegistry.BEAR_DUST.get());
-        }
 
     }
 
@@ -555,12 +467,6 @@ public class AMInteractionEvents {
         }
     }
 
-    public boolean curiosLight(Player player){
-        if (ModList.get().isLoaded("curiouslanterns")) {
-            ICuriosItemHandler handler = CuriosApi.getCuriosInventory(player).orElseThrow(() -> new IllegalStateException("Player " + player.getName() + " has no curios inventory!"));
-            return handler.getStacksHandler("belt").orElseThrow().getStacks().getStackInSlot(0).is(CENTIPEDE_LIGHT_FEAR);
-        } else return false;
-    }
 
     public static Entity getClosestLookingAtEntityFor(Level level, Player player, double dist) {
         Entity closestValid = null;

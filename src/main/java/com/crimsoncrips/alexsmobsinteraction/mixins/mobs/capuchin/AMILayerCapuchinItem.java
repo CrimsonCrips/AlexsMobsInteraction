@@ -36,8 +36,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry.INSECTS;
-
 
 @Mixin(LayerCapuchinItem.class)
 public abstract class AMILayerCapuchinItem extends RenderLayer<EntityCapuchinMonkey, ModelCapuchinMonkey> {

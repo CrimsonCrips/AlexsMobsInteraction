@@ -15,6 +15,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -85,7 +86,7 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
     @Inject(method = "mobInteract", at = @At("TAIL"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         EntityLaviathan laviathan = (EntityLaviathan)(Object)this;
-        if (player.getMainHandItem().is(AMInteractionTagRegistry.LAVITHAN_PICKAXES) && laviathan.isObsidian()){
+        if (player.getMainHandItem().getItem() instanceof PickaxeItem && laviathan.isObsidian()){
             setRelava(true);
             laviathan.setObsidian(false);
             this.playSound(SoundEvents.BASALT_BREAK, this.getSoundVolume(), this.getVoicePitch());

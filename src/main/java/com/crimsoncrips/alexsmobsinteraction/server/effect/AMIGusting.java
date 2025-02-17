@@ -33,7 +33,7 @@ public class AMIGusting extends MobEffect {
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
-        if (!AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get())
+        if (!AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get())
             return;
         if (entity.getRandom().nextDouble() < 0.5){
             for (int j = 0; j < 4; ++j) {
@@ -73,10 +73,10 @@ public class AMIGusting extends MobEffect {
     }
 
     public String getDescriptionId() {
-        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
-            return "alexsmobsinteraction.potion.gusting";
+        if (AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get()) {
+            return "effect.alexsmobsinteraction.gusting.title";
         } else {
-            return "alexscavesexemplified.feature_disabled";
+            return "misc.alexsmobsinteraction.feature_disabled";
         }
     }
 

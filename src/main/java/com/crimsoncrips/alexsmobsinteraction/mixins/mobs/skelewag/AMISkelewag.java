@@ -65,30 +65,7 @@ public abstract class AMISkelewag extends Monster {
     }
 
 
-    private boolean stun;
 
-    @Override
-    protected boolean isImmobile() {
-        return stun;
-    }
-
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
-            stun = this.hasEffect(AMIEffects.DISABLED.get());
-            LivingEntity target = getTarget();
-            if (this.getTarget() instanceof Player player && (player.getItemBySlot(EquipmentSlot.OFFHAND).getEnchantmentLevel(AMIEnchantmentRegistry.FINAL_STAND.get()) > 0 || player.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(AMIEnchantmentRegistry.FINAL_STAND.get()) > 0)) {
-                if (this.distanceTo(this.getTarget()) < 3F && this.hasLineOfSight(this.getTarget()) && this.getTarget().isBlocking() && !stun) {
-                    stun = true;
-                    this.playSound(SoundEvents.SHIELD_BLOCK, 2F, 1F);
-                    target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
-                    target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 150, 1));
-                    this.addEffect(new MobEffectInstance(AMIEffects.DISABLED.get(), 500, 1));
-                    this.setTarget(null);
-                }
-            }
-        }
-    }
 
 
 

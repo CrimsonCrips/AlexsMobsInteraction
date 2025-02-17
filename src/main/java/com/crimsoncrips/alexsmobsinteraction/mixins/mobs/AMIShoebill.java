@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityShoebill;
 import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
@@ -33,8 +34,11 @@ public abstract class AMIShoebill extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityShoebill shoebill = (EntityShoebill)(Object)this;
-        shoebill.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(shoebill, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SHOEBILL_BABY_KILL)));
-        shoebill.targetSelector.addGoal(7, new EntityAINearestTarget3D<>(shoebill, EntityTerrapin.class, 100, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.SHOEBILL_KILL)));
+        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+            shoebill.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(shoebill, LivingEntity.class, 400, true, true, livingEntity -> {
+                return livingEntity.getType().is(AMIEntityTagGenerator.SHOEBILL_BABY_KILL) && livingEntity.isBaby() || livingEntity.getType().is(AMIEntityTagGenerator.INSECTS);
+            }));
+        }
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)

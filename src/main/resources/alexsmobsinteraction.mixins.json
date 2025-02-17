@@ -91,7 +91,7 @@
     "mobs.AMIVoidWorm",
     "mobs.AMIWarpedMosco",
     "mobs.AMIWarpedToad",
-    "mobs.cachalot.AMICachalotWhale",
+    "mobs.AMICachalotWhale",
     "mobs.capuchin.AMICapuchinMixin",
     "mobs.capuchin.AMITossedItemMixin",
     "mobs.crocodile.AMICrocodileMixin",
@@ -107,7 +107,6 @@
   "client": [
     "external_mobs.vanilla.player.AMIRenderPlayerMixin",
     "misc.AMIParticleInvertDigMixin",
-    "mobs.cachalot.AMICachalotRendering",
     "mobs.capuchin.AMILayerCapuchinItem",
     "mobs.capuchin.AMIRenderTossedItemMixin",
     "mobs.crocodile.AMICrocodileLayerRenderingMixin",

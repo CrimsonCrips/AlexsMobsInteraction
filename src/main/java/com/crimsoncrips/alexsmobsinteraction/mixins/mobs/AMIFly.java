@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;
@@ -93,7 +94,6 @@ public class AMIFly extends Mob implements TransformingEntities {
     private void registerGoals(CallbackInfo ci) {
         EntityFly fly = (EntityFly)(Object)this;
 
-        Predicate<LivingEntity> PESTERTARGET = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.PESTER_ENTITY);
         if(AlexsMobsInteraction.COMMON_CONFIG.CANDLE_REPEL_ENABLED.get()){
             fly.goalSelector.addGoal(3, new AvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
                 BlockState state = fly.level().getBlockState(pos);
@@ -103,7 +103,7 @@ public class AMIFly extends Mob implements TransformingEntities {
             }));
         }
         if(AlexsMobsInteraction.COMMON_CONFIG.FLY_PESTER_ENABLED.get()) {
-            fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, PESTERTARGET));
+            fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.FLY_PESTER)));
         }
         fly.goalSelector.addGoal(2, new MoveToBlockGoal(fly,2,15) {
             @Override

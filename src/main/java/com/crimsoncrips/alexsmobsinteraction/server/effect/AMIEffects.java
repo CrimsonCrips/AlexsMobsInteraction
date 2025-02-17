@@ -24,7 +24,6 @@ public class AMIEffects {
 
     public static final RegistryObject<MobEffect> SKREECHING = EFFECT_REGISTER.register("skreeching", AMISkreeching::new);
     public static final RegistryObject<MobEffect> BLOODED = EFFECT_REGISTER.register("blooded", AMIBlooded::new);
-    public static final RegistryObject<MobEffect> DISABLED = EFFECT_REGISTER.register("disabled", AMIDisabled::new);
     public static final RegistryObject<Potion> SKREECHING_POTION = POTION_REGISTER.register("skreeching", ()-> new Potion(new MobEffectInstance(SKREECHING.get(), 72000)));
     public static final RegistryObject<MobEffect> GUSTING = EFFECT_REGISTER.register("gusting", AMIGusting::new);
     public static final RegistryObject<Potion> GUSTING_POTION = POTION_REGISTER.register("gusting", ()-> new Potion(new MobEffectInstance(GUSTING.get(), 800)));
@@ -44,6 +43,5 @@ public class AMIEffects {
         BrewingRecipeRegistry.addRecipe(new AMIBrewingRecipes(Ingredient.of(createPotion(Potions.AWKWARD)), Ingredient.of(AMItemRegistry.GUSTER_EYE.get()), createPotion(GUSTING_POTION.get())));
         BrewingRecipeRegistry.addRecipe(new AMIBrewingRecipes(Ingredient.of(createPotion(AMIEffects.GUSTING_POTION.get())), Ingredient.of(Items.REDSTONE), createPotion(LONGER_GUSTING_POTION.get())));
         BrewingRecipeRegistry.addRecipe(new AMIBrewingRecipes(Ingredient.of(createPotion(Potions.AWKWARD)), Ingredient.of(AMItemRegistry.GONGYLIDIA.get()), createPotion(HEALTH_BOOST_POTION.get())));
-
     }
 }

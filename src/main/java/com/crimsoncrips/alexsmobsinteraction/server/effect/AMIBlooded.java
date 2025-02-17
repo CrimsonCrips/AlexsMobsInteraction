@@ -17,10 +17,10 @@ public class AMIBlooded extends MobEffect {
     }
 
     public String getDescriptionId() {
-        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
-            return "alexsmobsinteraction.potion.blooded";
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()) {
+            return "effect.alexsmobsinteraction.blooded.title";
         } else {
-            return "alexscavesexemplified.feature_disabled";
+            return "misc.alexsmobsinteraction.feature_disabled";
         }
     }
 

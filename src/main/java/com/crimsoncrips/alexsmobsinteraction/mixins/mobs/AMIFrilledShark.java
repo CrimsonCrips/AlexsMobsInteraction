@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityFrilledShark;
@@ -24,11 +25,13 @@ public abstract class AMIFrilledShark {
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 50, true, true, (mob) -> {
                 return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
             }));
+            frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, EntityGiantSquid.class, 300, false, true,(livingEntity) -> {
+                return livingEntity.getHealth() <= 0.25F * livingEntity.getMaxHealth();
+            }));
         }
-        frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, LivingEntity.class, 20, false, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.FRILLED_KILL)));
-        frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, EntityGiantSquid.class, 300, false, true,(livingEntity) -> {
-            return livingEntity.getHealth() <= 0.25F * livingEntity.getMaxHealth();
-        }));
+        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+            frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, LivingEntity.class, 20, false, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.KILL_FISHES)));
+        }
     }
 
 }

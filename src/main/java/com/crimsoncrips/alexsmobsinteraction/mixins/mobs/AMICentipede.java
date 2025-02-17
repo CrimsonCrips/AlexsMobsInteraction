@@ -1,6 +1,9 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCentipedeHead;
@@ -27,14 +30,12 @@ import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 
 @Mixin(EntityCentipedeHead.class)
-public abstract class AMICentipede extends Monster {
+public class AMICentipede extends Monster {
 
 
     protected AMICentipede(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
-
-    @Shadow protected abstract void registerGoals();
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
@@ -42,28 +43,20 @@ public abstract class AMICentipede extends Monster {
         EntityCentipedeHead centipede = (EntityCentipedeHead)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get()) {
             centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, Player.class, 50, true, false, livingEntity -> {
-                return !livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) && !(livingEntity instanceof Player player && curiosLight(player));
+                return !CuriosCompat.hasLight(livingEntity) && centipede.getLastHurtByMob() != livingEntity ;
             }));
-
 
             centipede.goalSelector.addGoal(1, new AvoidEntityGoal<>(centipede, LivingEntity.class, 4.0F, 1.5, 2, (livingEntity) -> {
-                return centipede.getLastAttacker() != livingEntity && (livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR)) || (livingEntity instanceof Player player && curiosLight(player))) ;
+                return centipede.getLastAttacker() != livingEntity && CuriosCompat.hasLight(livingEntity);
             }));
             centipede.goalSelector.addGoal(1, new AvoidBlockGoal(centipede, 4,1,1.2,(pos) -> {
-                BlockState state = centipede.level().getBlockState(pos);
-                return state.is(AMInteractionTagRegistry.CENTIPEDE_BLOCK_FEAR);
+                return centipede.level().getBlockState(pos).is(AMIBlockTagGenerator.LIGHT_FEAR);
             }));
         }
-        centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, LivingEntity.class, 55, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.CAVE_CENTIPEDE_KILL)));
+        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+            centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, LivingEntity.class, 55, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.CENTIPEDE_KILL)));
+        }
 
-
-    }
-
-    public boolean curiosLight(Player player){
-        if (ModList.get().isLoaded("curiouslanterns")) {
-            ICuriosItemHandler handler = CuriosApi.getCuriosInventory(player).orElseThrow(() -> new IllegalStateException("Player " + player.getName() + " has no curios inventory!"));
-            return handler.getStacksHandler("belt").orElseThrow().getStacks().getStackInSlot(0).is(AMInteractionTagRegistry.CENTIPEDE_LIGHT_FEAR);
-        } else return false;
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 7))

@@ -11,13 +11,15 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
 public class AMIItemTagGenerator extends ItemTagsProvider {
-	public static final TagKey<Item> LIGHT_FEAR = create("twilight_oak_logs");
+	public static final TagKey<Item> LIGHT_FEAR = create("light_fear");
+	public static final TagKey<Item> EMU_TRIGGER = create("emu_trigger");
 
     public AMIItemTagGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> future, CompletableFuture<TagLookup<Block>> provider, ExistingFileHelper helper) {
         super(output, future, provider, AlexsMobsInteraction.MODID, helper);
@@ -25,12 +27,30 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.copy(AMIBlockTagGenerator.LIGHT_FEAR, LIGHT_FEAR);
+
+		tag(EMU_TRIGGER).add(
+				Items.CROSSBOW,
+				Items.BOW
+		);
+
+		tag(LIGHT_FEAR).add(
+				Items.SHROOMLIGHT,
+				Items.JACK_O_LANTERN,
+				Items.LANTERN,
+				Items.OCHRE_FROGLIGHT,
+				Items.VERDANT_FROGLIGHT,
+				Items.PEARLESCENT_FROGLIGHT,
+				Items.SEA_LANTERN,
+				Items.GLOWSTONE,
+				Items.SOUL_LANTERN,
+				Items.TORCH,
+				Items.SOUL_TORCH
+		);
 	}
 
 	@Override
 	public String getName() {
-		return "Twilight Forest Item Tags";
+		return "AMI Item Tags";
 	}
 
 

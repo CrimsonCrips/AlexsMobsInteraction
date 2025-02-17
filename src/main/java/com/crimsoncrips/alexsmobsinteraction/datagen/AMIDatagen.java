@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.datagen;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.advancement.AMIAdvancementProvider;
-import com.crimsoncrips.alexsmobsinteraction.datagen.language.AMILangGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.language.locale.EnglishLangGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
@@ -10,12 +10,10 @@ import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -31,7 +29,7 @@ public class AMIDatagen {
 
         generator.addProvider(event.includeServer(), new AMIAdvancementProvider(output, provider, helper));
         generator.addProvider(event.includeServer(), new AMILootGenerator(output));
-        generator.addProvider(event.includeClient(), new AMILangGenerator(output));
+        generator.addProvider(event.includeClient(), new EnglishLangGenerator(output));
         generator.addProvider(event.includeServer(), new AMIEntityTagGenerator(output, provider, helper));
 
         AMIBlockTagGenerator blocktags = new AMIBlockTagGenerator(output, provider, helper);

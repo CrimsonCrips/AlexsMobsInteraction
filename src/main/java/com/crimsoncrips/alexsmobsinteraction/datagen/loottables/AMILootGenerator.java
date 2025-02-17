@@ -14,7 +14,7 @@ public class AMILootGenerator extends LootTableProvider  {
     //Props to Drull and TF for assistance//
     public AMILootGenerator(PackOutput output) {
         super(output, AMILootTables.allBuiltin(), List.of(
-                new SubProviderEntry(AMIManualLoot::new, LootContextParamSets.PIGLIN_BARTER)
+                new SubProviderEntry(AMIManualLoot::new, LootContextParamSets.EMPTY)
         ));
     }
 

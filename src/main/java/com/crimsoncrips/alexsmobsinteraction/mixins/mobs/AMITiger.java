@@ -35,45 +35,11 @@ import java.util.Objects;
 public abstract class AMITiger extends Mob {
 
 
-    @Shadow private int animationTick;
-
-    @Shadow public abstract Animation getAnimation();
-
-    @Shadow @Final public static Animation ANIMATION_LEAP;
-
     protected AMITiger(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
 
 
-
-    private boolean stun = false;
-
-    protected boolean isImmobile() {
-        return stun;
-    }
-
-
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void tick(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.CHARGE_STUN_ENABLED.get()) {
-            stun = this.hasEffect(AMIEffects.DISABLED.get());
-
-            LivingEntity target = getTarget();
-
-            if (this.getTarget() instanceof Player player && this.getAnimation() == ANIMATION_LEAP && (player.getItemBySlot(EquipmentSlot.OFFHAND).getEnchantmentLevel(AMIEnchantmentRegistry.FINAL_STAND.get()) > 0 || player.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(AMIEnchantmentRegistry.FINAL_STAND.get()) > 0)) {
-                if (this.distanceTo(this.getTarget()) < 3F && this.hasLineOfSight(this.getTarget()) && this.getTarget().isBlocking() && !stun) {
-                    stun = true;
-                    this.playSound(SoundEvents.SHIELD_BLOCK, 2F, 1F);
-                    target.removeEffect(new MobEffectInstance((MobEffect)AMEffectRegistry.FEAR.get(), Integer.MAX_VALUE, 0).getEffect());
-                    target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 150, 1));
-                    target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 300, 2));
-                    this.addEffect(new MobEffectInstance(AMIEffects.DISABLED.get(), 500, 1));
-                }
-            }
-
-        }
-    }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {

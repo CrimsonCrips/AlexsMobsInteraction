@@ -17,8 +17,6 @@ public class AMIEnchantmentRegistry {
 
     public static final DeferredRegister<Enchantment> DEF_REG;
 
-    public static final EnchantmentCategory SHIELD;
-
     public static final EnchantmentCategory TENDON_WHIP;
 
     public static final EnchantmentCategory ROLLER;
@@ -27,8 +25,6 @@ public class AMIEnchantmentRegistry {
     public static final RegistryObject<Enchantment> STABILIZER;
 
     public static final RegistryObject<Enchantment> LIGHTWEIGHT;
-
-    public static final RegistryObject<Enchantment> FINAL_STAND;
 
     public static final RegistryObject<Enchantment> ROLLING_THUNDER;
 
@@ -40,9 +36,6 @@ public class AMIEnchantmentRegistry {
 
     static {
         DEF_REG = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, "alexsmobsinteraction");
-        SHIELD = EnchantmentCategory.create("shield", (item) -> {
-            return item instanceof ItemShieldOfTheDeep || item instanceof ShieldItem;
-        });
         TENDON_WHIP = EnchantmentCategory.create("tendon_whip", (item) -> {
             return item instanceof ItemTendonWhip;
         });
@@ -56,7 +49,5 @@ public class AMIEnchantmentRegistry {
         STRETCHY_ACCUMULATION = DEF_REG.register("stretchy_accumulation", () -> {
             return new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, TENDON_WHIP, EquipmentSlot.MAINHAND);
         });
-        FINAL_STAND = DEF_REG.register("final_stand", () -> new AMIBasicEnchantment(Enchantment.Rarity.RARE, SHIELD,EquipmentSlot.OFFHAND));
-
     }
 }

@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAnaconda;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -24,8 +25,6 @@ import java.util.function.Predicate;
 @Mixin(EntityAnaconda.class)
 public abstract class AMIAnaconda extends Animal {
 
-    @Unique
-    Predicate<LivingEntity> ANACONDA_BABY_TARGETS = AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.ANACONDA_BABY_KILL);
 
     protected AMIAnaconda(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -35,14 +34,14 @@ public abstract class AMIAnaconda extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityAnaconda anaconda = (EntityAnaconda)(Object)this;
-        anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 1000, true, false, (livingEntity) -> {
-            return ANACONDA_BABY_TARGETS.test(livingEntity)  && livingEntity.isBaby();
-        }));
         if (AlexsMobsInteraction.COMMON_CONFIG.ANACONDA_CANNIBALIZE_ENABLED.get()) {
             anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(this, EntityAnaconda.class));
             anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 2500, true, false, (livingEntity) -> {
                 return (livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth() || livingEntity.isBaby());
             }));
+        }
+        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+            anaconda.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(anaconda, LivingEntity.class, 800, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.ANACONDA_KILL)));
         }
     }
 

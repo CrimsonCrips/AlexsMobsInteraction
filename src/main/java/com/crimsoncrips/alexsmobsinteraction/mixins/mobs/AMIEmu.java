@@ -1,6 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityEmu;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -35,7 +37,7 @@ public abstract class AMIEmu extends Animal {
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.RANGED_AGGRO_ENABLED.get()){
             emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 70, true, false, (livingEntity) -> {
-                return livingEntity.isHolding(Ingredient.of(AMInteractionTagRegistry.EMU_TRIGGER));
+                return livingEntity.isHolding(Ingredient.of(AMIItemTagGenerator.EMU_TRIGGER));
             }){
                 @Override
                 public boolean canContinueToUse() {
@@ -43,12 +45,14 @@ public abstract class AMIEmu extends Animal {
                 }
             });
         }
-        emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.EMU_KILL)){
-            @Override
-            public boolean canContinueToUse() {
-                return super.canContinueToUse() && !emu.isBaby();
-            }
-        });
+        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+            emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.INSECTS)) {
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !emu.isBaby();
+                }
+            });
+        }
     }
 
 }

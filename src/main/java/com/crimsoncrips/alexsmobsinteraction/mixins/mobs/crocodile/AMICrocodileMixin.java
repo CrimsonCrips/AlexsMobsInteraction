@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Predicate;
 
-import static com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry.CROCODILE_BABY_KILL;
 import static com.github.alexthe666.alexsmobs.entity.EntityCrocodile.NOT_CREEPER;
 
 
@@ -35,13 +34,6 @@ public abstract class AMICrocodileMixin extends TamableAnimal implements AMIBase
     @Inject(method = "registerGoals", at = @At("HEAD"))
     private void registerGoals(CallbackInfo ci) {
         EntityCrocodile crocodile = (EntityCrocodile)(Object)this;
-        crocodile.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(crocodile, LivingEntity.class, 3000, true, false, AMEntityRegistry.buildPredicateFromTag(CROCODILE_BABY_KILL)){
-            @Override
-            public boolean canUse() {
-                return super.canUse() && !isWally();
-            }
-        });
-
 
         this.targetSelector.addGoal(4, new EntityAINearestTarget3D(this, Player.class, 80, false, true, (Predicate)null) {
             public boolean canUse() {

@@ -1,5 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityDropBear;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -29,12 +31,14 @@ public abstract class AMIDropbear extends Monster {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityDropBear dropBear = (EntityDropBear)(Object)this;
-        dropBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(dropBear, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMInteractionTagRegistry.DROPBEAR_KILL)){
-            protected AABB getTargetSearchArea(double targetDistance) {
-                AABB bb = this.mob.getBoundingBox().inflate(targetDistance, targetDistance, targetDistance);
-                return new AABB(bb.minX, 0.0, bb.minZ, bb.maxX, 256.0, bb.maxZ);
-            }
-        });
+        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+            dropBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(dropBear, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.NETHER_KILL)) {
+                protected AABB getTargetSearchArea(double targetDistance) {
+                    AABB bb = this.mob.getBoundingBox().inflate(targetDistance, targetDistance, targetDistance);
+                    return new AABB(bb.minX, 0.0, bb.minZ, bb.maxX, 256.0, bb.maxZ);
+                }
+            });
+        }
 
     }
 

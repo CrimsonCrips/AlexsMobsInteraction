@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:rabbit",
+    "minecraft:chicken",
+    "alexsmobs:jerboa",
+    "minecraft:frog",
+    "alexsmobs:rain_frog",
+    "#alexsmobsinteraction:insects"
+  ]
+}

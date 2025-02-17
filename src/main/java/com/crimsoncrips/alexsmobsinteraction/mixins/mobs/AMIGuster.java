@@ -84,7 +84,7 @@ public class AMIGuster extends Mob {
             double d1 = (extraZ - lifted.getZ()) * resist;
             if (lifted instanceof Player player && AlexsMobsInteraction.COMMON_CONFIG.GUSTER_WEIGHT_ENABLED.get()) {
                 int lift = player.getArmorValue();
-                if(AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get()){
+                if(AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get()){
                     if(player.hasEffect(AMIEffects.GUSTING.get()))
                         return;
                     lifted(lift,player,d0,d1,resist);

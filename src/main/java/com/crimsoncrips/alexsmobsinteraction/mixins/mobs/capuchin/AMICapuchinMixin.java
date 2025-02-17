@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.capuchin;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AncientDartPotion;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCapuchinMonkey;
@@ -47,8 +48,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.List;
 import java.util.Objects;
 
-import static com.crimsoncrips.alexsmobsinteraction.server.AMInteractionTagRegistry.INSECTS;
-
 
 @Mixin(EntityCapuchinMonkey.class)
 public abstract class AMICapuchinMixin extends TamableAnimal implements AncientDartPotion {
@@ -70,8 +69,8 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCapuchinMonkey capuchinMonkey = (EntityCapuchinMonkey)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.CAPUCHIN_HUNT_ENABLED.get()) {
-            capuchinMonkey.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(capuchinMonkey, LivingEntity.class, 400, true, true, AMEntityRegistry.buildPredicateFromTag(INSECTS)) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+            capuchinMonkey.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(capuchinMonkey, LivingEntity.class, 400, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.INSECTS)) {
                 @Override
                 public boolean canContinueToUse() {
                     return super.canContinueToUse() && !capuchinMonkey.isTame();
