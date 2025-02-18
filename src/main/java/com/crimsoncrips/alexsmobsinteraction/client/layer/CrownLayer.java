@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.client.layer;
 
 import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.github.alexthe666.alexsmobs.client.model.ModelCockroach;
 import com.github.alexthe666.alexsmobs.client.model.ModelCrocodile;
 import com.github.alexthe666.alexsmobs.client.render.AMRenderTypes;
@@ -19,6 +20,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -36,30 +38,31 @@ public class CrownLayer extends RenderLayer<EntityCockroach, ModelCockroach> {
 
     @Override
     public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, EntityCockroach pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        VertexConsumer crown = pBuffer.getBuffer(getParentModel().neck.getModel().renderType(TEXTURE_CROWN));
-        pPoseStack.pushPose();
-        pPoseStack.translate(0.115F, 1.5F, -2.2F);
-        pPoseStack.mulPose(Axis.XP.rotationDegrees(90F));
-        pPoseStack.scale(1.3F, 1.3F, 1.3F);
-        this.getParentModel().renderToBuffer(pPoseStack, crown, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        pPoseStack.popPose();
-
-        float cameraY = Minecraft.getInstance().getEntityRenderDispatcher().camera.getYRot();
-
-        if (ModList.get().isLoaded("alexscaves")){
-            ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
-
-
-            ItemStack haloStack = new ItemStack(ACCompat.gameController().getItem());
+        if (pLivingEntity.isAlive() && !pLivingEntity.isDancing() && !pLivingEntity.hasMaracas() && ((AsmonRoach)pLivingEntity).isGod()){
+            VertexConsumer crown = pBuffer.getBuffer(getParentModel().neck.getModel().renderType(TEXTURE_CROWN));
             pPoseStack.pushPose();
-            float f = 0.1F * (float) Math.sin((pLivingEntity.tickCount + pPartialTick) * 0.1F) + (pLivingEntity.isBaby() ? 0.2F : 0F);
-            pPoseStack.translate(0.0F, 0.1F - f, 0F);
-            pPoseStack.mulPose(Axis.XP.rotationDegrees(180F));
-            pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - cameraY - pLivingEntity.yBodyRot));
-            pPoseStack.scale(0.6F, 0.6F, 0.6F);
-            System.out.println(pLivingEntity.yBodyRot);
-            renderer.renderItem(pLivingEntity, haloStack, ItemDisplayContext.GROUND, false, pPoseStack, pBuffer, pPackedLight);
+            pPoseStack.translate(0.115F, 1.5F, -2.2F);
+            pPoseStack.mulPose(Axis.XP.rotationDegrees(90F));
+            pPoseStack.scale(1.3F, 1.3F, 1.3F);
+            this.getParentModel().renderToBuffer(pPoseStack, crown, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             pPoseStack.popPose();
+
+            float cameraY = Minecraft.getInstance().getEntityRenderDispatcher().camera.getYRot();
+
+            if (ModList.get().isLoaded("alexscaves")) {
+                ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
+
+                ItemStack haloStack = new ItemStack(ACCompat.gameController().getItem());
+                pPoseStack.pushPose();
+                float f = 0.1F * (float) Math.sin((pLivingEntity.tickCount + pPartialTick) * 0.1F) + (pLivingEntity.isBaby() ? 0.2F : 0F);
+                pPoseStack.translate(0.0F, 1F - f, 0F);
+                pPoseStack.mulPose(Axis.XP.rotationDegrees(180F));
+                //Thanks drull with the math
+                pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - cameraY + Mth.rotLerp(pPartialTick, pLivingEntity.yBodyRotO, pLivingEntity.yBodyRot)));
+                pPoseStack.scale(0.6F, 0.6F, 0.6F);
+                renderer.renderItem(pLivingEntity, haloStack, ItemDisplayContext.GROUND, false, pPoseStack, pBuffer, pPackedLight);
+                pPoseStack.popPose();
+            }
         }
 
     }

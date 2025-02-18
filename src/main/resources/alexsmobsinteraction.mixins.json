@@ -19,6 +19,7 @@
     "misc.AMIEntityRegistryMixin",
     "misc.AMIFishingRodMixin",
     "misc.AMIFlyingFishBootsMixin",
+    "misc.AMIGuiMixin",
     "misc.AMILeafcutterPupaItemMixin",
     "misc.AMIPocketSandMixin",
     "misc.AMITendonWhip",

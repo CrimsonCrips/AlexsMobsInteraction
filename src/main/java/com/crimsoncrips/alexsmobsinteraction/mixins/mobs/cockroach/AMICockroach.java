@@ -176,6 +176,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
             cockroach.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100F);
             cockroach.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.10F);
             cockroach.setHealth(100);
+            cockroach.setAge(0);
             cockroach.setPersistenceRequired();
             cockroach.refreshDimensions();
 
