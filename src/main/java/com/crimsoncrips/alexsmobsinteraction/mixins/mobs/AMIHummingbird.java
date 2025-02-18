@@ -39,7 +39,7 @@ public abstract class AMIHummingbird extends Animal {
             });
         }
         if(AlexsMobsInteraction.COMMON_CONFIG.FLOWERING_ATTRACTION_ENABLED.get()) {
-            hummingbird.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(hummingbird, EntityFlutter.class, 10, 1.2, EntityFlutter::isAlive) {
+            hummingbird.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(hummingbird, EntityFlutter.class, 10, 1.2) {
                 public boolean canContinueToUse() {
                     return hummingbird.level().isDay();
                 }

@@ -27,7 +27,7 @@ public abstract class AMIBeeMixin extends Animal {
         Bee bee = (Bee)(Object)this;
 
         if(AlexsMobsInteraction.COMMON_CONFIG.FLOWERING_ATTRACTION_ENABLED.get()) {
-            bee.goalSelector.addGoal(4, new AMIFollowNearestGoal<>(bee, EntityFlutter.class, 10, 1, EntityFlutter::isAlive) {
+            bee.goalSelector.addGoal(4, new AMIFollowNearestGoal<>(bee, EntityFlutter.class, 10, 1) {
                 public boolean canContinueToUse() {
                     return bee.level().isDay();
                 }

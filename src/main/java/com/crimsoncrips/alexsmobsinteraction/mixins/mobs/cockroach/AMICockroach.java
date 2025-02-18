@@ -26,21 +26,20 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.ModList;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -65,6 +64,8 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
     @Shadow public abstract boolean isDancing();
 
     @Shadow public abstract boolean hasMaracas();
+
+    @Shadow @Final protected static EntityDimensions STAND_SIZE;
 
     protected AMICockroach(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -97,8 +98,8 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
             }
         }
 
-        if (cockroach.level().getEntity(getWorshiping()) instanceof EntityCockroach god){
-            god.addEffect(new MobEffectInstance(MobEffects.GLOWING, 300, 0));
+        if (isGod() && cockroach.getLastHurtByMob() != null){
+           System.out.println(cockroach.getLastHurtByMob().getType());
         }
     }
 
@@ -142,21 +143,21 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         EntityCockroach cockroach = (EntityCockroach)(Object)this;
         this.goalSelector.addGoal(1, new PanicGoal(cockroach, 1.1){
             public boolean canUse() {
-                return super.canUse() && !isGod();
+                return super.canUse() && !isGod() && getWorshiping() == 1;
             }
         });
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(cockroach, EntityCentipedeHead.class, 16.0F, 1.3, (double)1.0F){
             public boolean canUse() {
-                return super.canUse() && !isGod();
+                return super.canUse() && !isGod() && getWorshiping() == 1;
             }
         });
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(cockroach, Player.class, 8.0F, 1.3, (double)1.0F) {
             public boolean canUse() {
-                return !cockroach.isBreaded() && super.canUse() && !isGod();
+                return !cockroach.isBreaded() && super.canUse() && !isGod() && getWorshiping() == 1;
             }
         });
+        cockroach.goalSelector.addGoal(8, new AMISurroundAttacker(cockroach));
 
-        cockroach.goalSelector.addGoal(8, new AMISurroundAttacker(cockroach,Player.class,15,1));
 
     }
 
@@ -165,7 +166,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         ItemStack itemStack = player.getItemInHand(hand);
         EntityCockroach cockroach = (EntityCockroach)(Object)this;
 
-        if (ACCompat.gameController(itemStack) && !this.isDancing() && !this.hasMaracas()){
+        if (ModList.get().isLoaded("alexscaves") && itemStack.is(ACCompat.gameController().getItem()) && !this.isDancing() && !this.hasMaracas() && !isGod() && getWorshiping() == -1){
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }
@@ -176,9 +177,10 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
             cockroach.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.10F);
             cockroach.setHealth(100);
             cockroach.setPersistenceRequired();
+            cockroach.refreshDimensions();
 
             for (EntityCockroach nearRoaches : cockroach.level().getEntitiesOfClass(EntityCockroach.class, this.getBoundingBox().inflate(10))) {
-                if (nearRoaches != cockroach && !((AsmonRoach)nearRoaches).isGod()) {
+                if (nearRoaches != cockroach && !((AsmonRoach)nearRoaches).isGod() && ((AsmonRoach)nearRoaches).getWorshiping() == -1) {
                     ((AsmonRoach)nearRoaches).setWorshiping(cockroach.getId());
                     nearRoaches.setCustomName(Component.nullToEmpty("Servant"));
                 }
@@ -193,6 +195,11 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         } else {
             return true;
         }
+    }
+
+    public EntityDimensions getDimensions(Pose poseIn) {
+        float asmon = isGod() ? 1.15F : 1F;
+        return this.isDancing() ? STAND_SIZE.scale(asmon) : super.getDimensions(poseIn).scale(asmon);
     }
 
 

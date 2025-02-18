@@ -18,8 +18,8 @@ public class ACCompat {
         return itemStack.is(ACBlockRegistry.NUCLEAR_BOMB.get().asItem().getDefaultInstance().getItem());
     }
 
-    public static boolean gameController(ItemStack itemStack){
-        return itemStack.is(ACItemRegistry.GAME_CONTROLLER.get());
+    public static ItemStack gameController(){
+        return ACItemRegistry.GAME_CONTROLLER.get().getDefaultInstance();
     }
 
     public static boolean toxicCaves(LivingEntity livingEntity){

@@ -11,19 +11,19 @@ import java.util.function.Predicate;
 
 public class AMIFollowNearestGoal<T extends LivingEntity> extends Goal {
     protected final PathfinderMob mob;
-    final Predicate<T> followPredicate;
+    final Predicate<LivingEntity> followPredicate;
     protected Class<T> targetType;
-    private final double speedModifier;
+    public final double speedModifier;
     private final float areaSize;
-    private final PathNavigation navigation;
+    public final PathNavigation navigation;
 
-    private int timeToRecalcPath;
+    public int timeToRecalcPath;
 
     public AMIFollowNearestGoal(PathfinderMob mob, Class<T> targetType, float areaSize, double speedModifier) {
-        this(mob, targetType, areaSize, speedModifier, Objects::isNull);
+        this(mob, targetType, areaSize, speedModifier, LivingEntity::isAlive);
     }
 
-    public AMIFollowNearestGoal(PathfinderMob mob, Class<T> targetType, float areaSize, double speedModifier, @Nullable Predicate<T> followPredicate) {
+    public AMIFollowNearestGoal(PathfinderMob mob, Class<T> targetType, float areaSize, double speedModifier, @Nullable Predicate<LivingEntity> followPredicate) {
         this.mob = mob;
         this.targetType = targetType;
         this.followPredicate = followPredicate;

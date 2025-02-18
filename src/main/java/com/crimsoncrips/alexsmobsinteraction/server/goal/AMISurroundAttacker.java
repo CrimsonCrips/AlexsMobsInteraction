@@ -17,7 +17,25 @@ import java.util.function.Predicate;
 public class AMISurroundAttacker extends AMIFollowNearestGoal {
 
 
-    public AMISurroundAttacker(PathfinderMob mob, Class targetType, float areaSize, double speedModifier) {
-        super(mob, targetType, areaSize, speedModifier);
+    public AMISurroundAttacker(PathfinderMob mob) {
+        super(mob, LivingEntity.class, 15, 1.2,living -> {
+            return mob.level().getEntity(((AsmonRoach)mob).getWorshiping()) instanceof EntityCockroach entityCockroach && entityCockroach.getLastHurtByMob() == living;
+        });
+    }
+
+    @Override
+    public boolean canUse() {
+        return super.canUse() && !((AsmonRoach)mob).isGod();
+    }
+
+    @Override
+    public void tick() {
+        var target = getTarget();
+        if (target != null && !mob.isLeashed()) {
+            mob.getLookControl().setLookAt(target, 10.0F, (float) this.mob.getMaxHeadXRot());
+            navigation.moveTo(target, speedModifier);
+        } else {
+            navigation.stop();
+        }
     }
 }
