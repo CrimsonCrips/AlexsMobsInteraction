@@ -51,13 +51,13 @@ public class CrownLayer extends RenderLayer<EntityCockroach, ModelCockroach> {
 
 
             ItemStack haloStack = new ItemStack(ACCompat.gameController().getItem());
-            pPoseStack.popPose();
             pPoseStack.pushPose();
             float f = 0.1F * (float) Math.sin((pLivingEntity.tickCount + pPartialTick) * 0.1F) + (pLivingEntity.isBaby() ? 0.2F : 0F);
             pPoseStack.translate(0.0F, 0.1F - f, 0F);
             pPoseStack.mulPose(Axis.XP.rotationDegrees(180F));
-            pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - cameraY));
+            pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - cameraY - pLivingEntity.yBodyRot));
             pPoseStack.scale(0.6F, 0.6F, 0.6F);
+            System.out.println(pLivingEntity.yBodyRot);
             renderer.renderItem(pLivingEntity, haloStack, ItemDisplayContext.GROUND, false, pPoseStack, pBuffer, pPackedLight);
             pPoseStack.popPose();
         }
