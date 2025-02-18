@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class AMIFollowNearestGoal<T extends LivingEntity> extends Goal {
@@ -18,6 +19,10 @@ public class AMIFollowNearestGoal<T extends LivingEntity> extends Goal {
 
     private int timeToRecalcPath;
 
+    public AMIFollowNearestGoal(PathfinderMob mob, Class<T> targetType, float areaSize, double speedModifier) {
+        this(mob, targetType, areaSize, speedModifier, Objects::isNull);
+    }
+
     public AMIFollowNearestGoal(PathfinderMob mob, Class<T> targetType, float areaSize, double speedModifier, @Nullable Predicate<T> followPredicate) {
         this.mob = mob;
         this.targetType = targetType;
@@ -26,6 +31,7 @@ public class AMIFollowNearestGoal<T extends LivingEntity> extends Goal {
         this.areaSize = areaSize;
         this.navigation = mob.getNavigation();
     }
+
 
     @Override
     public boolean canUse() {
@@ -47,7 +53,7 @@ public class AMIFollowNearestGoal<T extends LivingEntity> extends Goal {
     }
 
     @Nullable
-    private LivingEntity getTarget() {
+    public LivingEntity getTarget() {
         var level = this.mob.level();
         var targetList = level.getEntitiesOfClass(targetType, mob.getBoundingBox().inflate(areaSize), followPredicate);
         if (targetList.isEmpty()) {

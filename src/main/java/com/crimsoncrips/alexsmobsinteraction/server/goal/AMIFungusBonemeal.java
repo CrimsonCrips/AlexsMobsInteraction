@@ -69,7 +69,6 @@ public class AMIFungusBonemeal extends MoveToBlockGoal {
         RandomSource randomSource = crimsonMosquito.getRandom();
 
         crimsonMosquito.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(blockPos));
-        System.out.println(isReachedTarget());
 
         if (this.isReachedTarget() && level.getBlockState(blockPos).getBlock() instanceof FungusBlock fungusBlock) {
             if (fungusBlock.isBonemealSuccess(level,randomSource,blockPos,level.getBlockState(blockPos))) {

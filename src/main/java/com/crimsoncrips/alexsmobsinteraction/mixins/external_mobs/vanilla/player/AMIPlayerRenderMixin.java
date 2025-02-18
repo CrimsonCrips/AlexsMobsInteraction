@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(PlayerRenderer.class)
-public abstract class AMIRenderPlayerMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+public abstract class AMIPlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 
-    public AMIRenderPlayerMixin(EntityRendererProvider.Context pContext, PlayerModel<AbstractClientPlayer> pModel, float pShadowRadius) {
+    public AMIPlayerRenderMixin(EntityRendererProvider.Context pContext, PlayerModel<AbstractClientPlayer> pModel, float pShadowRadius) {
         super(pContext, pModel, pShadowRadius);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"),remap = false)
-    private void alexsMobsInteraction$getItem(EntityRendererProvider.Context pContext, boolean pUseSlimModel, CallbackInfo ci) {
+    private void alexsMobsInteraction$init(EntityRendererProvider.Context pContext, boolean pUseSlimModel, CallbackInfo ci) {
         this.addLayer(new EndergradePlayerLayer(this));
     }
 

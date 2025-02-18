@@ -6,7 +6,7 @@ license="MIT"
 [[mods]]
 modId="alexsmobsinteraction" #mandatory
 displayURL="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs-interaction" #optional
-version="4.3"
+version="5.0"
 displayName="Alexs Mobs Interaction"
 authors="The Crimson and the Reimainder"
 

@@ -4,7 +4,7 @@ import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
-import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIAvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -35,8 +35,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.function.Predicate;
 
 
 @Mixin(EntityFly.class)
@@ -95,7 +93,7 @@ public class AMIFly extends Mob implements TransformingEntities {
         EntityFly fly = (EntityFly)(Object)this;
 
         if(AlexsMobsInteraction.COMMON_CONFIG.CANDLE_REPEL_ENABLED.get()){
-            fly.goalSelector.addGoal(3, new AvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
+            fly.goalSelector.addGoal(3, new AMIAvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
                 BlockState state = fly.level().getBlockState(pos);
                 if (state.is(BlockTags.CANDLES)){
                     return state.getValue(CandleBlock.LIT);

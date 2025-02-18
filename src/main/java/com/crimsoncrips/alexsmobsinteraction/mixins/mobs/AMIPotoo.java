@@ -39,6 +39,7 @@ public abstract class AMIPotoo extends Animal {
         if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
             potoo.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(potoo, EntityFly.class, 600, true, false, LivingEntity::isAlive));
         }
+
     }
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityPotoo;gameEvent(Lnet/minecraft/world/level/gameevent/GameEvent;)V"))

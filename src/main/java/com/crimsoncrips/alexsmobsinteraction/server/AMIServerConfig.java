@@ -3,181 +3,125 @@ package com.crimsoncrips.alexsmobsinteraction.server;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class AMIServerConfig {
-
-    public final ForgeConfigSpec.BooleanValue SKREECH_YOUR_LAST_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue GUSTER_PROJECTILE_PROT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue AMI_WIKI_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue ACIDIC_LEAFCUTTER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
-    public final ForgeConfigSpec.DoubleValue BLOODED_CHANCE;
-    public final ForgeConfigSpec.BooleanValue CAIMAN_AGGRO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CATFISH_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue LIGHT_FEAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CROW_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue CRIMSON_TRANSFORM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue RANGED_AGGRO_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FARSEER_HUMANLIKE_ATTACK_ENABLED;
     public final ForgeConfigSpec.BooleanValue ACCIDENTAL_BETRAYAL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TUSKLIN_FLEE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue FLY_TRANSFORM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
-
+    public final ForgeConfigSpec.BooleanValue ACIDIC_LEAFCUTTER_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ADD_TARGETS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue AMI_WIKI_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ANCIENT_EFFECTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BLOOD_DAMAGE_DIFFERENCE_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLOOD_PROTECTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GRIZZLY_PACIFIED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GUSTER_WEIGHT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue POLINATE_DAY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue HELD_FOOD_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue ROLLING_THUNDER_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue LOBSTER_NIGHT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MANTIS_AGGRO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MANTIS_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue TIGER_STEALTH_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GUSTING_EFFECT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue RATTLESNAKE_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ROADRUNNER_DAY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SEAGULL_WEAKEN_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SNAPPING_DORMANCY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SPIDER_EAT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue STRADDLER_VENGEANCE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue STRADPOLE_BOB_UP_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SUGAR_RUSH_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TERRAPIN_STOMP_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MOSCO_CANNIBALISM_ENABLED;
-
-
+    public final ForgeConfigSpec.BooleanValue BOTTOMLESS_SAND_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BOXING_GLOVES_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CAIMAN_AGGRO_ENABLED;
     public final ForgeConfigSpec.BooleanValue CAIMAN_EGG_ATTACK_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue SERPENT_FEAR_ENABLED;
-
+    public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CATFISH_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CAVESPIDER_EAT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
+    public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
+    public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CRIMSON_TRANSFORM_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CROW_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
     public final ForgeConfigSpec.BooleanValue EMU_EGG_ATTACK_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERIOPHAGE_ADAPTION_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue WARPED_FRIENDLY_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue FLY_PESTER_ENABLED;
-    public final ForgeConfigSpec.IntValue STRADDLER_SHOTS_AMOUNT;
-
-    public final ForgeConfigSpec.BooleanValue CAVESPIDER_EAT_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue VULTURE_STEAL_ENABLED;
-
+    public final ForgeConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FARSEER_HUMANLIKE_ATTACK_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLOWERING_ATTRACTION_ENABLED;
-
-
-    public final ForgeConfigSpec.BooleanValue SOMBRERO_PROTECTION_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue INFECT_WEAK_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue INFECT_IMMUNITY_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue SNOW_LUCK_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue GOOFY_CAPUCHIN_BOMB_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue SKREECHER_WARD_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue BOTTOMLESS_SAND_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue TENDON_GRAB_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
-
-
-    public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue VOIDWORM_STUN_ENABLED;
-    public final ForgeConfigSpec.BooleanValue STRADPOLE_FLAME_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue GOOFY_STRADDLER_SHOTGUN_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue GOOFY_MURMUR_DECAPITATED_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue GOOFY_CRIMSON_MULTIPLY_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue GOOFY_RAINFROG_SPAWNAGE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue MOLTEN_BATH_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue POISONOUS_BATH_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue BLOOD_DAMAGE_DIFFERENCE_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue TUSKLIN_STRUCK_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue ORPHANED_ANACONDAS_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue RATTLESNAKE_TERRITORIAL_ENABLED;
-
+    public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FLY_PESTER_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FLY_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue FOOD_TARGET_EFFECTS_ENABLED;
-
-    public final ForgeConfigSpec.BooleanValue THROWABLE_PUPI_ENABLED;
-    public final ForgeConfigSpec.BooleanValue LEAFCUTTER_VARIANTS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ANCIENT_EFFECTS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue WITHERED_SKELEWAG_ENABLED;
-    public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue FUNGUS_POLLINATE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ADD_TARGETS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_CAPUCHIN_BOMB_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_CRIMSON_MULTIPLY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_MURMUR_DECAPITATED_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_RAINFROG_SPAWNAGE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_STRADDLER_SHOTGUN_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GRIZZLY_PACIFIED_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GUSTER_PROJECTILE_PROT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GUSTER_WEIGHT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GUSTING_EFFECT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue HELD_FOOD_ENABLED;
+    public final ForgeConfigSpec.BooleanValue INFECT_IMMUNITY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue INFECT_WEAK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue LEAFCUTTER_VARIANTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
+    public final ForgeConfigSpec.BooleanValue LIGHT_FEAR_ENABLED;
+    public final ForgeConfigSpec.BooleanValue LOBSTER_NIGHT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MANTIS_AGGRO_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MANTIS_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MOLTEN_BATH_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MOSCO_CANNIBALISM_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
+    public final ForgeConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
+    public final ForgeConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ORPHANED_ANACONDAS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue POISONOUS_BATH_ENABLED;
+    public final ForgeConfigSpec.BooleanValue POLINATE_DAY_ENABLED;
     public final ForgeConfigSpec.BooleanValue POTOO_VISION_ENABLED;
+    public final ForgeConfigSpec.BooleanValue RANGED_AGGRO_ENABLED;
+    public final ForgeConfigSpec.BooleanValue RATTLESNAKE_CANNIBALIZE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue RATTLESNAKE_TERRITORIAL_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ROADRUNNER_DAY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ROLLING_THUNDER_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SEAGULL_WEAKEN_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SERPENT_FEAR_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SKELEWAG_CIRCLE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SKREECHER_WARD_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SKREECH_YOUR_LAST_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SNAPPING_DORMANCY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SNOW_LUCK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SOMBRERO_PROTECTION_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SPIDER_EAT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue STORED_HUNGER_ENABLED;
+    public final ForgeConfigSpec.BooleanValue STRADDLER_VENGEANCE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue STRADPOLE_BOB_UP_ENABLED;
+    public final ForgeConfigSpec.BooleanValue STRADPOLE_FLAME_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SUGAR_RUSH_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TENDON_GRAB_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TERRAPIN_STOMP_ENABLED;
+    public final ForgeConfigSpec.BooleanValue THROWABLE_PUPI_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TIGER_STEALTH_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TUSKLIN_FLEE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TUSKLIN_STRUCK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
+    public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue VOIDWORM_STUN_ENABLED;
+    public final ForgeConfigSpec.BooleanValue VULTURE_STEAL_ENABLED;
+    public final ForgeConfigSpec.BooleanValue WARPED_FRIENDLY_ENABLED;
+    public final ForgeConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue WITHERED_SKELEWAG_ENABLED;
+    public final ForgeConfigSpec.DoubleValue BLOODED_CHANCE;
+    public final ForgeConfigSpec.IntValue STRADDLER_SHOTS_AMOUNT;
 
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
@@ -305,6 +249,8 @@ public class AMIServerConfig {
         this.GRIZZLY_PACIFIED_ENABLED = buildBoolean(builder, "GRIZZLY_PACIFIED_ENABLED", " ", true, "Grizzlies will not attack players when tamed");
         this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
         this.BRUSHED_ENABLED = buildBoolean(builder, "BRUSHED_ENABLED", " ", true, "Grizzlies that are pacified with honey can be brushed for hair");
+        this.STORED_HUNGER_ENABLED = buildBoolean(builder, "STORED_HUNGER_ENABLED", " ", true, "Grizzlies destroy containers containing food they like");
+
         builder.pop();
         builder.push("Guster");
         this.GUSTER_WEIGHT_ENABLED = buildBoolean(builder, "GUSTER_WEIGHT_ENABLED", " ", true, "Gusters tornado effect strength is dependant on how light you are");
@@ -439,6 +385,7 @@ public class AMIServerConfig {
         this.GOOFY_CAPUCHIN_BOMB_ENABLED = buildBoolean(builder, "GOOFY_CAPUCHIN_BOMB_ENABLED", " ", false, "April Fools Capuchin Monkey Effects");
         this.GOOFY_STRADDLER_SHOTGUN_ENABLED = buildBoolean(builder, "GOOFY_STRADDLER_SHOTGUN_ENABLED", " ", false, "April Fools Straddler Effects");
         this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", " ", false, "Mine Turtle");
+        this.BOXING_GLOVES_ENABLED = buildBoolean(builder, "BOXING_GLOVES_ENABLED", " ", false, "Boxing Gloves");
 
     }
 

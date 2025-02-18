@@ -3,6 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.ManualLootUtil;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIGrizzlyScavenge;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -42,19 +43,18 @@ public abstract class AMIGrizzlyBear extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
-            if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get()) {
-                grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 10, true, true, null) {
-                    public boolean canUse() {
-                        return super.canUse() && !grizzlyBear.isTame();
-                    }
-                });
-            }
+        if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get()) {
+            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 10, true, true, null) {
+                public boolean canUse() {
+                    return super.canUse() && !grizzlyBear.isTame();
+                }
+            });
+        }
+        if (AlexsMobsInteraction.COMMON_CONFIG.STORED_HUNGER_ENABLED.get()) {
+            grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
+        }
     }
 
-    @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 6))
-    private boolean alexsMobsInteraction$registerGoals1(GoalSelector instance, int pPriority, Goal pGoal) {
-        return false;
-    }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 18))
     private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {

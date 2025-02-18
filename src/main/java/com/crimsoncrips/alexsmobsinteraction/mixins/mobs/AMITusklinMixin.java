@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.server.goal.AvoidBlockGoal;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIAvoidBlockGoal;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -95,7 +95,7 @@ public abstract class AMITusklinMixin extends Mob {
     private void registerGoals(CallbackInfo ci) {
         EntityTusklin tusklin = (EntityTusklin)(Object)this;
         if(AlexsMobsInteraction.COMMON_CONFIG.TUSKLIN_FLEE_ENABLED.get()){
-            tusklin.goalSelector.addGoal(3, new AvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
+            tusklin.goalSelector.addGoal(3, new AMIAvoidBlockGoal(tusklin, 4, 1, 1.2, (pos) -> {
                 BlockState state = tusklin.level().getBlockState(pos);
                 return state.is(BlockTags.HOGLIN_REPELLENTS);
             }));

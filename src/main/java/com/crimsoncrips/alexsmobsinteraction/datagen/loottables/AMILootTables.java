@@ -16,6 +16,7 @@ public class AMILootTables {
 	public static final ResourceLocation FLUTTER_SHEAR = register("entities/flutter_shear");
 	public static final ResourceLocation BANANA_SHEAR = register("entities/banana_shear");
 	public static final ResourceLocation GRIZZLY_BRUSH = register("entities/grizzly_brush");
+	public static final ResourceLocation WITHERED_SKELEWAG = register("entities/withered_skelewag");
 
 	public final ResourceLocation lootTable;
 

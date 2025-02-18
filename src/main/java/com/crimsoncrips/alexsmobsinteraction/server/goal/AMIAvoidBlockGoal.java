@@ -13,7 +13,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class AvoidBlockGoal extends Goal {
+public class AMIAvoidBlockGoal extends Goal {
     protected final PathfinderMob mob;
     private final double walkSpeedModifier;
     private final double sprintSpeedModifier;
@@ -29,7 +29,7 @@ public class AvoidBlockGoal extends Goal {
     /**
      * Goal that helps mobs avoid mobs of a specific class
      */
-    public AvoidBlockGoal(PathfinderMob pMob, float pMaxDistance, double pWalkSpeedModifier, double pSprintSpeedModifier, Predicate<BlockPos> posFilter) {
+    public AMIAvoidBlockGoal(PathfinderMob pMob, float pMaxDistance, double pWalkSpeedModifier, double pSprintSpeedModifier, Predicate<BlockPos> posFilter) {
         this.mob = pMob;
         this.maxDist = pMaxDistance;
         this.walkSpeedModifier = pWalkSpeedModifier;

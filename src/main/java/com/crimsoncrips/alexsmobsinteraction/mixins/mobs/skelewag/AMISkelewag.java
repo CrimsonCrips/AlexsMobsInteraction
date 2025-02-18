@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.skelewag;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISkelewagCircleGoal;
@@ -16,6 +17,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
@@ -64,10 +66,10 @@ public abstract class AMISkelewag extends Monster {
         this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
     }
 
-
-
-
-
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        return getVariant() == 2 || getVariant() == 3 ? AMILootTables.WITHERED_SKELEWAG : super.getDefaultLootTable();
+    }
 
     @Override
     public boolean fireImmune() {

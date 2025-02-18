@@ -5,6 +5,7 @@ import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -39,6 +40,12 @@ public class AMIManualLoot implements LootTableSubProvider {
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(AMItemRegistry.BEAR_FUR.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))).setWeight(100))
                         .add(LootItem.lootTableItem(AMItemRegistry.BEAR_DUST.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))))
+                ));
+
+        consumer.accept(AMILootTables.WITHERED_SKELEWAG, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(Items.COAL).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))).setWeight(50))
+                        .add(LootItem.lootTableItem(AMItemRegistry.SKELEWAG_SWORD.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))))
                 ));
     }
 
