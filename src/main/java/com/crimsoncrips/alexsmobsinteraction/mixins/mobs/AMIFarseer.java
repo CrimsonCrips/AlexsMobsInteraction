@@ -52,6 +52,7 @@ public class AMIFarseer extends Mob {
             if (player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0)
                 return;
             alexsMobsInteraction$loop--;
+            System.out.println(alexsMobsInteraction$loop);
             Inventory inv = player.getInventory();
 
             for (int i = 0; i < 9 - 1; i++) {
