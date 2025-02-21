@@ -2,28 +2,17 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIFarseerEffects;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.MobEffectTextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
 import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
@@ -34,8 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 
 import static com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering.ALPHA_PROGRESS;
 
@@ -88,13 +76,20 @@ public abstract class AMIGuiMixin {
             pGuiGraphics.pose().popPose();
         }
     }
+    private static Map<ResourceLocation, TextureAtlasSprite> texturesByName = Map.of();
 
-    @Inject(method = "lambda$renderEffects$0", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(IIIIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V"))
-    private static void alexsMobsInteraction$lambda$renderEffects$0(GuiGraphics pGuiGraphics, float p_280767_, int p_280768_, int p_280769_, TextureAtlasSprite p_280770_, CallbackInfo ci){
-        if((((AMIFarseerEffects)Minecraft.getInstance().player).getFarseerTime() != 0) && AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get()){
-            final ResourceLocation TEXTURE_POTION = new ResourceLocation("alexsmobsinteraction:textures/mob_effect/blooded.png");
-            pGuiGraphics.blit(TEXTURE_POTION, p_280768_ + 3, p_280769_ + 3, 0, 0, 18, 18, 18, 18);
+
+
+
+    @ModifyArg(method = "lambda$renderEffects$0", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(IIIIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V"),index = 5)
+    private static TextureAtlasSprite alexsMobsInteraction$renderSelectedItemName(TextureAtlasSprite pSprite){
+        final ResourceLocation FARSEER_ICON = new ResourceLocation("alexsmobsinteraction:textures/mob_effect/blooded.png");
+
+        TextureAtlasSprite textureatlassprite = texturesByName.get(FARSEER_ICON);
+        if ((((AMIFarseerEffects)Minecraft.getInstance().player).getFarseerTime() != 0) && AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get()) {
+            return textureatlassprite;
         }
+        return pSprite;
     }
 
     @WrapWithCondition(method = "lambda$renderEffects$0", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(IIIIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V"))
