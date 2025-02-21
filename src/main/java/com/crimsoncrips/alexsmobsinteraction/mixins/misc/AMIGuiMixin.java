@@ -76,6 +76,8 @@ public abstract class AMIGuiMixin {
             pGuiGraphics.pose().popPose();
         }
     }
+
+
     private static Map<ResourceLocation, TextureAtlasSprite> texturesByName = Map.of();
 
 
