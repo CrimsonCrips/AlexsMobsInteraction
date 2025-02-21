@@ -29,7 +29,7 @@ public class AMIRendering {
 
 	//Thank you, Twilight Forest (aka Drullkus) for the help [and code]
 
-	public static float ALPHA_PROGRESS = 1.0F;
+	public static float ALPHA_PROGRESS = 0.0F;
 
 	@SubscribeEvent
 	public static void registerOverlays(RegisterGuiOverlaysEvent event) {

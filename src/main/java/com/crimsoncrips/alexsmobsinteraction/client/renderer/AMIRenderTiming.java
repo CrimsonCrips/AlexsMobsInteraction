@@ -7,6 +7,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering.ALPHA_PROGRESS;
+
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AMIRenderTiming {
     private static long LAST_TIME = 0;
@@ -17,8 +19,9 @@ public class AMIRenderTiming {
             final long time = Util.getNanos();
             final double deltaTime = (time - LAST_TIME) / 1.0E9D;
             LAST_TIME = time;
-
-            AMIRendering.ALPHA_PROGRESS = Math.min(AMIRendering.ALPHA_PROGRESS + (float)deltaTime / 4, 1.0F);
+            if (ALPHA_PROGRESS > 0) {
+                ALPHA_PROGRESS = Math.min(ALPHA_PROGRESS - (float) deltaTime / 4, 1.0F);
+            }
         }
     }
 }
