@@ -10,9 +10,9 @@ import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import net.minecraftforge.registries.RegistryObject;
 
 
-public abstract class ACESoundProvider extends SoundDefinitionsProvider {
+public abstract class AMISoundProvider extends SoundDefinitionsProvider {
 
-	protected ACESoundProvider(PackOutput output, ExistingFileHelper helper) {
+	protected AMISoundProvider(PackOutput output, ExistingFileHelper helper) {
 		super(output, AlexsMobsInteraction.MODID, helper);
 	}
 

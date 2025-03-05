@@ -1,0 +1,30 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "mimic": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.mimickry.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/mimickry.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.mimickry"
+    }
+  },
+  "requirements": [
+    [
+      "mimic"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "burrow": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.burrow_away.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/burrow_away.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.burrow_away"
+    }
+  },
+  "requirements": [
+    [
+      "burrow"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

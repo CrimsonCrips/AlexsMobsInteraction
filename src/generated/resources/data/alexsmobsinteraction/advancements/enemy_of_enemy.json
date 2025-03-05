@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:reheaded",
+  "criteria": {
+    "enemies": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.enemy_of_enemy.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "alexsmobs:unsettling_kimono",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.enemy_of_enemy"
+    }
+  },
+  "requirements": [
+    [
+      "enemies"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

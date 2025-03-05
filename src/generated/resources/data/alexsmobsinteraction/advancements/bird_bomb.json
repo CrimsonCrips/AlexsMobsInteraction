@@ -1,0 +1,29 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "bomb": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.bird_bomb.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:tnt"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.bird_bomb"
+    }
+  },
+  "requirements": [
+    [
+      "bomb"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

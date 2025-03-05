@@ -1,0 +1,29 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "withered": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.withered.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:wither_rose"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.withered"
+    }
+  },
+  "requirements": [
+    [
+      "withered"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

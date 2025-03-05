@@ -1,0 +1,30 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "wally": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.wally.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/wally.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.wally"
+    }
+  },
+  "requirements": [
+    [
+      "wally"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

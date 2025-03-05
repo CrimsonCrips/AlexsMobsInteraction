@@ -1,0 +1,30 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "observe": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.observe_dormancy.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/observe_dormancy.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.observe_dormancy"
+    }
+  },
+  "requirements": [
+    [
+      "observe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

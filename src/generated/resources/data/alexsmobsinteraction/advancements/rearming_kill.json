@@ -1,0 +1,29 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "judgement": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.rearming_kill.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "alexsmobs:straddlite"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.rearming_kill"
+    }
+  },
+  "requirements": [
+    [
+      "judgement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "lighted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.light_warding.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/light_warding.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.light_warding"
+    }
+  },
+  "requirements": [
+    [
+      "lighted"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,29 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "rush": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.sugar_rush.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:sugar"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.sugar_rush"
+    }
+  },
+  "requirements": [
+    [
+      "rush"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

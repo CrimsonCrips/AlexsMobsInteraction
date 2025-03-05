@@ -1,0 +1,29 @@
+{
+  "parent": "alexscavesexemplified:root",
+  "criteria": {
+    "uncover": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.uncover_roach.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "alexsmobs:leafcutter_ant_chamber"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.uncover_roach"
+    }
+  },
+  "requirements": [
+    [
+      "uncover"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

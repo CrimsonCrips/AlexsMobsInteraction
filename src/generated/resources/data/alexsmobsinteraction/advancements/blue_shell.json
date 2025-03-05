@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:stomp",
+  "criteria": {
+    "curse": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.blue_shell.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/blue_shell.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.blue_shell"
+    }
+  },
+  "requirements": [
+    [
+      "curse"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:alterred",
+  "criteria": {
+    "repel": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.repel.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/repel.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.repel"
+    }
+  },
+  "requirements": [
+    [
+      "repel"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

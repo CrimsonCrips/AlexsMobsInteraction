@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:observe_dormancy",
+  "criteria": {
+    "interupt": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.interupt_dormancy.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/interupt_dormancy.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.interupt_dormancy"
+    }
+  },
+  "requirements": [
+    [
+      "interupt"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

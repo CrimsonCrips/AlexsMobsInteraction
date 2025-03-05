@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:voidworm_stun",
+  "criteria": {
+    "lodestone": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.dimensional_lodestone.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/dimensional_lodestone.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.dimensional_lodestone"
+    }
+  },
+  "requirements": [
+    [
+      "lodestone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

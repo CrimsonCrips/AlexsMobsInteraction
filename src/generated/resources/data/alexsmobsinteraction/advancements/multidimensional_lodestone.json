@@ -1,0 +1,33 @@
+{
+  "parent": "alexsmobsinteraction:dimensional_lodestone",
+  "criteria": {
+    "dimension": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.multidimensional_lodestone.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/multidimensional_lodestone.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.multidimensional_lodestone"
+    }
+  },
+  "requirements": [
+    [
+      "dimension"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  },
+  "sends_telemetry_event": true
+}

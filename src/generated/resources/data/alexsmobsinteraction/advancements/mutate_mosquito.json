@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:fly_transform",
+  "criteria": {
+    "mutate": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.mutate_mosquito.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/mutate_mosquito.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.mutate_mosquito"
+    }
+  },
+  "requirements": [
+    [
+      "mutate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:withered",
+  "criteria": {
+    "flutter": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.flutter_shear.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:spore_blossom"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.flutter_shear"
+    }
+  },
+  "requirements": [
+    [
+      "flutter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

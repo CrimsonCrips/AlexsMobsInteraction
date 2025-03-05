@@ -1,0 +1,32 @@
+{
+  "parent": "alexsmobsinteraction:heavy_carriage",
+  "criteria": {
+    "lightweight": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.lightweight.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:feather"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.lightweight"
+    }
+  },
+  "requirements": [
+    [
+      "lightweight"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

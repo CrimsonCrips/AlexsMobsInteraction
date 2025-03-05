@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:weight_lifting",
+  "criteria": {
+    "gusting": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.gusting.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/mob_effect/gusting.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.gusting"
+    }
+  },
+  "requirements": [
+    [
+      "gusting"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

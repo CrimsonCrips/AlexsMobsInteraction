@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:reheaded",
+  "criteria": {
+    "stretch": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.stretchy_accumulation.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "alexsmobs:tendon_whip",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.stretchy_accumulation"
+    }
+  },
+  "requirements": [
+    [
+      "stretch"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

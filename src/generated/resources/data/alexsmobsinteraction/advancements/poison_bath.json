@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:molten_bath",
+  "criteria": {
+    "poison": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.poison_bath.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/poison_bath.png\"}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.poison_bath"
+    }
+  },
+  "requirements": [
+    [
+      "poison"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
