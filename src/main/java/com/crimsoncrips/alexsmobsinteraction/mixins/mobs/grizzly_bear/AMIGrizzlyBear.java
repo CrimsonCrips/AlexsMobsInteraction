@@ -47,8 +47,8 @@ import java.util.Objects;
 @Mixin(EntityGrizzlyBear.class)
 public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInterface {
 
-    @Shadow public abstract boolean isHoneyed();
 
+    @Shadow public abstract boolean isHoneyed();
 
     protected AMIGrizzlyBear(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -107,7 +107,7 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
         }
     }
 
-    @Inject(method = "tick", at = @At("TAIL"),remap = false)
+    @Inject(method = "tick", at = @At("TAIL"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (this.isHoneyed()){
             setNoHoney(0);
@@ -117,7 +117,7 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
         System.out.println(getNoHoney());
     }
 
-    @Inject(method = "mobInteract", at = @At("TAIL"),remap = false)
+    @Inject(method = "mobInteract", at = @At("TAIL"))
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (AlexsMobsInteraction.COMMON_CONFIG.BRUSHED_ENABLED.get() && itemStack.getItem() instanceof BrushItem && !this.level().isClientSide && this.isHoneyed()) {

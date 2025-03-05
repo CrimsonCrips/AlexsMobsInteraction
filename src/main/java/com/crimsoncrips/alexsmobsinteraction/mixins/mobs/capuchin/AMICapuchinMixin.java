@@ -79,7 +79,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
         }
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityTossedItem;shoot(DDDFF)V"), remap = false)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityTossedItem;shoot(DDDFF)V"))
     private void alexsMobsInteraction$tick(CallbackInfo ci, @Local EntityTossedItem tossedItem) {
         if (!Objects.equals(getPotionId(), "")){
             ((AncientDartPotion) tossedItem).setPotionId(getPotionId());
@@ -99,7 +99,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
         }
     }
 
-    @Inject(method = "mobInteract", at = @At("HEAD"),remap = false)
+    @Inject(method = "mobInteract", at = @At("HEAD"))
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.getItem() instanceof PotionItem && this.hasDart() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
@@ -117,7 +117,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
         }
     }
 
-    @Inject(method = "mobInteract", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCapuchinMonkey;setDart(Z)V",ordinal = 1),remap = false)
+    @Inject(method = "mobInteract", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCapuchinMonkey;setDart(Z)V",ordinal = 1))
     private void alexsMobsInteraction$mobInteract2(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         resetPotion();
     }

@@ -84,7 +84,7 @@ public class AMIStraddlerMixin extends Mob {
         }
     }
 
-    @Inject(method = "tick", at = @At("TAIL"),remap = false)
+    @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci){
         if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get() != 0) {
             if (getShootShots() <= 0) {
@@ -97,14 +97,14 @@ public class AMIStraddlerMixin extends Mob {
         }
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityStradpole;setXRot(F)V"),remap = false)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityStradpole;setXRot(F)V"))
     private void addShots(CallbackInfo ci){
         if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get() != 0) {
             setShootShots(getShootShots() - 1);
         }
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"),remap = false)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private void addExplosiveShots(CallbackInfo ci){
         if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get()) {
             for (int i = 0; i < 15; i++) {

@@ -46,7 +46,7 @@ public abstract class AMIGuiMixin {
     @Shadow @Final protected RandomSource random;
 
 
-    @Inject(method = "renderHotbar", at = @At(value = "HEAD"),remap = false)
+    @Inject(method = "renderHotbar", at = @At(value = "HEAD"))
     private void alexsMobsInteraction$renderHotbar(float pPartialTick, GuiGraphics pGuiGraphics, CallbackInfo ci){
         if(alterGui()){
             double movement = 30 * Math.sin(minecraft.player.tickCount * 0.2) * ALPHA_PROGRESS;
@@ -55,7 +55,7 @@ public abstract class AMIGuiMixin {
         }
     }
 
-    @Inject(method = "renderHotbar", at = @At(value = "TAIL"),remap = false)
+    @Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     private void alexsMobsInteraction$renderHotbar1(float pPartialTick, GuiGraphics pGuiGraphics, CallbackInfo ci){
         if(alterGui()){
             pGuiGraphics.pose().popPose();
@@ -64,7 +64,7 @@ public abstract class AMIGuiMixin {
 
 
 
-    @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"), remap = false)
+    @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"))
     private void alexsMobsInteraction$renderslectedItemName0(GuiGraphics pGuiGraphics, int yShift, CallbackInfo ci, @Local(ordinal = 1) int i, @Local(ordinal = 2) int j, @Local(ordinal = 3) int k, @Local(ordinal = 4) int l){
         if(alterGui()){
             RandomSource randomSource = minecraft.player.getRandom();
@@ -74,7 +74,7 @@ public abstract class AMIGuiMixin {
         }
     }
 
-    @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"), remap = false)
+    @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"))
     private void alexsMobsInteraction$renderslectedItemName1(GuiGraphics pGuiGraphics, int yShift, CallbackInfo ci){
         if(alterGui()){
             pGuiGraphics.pose().popPose();
@@ -84,7 +84,7 @@ public abstract class AMIGuiMixin {
 
 
     //BIGGEST HEADACHE TO IMPLEMENT, ft.Drullkus
-    @ModifyArg(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/MobEffectTextureManager;get(Lnet/minecraft/world/effect/MobEffect;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;"), remap = false)
+    @ModifyArg(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/MobEffectTextureManager;get(Lnet/minecraft/world/effect/MobEffect;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;"))
     private MobEffect alexsMobsInteraction$renderEffects(MobEffect pEffect){
         if (alterGui()) {
             return AMIEffects.FARSEER_ICON.get();
@@ -101,7 +101,7 @@ public abstract class AMIGuiMixin {
         return original;
     }
 
-    @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;fill(IIIII)V"), remap = false)
+    @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;fill(IIIII)V"))
     private void alexsMobsInteraction$renderslectedItemName2(GuiGraphics pGuiGraphics, int yShift, CallbackInfo ci, @Local(ordinal = 1) int i, @Local(ordinal = 2) int j, @Local(ordinal = 3) int k, @Local(ordinal = 4) int l){
         Minecraft minecraft = this.minecraft;
         if (minecraft.player != null && alterGui()){
@@ -140,7 +140,7 @@ public abstract class AMIGuiMixin {
     }
 
 
-    @ModifyArg(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"),index = 1, remap = false)
+    @ModifyArg(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"),index = 1)
     private Component alexsMobsInteraction$renderSelectedItemName(Component pText){
         if (alterGui()) {
             return Component.nullToEmpty("Interloper");
@@ -148,7 +148,7 @@ public abstract class AMIGuiMixin {
         return pText;
     }
 
-    @ModifyArg(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"),index = 2, remap = false)
+    @ModifyArg(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"),index = 2)
     private int alexsMobsInteraction$renderSelectedItemName(int pX){
         if (alterGui()) {
             return (this.screenWidth - this.getFont().width(Component.nullToEmpty("Interloper"))) / 2;
@@ -156,7 +156,7 @@ public abstract class AMIGuiMixin {
         return pX;
     }
 
-    @Inject(method = "renderHeart", at = @At(value = "HEAD"), remap = false)
+    @Inject(method = "renderHeart", at = @At(value = "HEAD"))
     private void alexsMobsInteraction$renderHeart(GuiGraphics pGuiGraphics, Gui.HeartType pHeartType, int pX, int pY, int pYOffset, boolean pRenderHighlight, boolean pHalfHeart, CallbackInfo ci){
         if (alterGui()){
             pGuiGraphics.pose().pushPose();
@@ -164,7 +164,7 @@ public abstract class AMIGuiMixin {
         }
     }
 
-    @Inject(method = "renderHeart", at = @At(value = "TAIL"), remap = false)
+    @Inject(method = "renderHeart", at = @At(value = "TAIL"))
     private void alexsMobsInteraction$renderHeart1(GuiGraphics pGuiGraphics, Gui.HeartType pHeartType, int pX, int pY, int pYOffset, boolean pRenderHighlight, boolean pHalfHeart, CallbackInfo ci){
         if (alterGui()){
             pGuiGraphics.pose().popPose();

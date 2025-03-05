@@ -31,8 +31,7 @@ import static net.minecraft.world.entity.EntityType.ITEM;
 @Mixin(EntityBaldEagle.class)
 public abstract class AMIBaldEagle  extends TamableAnimal {
 
-
-    @Shadow @Final private static EntityDataAccessor<Boolean> SITTING;
+    
 
     @Shadow public abstract void setTackling(boolean tackling);
 
@@ -117,7 +116,7 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
         }
     }
 
-    @Inject(method = "tick", at = @At("TAIL"),remap = false)
+    @Inject(method = "tick", at = @At("TAIL"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (this.isLaunched() && !this.controlledFlag && this.isTame() && !this.isPassenger() && this.isVehicle() && (this.getTarget() == null || !this.getTarget().isAlive())){
             this.ejectPassengers();

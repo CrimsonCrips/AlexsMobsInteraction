@@ -65,9 +65,6 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.Iterator;
 
@@ -342,22 +339,6 @@ public class AMInteractionEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        Player player = event.getEntity();
-        CompoundTag playerData = event.getEntity().getPersistentData();
-        CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-
-        ItemStack book = new ItemStack(PatchouliItems.BOOK);
-        book.getOrCreateTag().putString("patchouli:book","alexsmobsinteraction:ami_interaction_wiki");
-
-
-        if (!data.getBoolean("ami_book") && AlexsMobsInteraction.COMMON_CONFIG.AMI_WIKI_ENABLED.get()) {
-            player.addItem(book);
-            data.putBoolean("ami_book", true);
-            playerData.put(Player.PERSISTED_NBT_TAG, data);
-        }
-    }
 
     @SubscribeEvent
     public void mobDeath(LivingDeathEvent livingDeathEvent){

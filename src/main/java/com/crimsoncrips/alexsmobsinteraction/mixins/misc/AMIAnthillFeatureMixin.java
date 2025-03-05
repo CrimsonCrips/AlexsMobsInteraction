@@ -25,12 +25,12 @@ public abstract class AMIAnthillFeatureMixin {
 
 
 
-    @Inject(method = "place", at = @At(value = "HEAD"),remap = false)
+    @Inject(method = "place", at = @At(value = "HEAD"))
     private void variableAddition(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir){
         variant = context.level().getRandom().nextBoolean() ? 1 : 2;
     }
 
-    @Inject(method = "place", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"),remap = false,locals = LocalCapture.CAPTURE_FAILSOFT)
+    @Inject(method = "place", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"),locals = LocalCapture.CAPTURE_FAILSOFT)
     private void variable(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir, int x, int z, BlockPos pos, int y, BlockPos heightPos, int outOfGround, Random chunkSeedRandom, BlockEntity tileentity, TileEntityLeafcutterAnthill beehivetileentity, int j, int k, EntityLeafcutterAnt beeentity){
         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
             ((AMIBaseInterfaces) beeentity).setVariant(variant);

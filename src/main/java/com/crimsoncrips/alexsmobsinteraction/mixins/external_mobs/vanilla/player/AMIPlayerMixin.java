@@ -42,11 +42,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AMIPlayerMixin extends LivingEntity implements AMIFarseerEffects {
 
 
-    @Shadow protected abstract void hurtArmor(DamageSource pDamageSource, float pDamage);
 
-    @Shadow public abstract Iterable<ItemStack> getArmorSlots();
-
-    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot pSlot);
 
     protected AMIPlayerMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -78,13 +74,13 @@ public abstract class AMIPlayerMixin extends LivingEntity implements AMIFarseerE
         } else return false;
     }
 
-    @ModifyReturnValue(method = "isInvulnerableTo", at = @At("RETURN"),remap = false)
+    @ModifyReturnValue(method = "isInvulnerableTo", at = @At("RETURN"))
     private boolean alexsMobsInteraction$isInvulnerableTo(boolean original,@Local DamageSource pSource) {
         return original || pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && this.getVehicle() instanceof EntityEndergrade && AlexsMobsInteraction.COMMON_CONFIG.VOIDED_ENDERGRADE_ENABLED.get();
     }
 
-    @Inject(method = "tick", at = @At("HEAD"),remap = false)
-    private void alexsMobsInteraction$isInvulnerableTo(CallbackInfo ci) {
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
         Player player = (Player)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.FARSEER_ALTERING_ENABLED.get() && !(getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0) && getFarseerTime() > 0 && !player.level().isClientSide) {
             Inventory inv = player.getInventory();

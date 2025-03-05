@@ -1,83 +1,65 @@
 
-modLoader="javafml" #mandatory
-loaderVersion="[46,)"
-issueTrackerURL="https://github.com/CrimsonCrips/AlexsInteractionAddon/issues" #optional
-license="MIT"
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "${mod_license}"
 [[mods]]
-modId="alexsmobsinteraction" #mandatory
-displayURL="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs-interaction" #optional
-version="5.0"
-displayName="Alexs Mobs Interaction"
-authors="The Crimson and the Reimainder"
-
-description='''Adding interactivity between Mobs from Alex's Mobs'''
-
-[[dependencies.alexsmobsinteraction]]
-
-modId="forge" #mandatory
-# Does this dependency have to exist - if not, ordering below must be specified
-mandatory=true #mandatory
-# The version range of the dependency
-versionRange="[47,)" #mandatory
-# An ordering relationship for the dependency - BEFORE or AFTER required if the dependency is not mandatory
-# BEFORE - This mod is loaded BEFORE the dependency
-# AFTER - This mod is loaded AFTER the dependency
-ordering="NONE"
-# Side this dependency is applied on - BOTH, CLIENT, or SERVER
-side="BOTH"# Here's another dependency
-[[dependencies.alexsmobsinteraction]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+authors = "${mod_authors}"
+description = '''${mod_description}'''
+[[dependencies."${mod_id}"]]
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies."${mod_id}"]]
 modId="minecraft"
 mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange="[1.20.1]"
 ordering="NONE"
 side="BOTH"
-[[dependencies.alexsmobsinteraction]]
+[[dependencies."${mod_id}"]]
 modId="alexsmobs"
 mandatory=true
-versionRange="[1.22.9]"
+versionRange="[1.22.9,)"
 ordering="BEFORE"
 side="BOTH"
 
-[[dependencies.alexsmobsinteraction]]
+[[dependencies."${mod_id}"]]
 modId="curiouslanterns"
 mandatory=false
-versionRange="[1.20.1-1.3.3]"
+versionRange="[1.20.1-1.3.3,)"
 ordering="BEFORE"
 side="BOTH"
 
-[[dependencies.alexsmobsinteraction]]
+[[dependencies."${mod_id}"]]
 modId="soul_fire_d"
 mandatory=false
 versionRange="[4.0.6,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.alexsmobsinteraction]]
+[[dependencies."${mod_id}"]]
 modId="biomesoplenty"
 mandatory=false
 versionRange="[19.0.0.91,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.alexsmobsinteraction]]
+[[dependencies."${mod_id}"]]
 modId="curios"
 mandatory=false
 versionRange="[5.11.0+1.20.1,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.alexsmobsinteraction]]
-modId="patchouli"
-mandatory=true
-versionRange="[1.20.1-84-forge,)"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.alexsmobsinteraction]]
+[[dependencies."${mod_id}"]]
 modId = "alexscaves"
 mandatory = true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-versionRange = "[2.0.2]"
+versionRange = "[2.0.2,)"
 ordering = "NONE"
 side = "BOTH"

@@ -154,7 +154,7 @@ public abstract class AMISkelewag extends Monster {
         return !AlexsMobsInteraction.COMMON_CONFIG.MIGHT_UPGRADE_ENABLED.get();
     }
 
-    @WrapOperation(method = "travel", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntitySkelewag;isInWater()Z"),remap = false)
+    @WrapOperation(method = "travel", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntitySkelewag;isInWater()Z"))
     private boolean alexsMobsInteraction$travel(EntitySkelewag instance, Operation<Boolean> original){
         if (AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get()){
             return original.call(instance) || this.isInLava();
@@ -162,7 +162,7 @@ public abstract class AMISkelewag extends Monster {
         return original.call(instance);
     }
 
-    @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntitySkelewag;isInWaterOrBubble()Z",ordinal = 0),remap = false)
+    @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntitySkelewag;isInWaterOrBubble()Z",ordinal = 0))
     private boolean alexsMobsInteraction$tick(boolean original){
         if (AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get()){
             return original || this.isInLava();
@@ -171,7 +171,7 @@ public abstract class AMISkelewag extends Monster {
     }
 
 
-    @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntitySkelewag;isInWaterOrBubble()Z",ordinal = 1),remap = false)
+    @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntitySkelewag;isInWaterOrBubble()Z",ordinal = 1))
     private boolean alexsMobsInteraction$tick1(boolean original){
         if (AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get()){
             return original || this.isInLava();

@@ -21,15 +21,15 @@ import java.util.Iterator;
 
 
 @Mixin(EntityStraddleboard.class)
-public abstract class AMIStraddleboardMixin extends Entity implements PlayerRideableJumping {
+public abstract class AMIStraddleboardMixin extends Entity {
 
 
     public AMIStraddleboardMixin(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityStraddleboard;discard()V"), remap = false)
-    private void registerGoals(CallbackInfo ci, @Local boolean drop) {
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityStraddleboard;discard()V"))
+    private void alexsMobsInteraction$tick(CallbackInfo ci, @Local boolean drop) {
        if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLE_SCAVENGE_ENABLED.get() && !drop && this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator().hasNext()){
            Iterator<LivingEntity> var4 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator();
 

@@ -73,7 +73,7 @@ public abstract class AMIStradpole extends Mob {
                 y2 = 0;
             }
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get()  && isDespawnSoon()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get() && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();
             int z = this.getBlockZ();
@@ -92,7 +92,7 @@ public abstract class AMIStradpole extends Mob {
     }
 
 
-    @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"),remap = false,locals = LocalCapture.CAPTURE_FAILSOFT)
+    @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"),locals = LocalCapture.CAPTURE_FAILSOFT)
     private void entityhit(EntityHitResult raytraceresult, CallbackInfo ci, Entity entity, LivingEntity target, Entity var4) {
         if(AlexsMobsInteraction.COMMON_CONFIG.STRADPOLE_FLAME_ENABLED.get() && random.nextDouble() < 0.2){
             target.setSecondsOnFire(2);

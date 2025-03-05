@@ -180,7 +180,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         ItemStack itemStack = player.getItemInHand(hand);
         EntityCockroach cockroach = (EntityCockroach)(Object)this;
 
-        if (ModList.get().isLoaded("alexscaves") && itemStack.is(ACCompat.gameController().getItem()) && !this.isDancing() && !this.hasMaracas() && !isGod() && this.getWorshiping() == null){
+        if (ModList.get().isLoaded("alexscaves") && itemStack.is(ACCompat.gameController().getItem()) && !this.isDancing() && !this.hasMaracas() && !isGod() && this.getWorshiping() == null && AlexsMobsInteraction.COMMON_CONFIG.ASMONGOLD_ENABLED.get()){
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }

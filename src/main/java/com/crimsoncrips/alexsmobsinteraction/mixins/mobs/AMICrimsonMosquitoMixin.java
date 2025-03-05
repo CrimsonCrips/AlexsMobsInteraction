@@ -49,7 +49,7 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
         super(pEntityType, pLevel);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"),remap = false)
+    @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
 
@@ -58,7 +58,7 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
         }
     }
 
-    @Inject(method = "rideTick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCrimsonMosquito;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"),remap = false)
+    @Inject(method = "rideTick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCrimsonMosquito;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"))
     private void alexsMobsInteraction$rideTick(CallbackInfo ci) {
         if (AlexsMobsInteraction.COMMON_CONFIG.FUNGUS_POLLINATE_ENABLED.get()) {
 
@@ -72,7 +72,7 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
         }
     }
 
-    @Inject(method = "mobInteract", at = @At("TAIL"),remap = false)
+    @Inject(method = "mobInteract", at = @At("TAIL"))
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (AlexsMobsInteraction.COMMON_CONFIG.CRIMSON_TRANSFORM_ENABLED.get()) {

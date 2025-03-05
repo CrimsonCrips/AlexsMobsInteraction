@@ -53,7 +53,7 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBaseIn
         super(pEntityType, pLevel);
     }
 
-    @ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Animal;travel(Lnet/minecraft/world/phys/Vec3;)V"),remap = false)
+    @ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Animal;travel(Lnet/minecraft/world/phys/Vec3;)V"))
     private Vec3 alexsMobsInteraction$travel(Vec3 par1) {
         if (isDaySleeping()){
             return (Vec3.ZERO);

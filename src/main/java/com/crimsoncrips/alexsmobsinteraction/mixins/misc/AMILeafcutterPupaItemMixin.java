@@ -6,6 +6,7 @@ import com.crimsoncrips.alexsmobsinteraction.server.entity.EntityLeafcutterPupa;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.item.ItemLeafcutterPupa;
 import com.github.alexthe666.alexsmobs.tileentity.TileEntityLeafcutterAnthill;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -62,13 +63,13 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
         return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
     }
 
-    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/context/UseOnContext;getLevel()Lnet/minecraft/world/level/Level;"),remap = false,locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/context/UseOnContext;getLevel()Lnet/minecraft/world/level/Level;"))
     private void variableAddition(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir){
         variant = context.getLevel().random.nextBoolean() ? 1 : 2;
     }
 
-    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"),remap = false,locals = LocalCapture.CAPTURE_FAILHARD)
-    private void variable(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, Level world, BlockPos blockpos, BlockState blockstate, Player playerentity, BlockEntity tileentity, TileEntityLeafcutterAnthill beehivetileentity, int j, int k, EntityLeafcutterAnt beeentity){
+    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"))
+    private void variable(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local EntityLeafcutterAnt beeentity){
         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
             ((AMIBaseInterfaces) beeentity).setVariant(variant);
         } else {
