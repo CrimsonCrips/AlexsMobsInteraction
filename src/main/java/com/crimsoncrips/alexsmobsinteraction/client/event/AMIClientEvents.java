@@ -1,11 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.client.event;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
 import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 

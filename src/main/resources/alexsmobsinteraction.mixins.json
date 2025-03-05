@@ -4,9 +4,7 @@
   "package": "com.crimsoncrips.alexsmobsinteraction.mixins",
   "compatibilityLevel": "JAVA_8",
   "refmap": "alexsmobsinteraction.refmap.json",
-
   "mixins": [
-
     "external_mobs.ac.AMIWatcher",
     "external_mobs.vanilla.AMIBeeMixin",
     "external_mobs.vanilla.AMIFrog",
@@ -38,6 +36,7 @@
     "mobs.AMIBunfungus",
     "mobs.AMICachalotWhale",
     "mobs.AMICaiman",
+    "mobs.AMICatfish",
     "mobs.AMICentipede",
     "mobs.AMICosmaw",
     "mobs.AMICrimsonMosquitoMixin",
@@ -54,7 +53,6 @@
     "mobs.AMIFrilledShark",
     "mobs.AMIGeladaMonkey",
     "mobs.AMIGorilla",
-    "mobs.AMIGrizzlyBear",
     "mobs.AMIGust",
     "mobs.AMIGuster",
     "mobs.AMIHammerheadShark",
@@ -95,9 +93,9 @@
     "mobs.AMIWarpedToad",
     "mobs.capuchin.AMICapuchinMixin",
     "mobs.capuchin.AMITossedItemMixin",
-    "mobs.catfish.AMICatfish",
     "mobs.cockroach.AMICockroach",
     "mobs.crocodile.AMICrocodileMixin",
+    "mobs.grizzly_bear.AMIGrizzlyBear",
     "mobs.kangaroo.AMIKangaroo",
     "mobs.laviathan.AMILaviathan",
     "mobs.leafcutter.AMILeafcutterAntMixin",
@@ -106,10 +104,10 @@
     "mobs.snapping_turtle.AMISnappingTurtleMixin",
     "mobs.snapping_turtle.AMISnappingTurtleRenderMixin",
     "mobs.terrapin.AMITerrapinMixin"
-
   ],
   "client": [
     "external_mobs.vanilla.player.AMIPlayerRenderMixin",
+    "misc.AMIEffectRenderingInventoryScreenMixin",
     "misc.AMIParticleInvertDigMixin",
     "mobs.capuchin.AMILayerCapuchinItem",
     "mobs.capuchin.AMIRenderTossedItemMixin",
@@ -124,10 +122,8 @@
     "mobs.terrapin.AMITerrapinRenderMixin"
   ],
   "injectors": {
-
     "defaultRequire": 1
   },
-
   "mixinextras": {
     "minVersion": "0.5.0-beta.5"
   }

@@ -2,17 +2,13 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cockroach;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
-import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
-import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
-import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISurroundAttacker;
+import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowAsmon;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISurroundEntity;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.living.MineGuardianEntity;
-import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCentipedeHead;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
-import com.github.alexthe666.alexsmobs.entity.EntityFlutter;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -25,14 +21,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -58,8 +52,9 @@ import java.util.UUID;
 public abstract class AMICockroach extends Mob implements AsmonRoach {
 
     private int conversionTime;
-    private static final EntityDataAccessor<Integer> WORSHIPING = SynchedEntityData.defineId(EntityCockroach.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Optional<UUID>> WORSHIPING_UUID = SynchedEntityData.defineId(EntityCockroach.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Boolean> IS_GOD = SynchedEntityData.defineId(EntityCockroach.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> WORSHIPING_ID = SynchedEntityData.defineId(EntityCockroach.class, EntityDataSerializers.INT);
 
     @Shadow public abstract boolean isDancing();
 
@@ -98,30 +93,46 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
             }
         }
 
-        if (isGod() && cockroach.getLastHurtByMob() != null){
-           System.out.println(cockroach.getLastHurtByMob().getType());
-        }
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
-        this.entityData.define(WORSHIPING, -1);
+        this.entityData.define(WORSHIPING_UUID, Optional.empty());
         this.entityData.define(IS_GOD, false);
+        this.entityData.define(WORSHIPING_ID, -1);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditional(CompoundTag compound, CallbackInfo ci){
-        compound.putInt("Worshiping", this.getWorshiping());
-        compound.putBoolean("RoachGod", this.isGod());
+        compound.putBoolean("RoachGod", isGod());
+
+        if (this.getWorshipingUUID() != null) {
+            compound.putUUID("WorshipingUUID", getWorshipingUUID());
+        }
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditional(CompoundTag compound, CallbackInfo ci){
-        this.setWorshiping(compound.getInt("Worshiping"));
         this.setGod(compound.getBoolean("RoachGod"));
+
+        if (compound.hasUUID("WorshipingUUID")) {
+            this.setWorshippingUUID(compound.getUUID("WorshipingUUID"));
+        }
     }
+
+    public UUID getWorshipingUUID() {
+        return this.entityData.get(WORSHIPING_UUID).orElse(null);
+    }
+
     @Override
-    public int getWorshiping() {
-        return this.entityData.get(WORSHIPING);
+    @Nullable
+    public Entity getWorshiping() {
+        if (!level().isClientSide) {
+            final UUID id = getWorshipingUUID();
+            return id == null ? null : ((ServerLevel) level()).getEntity(id);
+        } else {
+            int id = this.entityData.get(WORSHIPING_ID);
+            return id == -1 ? null : level().getEntity(id);
+        }
     }
 
     @Override
@@ -130,12 +141,13 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
     }
 
     @Override
-    public void setWorshiping(int god) {
-        this.entityData.set(WORSHIPING, god);
+    public void setWorshippingUUID(@Nullable UUID uniqueId) {
+        this.entityData.set(WORSHIPING_UUID, Optional.ofNullable(uniqueId));
     }
 
     public void setGod(boolean bool) {
         this.entityData.set(IS_GOD, bool);
+        this.refreshDimensions();
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
@@ -143,20 +155,22 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         EntityCockroach cockroach = (EntityCockroach)(Object)this;
         this.goalSelector.addGoal(1, new PanicGoal(cockroach, 1.1){
             public boolean canUse() {
-                return super.canUse() && !isGod() && getWorshiping() == 1;
+                return super.canUse() && !isGod() && getWorshiping() == null;
             }
         });
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(cockroach, EntityCentipedeHead.class, 16.0F, 1.3, (double)1.0F){
             public boolean canUse() {
-                return super.canUse() && !isGod() && getWorshiping() == 1;
+                return super.canUse() && !isGod() && getWorshiping() == null;
             }
         });
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(cockroach, Player.class, 8.0F, 1.3, (double)1.0F) {
             public boolean canUse() {
-                return !cockroach.isBreaded() && super.canUse() && !isGod() && getWorshiping() == 1;
+                return !cockroach.isBreaded() && super.canUse() && !isGod() && getWorshiping() == null;
             }
         });
-        cockroach.goalSelector.addGoal(8, new AMISurroundAttacker(cockroach));
+        cockroach.goalSelector.addGoal(8, new AMISurroundEntity(cockroach));
+        cockroach.goalSelector.addGoal(9, new AMIFollowAsmon(cockroach));
+
 
 
     }
@@ -166,26 +180,33 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         ItemStack itemStack = player.getItemInHand(hand);
         EntityCockroach cockroach = (EntityCockroach)(Object)this;
 
-        if (ModList.get().isLoaded("alexscaves") && itemStack.is(ACCompat.gameController().getItem()) && !this.isDancing() && !this.hasMaracas() && !isGod() && getWorshiping() == -1){
+        if (ModList.get().isLoaded("alexscaves") && itemStack.is(ACCompat.gameController().getItem()) && !this.isDancing() && !this.hasMaracas() && !isGod() && this.getWorshiping() == null){
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }
-            this.setGod(true);
-            cockroach.setCustomName(Component.nullToEmpty("Asmongold"));
-            cockroach.getAttribute(Attributes.ARMOR).setBaseValue(10F);
-            cockroach.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100F);
-            cockroach.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.10F);
-            cockroach.setHealth(100);
-            cockroach.setAge(0);
-            cockroach.setPersistenceRequired();
-            cockroach.refreshDimensions();
+            if (!level().isClientSide){
+                setGod(true);
+                
+                cockroach.setCustomName(Component.nullToEmpty("Asmongold"));
+                cockroach.getAttribute(Attributes.ARMOR).setBaseValue(10F);
+                cockroach.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100F);
+                cockroach.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.10F);
+                cockroach.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(3F);
+                cockroach.setHealth(100);
+                cockroach.setAge(0);
+                cockroach.setPersistenceRequired();
 
-            for (EntityCockroach nearRoaches : cockroach.level().getEntitiesOfClass(EntityCockroach.class, this.getBoundingBox().inflate(10))) {
-                if (nearRoaches != cockroach && !((AsmonRoach)nearRoaches).isGod() && ((AsmonRoach)nearRoaches).getWorshiping() == -1) {
-                    ((AsmonRoach)nearRoaches).setWorshiping(cockroach.getId());
-                    nearRoaches.setCustomName(Component.nullToEmpty("Servant"));
+                for (EntityCockroach nearRoaches : cockroach.level().getEntitiesOfClass(EntityCockroach.class, this.getBoundingBox().inflate(10))) {
+                    AsmonRoach myAccessor = (AsmonRoach) nearRoaches;
+                    if (nearRoaches != cockroach && !myAccessor.isGod() && myAccessor.getWorshiping() == null) {
+                        myAccessor.setWorshippingUUID(cockroach.getUUID());
+                        nearRoaches.setCustomName(Component.nullToEmpty("Servant"));
+                    }
                 }
             }
+            player.swing(hand);
+
+
         }
     }
 
@@ -198,12 +219,9 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         }
     }
 
-    public EntityDimensions getDimensions(Pose poseIn) {
-        float asmon = isGod() ? 1.15F : 1F;
-        return this.isDancing() ? STAND_SIZE.scale(asmon) : super.getDimensions(poseIn).scale(asmon);
+
+    @Override
+    public boolean canBeLeashed(Player pPlayer) {
+        return super.canBeLeashed(pPlayer) && !isGod() && getWorshiping() == null;
     }
-
-
-
-
 }

@@ -67,7 +67,11 @@ public abstract class AMITerrapinMixin extends Mob implements AMIBaseInterfaces 
 
     @Override
     public boolean isBlueKoopa() {
+        String[] name = {"blue shell","blue koopa"};
         String s = ChatFormatting.stripFormatting(this.getName().getString());
-        return s != null && s.toLowerCase().contains("blue koopa");
+        for (String names : name) {
+            return s != null && s.toLowerCase().contains(names) && AlexsMobsInteraction.COMMON_CONFIG.BLUE_SHELL_ENABLED.get();
+        }
+        return false;
     }
 }

@@ -7,9 +7,6 @@ import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -58,35 +55,36 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBaseIn
 
     @ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Animal;travel(Lnet/minecraft/world/phys/Vec3;)V"),remap = false)
     private Vec3 alexsMobsInteraction$travel(Vec3 par1) {
-        if (isSleeping()){
+        if (isDaySleeping()){
             return (Vec3.ZERO);
         }
         return par1;
     }
 
-    private static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAlligatorSnappingTurtle.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DAY_SLEEPING = SynchedEntityData.defineId(EntityAlligatorSnappingTurtle.class, EntityDataSerializers.BOOLEAN);
 
-    public boolean isSleeping() {
-        return this.entityData.get(SLEEPING);
+    @Override
+    public boolean isDaySleeping() {
+        return this.entityData.get(DAY_SLEEPING);
     }
 
-    public void setSleeping(boolean sleeping) {
-        this.entityData.set(SLEEPING, Boolean.valueOf(sleeping));
+    public void setDaySleeping(boolean sleeping) {
+        this.entityData.set(DAY_SLEEPING, Boolean.valueOf(sleeping));
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void define(CallbackInfo ci) {
-        this.entityData.define(SLEEPING, false);
+        this.entityData.define(DAY_SLEEPING, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void add(CompoundTag compound, CallbackInfo ci) {
-        compound.putBoolean("Sleeping", isSleeping());
+        compound.putBoolean("DaySleeping", isDaySleeping());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void alexsMobsInteraction$read(CompoundTag compound, CallbackInfo ci) {
-        this.setSleeping(compound.getBoolean("Sleeping"));
+        this.setDaySleeping(compound.getBoolean("DaySleeping"));
     }
 
     @Override
@@ -135,13 +133,13 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBaseIn
             this.goalSelector.addGoal(5, new RandomLookAroundGoal(this){
                 @Override
                 public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !isSleeping();
+                    return super.canContinueToUse() && !isDaySleeping();
                 }
             });
             this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F){
                 @Override
                 public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !isSleeping();
+                    return super.canContinueToUse() && !isDaySleeping();
                 }
             });
         }
@@ -152,7 +150,7 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBaseIn
         Level level = this.level();
         if (!level.isClientSide){
             boolean awake = level.isNight() || level.isRaining() || level.isThundering() || this.getTarget() != null || this.isInLove();
-            setSleeping(!awake);
+            setDaySleeping(!awake);
 
         }
     }

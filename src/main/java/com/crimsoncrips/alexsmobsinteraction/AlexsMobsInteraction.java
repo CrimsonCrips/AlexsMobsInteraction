@@ -47,8 +47,8 @@ public class AlexsMobsInteraction {
     }
 
     public AlexsMobsInteraction() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG_SPEC, "ami-general.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC, "ami-client.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG_SPEC, "alexsmobsinteraction-general.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC, "alexsmobsinteraction-client.toml");
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         AMIEnchantmentRegistry.DEF_REG.register(modEventBus);

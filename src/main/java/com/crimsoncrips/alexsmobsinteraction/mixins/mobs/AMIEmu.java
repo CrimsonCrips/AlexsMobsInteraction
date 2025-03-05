@@ -35,6 +35,7 @@ public abstract class AMIEmu extends Animal {
                 return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get())) || livingEntity.isHolding( Ingredient.of(AMItemRegistry.BOILED_EMU_EGG.get()));
             }));
         }
+
         if (AlexsMobsInteraction.COMMON_CONFIG.RANGED_AGGRO_ENABLED.get()){
             emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 70, true, false, (livingEntity) -> {
                 return livingEntity.isHolding(Ingredient.of(AMIItemTagGenerator.EMU_TRIGGER));

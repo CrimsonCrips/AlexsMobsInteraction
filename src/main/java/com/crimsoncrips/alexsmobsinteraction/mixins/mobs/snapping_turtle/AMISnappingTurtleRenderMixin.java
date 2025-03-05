@@ -25,6 +25,6 @@ public abstract class AMISnappingTurtleRenderMixin extends MobRenderer<EntityAll
 
     @Override
     public ResourceLocation getTextureLocation(EntityAlligatorSnappingTurtle entity) {
-        return ((AMIBaseInterfaces)entity).isSleeping() ? TEXTURE_SLEEPING : TEXTURE;
+        return ((AMIBaseInterfaces)entity).isDaySleeping() ? TEXTURE_SLEEPING : TEXTURE;
     }
 }

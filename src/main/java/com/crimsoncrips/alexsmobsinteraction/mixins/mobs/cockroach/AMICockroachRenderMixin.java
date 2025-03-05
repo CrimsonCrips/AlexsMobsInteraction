@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cockroach;
 
-import com.crimsoncrips.alexsmobsinteraction.client.layer.CrownLayer;
+import com.crimsoncrips.alexsmobsinteraction.client.layer.AsmonLayer;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.github.alexthe666.alexsmobs.client.model.ModelCockroach;
 import com.github.alexthe666.alexsmobs.client.render.RenderCockroach;
@@ -25,14 +25,11 @@ public abstract class AMICockroachRenderMixin extends MobRenderer<EntityCockroac
     @Inject(method = "<init>", at = @At("TAIL"))
     private void alexsMobsInteraction$init(EntityRendererProvider.Context renderManagerIn, CallbackInfo ci) {
         RenderCockroach renderCockroach = (RenderCockroach)(Object)this;
-        this.addLayer(new CrownLayer(renderCockroach));
+        this.addLayer(new AsmonLayer(renderCockroach));
     }
 
-    @Inject(method = "scale(Lcom/github/alexthe666/alexsmobs/entity/EntityCockroach;Lcom/mojang/blaze3d/vertex/PoseStack;F)V", at = @At("HEAD"), cancellable = true,remap = false)
-    private void alexsMobsInteraction$scale(EntityCockroach entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime, CallbackInfo ci) {
-        ci.cancel();
-        if (!((AsmonRoach)entitylivingbaseIn).isGod()){
-            matrixStackIn.scale(0.85F, 0.85F, 0.85F);
-        }
+    protected void scale(EntityCockroach entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        float scale = ((AsmonRoach)entitylivingbaseIn).isGod() ? 1.5F : 0.85F;
+        matrixStackIn.scale(scale, scale, scale);
     }
 }

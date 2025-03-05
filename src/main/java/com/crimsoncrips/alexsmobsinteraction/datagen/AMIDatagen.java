@@ -2,8 +2,9 @@ package com.crimsoncrips.alexsmobsinteraction.datagen;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.advancement.AMIAdvancementProvider;
-import com.crimsoncrips.alexsmobsinteraction.datagen.language.locale.EnglishLangGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.language.locale.AMIEnglishGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.sounds.AMISoundGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
@@ -27,11 +28,11 @@ public class AMIDatagen {
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
         ExistingFileHelper helper = event.getExistingFileHelper();
 
+        generator.addProvider(event.includeClient(), new AMISoundGenerator(output, helper));
         generator.addProvider(event.includeServer(), new AMIAdvancementProvider(output, provider, helper));
         generator.addProvider(event.includeServer(), new AMILootGenerator(output));
-        generator.addProvider(event.includeClient(), new EnglishLangGenerator(output));
+        generator.addProvider(event.includeClient(), new AMIEnglishGenerator(output));
         generator.addProvider(event.includeServer(), new AMIEntityTagGenerator(output, provider, helper));
-
         AMIBlockTagGenerator blocktags = new AMIBlockTagGenerator(output, provider, helper);
         generator.addProvider(event.includeServer(), blocktags);
         generator.addProvider(event.includeServer(), new AMIItemTagGenerator(output, provider, blocktags.contentsGetter(), helper));

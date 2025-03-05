@@ -17,6 +17,8 @@ public class AMILootTables {
 	public static final ResourceLocation BANANA_SHEAR = register("entities/banana_shear");
 	public static final ResourceLocation GRIZZLY_BRUSH = register("entities/grizzly_brush");
 	public static final ResourceLocation WITHERED_SKELEWAG = register("entities/withered_skelewag");
+	public static final ResourceLocation SCAVENGE_STRADDLEBOARD = register("entities/scavenge_straddleboard");
+	public static final ResourceLocation OBSIDIAN_EXTRACT = register("entities/obsidian_extract");
 
 	public final ResourceLocation lootTable;
 

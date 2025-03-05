@@ -1,6 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.laviathan;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
+import com.crimsoncrips.alexsmobsinteraction.misc.ManualLootUtil;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.particles.ParticleTypes;
@@ -90,9 +92,7 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
             setRelava(true);
             laviathan.setObsidian(false);
             this.playSound(SoundEvents.BASALT_BREAK, this.getSoundVolume(), this.getVoicePitch());
-            for (int i = 0; i < (isBaby() ? 6 : 2);i++){
-                this.spawnAtLocation(Items.OBSIDIAN);
-            }
+            ManualLootUtil.spawnLoot(AMILootTables.OBSIDIAN_EXTRACT,this,player,0);
             player.getMainHandItem().hurtAndBreak(1, this, (p_233654_0_) -> {});
             this.hurt(laviathan.damageSources().generic(),20);
         }

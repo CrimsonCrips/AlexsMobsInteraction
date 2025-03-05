@@ -47,6 +47,17 @@ public class AMIManualLoot implements LootTableSubProvider {
                         .add(LootItem.lootTableItem(Items.COAL).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))).setWeight(50))
                         .add(LootItem.lootTableItem(AMItemRegistry.SKELEWAG_SWORD.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))))
                 ));
+
+        consumer.accept(AMILootTables.SCAVENGE_STRADDLEBOARD, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(Items.NETHERITE_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+                        .add(LootItem.lootTableItem(AMItemRegistry.STRADDLITE.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))))
+                ));
+
+        consumer.accept(AMILootTables.OBSIDIAN_EXTRACT, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(Items.OBSIDIAN).apply(SetItemCountFunction.setCount(UniformGenerator.between(6, 17))))
+                ));
     }
 
 

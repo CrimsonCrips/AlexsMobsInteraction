@@ -16,6 +16,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.level.Level;
@@ -81,6 +82,8 @@ public class AMIFungusBonemeal extends MoveToBlockGoal {
             level.levelEvent(1505, blockPos, 15);
             this.stop();
         }
+
+
 
     }
 

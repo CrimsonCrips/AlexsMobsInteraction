@@ -30,6 +30,11 @@ public abstract class AMILangProvider extends LanguageProvider {
 		this.add("death.attack." + deathKey + "_" + number, name);
 	}
 
+	public void addAdvancementDesc(String advancementKey, String title,String description){
+		this.add("advancement.alexsmobsinteraction." + advancementKey, title);
+		this.add("advancement.alexsmobsinteraction." + advancementKey + ".desc", description);
+	}
+
 	public void addSubtitle(String subtitleKey,String name) {
 		this.add("subtitle.alexsmobsinteraction.sound." + subtitleKey,name);
 	}

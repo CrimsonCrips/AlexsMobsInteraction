@@ -103,13 +103,7 @@ public class AMIFly extends Mob implements TransformingEntities {
         if(AlexsMobsInteraction.COMMON_CONFIG.FLY_PESTER_ENABLED.get()) {
             fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.FLY_PESTER)));
         }
-        fly.goalSelector.addGoal(2, new MoveToBlockGoal(fly,2,15) {
-            @Override
-            protected boolean isValidTarget(LevelReader levelReader, BlockPos blockPos) {
-                BlockState blockState = levelReader.getBlockState(blockPos);
-                return blockState.is(ACBlockRegistry.GUANO_LAYER.get()) || blockState.is(ACBlockRegistry.GUANO_BLOCK.get());
-            }
-        });
+
     }
 
 

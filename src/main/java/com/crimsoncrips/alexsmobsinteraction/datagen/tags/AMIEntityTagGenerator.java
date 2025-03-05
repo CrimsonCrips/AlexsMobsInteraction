@@ -36,6 +36,7 @@ public class AMIEntityTagGenerator extends EntityTypeTagsProvider {
 	public static final TagKey<EntityType<?>> STRONG_PREY = create(AlexsMobsInteraction.prefix("strong_prey"));
 	public static final TagKey<EntityType<?>> WEAK_PREY = create(AlexsMobsInteraction.prefix("weak_prey"));
 	public static final TagKey<EntityType<?>> SHOEBILL_BABY_KILL = create(AlexsMobsInteraction.prefix("shoebill_baby_kill"));
+	public static final TagKey<EntityType<?>> GRIZZLY_BEAR_KILL = create(AlexsMobsInteraction.prefix("grizzly_bear_kill"));
 
 	public static final TagKey<EntityType<?>> CENTIPEDE_KILL = create(AlexsMobsInteraction.prefix("centipede_kill"));
 
@@ -58,6 +59,11 @@ public class AMIEntityTagGenerator extends EntityTypeTagsProvider {
 				AMEntityRegistry.RATTLESNAKE.get()
 
 		).addTag(KILL_FISHES).addTag(SIGNIFICANT_PREY).addTag(STRONG_PREY).addTag(WEAK_PREY);
+
+		tag(GRIZZLY_BEAR_KILL).add(
+				AMEntityRegistry.BISON.get(),
+				AMEntityRegistry.MOOSE.get()
+		).addTag(KILL_FISHES).addTag(SIGNIFICANT_PREY).addTag(WEAK_PREY);
 
 		tag(BURNABLE_DEAD).add(
 				EntityType.ZOMBIE,

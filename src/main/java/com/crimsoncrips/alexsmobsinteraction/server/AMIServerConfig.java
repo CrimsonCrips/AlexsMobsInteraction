@@ -99,7 +99,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue SOMBRERO_PROTECTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue SPIDER_EAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue STORED_HUNGER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue STRADDLER_VENGEANCE_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADPOLE_BOB_UP_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADPOLE_FLAME_ENABLED;
@@ -110,7 +109,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue THROWABLE_PUPI_ENABLED;
     public final ForgeConfigSpec.BooleanValue TIGER_STEALTH_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_FLEE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TUSKLIN_STRUCK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ZOGLINNED_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
     public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
@@ -122,17 +121,24 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue WITHERED_SKELEWAG_ENABLED;
     public final ForgeConfigSpec.DoubleValue BLOODED_CHANCE;
     public final ForgeConfigSpec.IntValue STRADDLER_SHOTS_AMOUNT;
+    public final ForgeConfigSpec.BooleanValue CATFISH_VENOM_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CARROT_HARVESTING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue HONEYLESS_HUNTING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BLUE_SHELL_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ASMONGOLD_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_HOT_CAT_ENABLED;
 
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
         this.AMI_WIKI_ENABLED = buildBoolean(builder, "AMI_WIKI_ENABLED", " ", true, "Gives you the ami wiki book at start");
         this.FOOD_TARGET_EFFECTS_ENABLED = buildBoolean(builder, "FOOD_TARGET_EFFECTS_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
-        this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
         this.MOLTEN_BATH_ENABLED = buildBoolean(builder, "MOLTEN_BATH_ENABLED", " ", true, "Pour lava bottles into mobs to combust them to flames");
         this.POISONOUS_BATH_ENABLED = buildBoolean(builder, "POISONOUS_BATH_ENABLED", " ", true, "Pour poison bottles into mobs to poison them alike");
         this.BOTTOMLESS_SAND_ENABLED = buildBoolean(builder, "BOTTOMLESS_SAND_ENABLED", " ", true, "Infinite ammo for pocket sand");
         this.ADD_TARGETS_ENABLED = buildBoolean(builder, "ADD_TARGETS_ENABLED", " ", true, "Add targets for mobs");
+        builder.comment("--Compatibility with Soul Fire--");
+        this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
 
         builder.pop();
         builder.push("Mobs");
@@ -155,6 +161,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Bald Eagle");
         this.EAGLE_CANNIBALIZE_ENABLED = buildBoolean(builder, "EAGLE_CANNIBALIZE_ENABLED", " ", true, "Bald Eagle will rarely cannibalize weaker eagles");
+        builder.comment("--Compatibiility with Alexs Caves--");
         this.BIRD_BOMBING_ENABLED = buildBoolean(builder, "BIRD_BOMBING_ENABLED", " ", true, "Bald Eagle can bomb targetted areas when being controlled");
 
         builder.pop();
@@ -163,6 +170,9 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Bone Serpent");
         this.SERPENT_FEAR_ENABLED = buildBoolean(builder, "SERPENT_FEAR_ENABLED", " ", true, "Bone Serpents will fear Lavaithans due to their immense stature");
+        builder.pop();
+        builder.push("Bunfungus");
+        this.CARROT_HARVESTING_ENABLED = buildBoolean(builder, "CARROT_HARVESTING_ENABLED", " ", true, "Bunfungus harvests carrots from crops");
         builder.pop();
         builder.push("Caiman");
         this.CAIMAN_EGG_ATTACK_ENABLED = buildBoolean(builder, "CAIMAN_EGG_ATTACK_ENABLED", " ", true, "Caimans will attack players that are seen holding their eggs");
@@ -174,12 +184,19 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Catfish");
         this.CATFISH_CANNIBALIZE_ENABLED = buildBoolean(builder, "CATFISH_CANNIBALIZE_ENABLED", " ", true, "Large Catfish will cannibalize on smaller catfish");
+        this.CATFISH_VENOM_ENABLED = buildBoolean(builder, "CATFISH_VENOM_ENABLED", " ", true, "Catfish has a chance to inflicts poison to attackers");
+
         builder.pop();
         builder.push("Cave Centipede");
+        builder.comment("--Compatibility with Curios Light--");
         this.LIGHT_FEAR_ENABLED = buildBoolean(builder, "LIGHT_FEAR_ENABLED", " ", true, "Cave Centipedes fear light and players that hold light, They will attack if attacked");
         builder.pop();
         builder.push("Cockroach");
+        builder.comment("--Requires Alexs Caves--");
         this.COCKROACH_MUTATION_ENABLED = buildBoolean(builder, "COCKROACH_MUTATION_ENABLED", " ", true, "Cockroaches will mutate into Gammaroaches from Alex's Caves when in the Toxic Caves (if the mod is present)");
+        builder.comment("--Requires Alexs Caves--");
+        this.ASMONGOLD_ENABLED = buildBoolean(builder, "ASMONGOLD_ENABLED", " ", true, "Use a AC Game Controller,to convert an average cockroach into a god");
+
         builder.pop();
         builder.push("Cosmaw");
         this.COSMAW_WEAKENED_ENABLED = buildBoolean(builder, "COSMAW_WEAKENED_ENABLED", " ", true, "Cosmaws will get weak when they carry a heavy player, while weak, they cannot carry their owners at all");
@@ -188,9 +205,10 @@ public class AMIServerConfig {
         this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened");
         this.BLOODED_CHANCE = buildDouble(builder, "BLOODED_CHANCE", " ", 0.2,0.0,1.0, "Chance of crimson mosquitoes to spawn with blood inside them");
         this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Crimson Mosquitoes is immune to blood spits");
-        this.BLOODED_EFFECT_ENABLED = buildBoolean(builder, "BLOODED_EFFECT_ENABLED", " ", true, "Blood spits will inflict you with the new 'Blooded' effect that causes temporary substantial weakness");
         this.BLOOD_DAMAGE_DIFFERENCE_ENABLED = buildBoolean(builder, "BLOOD_DAMAGE_DIFFERENCE_ENABLED", " ", true, "Damage from blood spits is dependant from the source");
         this.FUNGUS_POLLINATE_ENABLED = buildBoolean(builder, "FUNGUS_POLLINATE_ENABLED", " ", true, "Crimson Mosquitoes with blood will pollinate nearby funguses");
+        builder.comment("--Compatibility with Biomes Of Plenty--");
+        this.BLOODED_EFFECT_ENABLED = buildBoolean(builder, "BLOODED_EFFECT_ENABLED", " ", true, "Blood spits will inflict you with the new 'Blooded' effect that causes temporary substantial weakness");
 
         builder.pop();
         builder.push("Crocodile");
@@ -234,9 +252,10 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Fly");
         this.FLY_PESTER_ENABLED = buildBoolean(builder, "FLY_PESTER_ENABLED", " ", true, "Flies will pester certain smelling animals");
-        this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
         this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "CANDLE_REPEL_ENABLED", " ", true, "Lit candles will cause flies to run away from it");
         this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", " ", true, "Hoflding a maggot while fishing will cause it to be consumed and increase luck for fishing");
+        builder.comment("--Requires Blooded Effect--");
+        this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
 
         builder.pop();
         builder.push("Flying Fish");
@@ -250,6 +269,7 @@ public class AMIServerConfig {
         this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
         this.BRUSHED_ENABLED = buildBoolean(builder, "BRUSHED_ENABLED", " ", true, "Grizzlies that are pacified with honey can be brushed for hair");
         this.STORED_HUNGER_ENABLED = buildBoolean(builder, "STORED_HUNGER_ENABLED", " ", true, "Grizzlies destroy containers containing food they like");
+        this.HONEYLESS_HUNTING_ENABLED = buildBoolean(builder, "HONEYLESS_HUNTING_ENABLED", " ", true, "Grizzlies will hunt food when hadnt had honey for a while");
 
         builder.pop();
         builder.push("Guster");
@@ -337,7 +357,6 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Straddler");
         this.STRADDLER_SHOTS_AMOUNT = buildInt(builder, "STRADDLER_SHOTS_AMOUNT", " ", 8, 0, Integer.MAX_VALUE, "Straddlers have ammo,once exhausted it requires time to reload (O Disables this feature)");
-        this.STRADDLER_VENGEANCE_ENABLED = buildBoolean(builder, "STRADDLER_VENGEANCE_ENABLED", " ", true, "Straddlers have ammo,once exhausted it requires time to reload");
         this.STRADDLE_SCAVENGE_ENABLED = buildBoolean(builder, "STRADDLE_SCAVENGE_ENABLED", " ", true, "Straddleboards drop half of its material costs if it doesnt drop itself");
 
         builder.pop();
@@ -354,6 +373,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Terrapin");
         this.TERRAPIN_STOMP_ENABLED = buildBoolean(builder, "TERRAPIN_STOMP_ENABLED", " ", true, "Terrapin take damage when they get launched");
+        this.BLUE_SHELL_ENABLED = buildBoolean(builder, "BLUE_SHELL_ENABLED", " ", true, "Blue Shell Terrapin");
 
         builder.pop();
         builder.push("Tiger");
@@ -363,7 +383,7 @@ public class AMIServerConfig {
         builder.push("Tusklin");
         this.TUSKLIN_FLEE_ENABLED = buildBoolean(builder, "TUSKLIN_FLEE_ENABLED", " ", true, "Tusklins like their brethren flee from warped fungus");
         this.TUSKLIN_TRUST_ENABLED = buildBoolean(builder, "TUSKLIN_TRUST_ENABLED", " ", true, "Tusklins can have a lasting trust with mushroom stew,attacking it will remove that lasting trust however");
-        this.TUSKLIN_STRUCK_ENABLED = buildBoolean(builder, "TUSKLIN_STRUCK_ENABLED", " ", true, "Tusklin struck by lightning will be converted to zoglins");
+        this.ZOGLINNED_ENABLED = buildBoolean(builder, "ZOGLINNED_ENABLED", " ", true, "Tusklin struck by lightning will be converted to zoglins");
         builder.pop();
         builder.push("Void Worm");
         this.VOIDWORM_STUN_ENABLED = buildBoolean(builder, "VOIDWORM_STUN_ENABLED", " ", true, "Void Worm can be stunned and brought down when hit in the head enough");
@@ -386,6 +406,7 @@ public class AMIServerConfig {
         this.GOOFY_STRADDLER_SHOTGUN_ENABLED = buildBoolean(builder, "GOOFY_STRADDLER_SHOTGUN_ENABLED", " ", false, "April Fools Straddler Effects");
         this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", " ", false, "Mine Turtle");
         this.BOXING_GLOVES_ENABLED = buildBoolean(builder, "BOXING_GLOVES_ENABLED", " ", false, "Boxing Gloves");
+        this.GOOFY_HOT_CAT_ENABLED = buildBoolean(builder, "GOOFY_HOT_CAT_ENABLED", " ", false, "Catfish texture changes when hot thing in mouth");
 
     }
 

@@ -429,13 +429,14 @@ public class AMInteractionEvents {
 
     @SubscribeEvent
     public void struckLightning(EntityStruckByLightningEvent lightningEvent){
-        if (lightningEvent.getEntity() instanceof EntityTusklin tusklin && AlexsMobsInteraction.COMMON_CONFIG.TUSKLIN_STRUCK_ENABLED.get()){
+        if (lightningEvent.getEntity() instanceof EntityTusklin tusklin && AlexsMobsInteraction.COMMON_CONFIG.ZOGLINNED_ENABLED.get()){
             Level level = tusklin.level();
             if (!level.isClientSide) {
                 LivingEntity entityToSpawn = EntityType.ZOGLIN.spawn((ServerLevel) level, BlockPos.containing(tusklin.getX() + 0.5, tusklin.getY() + 1.0, tusklin.getZ() + 0.5), MobSpawnType.TRIGGERED);
                 if (tusklin.isBaby() && entityToSpawn instanceof Zoglin zoglin) zoglin.setBaby(true);
                 tusklin.discard();
             }
+            lightningEvent.getLightning().getCause();
 
         }
     }

@@ -1,5 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIGrizzlyBearInterface;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexthe666.alexsmobs.entity.EntityCrimsonMosquito;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
@@ -35,7 +37,7 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating();
+        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && (((AMIGrizzlyBearInterface)grizzlyBear).getNoHoney() >= 10000 || !AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get());
     }
 
     @Override

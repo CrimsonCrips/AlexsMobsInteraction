@@ -101,7 +101,6 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
                         Entity bomb = null;
                         if (ModList.get().isLoaded("alexscaves") && ACCompat.falconBomb(itemEntity.getItem())) {
                             bomb = new NuclearBombEntity(ACEntityRegistry.NUCLEAR_BOMB.get(), this.level());
-                            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 9));
                         } else if (itemEntity.getItem().is(Items.TNT)) {
                             bomb = new PrimedTnt(EntityType.TNT, this.level());
                         }

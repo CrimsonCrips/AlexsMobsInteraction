@@ -22,6 +22,7 @@ public class AMIEffects {
     public static final DeferredRegister<MobEffect> EFFECT_REGISTER = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, AlexsMobsInteraction.MODID);
     public static final DeferredRegister<Potion> POTION_REGISTER = DeferredRegister.create(ForgeRegistries.POTIONS, AlexsMobsInteraction.MODID);
 
+    public static final RegistryObject<MobEffect> FARSEER_ICON = EFFECT_REGISTER.register("farseer_icon", AMIFarseerIcon::new);
     public static final RegistryObject<MobEffect> SKREECHING = EFFECT_REGISTER.register("skreeching", AMISkreeching::new);
     public static final RegistryObject<MobEffect> BLOODED = EFFECT_REGISTER.register("blooded", AMIBlooded::new);
     public static final RegistryObject<Potion> SKREECHING_POTION = POTION_REGISTER.register("skreeching", ()-> new Potion(new MobEffectInstance(SKREECHING.get(), 72000)));

@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.datagen.tags;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -20,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 public class AMIItemTagGenerator extends ItemTagsProvider {
 	public static final TagKey<Item> LIGHT_FEAR = create("light_fear");
 	public static final TagKey<Item> EMU_TRIGGER = create("emu_trigger");
+	public static final TagKey<Item> HOT = create("hot");
 
     public AMIItemTagGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> future, CompletableFuture<TagLookup<Block>> provider, ExistingFileHelper helper) {
         super(output, future, provider, AlexsMobsInteraction.MODID, helper);
@@ -45,6 +47,14 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 				Items.SOUL_LANTERN,
 				Items.TORCH,
 				Items.SOUL_TORCH
+		);
+
+		tag(HOT).add(
+				Items.FIRE_CHARGE,
+				Items.LAVA_BUCKET,
+				Items.MAGMA_BLOCK,
+				AMItemRegistry.LAVA_BOTTLE.get(),
+				Items.MAGMA_CREAM
 		);
 	}
 

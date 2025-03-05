@@ -15,6 +15,6 @@ public interface AMIBaseInterfaces {
     boolean isWally();
 
     //Snapping Turtle
-    boolean isSleeping();
+    boolean isDaySleeping();
 
 }
