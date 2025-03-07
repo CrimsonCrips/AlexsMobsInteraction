@@ -1,16 +1,21 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla.player;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIFarseerEffects;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.FarseerPacket;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
+import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
 import com.github.alexthe666.alexsmobs.entity.EntityFarseer;
 import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -26,6 +31,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpyglassItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -50,27 +56,21 @@ public abstract class AMIPlayerMixin extends LivingEntity implements AMIFarseerE
 
     @Override
     public boolean canStandOnFluid(FluidState pFluidState) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.ROLLING_THUNDER_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ROLLING_THUNDER_ENABLED.get() && this.getItemBySlot(EquipmentSlot.CHEST).is(AMItemRegistry.ROCKY_CHESTPLATE.get())) {
+            BlockState blockState = getBlockStateOn();
             double z = this.getLookAngle().z;
             double x = this.getLookAngle().x;
-            BlockState feetBlockstate = this.getBlockStateOn();
-            if (RockyChestplateUtil.isRockyRolling(this)){
-                if (feetBlockstate.is(Blocks.WATER)) {
-                    double d1 = this.getRandom().nextGaussian() * 0.01;
-                    if (random.nextDouble() < 0.1) this.level().addParticle(ParticleTypes.SPLASH, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1), x * -2 * this.getRandom().nextInt(2), 0.1 + d1, z * -2 * this.getRandom().nextInt(2));
-                    if (random.nextDouble() < 0.09) this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(1.2), this.getY() + 0.5, this.getRandomZ(1.2), 0, 0, 0);
+            if (RockyChestplateUtil.isRockyRolling(this) && this.level().getFluidState(getOnPos()).getFluidType() != null){
+                double d1 = this.getRandom().nextGaussian() * 0.01;
+                ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
+                if (random.nextDouble() < 0.1) this.level().addParticle(particle, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1), x * -2 * this.getRandom().nextInt(2), 0.1 + d1, z * -2 * this.getRandom().nextInt(2));
+                if (random.nextDouble() < 0.001) {
+                    this.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(2, this, (p_233654_0_) -> {
+                    });
                 }
-                if (feetBlockstate.is(Blocks.LAVA)) {
-                    this.setSecondsOnFire(5);
-                    double d1 = this.getRandom().nextGaussian() * 0.01;
-                    double d2 = this.getRandom().nextGaussian() * 0.01;
-                    double d3 = this.getRandom().nextGaussian() * 0.01;
-                    if (random.nextDouble() < 0.03) this.level().addParticle(ParticleTypes.LAVA, this.getX(), this.getY() + 0.05, this.getZ(), x * -2 + d1, 0.1 + d2, z * -2 + d3);
-                }
-                if (random.nextDouble() < 0.001) this.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(1, this, (p_233654_0_) -> {
-                 });
-            }
-            return RockyChestplateUtil.isRockyRolling(this) && this.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0 && this.getItemBySlot(EquipmentSlot.CHEST).is((Item) AMItemRegistry.ROCKY_CHESTPLATE.get());
+                AMIUtils.awardAdvancement(this,"rolling_thunder","roll");
+                return this.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0;
+            } else return false;
         } else return false;
     }
 
@@ -99,8 +99,16 @@ public abstract class AMIPlayerMixin extends LivingEntity implements AMIFarseerE
                 AMIPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new FarseerPacket());
                 addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
             }
-
+        } else if(getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0) {
+            AMIUtils.awardAdvancement(player,"repel","repel");
         }
+        if (AlexsMobsInteraction.COMMON_CONFIG.SNAPPING_DORMANCY_ENABLED.get()){
+            Entity lookAt = AMIUtils.getClosestLookingAtEntityFor(player);
+            if (lookAt instanceof EntityAlligatorSnappingTurtle snappingTurtle && ((AMIBaseInterfaces)snappingTurtle).isDaySleeping() && player.getUseItem().getItem() instanceof SpyglassItem){
+                AMIUtils.awardAdvancement(player,"observe_dormancy","observe");
+            }
+        }
+
         if (getFarseerTime() > 0){
             setFarseerTime(getFarseerTime() - 1);
         }

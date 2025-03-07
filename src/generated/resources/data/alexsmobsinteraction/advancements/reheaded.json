@@ -1,12 +1,12 @@
 {
-  "parent": "alexscavesexemplified:root",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
-    "enemies": {
+    "reheaded": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.reheaded.desc"
     },
@@ -16,14 +16,14 @@
       "item": "citadel:icon_item",
       "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/reheaded.png\"}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.reheaded"
     }
   },
   "requirements": [
     [
-      "enemies"
+      "reheaded"
     ]
   ],
   "sends_telemetry_event": true

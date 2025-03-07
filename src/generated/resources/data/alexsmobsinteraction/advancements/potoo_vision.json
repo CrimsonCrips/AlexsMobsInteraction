@@ -1,12 +1,12 @@
 {
-  "parent": "alexscavesexemplified:root",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "vision": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.potoo_vision.desc"
     },
@@ -16,7 +16,7 @@
       "item": "citadel:icon_item",
       "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/potoo_vision.png\"}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.potoo_vision"
     }

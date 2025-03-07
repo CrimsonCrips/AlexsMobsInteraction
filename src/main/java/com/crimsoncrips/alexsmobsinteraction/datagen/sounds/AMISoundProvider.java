@@ -23,8 +23,8 @@ public abstract class AMISoundProvider extends SoundDefinitionsProvider {
 	public void generateNewSound(RegistryObject<SoundEvent> event, String baseSoundDirectory, int numberOfSounds, boolean subtitle) {
 		SoundDefinition definition = SoundDefinition.definition();
 		if (subtitle) {
-			String[] splitSoundName = event.getId().getPath().split("\\.", 3);
-			definition.subtitle("subtitles.alexsmobsinteraction." + splitSoundName[0] + "." + splitSoundName[2]);
+			String soundName = event.getId().getPath().replace('/', '.');
+			definition.subtitle("subtitles.alexsmobsinteraction." + soundName);
 		}
 		for (int i = 1; i <= numberOfSounds; i++) {
 			definition.with(SoundDefinition.Sound.sound(new ResourceLocation(AlexsMobsInteraction.MODID, baseSoundDirectory + (numberOfSounds > 1 ? i : "")), SoundDefinition.SoundType.SOUND));

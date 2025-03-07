@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.capuchin;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AncientDartPotion;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCapuchinMonkey;
@@ -113,6 +114,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
                     player.drop(bottle, false);
                 }
                 player.swing(hand);
+                AMIUtils.awardAdvancement(player,"dart_effect","dart_effect");
             }
         }
     }

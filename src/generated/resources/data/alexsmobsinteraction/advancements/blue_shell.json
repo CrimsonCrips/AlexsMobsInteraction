@@ -1,12 +1,12 @@
 {
   "parent": "alexsmobsinteraction:stomp",
   "criteria": {
-    "curse": {
+    "blue_shell": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.blue_shell.desc"
     },
@@ -16,14 +16,14 @@
       "item": "citadel:icon_item",
       "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/blue_shell.png\"}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.blue_shell"
     }
   },
   "requirements": [
     [
-      "curse"
+      "blue_shell"
     ]
   ],
   "sends_telemetry_event": true

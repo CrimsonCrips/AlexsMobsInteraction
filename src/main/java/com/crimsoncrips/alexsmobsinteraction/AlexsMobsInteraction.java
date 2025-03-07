@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
 import com.crimsoncrips.alexsmobsinteraction.client.AMIClientConfig;
+import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.client.event.AMIClientEvents;
 import com.crimsoncrips.alexsmobsinteraction.datagen.AMIDatagen;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIServerConfig;
@@ -58,6 +59,7 @@ public class AlexsMobsInteraction {
         AMIEffects.POTION_REGISTER.register(modEventBus);
         AMIItemRegistry.DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new AMIClientEvents());
+        AMISoundRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(AMIDatagen::generateData);
 
         PROXY.init();

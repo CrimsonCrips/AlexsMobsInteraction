@@ -36,15 +36,15 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						Component.translatable("advancement.alexsmobsinteraction.root.desc"),
 						new ResourceLocation(AlexsMobsInteraction.MODID, "textures/gui/ami_bg.png"),
 						FrameType.TASK,
-						false, false, false)
+						true,false,false)
 				.addCriterion("tick", PlayerTrigger.TriggerInstance.tick())
-				.save(consumer, "alexscavesexemplified:root");
+				.save(consumer, "alexsmobsinteraction:root");
 
 		Advancement combustable = (Advancement.Builder.advancement().parent(root).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/combustable.png"),
 						Component.translatable("advancement.alexsmobsinteraction.combustable"),
 						Component.translatable("advancement.alexsmobsinteraction.combustable.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("combust", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:combustable");
 
@@ -52,15 +52,15 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/molten_bath.png"),
 						Component.translatable("advancement.alexsmobsinteraction.molten_bath"),
 						Component.translatable("advancement.alexsmobsinteraction.molten_bath.desc"),
-						null, FrameType.TASK, false, false, false)
-				.addCriterion("combust", new ImpossibleTrigger.TriggerInstance()))
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("molten", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:molten_bath");
 
 		Advancement poison_bath = (Advancement.Builder.advancement().parent(molten_bath).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/poison_bath.png"),
 						Component.translatable("advancement.alexsmobsinteraction.poison_bath"),
 						Component.translatable("advancement.alexsmobsinteraction.poison_bath.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("poison", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:poison_bath");
 
@@ -68,7 +68,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/mutate_frog.png"),
 						Component.translatable("advancement.alexsmobsinteraction.mutate_frog"),
 						Component.translatable("advancement.alexsmobsinteraction.mutate_frog.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("mutate", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.save(consumer, "alexsmobsinteraction:mutate_frog");
@@ -77,7 +77,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/observe_dormancy.png"),
 						Component.translatable("advancement.alexsmobsinteraction.observe_dormancy"),
 						Component.translatable("advancement.alexsmobsinteraction.observe_dormancy.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("observe", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:observe_dormancy");
 
@@ -85,7 +85,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/interupt_dormancy.png"),
 						Component.translatable("advancement.alexsmobsinteraction.interupt_dormancy"),
 						Component.translatable("advancement.alexsmobsinteraction.interupt_dormancy.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("interupt", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:interupt_dormancy");
 
@@ -93,7 +93,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/moss_propogation.png"),
 						Component.translatable("advancement.alexsmobsinteraction.moss_propogation"),
 						Component.translatable("advancement.alexsmobsinteraction.moss_propogation.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("propogate", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:moss_propogation");
 
@@ -101,7 +101,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						Items.TNT,
 						Component.translatable("advancement.alexsmobsinteraction.bird_bomb"),
 						Component.translatable("advancement.alexsmobsinteraction.bird_bomb.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("bomb", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:bird_bomb");
 
@@ -109,7 +109,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.BANANA.get(),
 						Component.translatable("advancement.alexsmobsinteraction.banana_shear"),
 						Component.translatable("advancement.alexsmobsinteraction.banana_shear.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("banana", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:banana_shear");
 
@@ -117,7 +117,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMIItemRegistry.EGGS.get(),
 						Component.translatable("advancement.alexsmobsinteraction.egg_steal"),
 						Component.translatable("advancement.alexsmobsinteraction.egg_steal.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("egg_steal", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:egg_steal");
 
@@ -125,7 +125,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/dart_effect.png"),
 						Component.translatable("advancement.alexsmobsinteraction.dart_effect"),
 						Component.translatable("advancement.alexsmobsinteraction.dart_effect.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("dart_effect", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.save(consumer, "alexsmobsinteraction:dart_effect");
@@ -134,7 +134,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/venomous_cat.png"),
 						Component.translatable("advancement.alexsmobsinteraction.venomous_cat"),
 						Component.translatable("advancement.alexsmobsinteraction.venomous_cat.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("venom", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:venomous_cat");
 
@@ -142,7 +142,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/light_warding.png"),
 						Component.translatable("advancement.alexsmobsinteraction.light_warding"),
 						Component.translatable("advancement.alexsmobsinteraction.light_warding.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("lighted", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:light_warding");
 
@@ -150,7 +150,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/heavy_carriage.png"),
 						Component.translatable("advancement.alexsmobsinteraction.heavy_carriage"),
 						Component.translatable("advancement.alexsmobsinteraction.heavy_carriage.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("heavy", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:heavy_carriage");
 
@@ -158,7 +158,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						Items.FEATHER,
 						Component.translatable("advancement.alexsmobsinteraction.lightweight"),
 						Component.translatable("advancement.alexsmobsinteraction.lightweight.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("lightweight", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.save(consumer, "alexsmobsinteraction:lightweight");
@@ -167,7 +167,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/mob_effect/blooded.png"),
 						Component.translatable("advancement.alexsmobsinteraction.blooded"),
 						Component.translatable("advancement.alexsmobsinteraction.blooded.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("blood", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:blooded");
 
@@ -175,7 +175,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/fly_transform.png"),
 						Component.translatable("advancement.alexsmobsinteraction.fly_transform"),
 						Component.translatable("advancement.alexsmobsinteraction.fly_transform.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("fly", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:fly_transform");
 
@@ -183,8 +183,9 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/mutate_mosquito.png"),
 						Component.translatable("advancement.alexsmobsinteraction.mutate_mosquito"),
 						Component.translatable("advancement.alexsmobsinteraction.mutate_mosquito.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("mutate", new ImpossibleTrigger.TriggerInstance()))
+				.rewards(AdvancementRewards.Builder.experience(500))
 				.save(consumer, "alexsmobsinteraction:mutate_mosquito");
 
 
@@ -192,7 +193,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/wally.png"),
 						Component.translatable("advancement.alexsmobsinteraction.wally"),
 						Component.translatable("advancement.alexsmobsinteraction.wally.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("wally", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:wally");
 
@@ -201,7 +202,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.ACACIA_BLOSSOM.get(),
 						Component.translatable("advancement.alexsmobsinteraction.elephant_trample"),
 						Component.translatable("advancement.alexsmobsinteraction.elephant_trample.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("trample", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:elephant_trample");
 
@@ -209,7 +210,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/ranged_aggro.png"),
 						Component.translatable("advancement.alexsmobsinteraction.ranged_aggro"),
 						Component.translatable("advancement.alexsmobsinteraction.ranged_aggro.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("aggro", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:ranged_aggro");
 
@@ -217,7 +218,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/void_dweller.png"),
 						Component.translatable("advancement.alexsmobsinteraction.void_dweller"),
 						Component.translatable("advancement.alexsmobsinteraction.void_dweller.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("void", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(200))
 				.save(consumer, "alexsmobsinteraction:void_dweller");
@@ -226,7 +227,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/mob_effect/farseer_icon.png"),
 						Component.translatable("advancement.alexsmobsinteraction.alterred"),
 						Component.translatable("advancement.alexsmobsinteraction.alterred.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("alter", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:alterred");
 
@@ -234,7 +235,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/repel.png"),
 						Component.translatable("advancement.alexsmobsinteraction.repel"),
 						Component.translatable("advancement.alexsmobsinteraction.repel.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("repel", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:repel");
 
@@ -242,7 +243,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						Items.WITHER_ROSE,
 						Component.translatable("advancement.alexsmobsinteraction.withered"),
 						Component.translatable("advancement.alexsmobsinteraction.withered.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("withered", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:withered");
 
@@ -250,7 +251,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						Items.SPORE_BLOSSOM,
 						Component.translatable("advancement.alexsmobsinteraction.flutter_shear"),
 						Component.translatable("advancement.alexsmobsinteraction.flutter_shear.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("flutter", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:flutter_shear");
 
@@ -259,7 +260,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/maggot_fishing.png"),
 						Component.translatable("advancement.alexsmobsinteraction.maggot_fishing"),
 						Component.translatable("advancement.alexsmobsinteraction.maggot_fishing.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("fish", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:maggot_fishing");
 
@@ -267,7 +268,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						Items.BRUSH,
 						Component.translatable("advancement.alexsmobsinteraction.brushed"),
 						Component.translatable("advancement.alexsmobsinteraction.brushed.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("brushed", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:brushed");
 
@@ -275,7 +276,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/weight_lifting.png"),
 						Component.translatable("advancement.alexsmobsinteraction.weight_lifting"),
 						Component.translatable("advancement.alexsmobsinteraction.weight_lifting.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("lift", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:weight_lifting");
 
@@ -283,7 +284,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/mob_effect/gusting.png"),
 						Component.translatable("advancement.alexsmobsinteraction.gusting"),
 						Component.translatable("advancement.alexsmobsinteraction.gusting.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("gusting", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:gusting");
 
@@ -291,7 +292,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.GUSTER_EYE.get(),
 						Component.translatable("advancement.alexsmobsinteraction.sand_weaver"),
 						Component.translatable("advancement.alexsmobsinteraction.sand_weaver.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("weave", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:sand_weaver");
 
@@ -299,7 +300,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/obsidian_extract.png"),
 						Component.translatable("advancement.alexsmobsinteraction.obsidian_extract"),
 						Component.translatable("advancement.alexsmobsinteraction.obsidian_extract.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("extract", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:obsidian_extract");
 
@@ -307,7 +308,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get(),
 						Component.translatable("advancement.alexsmobsinteraction.uncover_roach"),
 						Component.translatable("advancement.alexsmobsinteraction.uncover_roach.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("uncover", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:uncover_roach");
 
@@ -315,7 +316,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.LEAFCUTTER_ANT_PUPA.get(),
 						Component.translatable("advancement.alexsmobsinteraction.throw_pupi"),
 						Component.translatable("advancement.alexsmobsinteraction.throw_pupi.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("throw", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:throw_pupi");
 
@@ -323,7 +324,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/mimickry.png"),
 						Component.translatable("advancement.alexsmobsinteraction.mimickry"),
 						Component.translatable("advancement.alexsmobsinteraction.mimickry.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("mimic", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:mimickry");
 
@@ -331,15 +332,15 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/reheaded.png"),
 						Component.translatable("advancement.alexsmobsinteraction.reheaded"),
 						Component.translatable("advancement.alexsmobsinteraction.reheaded.desc"),
-						null, FrameType.TASK, false, false, false)
-				.addCriterion("enemies", new ImpossibleTrigger.TriggerInstance()))
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("reheaded", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:reheaded");
 
 		Advancement enemy_of_enemy = (Advancement.Builder.advancement().parent(reheaded).display(
 						AMItemRegistry.UNSETTLING_KIMONO.get(),
 						Component.translatable("advancement.alexsmobsinteraction.enemy_of_enemy"),
 						Component.translatable("advancement.alexsmobsinteraction.enemy_of_enemy.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("enemies", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:enemy_of_enemy");
 
@@ -347,7 +348,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.TENDON_WHIP.get(),
 						Component.translatable("advancement.alexsmobsinteraction.stretchy_accumulation"),
 						Component.translatable("advancement.alexsmobsinteraction.stretchy_accumulation.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("stretch", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:stretchy_accumulation");
 
@@ -355,7 +356,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/potoo_vision.png"),
 						Component.translatable("advancement.alexsmobsinteraction.potoo_vision"),
 						Component.translatable("advancement.alexsmobsinteraction.potoo_vision.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("vision", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:potoo_vision");
 
@@ -363,7 +364,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/burrow_away.png"),
 						Component.translatable("advancement.alexsmobsinteraction.burrow_away"),
 						Component.translatable("advancement.alexsmobsinteraction.burrow_away.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("burrow", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:burrow_away");
 
@@ -371,7 +372,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/rolling_thunder.png"),
 						Component.translatable("advancement.alexsmobsinteraction.rolling_thunder"),
 						Component.translatable("advancement.alexsmobsinteraction.rolling_thunder.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("roll", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(50))
 				.save(consumer, "alexsmobsinteraction:rolling_thunder");
@@ -380,7 +381,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/kill_withered_skelewag.png"),
 						Component.translatable("advancement.alexsmobsinteraction.kill_withered_skelewag"),
 						Component.translatable("advancement.alexsmobsinteraction.kill_withered_skelewag.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("kill", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:kill_withered_skelewag");
 
@@ -389,15 +390,15 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/acclamate.png"),
 						Component.translatable("advancement.alexsmobsinteraction.acclamate"),
 						Component.translatable("advancement.alexsmobsinteraction.acclamate.desc"),
-						null, FrameType.TASK, false, false, false)
-				.addCriterion("acclemate", new ImpossibleTrigger.TriggerInstance()))
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("acclamate", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:acclamate");
 
 		Advancement day_of_judgement = (Advancement.Builder.advancement().parent(acclamate).display(
 						createCitadelIcon("alexsmobsinteraction:textures/mob_effect/skreeching.png"),
 						Component.translatable("advancement.alexsmobsinteraction.day_of_judgement"),
 						Component.translatable("advancement.alexsmobsinteraction.day_of_judgement.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("judgement", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(200))
 				.save(consumer, "alexsmobsinteraction:day_of_judgement");
@@ -406,15 +407,15 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.STRADDLITE.get(),
 						Component.translatable("advancement.alexsmobsinteraction.rearming_kill"),
 						Component.translatable("advancement.alexsmobsinteraction.rearming_kill.desc"),
-						null, FrameType.TASK, false, false, false)
-				.addCriterion("judgement", new ImpossibleTrigger.TriggerInstance()))
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("rearm", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:rearming_kill");
 
 		Advancement sugar_rush = (Advancement.Builder.advancement().parent(root).display(
 						Items.SUGAR,
 						Component.translatable("advancement.alexsmobsinteraction.sugar_rush"),
 						Component.translatable("advancement.alexsmobsinteraction.sugar_rush.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("rush", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:sugar_rush");
 
@@ -423,16 +424,16 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/stomp.png"),
 						Component.translatable("advancement.alexsmobsinteraction.stomp"),
 						Component.translatable("advancement.alexsmobsinteraction.stomp.desc"),
-						null, FrameType.TASK, false, false, false)
-				.addCriterion("curse", new ImpossibleTrigger.TriggerInstance()))
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("stomp", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:stomp");
 
 		Advancement blue_shell = (Advancement.Builder.advancement().parent(stomp).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/blue_shell.png"),
 						Component.translatable("advancement.alexsmobsinteraction.blue_shell"),
 						Component.translatable("advancement.alexsmobsinteraction.blue_shell.desc"),
-						null, FrameType.TASK, false, false, false)
-				.addCriterion("curse", new ImpossibleTrigger.TriggerInstance()))
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("blue_shell", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:blue_shell");
 
 
@@ -440,7 +441,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/trusted_riding.png"),
 						Component.translatable("advancement.alexsmobsinteraction.trusted_riding"),
 						Component.translatable("advancement.alexsmobsinteraction.trusted_riding.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("trust", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:trusted_riding");
 
@@ -448,8 +449,8 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/zoglinned.png"),
 						Component.translatable("advancement.alexsmobsinteraction.zoglinned"),
 						Component.translatable("advancement.alexsmobsinteraction.zoglinned.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
-				.addCriterion("zoglin", new ImpossibleTrigger.TriggerInstance()))
+						null, FrameType.CHALLENGE, true,true,false)
+				.addCriterion("zoglinned", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.save(consumer, "alexsmobsinteraction:zoglinned");
 
@@ -457,7 +458,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.VOID_WORM_EYE.get(),
 						Component.translatable("advancement.alexsmobsinteraction.voidworm_stun"),
 						Component.translatable("advancement.alexsmobsinteraction.voidworm_stun.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("stun", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:voidworm_stun");
 
@@ -465,7 +466,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/dimensional_lodestone.png"),
 						Component.translatable("advancement.alexsmobsinteraction.dimensional_lodestone"),
 						Component.translatable("advancement.alexsmobsinteraction.dimensional_lodestone.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("lodestone", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:dimensional_lodestone");
 
@@ -473,7 +474,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/multidimensional_lodestone.png"),
 						Component.translatable("advancement.alexsmobsinteraction.multidimensional_lodestone"),
 						Component.translatable("advancement.alexsmobsinteraction.multidimensional_lodestone.desc"),
-						null, FrameType.CHALLENGE, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("dimension", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(300))
 				.save(consumer, "alexsmobsinteraction:multidimensional_lodestone");
@@ -482,7 +483,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/asmongold.png"),
 						Component.translatable("advancement.alexsmobsinteraction.asmongold"),
 						Component.translatable("advancement.alexsmobsinteraction.asmongold.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("asmon", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:asmongold");
 
@@ -490,8 +491,9 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						AMItemRegistry.COCKROACH_OOTHECA.get(),
 						Component.translatable("advancement.alexsmobsinteraction.vassalized"),
 						Component.translatable("advancement.alexsmobsinteraction.vassalized.desc"),
-						null, FrameType.TASK, false, false, false)
+						null, FrameType.CHALLENGE, true,true,false)
 				.addCriterion("vassalize", new ImpossibleTrigger.TriggerInstance()))
+				.rewards(AdvancementRewards.Builder.experience(300))
 				.save(consumer, "alexsmobsinteraction:vassalized");
 
 	}

@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
-import com.crimsoncrips.alexsmobsinteraction.misc.ManualLootUtil;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.EntityFlutter;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -38,13 +38,15 @@ public abstract class AMIFlutterMixin extends TamableAnimal {
                 itemStack.hurtAndBreak(1, flutter, (p_233654_0_) -> {});
             player.swing(hand,true);
             flutter.addEffect(new MobEffectInstance(MobEffects.WITHER, 900, 0));
+            AMIUtils.awardAdvancement(player,"withered","withered");
         }
 
         if (itemStack.getItem() == Items.SHEARS && AlexsMobsInteraction.COMMON_CONFIG.FLUTTER_SHEAR_ENABLED.get() && !flutter.isTame() && flutter.level() instanceof ServerLevel serverLevel) {
-            ManualLootUtil.spawnLoot(AMILootTables.FLUTTER_SHEAR,flutter,player,1);
+            AMIUtils.spawnLoot(AMILootTables.FLUTTER_SHEAR,flutter,player,1);
             player.swing(hand,true);
             if (!player.isCreative()) itemStack.hurtAndBreak(3, flutter, (p_233654_0_) -> {});
             flutter.discard();
+            AMIUtils.awardAdvancement(player,"flutter_shear","flutter");
         }
     }
 

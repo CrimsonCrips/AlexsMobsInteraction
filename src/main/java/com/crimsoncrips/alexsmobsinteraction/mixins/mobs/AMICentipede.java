@@ -4,11 +4,13 @@ import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIAvoidBlockGoal;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCentipedeHead;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -33,7 +35,7 @@ public class AMICentipede extends Monster {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCentipedeHead centipede = (EntityCentipedeHead)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get()) {
             centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, Player.class, 50, true, false, livingEntity -> {
@@ -43,12 +45,22 @@ public class AMICentipede extends Monster {
             centipede.goalSelector.addGoal(1, new AvoidEntityGoal<>(centipede, LivingEntity.class, 4.0F, 1.5, 2, (livingEntity) -> {
                 return centipede.getLastAttacker() != livingEntity && CuriosCompat.hasLight(livingEntity);
             }));
-            centipede.goalSelector.addGoal(1, new AMIAvoidBlockGoal(centipede, 4,1,1.2,(pos) -> {
-                return centipede.level().getBlockState(pos).is(AMIBlockTagGenerator.LIGHT_FEAR);
-            }));
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
             centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, LivingEntity.class, 55, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.CENTIPEDE_KILL)));
+        }
+
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
+        EntityCentipedeHead centipede = (EntityCentipedeHead)(Object)this;
+        Entity target = centipede.getTarget();
+        if(AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get() && target instanceof LivingEntity living){
+            if (CuriosCompat.hasLight(living) && centipede.getLastHurtByMob() != living) {
+                centipede.setTarget(null);
+                AMIUtils.awardAdvancement(living,"light_warding","lighted");
+            }
         }
 
     }

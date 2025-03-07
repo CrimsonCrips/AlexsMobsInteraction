@@ -1,12 +1,12 @@
 {
-  "parent": "alexscavesexemplified:root",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "alter": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.alterred.desc"
     },
@@ -16,7 +16,7 @@
       "item": "citadel:icon_item",
       "nbt": "{IconLocation:\"alexsmobsinteraction:textures/mob_effect/farseer_icon.png\"}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.alterred"
     }

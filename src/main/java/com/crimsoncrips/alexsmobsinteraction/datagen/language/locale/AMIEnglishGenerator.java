@@ -39,7 +39,7 @@ public class AMIEnglishGenerator extends AMILangProvider {
 		this.addAdvancementDesc("combustable","Trials of Flames", "Pour oil in yourself and step into something hot");
 		this.addAdvancementDesc("molten_bath","Molten Bath", "Pour lava on an entity with a lava bottle");
 		this.addAdvancementDesc("poison_bath","Toxic Rain", "Pour poison on an entity with a poison bottle");
-		this.addAdvancementDesc("mutate_frog","School Dissections", "Mutate frogs with weakness and mungal spores");
+		this.addAdvancementDesc("mutate_frog","School Dissections", "Mutate frogs with weakness and warped funguses");
 		this.addAdvancementDesc("observe_dormancy","National Geographic", "Observe a sleeping snapping turtle with a spyglass");
 		this.addAdvancementDesc("interupt_dormancy","Snapped", "Disturb a sleeping snapping turtle");
 		this.addAdvancementDesc("moss_propogation","Moss Farming", "Use bonemeal to propogate a snapping turtle's moss accumulation");
@@ -51,9 +51,9 @@ public class AMIEnglishGenerator extends AMILangProvider {
 		this.addAdvancementDesc("light_warding","Average Gamer", "Ward off a cave centipede with light in your hands");
 		this.addAdvancementDesc("heavy_carriage","Cosmawlogical Strength", "Inflict your cosmaw weakness, when carrying you due to heavy armors");
 		this.addAdvancementDesc("lightweight","Sandbox Carry Weight", "Using the lightweight enchantment, have a cosmaw effortlessly carry you with heavy armor");
-		this.addAdvancementDesc("mutate_mosquito","Geared Mosquito", "Mutate a crimson mosquito with mungus spores while weak");
+		this.addAdvancementDesc("mutate_mosquito","Geared Mosquito", "Mutate a crimson mosquito with warped muscles while weak");
 		this.addAdvancementDesc("blooded","Blood Stained Earth", "Be inflicted with Blooded effect");
-		this.addAdvancementDesc("fly_transform","Flying Atrocity", "Mutate a fly into a crimson mosquito with mungus spores while blooded");
+		this.addAdvancementDesc("fly_transform","Flying Atrocity", "Mutate a fly into a crimson mosquito with blood sac while blooded");
 		this.addAdvancementDesc("wally","Emotional Support Alligator", "Name an alligator 'Wally', pacifying it");
 		this.addAdvancementDesc("elephant_trample","Stampeding Herd", "Ride an elephant, to trample smaller entities");
 		this.addAdvancementDesc("ranged_aggro","Emu Strife", "Aggro an emu with a ranged weapon");
@@ -64,7 +64,7 @@ public class AMIEnglishGenerator extends AMILangProvider {
 		this.addAdvancementDesc("flutter_shear","Blossoming Death", "Shear a flutter");
 		this.addAdvancementDesc("maggot_fishing","Master Baiter", "Increase your luck with a maggot on your offhand while fishing");
 		this.addAdvancementDesc("brushed","Furryous Brushing", "Brush off some hair from a sated grizzly");
-		this.addAdvancementDesc("weight_lifting","Weight Lifting", "Have a guster lift you while being heavily armored");
+		this.addAdvancementDesc("weight_lifting","Weight Lifting", "Have a guster FAIL to lift you to even be lifted 1 block for being too heavy");
 		this.addAdvancementDesc("gusting","Gusting Through", "Have the gusting effect, speeding you up and summoning mini tornadoes around you");
 		this.addAdvancementDesc("sand_weaver","Sand Weaver", "Weave through a guster with the gusting effect");
 		this.addAdvancementDesc("obsidian_extract","Obsidian Mining", "Extract obsidian on a solidified lavaithan");

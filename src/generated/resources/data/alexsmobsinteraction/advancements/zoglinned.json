@@ -1,12 +1,12 @@
 {
   "parent": "alexsmobsinteraction:trusted_riding",
   "criteria": {
-    "zoglin": {
+    "zoglinned": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.zoglinned.desc"
     },
@@ -16,14 +16,14 @@
       "item": "citadel:icon_item",
       "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/zoglinned.png\"}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.zoglinned"
     }
   },
   "requirements": [
     [
-      "zoglin"
+      "zoglinned"
     ]
   ],
   "rewards": {

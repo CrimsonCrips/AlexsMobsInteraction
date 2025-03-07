@@ -1,12 +1,12 @@
 {
-  "parent": "alexscavesexemplified:root",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "rush": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.sugar_rush.desc"
     },
@@ -15,7 +15,7 @@
     "icon": {
       "item": "minecraft:sugar"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.sugar_rush"
     }

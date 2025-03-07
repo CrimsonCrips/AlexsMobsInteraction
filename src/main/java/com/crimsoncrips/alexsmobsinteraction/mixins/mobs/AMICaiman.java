@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIEggHeldAttack;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCaiman;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -38,14 +39,7 @@ public abstract class AMICaiman extends TamableAnimal {
             });
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.CAIMAN_EGG_ATTACK_ENABLED.get()) {
-            caiman.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(caiman, LivingEntity.class, 0, true, false, (livingEntity) -> {
-                return livingEntity.isHolding(Ingredient.of(AMBlockRegistry.CAIMAN_EGG.get()));
-            }) {
-                @Override
-                public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !caiman.isTame() && !caiman.isBaby();
-                }
-            });
+            caiman.targetSelector.addGoal(8, new AMIEggHeldAttack<>(caiman, LivingEntity.class,true));
         }
     }
 }

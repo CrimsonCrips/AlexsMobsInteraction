@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIUnsettlingKemonoAttack;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -28,9 +29,7 @@ public abstract class AMISnowGolemMixin extends AbstractGolem {
         SnowGolem snowGolem = (SnowGolem)(Object)this;
 
         if(AlexsMobsInteraction.COMMON_CONFIG.UNSETTLING_BACKFIRE_ENABLED.get()) {
-            snowGolem.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(snowGolem, LivingEntity.class, 2, true, false, livingEntity -> {
-                return livingEntity.getItemBySlot(EquipmentSlot.CHEST).is(AMItemRegistry.UNSETTLING_KIMONO.get()) && !livingEntity.isAlliedTo(livingEntity);
-            }));
+            snowGolem.targetSelector.addGoal(4, new AMIUnsettlingKemonoAttack<>(snowGolem, LivingEntity.class, true));
         }
     }
 

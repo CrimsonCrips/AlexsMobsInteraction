@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIAvoidBlockGoal;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
@@ -88,6 +89,7 @@ public abstract class AMITusklinMixin extends Mob {
             this.gameEvent(GameEvent.EAT);
             this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
             setPermTrusted(true);
+            AMIUtils.awardAdvancement(player, "trusted_riding", "trust");
         }
     }
 

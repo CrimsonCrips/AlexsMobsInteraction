@@ -6,17 +6,17 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.mutate_mosquito.desc"
     },
-    "frame": "task",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
       "item": "citadel:icon_item",
       "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/mutate_mosquito.png\"}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.mutate_mosquito"
     }
@@ -26,5 +26,8 @@
       "mutate"
     ]
   ],
+  "rewards": {
+    "experience": 500
+  },
   "sends_telemetry_event": true
 }

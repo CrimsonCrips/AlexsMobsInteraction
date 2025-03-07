@@ -1,12 +1,12 @@
 {
-  "parent": "alexscavesexemplified:root",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "fish": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.maggot_fishing.desc"
     },
@@ -16,7 +16,7 @@
       "item": "citadel:icon_item",
       "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/maggot_fishing.png\"}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.maggot_fishing"
     }

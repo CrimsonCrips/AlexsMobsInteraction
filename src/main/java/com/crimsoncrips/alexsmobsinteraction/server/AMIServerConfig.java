@@ -23,7 +23,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue CAIMAN_EGG_ATTACK_ENABLED;
     public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
     public final ForgeConfigSpec.BooleanValue CATFISH_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CAVESPIDER_EAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
@@ -97,7 +96,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue SNAPPING_DORMANCY_ENABLED;
     public final ForgeConfigSpec.BooleanValue SNOW_LUCK_ENABLED;
     public final ForgeConfigSpec.BooleanValue SOMBRERO_PROTECTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SPIDER_EAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue STORED_HUNGER_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADPOLE_BOB_UP_ENABLED;
@@ -144,8 +142,6 @@ public class AMIServerConfig {
         builder.push("Mobs");
         builder.push("Vanilla Mob Tweaks");
         this.WITCH_ADDITIONS_ENABLED = buildBoolean(builder, "WITCH_ADDITIONS_ENABLED", " ", true, "Witch drinks poison resistance when poisoned");
-        this.SPIDER_EAT_ENABLED = buildBoolean(builder, "SPIDER_EAT_ENABLED", " ", true, "Spiders eat more mobs");
-        this.CAVESPIDER_EAT_ENABLED = buildBoolean(builder, "CAVESPIDER_EAT_ENABLED", " ", true, "Cave Spiders eat more mobs");
         this.FROG_TRANSFORM_ENABLED = buildBoolean(builder, "FROG_TRANSFORM_ENABLED", " ", true, "Frogs and Rain Frogs can be converted into a Warped Toad");
 
         builder.pop();

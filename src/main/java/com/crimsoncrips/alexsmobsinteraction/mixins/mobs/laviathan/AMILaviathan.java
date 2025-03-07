@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.laviathan;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
-import com.crimsoncrips.alexsmobsinteraction.misc.ManualLootUtil;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.particles.ParticleTypes;
@@ -16,7 +16,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -91,10 +90,11 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
         if (player.getMainHandItem().getItem() instanceof PickaxeItem && laviathan.isObsidian()){
             setRelava(true);
             laviathan.setObsidian(false);
-            this.playSound(SoundEvents.BASALT_BREAK, this.getSoundVolume(), this.getVoicePitch());
-            ManualLootUtil.spawnLoot(AMILootTables.OBSIDIAN_EXTRACT,this,player,0);
+            this.playSound(SoundEvents.WITHER_BREAK_BLOCK, 2, this.getVoicePitch());
+            AMIUtils.spawnLoot(AMILootTables.OBSIDIAN_EXTRACT,laviathan,player,0);
             player.getMainHandItem().hurtAndBreak(1, this, (p_233654_0_) -> {});
-            this.hurt(laviathan.damageSources().generic(),20);
+            this.hurt(laviathan.damageSources().generic(),10);
+            AMIUtils.awardAdvancement(player,"obsidian_extract","extract");
         }
     }
 

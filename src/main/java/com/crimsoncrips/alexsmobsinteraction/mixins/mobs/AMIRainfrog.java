@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIPanicBurrow;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -86,6 +87,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
+                AMIUtils.awardAdvancement(player,"mutate_frog","mutate");
                 gameEvent(GameEvent.ENTITY_INTERACT);
                 this.gameEvent(GameEvent.EAT);
                 this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());

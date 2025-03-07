@@ -6,7 +6,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.stretchy_accumulation.desc"
     },
@@ -16,7 +16,7 @@
       "item": "alexsmobs:tendon_whip",
       "nbt": "{Damage:0}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.stretchy_accumulation"
     }

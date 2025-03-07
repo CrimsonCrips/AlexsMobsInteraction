@@ -1,12 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.server;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
@@ -158,12 +160,12 @@ public class AMInteractionEvents {
         if (livingEntity instanceof EntityElephant elephant){
             if(AlexsMobsInteraction.COMMON_CONFIG.ELEPHANT_TRAMPLE_ENABLED.get()){
                 Iterator<LivingEntity> var4 = level.getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator();
-
                 if (elephant.isVehicle() && elephant.isTame()) {
                     while (var4.hasNext()) {
                         LivingEntity entity = var4.next();
                         if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.0F) {
                             entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 3);
+                            AMIUtils.awardAdvancement(elephant.getFirstPassenger(), "elephant_trample", "trample");
                         }
                     }
                 }
@@ -174,8 +176,9 @@ public class AMInteractionEvents {
 
         if(livingEntity instanceof EntityBananaSlug bananaSlug && AlexsMobsInteraction.COMMON_CONFIG.GOOFY_BANANA_SLIP_ENABLED.get()){
             for (LivingEntity livingEntitys : level.getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
-                if (livingEntitys instanceof Player player) {
+                if (livingEntitys instanceof Player player && !player.isCreative() && player.isAlive()) {
                     player.hurt(AMIDamageTypes.causeBananaSlip(level.registryAccess()),100);
+                    player.playSound(AMISoundRegistry.BANANA_SLIP.get());
                 }
             }
         }
@@ -186,11 +189,6 @@ public class AMInteractionEvents {
             }
         }
 
-        if(livingEntity instanceof EntityCentipedeHead centipede && AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get() && centipede.getTarget() instanceof LivingEntity){
-            if (CuriosCompat.hasLight(centipede.getTarget()) && centipede.getLastHurtByMob() != centipede.getTarget()) {
-                centipede.setTarget(null);
-            }
-        }
 
 
         if(livingEntity instanceof Player player){
@@ -198,13 +196,16 @@ public class AMInteractionEvents {
             BlockState feetBlockstate = player.getBlockStateOn();
 
             if (AlexsMobsInteraction.COMMON_CONFIG.COMBUSTABLE_ENABLED.get() && player.hasEffect(AMEffectRegistry.OILED.get())){
-                if (feetBlockstate.is(Blocks.MAGMA_BLOCK) || feetBlockstate.is(Blocks.CAMPFIRE))
+                if (feetBlockstate.is(Blocks.MAGMA_BLOCK) || feetBlockstate.is(Blocks.CAMPFIRE)) {
                     player.setSecondsOnFire(20);
+                    AMIUtils.awardAdvancement(player,"combustable","combust");
+                }
 
                 if (feetBlockstate.is(Blocks.SOUL_CAMPFIRE)){
                     if (ModList.get().isLoaded("soulfired")) {
                         SoulFiredCompat.setOnFire(player,20);
                     } else player.setSecondsOnFire(20);
+                    AMIUtils.awardAdvancement(player,"combustable","combust");
                 }
 
             }
@@ -212,8 +213,9 @@ public class AMInteractionEvents {
 
 
             if(AlexsMobsInteraction.COMMON_CONFIG.GOOFY_BANANA_SLIP_ENABLED.get()){
-                if (feetBlockstate.is(AMBlockRegistry.BANANA_PEEL.get())){
+                if (feetBlockstate.is(AMBlockRegistry.BANANA_PEEL.get()) && !player.isCreative() && player.isAlive()){
                     player.hurt(AMIDamageTypes.causeBananaSlip(level.registryAccess()),100);
+                    player.playSound(AMISoundRegistry.BANANA_SLIP.get());
                 }
             }
 
@@ -268,6 +270,7 @@ public class AMInteractionEvents {
                 living.setSecondsOnFire(10);
                 player.playSound(SoundEvents.LAVA_POP, 1F, 1F);
                 player.swing(event.getHand());
+                AMIUtils.awardAdvancement(player,"molten_bath","molten");
             }
             if (itemStack.getItem() == AMItemRegistry.POISON_BOTTLE.get() && AlexsMobsInteraction.COMMON_CONFIG.POISONOUS_BATH_ENABLED.get()) {
                 if (!player.isCreative()) itemStack.shrink(1);
@@ -278,6 +281,7 @@ public class AMInteractionEvents {
                 }
                 player.playSound(SoundEvents.FIRE_EXTINGUISH, 1F, 1F);
                 player.swing(event.getHand());
+                AMIUtils.awardAdvancement(player,"poison_bath","poison");
             }
         }
 
@@ -321,20 +325,18 @@ public class AMInteractionEvents {
                     double d2 = random.nextGaussian() * 0.02D;
                     worldIn.addParticle(ParticleTypes.SCULK_SOUL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, d0, d1, d2);
                 }
+                AMIUtils.awardAdvancement(livingEntity, "acclamate", "acclamate");
             }
 
         }
 
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.COCKROACH_CHAMBER_ENABLED.get()){
-            if (blockState.is(AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get()) && !worldIn.isClientSide){
-                if (blockState.getValue(FUNGUS) != 5)
-                    return;
-                if (!(livingEntity.getRandom().nextDouble() < 0.7))
-                    return;
+        if (AlexsMobsInteraction.COMMON_CONFIG.COCKROACH_CHAMBER_ENABLED.get() && blockState.is(AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get()) && !worldIn.isClientSide){
+            if (blockState.getValue(FUNGUS) == 5 && livingEntity.getRandom().nextDouble() < 0.7) {
                 Entity entityToSpawn = (AMEntityRegistry.COCKROACH.get()).spawn((ServerLevel) worldIn, BlockPos.containing(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5), MobSpawnType.MOB_SUMMONED);
                 if (entityToSpawn instanceof EntityCockroach cockroach && worldIn.getRandom().nextDouble() < 0.07)
                     cockroach.setBaby(true);
+                AMIUtils.awardAdvancement(livingEntity,"uncover_roach","uncover");
             }
         }
     }
@@ -382,12 +384,13 @@ public class AMInteractionEvents {
         for (EntityMimicube entity : player.level().getEntitiesOfClass(EntityMimicube.class, player.getBoundingBox().inflate(9))) {
             if (entity != null && entity.getRandom().nextDouble() < 0.8 && entity.getTarget() == player && AlexsMobsInteraction.COMMON_CONFIG.MIMICKRY_ENABLED.get()) {
                 String message = serverChatEvent.getMessage().getString();
-                for (int i = 0;i < 4; i++){
+                for (int i = 0;i < 2; i++){
                     char randomLetter = (char) ('a' + player.getRandom().nextInt(26));
                     message = message.replaceAll(String.valueOf(randomLetter), "§k" + randomLetter + randomLetter + "§r");
                 }
 
-                player.sendSystemMessage(Component.nullToEmpty("<" + player.getDisplayName().getString() + "> " + message));
+                AMIUtils.awardAdvancement(player,"mimickry","mimic");
+                player.sendSystemMessage(Component.nullToEmpty("<" + player.getDisplayName().getString() + "?> " + message));
             }
         }
     }
@@ -403,6 +406,7 @@ public class AMInteractionEvents {
                 Entity entityToSpawn = (AMEntityRegistry.COCKROACH.get()).spawn((ServerLevel) level, BlockPos.containing(breakEvent.getPos().getX() + 0.5, breakEvent.getPos().getY() + 1.0, breakEvent.getPos().getZ() + 0.5), MobSpawnType.MOB_SUMMONED);
                 if (entityToSpawn instanceof EntityCockroach cockroach && breakEvent.getLevel().getRandom().nextDouble() < 0.8)
                     cockroach.setBaby(true);
+                AMIUtils.awardAdvancement(breakEvent.getPlayer(),"uncover_roach","uncover");
             }
         }
 
@@ -417,7 +421,7 @@ public class AMInteractionEvents {
                 if (tusklin.isBaby() && entityToSpawn instanceof Zoglin zoglin) zoglin.setBaby(true);
                 tusklin.discard();
             }
-            lightningEvent.getLightning().getCause();
+            AMIUtils.awardAdvancement(lightningEvent.getLightning().getCause(), "zoglinned", "zoglinned");
 
         }
     }

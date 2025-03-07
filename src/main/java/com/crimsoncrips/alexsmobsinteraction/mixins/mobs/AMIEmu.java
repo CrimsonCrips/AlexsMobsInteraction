@@ -3,6 +3,8 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIEggHeldAttack;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIEmuRangedTrigger;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityEmu;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -31,20 +33,11 @@ public abstract class AMIEmu extends Animal {
         EntityEmu emu = (EntityEmu)(Object)this;
 
         if (AlexsMobsInteraction.COMMON_CONFIG.EMU_EGG_ATTACK_ENABLED.get()){
-            emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 5, true, false, (livingEntity) -> {
-                return livingEntity.isHolding( Ingredient.of(AMItemRegistry.EMU_EGG.get())) || livingEntity.isHolding( Ingredient.of(AMItemRegistry.BOILED_EMU_EGG.get()));
-            }));
+            emu.targetSelector.addGoal(6, new AMIEggHeldAttack<>(emu, LivingEntity.class, true));
         }
 
         if (AlexsMobsInteraction.COMMON_CONFIG.RANGED_AGGRO_ENABLED.get()){
-            emu.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 70, true, false, (livingEntity) -> {
-                return livingEntity.isHolding(Ingredient.of(AMIItemTagGenerator.EMU_TRIGGER));
-            }){
-                @Override
-                public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !emu.isBaby();
-                }
-            });
+            emu.targetSelector.addGoal(7, new AMIEmuRangedTrigger(emu, LivingEntity.class,  true));
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
             emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.INSECTS)) {

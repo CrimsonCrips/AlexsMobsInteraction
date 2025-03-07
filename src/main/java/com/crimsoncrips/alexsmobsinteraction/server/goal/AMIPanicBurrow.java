@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.EntityFlutter;
 import com.github.alexthe666.alexsmobs.entity.EntityPollenBall;
 import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
@@ -22,9 +23,17 @@ public class AMIPanicBurrow extends PanicGoal {
 
     protected final EntityRainFrog mob;
 
+
+
     public AMIPanicBurrow(EntityRainFrog pMob, double pSpeedModifier) {
         super(pMob, pSpeedModifier);
         mob = pMob;
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        AMIUtils.awardAdvancement(mob.getLastHurtByMob(),"burrow_away","burrow");
     }
 
     @Override
@@ -32,9 +41,6 @@ public class AMIPanicBurrow extends PanicGoal {
         super.stop();
         if (!isRunning && !this.shouldPanic() && mob.getBlockStateOn().is(Blocks.SAND)) {
             mob.setBurrowed(true);
-            if (mob.getRandom().nextDouble() < 0.9 && mob.getLastHurtByMob() instanceof Mob mob){
-                mob.setTarget(null);
-            }
         }
     }
 }

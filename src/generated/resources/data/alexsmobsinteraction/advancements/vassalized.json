@@ -6,16 +6,16 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.vassalized.desc"
     },
-    "frame": "task",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
       "item": "alexsmobs:cockroach_ootheca"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.vassalized"
     }
@@ -25,5 +25,8 @@
       "vassalize"
     ]
   ],
+  "rewards": {
+    "experience": 300
+  },
   "sends_telemetry_event": true
 }

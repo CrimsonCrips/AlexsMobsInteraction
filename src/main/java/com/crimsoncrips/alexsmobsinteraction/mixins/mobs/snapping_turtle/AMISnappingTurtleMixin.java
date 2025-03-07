@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.snapping_turtle;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
@@ -16,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -110,6 +112,7 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBaseIn
             if (randomSource.nextDouble() < 0.05) {
                 this.setMoss(this.getMoss() + 1);
             }
+            AMIUtils.awardAdvancement(pPlayer,"moss_propogation","propogate");
         }
         
         return super.mobInteract(pPlayer, pHand);
@@ -153,6 +156,14 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBaseIn
             setDaySleeping(!awake);
 
         }
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (pSource.getEntity() instanceof Player player){
+            AMIUtils.awardAdvancement(player,"interupt_dormancy","interupt");
+        }
+        return super.hurt(pSource, pAmount);
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 5))

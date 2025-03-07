@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
@@ -37,13 +38,15 @@ public class AMIGuster extends Mob {
 
     @WrapOperation(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(DDD)V"))
     private void aiStep(Entity instance, double pX, double pY, double pZ, Operation<Void> original, @Local Entity lifted,@Local(ordinal = 1) float resist,@Local(ordinal = 2) double d0,@Local(ordinal = 3) double d1) {
-        if(AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get() && lifted instanceof LivingEntity living && !living.hasEffect(AMIEffects.GUSTING.get())){
+        if(lifted instanceof LivingEntity living && (!living.hasEffect(AMIEffects.GUSTING.get()) || !AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get())){
             if (lifted instanceof Player player && AlexsMobsInteraction.COMMON_CONFIG.GUSTER_WEIGHT_ENABLED.get()) {
-                int lift = player.getArmorValue();
-                lifted(lift, player, d0, d1, resist);
+                int armor = player.getArmorValue();
+                lifted(armor, player, d0, d1, resist);
             } else {
                 original.call(instance,pX,pY,pZ);
             }
+        } else if (lifted instanceof LivingEntity living && living.hasEffect(AMIEffects.GUSTING.get())){
+            AMIUtils.awardAdvancement(living,"sand_weaver","weave");
         }
     }
 
@@ -52,10 +55,13 @@ public class AMIGuster extends Mob {
         return !AlexsMobsInteraction.COMMON_CONFIG.GUSTER_PROJECTILE_PROT_ENABLED.get();
     }
 
-    public void lifted(int lift,Player lifted, double d0,double d1,float resist){
-        float multiplier = 0.1f - lift / 3.0f;
+    public void lifted(int armor,Player lifted, double d0,double d1,float resist){
+        float multiplier = 0.1f - armor / 3.0f;
         multiplier = Math.max(multiplier, 0.0f);
         lifted.setDeltaMovement(d0, multiplier * resist, d1);
+        if (armor >= 20){
+            AMIUtils.awardAdvancement(lifted,"weight_lifting","lift");
+        }
     }
 
 }

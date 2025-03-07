@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
 import com.github.alexthe666.alexsmobs.entity.EntityPotoo;
@@ -56,6 +57,7 @@ public abstract class AMIPotoo extends Animal {
                     double d2 = randomSource.nextGaussian() * 0.02D;
                     player.level().addParticle(ParticleTypes.END_ROD, player.getRandomX(1.0D), player.getRandomY() + 0.3D, player.getRandomZ(1.0D), d0, d1, d2);
                 }
+                AMIUtils.awardAdvancement(player,"potoo_vision","vision");
             }
         }
     }

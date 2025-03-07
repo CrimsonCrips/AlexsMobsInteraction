@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -24,6 +25,7 @@ public abstract class AMIFishingRodMixin  {
             if (!pPlayer.isCreative()) {
                 pPlayer.getOffhandItem().shrink(1);
             }
+            AMIUtils.awardAdvancement(pPlayer,"maggot_fishing","fish");
             j = j + 30;
         }
         pLevel.addFreshEntity(new FishingHook(pPlayer, pLevel, j, k));

@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.skelewag;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISkelewagCircleGoal;
@@ -24,6 +25,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -72,8 +74,16 @@ public abstract class AMISkelewag extends Monster {
     }
 
     @Override
+    public void die(DamageSource pDamageSource) {
+        if ((getVariant() == 3 || getVariant() == 2) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get()){
+            AMIUtils.awardAdvancement(pDamageSource.getEntity(), "kill_withered_skelewag", "kill");
+        }
+        super.die(pDamageSource);
+    }
+
+    @Override
     public boolean fireImmune() {
-        return getVariant() == 3 || getVariant() == 2;
+        return (getVariant() == 3 || getVariant() == 2) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get();
     }
 
     @Override
@@ -136,7 +146,7 @@ public abstract class AMISkelewag extends Monster {
 
     @Inject(method = "canSkelewagSpawn", at = @At("HEAD"),remap = false, cancellable = true)
     private static void alexsMobsInteraction$canSkelewagSpawn(EntityType<EntitySkelewag> type, ServerLevelAccessor levelAccessor, MobSpawnType p_32352_, BlockPos below, RandomSource random, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(levelAccessor.getDifficulty() != Difficulty.PEACEFUL && (p_32352_ == MobSpawnType.SPAWNER || (random.nextInt(40) == 0 && (levelAccessor.getFluidState(below).is(FluidTags.WATER) && isDarkEnoughToSpawn(levelAccessor, below, random)) || (levelAccessor.getFluidState(below).is(FluidTags.LAVA) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get() && random.nextInt(40  * 4) == 0))));
+        cir.setReturnValue(levelAccessor.getDifficulty() != Difficulty.PEACEFUL && (p_32352_ == MobSpawnType.SPAWNER || (random.nextInt(40) == 0 && (levelAccessor.getFluidState(below).is(FluidTags.WATER) && isDarkEnoughToSpawn(levelAccessor, below, random)) || (levelAccessor.getFluidState(below).is(FluidTags.LAVA) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get() && random.nextInt(40) == 0))));
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 1))

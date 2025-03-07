@@ -3,11 +3,10 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.grizzly_bear;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
-import com.crimsoncrips.alexsmobsinteraction.misc.ManualLootUtil;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIGrizzlyBearInterface;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIGrizzlyScavenge;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -17,7 +16,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -66,7 +64,7 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
             });
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.STORED_HUNGER_ENABLED.get()) {
-            grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
+            grizzlyBear.goalSelector.addGoal(8, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get()){
             grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 500, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){
@@ -114,7 +112,6 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
         } else {
             setNoHoney(getNoHoney() + 1);
         }
-        System.out.println(getNoHoney());
     }
 
     @Inject(method = "mobInteract", at = @At("TAIL"))
@@ -122,12 +119,12 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
         ItemStack itemStack = player.getItemInHand(hand);
         if (AlexsMobsInteraction.COMMON_CONFIG.BRUSHED_ENABLED.get() && itemStack.getItem() instanceof BrushItem && !this.level().isClientSide && this.isHoneyed()) {
             if (!player.isCreative()) {
-                itemStack.hurtAndBreak(8, player, (p_233654_0_) -> {
+                itemStack.hurtAndBreak(15, player, (p_233654_0_) -> {
                 });
             }
-            ManualLootUtil.spawnLoot(AMILootTables.GRIZZLY_BRUSH,this,player,0);
+            AMIUtils.spawnLoot(AMILootTables.GRIZZLY_BRUSH,this,player,0);
             this.playSound(SoundEvents.BRUSH_GENERIC, 1, this.getVoicePitch());
-
+            AMIUtils.awardAdvancement(player,"brushed","brushed");
         }
     }
 

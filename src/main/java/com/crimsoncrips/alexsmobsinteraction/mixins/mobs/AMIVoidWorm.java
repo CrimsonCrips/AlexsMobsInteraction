@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -95,6 +96,7 @@ public abstract class AMIVoidWorm extends Monster {
 
             if (damageTaken > 30) {
                 if (this.getY() > -50) {
+                    AMIUtils.awardAdvancement(getLastHurtByMob(), "voidworm_stun", "stun");
                     setStunned(true);
                 }
                 damageTaken = 0;

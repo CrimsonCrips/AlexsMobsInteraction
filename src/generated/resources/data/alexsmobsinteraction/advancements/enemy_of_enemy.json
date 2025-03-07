@@ -6,7 +6,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.alexsmobsinteraction.enemy_of_enemy.desc"
     },
@@ -16,7 +16,7 @@
       "item": "alexsmobs:unsettling_kimono",
       "nbt": "{Damage:0}"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.alexsmobsinteraction.enemy_of_enemy"
     }

@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.NuclearBombEntity;
@@ -108,6 +109,7 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
                             shiftBombed = true;
                             bomb.level().addFreshEntity(bomb);
                             bomb.setPos(this.position().subtract(0,-1.5,0));
+                            AMIUtils.awardAdvancement(player,"bird_bomb","bomb");
                             itemEntity.discard();
                         }
                     }

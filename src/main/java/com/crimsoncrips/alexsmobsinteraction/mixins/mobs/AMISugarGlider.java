@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -43,6 +44,7 @@ public abstract class AMISugarGlider extends TamableAnimal {
                 this.playSound(SoundEvents.FOX_EAT, 1, this.getVoicePitch());
                 this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 900, 1));
                 player.swing(hand,true);
+                AMIUtils.awardAdvancement(player, "sugar_rush", "rush");
             }
         }
     }

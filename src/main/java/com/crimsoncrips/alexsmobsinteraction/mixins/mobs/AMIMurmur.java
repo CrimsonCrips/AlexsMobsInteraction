@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -24,9 +25,6 @@ public abstract class AMIMurmur extends Mob {
     }
 
 
-
-
-
     @Inject(method = "hurt", at = @At(value = "HEAD"), cancellable = true)
     private void alexsMobsInteraction$hurt(DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         if (AlexsMobsInteraction.COMMON_CONFIG.MURMUR_REGROW_ENABLED.get()) {
@@ -34,6 +32,11 @@ public abstract class AMIMurmur extends Mob {
         }
     }
 
-
-
+    @Override
+    public void die(DamageSource pDamageSource) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.MURMUR_REGROW_ENABLED.get()){
+            AMIUtils.awardAdvancement(pDamageSource.getEntity(),"reheaded","reheaded");
+        }
+        super.die(pDamageSource);
+    }
 }

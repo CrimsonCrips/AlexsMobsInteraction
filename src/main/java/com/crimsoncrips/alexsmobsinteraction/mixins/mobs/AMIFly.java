@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIAvoidBlockGoal;
@@ -65,6 +66,7 @@ public class AMIFly extends Mob implements TransformingEntities {
                 this.gameEvent(GameEvent.EAT);
                 this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
                 setTransforming(true);
+                AMIUtils.awardAdvancement(player, "fly_transform", "fly");
             }
         }
 

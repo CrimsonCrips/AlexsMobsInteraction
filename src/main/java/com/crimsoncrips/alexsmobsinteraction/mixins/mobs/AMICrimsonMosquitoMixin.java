@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFungusBonemeal;
 import com.github.alexthe666.alexsmobs.entity.EntityAnteater;
@@ -84,6 +85,7 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
                 this.playSound(SoundEvents.GENERIC_EAT, 1, this.getVoicePitch());
                 this.setSick(true);
                 player.swing(hand,true);
+                AMIUtils.awardAdvancement(player, "mutate_mosquito", "mutate");
             }
         }
     }

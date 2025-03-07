@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIServerConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMITargetFood;
 import com.github.alexthe666.alexsmobs.entity.EntityCatfish;
@@ -54,7 +55,8 @@ public abstract class AMICatfish extends WaterAnimal {
     private void alexsmobsinteraction$hurt(DamageSource source, float f, CallbackInfoReturnable<Boolean> cir) {
         boolean prev = super.hurt(source, f);
         if(prev && source.getDirectEntity() instanceof LivingEntity living && AlexsMobsInteraction.COMMON_CONFIG.CATFISH_VENOM_ENABLED.get() && getRandom().nextDouble() < 0.4){
-            living.addEffect(new MobEffectInstance(MobEffects.POISON, 40 * getCatfishSize()));
+            living.addEffect(new MobEffectInstance(MobEffects.POISON, 100 * getCatfishSize()));
+            AMIUtils.awardAdvancement(living,"venomous_cat","venom");
         }
     }
 

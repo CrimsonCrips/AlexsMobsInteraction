@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cockroach;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowAsmon;
@@ -186,6 +187,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
             }
             if (!level().isClientSide){
                 setGod(true);
+                AMIUtils.awardAdvancement(player, "asmongold", "asmon");
                 
                 cockroach.setCustomName(Component.nullToEmpty("Asmongold"));
                 cockroach.getAttribute(Attributes.ARMOR).setBaseValue(10F);
@@ -196,12 +198,17 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
                 cockroach.setAge(0);
                 cockroach.setPersistenceRequired();
 
+                int vasalAmount = 0;
                 for (EntityCockroach nearRoaches : cockroach.level().getEntitiesOfClass(EntityCockroach.class, this.getBoundingBox().inflate(10))) {
                     AsmonRoach myAccessor = (AsmonRoach) nearRoaches;
                     if (nearRoaches != cockroach && !myAccessor.isGod() && myAccessor.getWorshiping() == null) {
                         myAccessor.setWorshippingUUID(cockroach.getUUID());
                         nearRoaches.setCustomName(Component.nullToEmpty("Servant"));
+                        vasalAmount++;
                     }
+                }
+                if (vasalAmount >= 20){
+                    AMIUtils.awardAdvancement(player, "vassalized", "vassalize");
                 }
             }
             player.swing(hand);

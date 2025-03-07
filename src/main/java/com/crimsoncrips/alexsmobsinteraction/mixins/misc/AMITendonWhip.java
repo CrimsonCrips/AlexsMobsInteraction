@@ -1,8 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
+import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityTendonSegment;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,17 +40,17 @@ public abstract class AMITendonWhip extends Entity {
             if (creator instanceof Player player && player.getMainHandItem().getEnchantmentLevel(AMIEnchantmentRegistry.STRETCHY_ACCUMULATION.get()) > 0) {
 
                 Vec3 creatorPos = creator.position();
-
-                List<ItemEntity> items = this.level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(2));
-                for(ItemEntity item : items) {
-                    item.setPos(creatorPos);
+                for (Entity entity : tendonSegment.level().getEntitiesOfClass(Entity.class, tendonSegment.getBoundingBox().inflate(2, 2, 2))) {
+                    if(entity instanceof ExperienceOrb || entity instanceof ItemEntity){
+                        entity.setPos(creatorPos);
+                        if (entity instanceof ItemEntity item){
+                            item.setPickUpDelay(0);
+                        }
+                        AMIUtils.awardAdvancement(player, "stretchy_accumulation", "stretch");
+                    }
                 }
 
-                List<ExperienceOrb> xp = this.level().getEntitiesOfClass(ExperienceOrb.class, getBoundingBox().inflate(2));
 
-                for(ExperienceOrb xpOrb : xp) {
-                    xpOrb.setPos(creatorPos);
-                }
             }
 
         }

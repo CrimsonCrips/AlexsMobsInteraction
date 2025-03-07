@@ -43,7 +43,6 @@ public abstract class AMIMurmurBody extends Mob {
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityMurmur;getHead()Lnet/minecraft/world/entity/Entity;"), cancellable = true)
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        System.out.println(regrowTime);
         if(AlexsMobsInteraction.COMMON_CONFIG.MURMUR_REGROW_ENABLED.get() && getHead() == null && regrowTime <= 200){
             ci.cancel();
             regrowTime++;

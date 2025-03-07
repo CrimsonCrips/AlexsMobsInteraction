@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -8,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -31,6 +33,14 @@ public class AMIStraddlerMixin extends Mob {
     private static final EntityDataAccessor<Integer> SHOOTCOOLDOWN;
 
     private static final EntityDataAccessor<Integer> SHOOTSHOTS;
+
+    @Override
+    public void die(DamageSource pDamageSource) {
+        if (this.getShootShots() == 0){
+            AMIUtils.awardAdvancement(pDamageSource.getEntity(), "rearming_kill", "rearm");
+        }
+        super.die(pDamageSource);
+    }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){

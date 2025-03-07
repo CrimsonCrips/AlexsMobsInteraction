@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -35,6 +36,7 @@ public class AMIGusting extends MobEffect {
         Level level = entity.level();
         if (!AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get())
             return;
+        AMIUtils.awardAdvancement(entity,"gusting","gusting");
         if (entity.getRandom().nextDouble() < 0.5){
             for (int j = 0; j < 4; ++j) {
                 float f1 = (entity.getRandom().nextFloat() * 2.0F - 1.0F) * entity.getBbWidth() * 0.95F;

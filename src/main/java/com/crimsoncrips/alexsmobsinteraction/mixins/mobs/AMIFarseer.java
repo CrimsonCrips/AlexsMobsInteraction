@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIFarseerEffects;
 import com.github.alexthe666.alexsmobs.entity.EntityFarseer;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -42,6 +43,7 @@ public class AMIFarseer extends Mob {
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (getTarget() instanceof Player player && ((AMIFarseerEffects)player).getFarseerTime() == 0){
             ((AMIFarseerEffects)player).setFarseerTime(100);
+            AMIUtils.awardAdvancement(player,"alterred","alter");
         }
     }
 

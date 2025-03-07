@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.BlockPos;
@@ -70,6 +71,7 @@ public class AMIFrog extends Mob implements TransformingEntities {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
+                AMIUtils.awardAdvancement(player,"mutate_frog","mutate");
                 gameEvent(GameEvent.ENTITY_INTERACT);
                 this.gameEvent(GameEvent.EAT);
                 this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());

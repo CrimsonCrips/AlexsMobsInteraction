@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -99,6 +100,7 @@ public class AMISkreeching extends MobEffect {
                         warden.addAdditionalSaveData(emptyNbt);
                         emptyNbt.putString("DeathLootTable", BuiltInLootTables.EMPTY.toString());
                         warden.skipDropExperience();
+                        AMIUtils.awardAdvancement(entity, "day_of_judgement", "judgement");
                     }
                 }
             }

@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
-import com.crimsoncrips.alexsmobsinteraction.misc.ManualLootUtil;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.EntityBananaSlug;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -37,9 +37,10 @@ public abstract class AMIBananaSlug extends Animal {
                 });
             }
             pPlayer.swing(pHand,true);
-            ManualLootUtil.spawnLoot(AMILootTables.BANANA_SHEAR,this,pPlayer,0);
+            AMIUtils.spawnLoot(AMILootTables.BANANA_SHEAR,this,pPlayer,0);
             this.playSound(SoundEvents.SHEEP_SHEAR, 1, this.getVoicePitch());
             this.discard();
+            AMIUtils.awardAdvancement(pPlayer,"banana_shear","banana");
         }
 
         return super.mobInteract(pPlayer, pHand);

@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.entity;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
@@ -70,6 +71,7 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
         if (blockstate.is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && world.getBlockState(blockpos.below()).is(AMTagRegistry.LEAFCUTTER_PUPA_USABLE_ON) && AlexsMobsInteraction.COMMON_CONFIG.THROWABLE_PUPI_ENABLED.get()) {
             world.playSound(this, blockpos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!world.isClientSide) {
+                AMIUtils.awardAdvancement(this.getOwner(),"throw_pupi","throw");
                 world.setBlock(blockpos, AMBlockRegistry.LEAFCUTTER_ANTHILL.get().defaultBlockState(), 3);
                 world.setBlock(blockpos.below(), AMBlockRegistry.LEAFCUTTER_ANT_CHAMBER.get().defaultBlockState(), 3);
                 BlockEntity tileentity = world.getBlockEntity(blockpos);
