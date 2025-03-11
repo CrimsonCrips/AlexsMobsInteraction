@@ -336,7 +336,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Skelewag");
         this.SKELEWAG_CIRCLE_ENABLED = buildBoolean(builder, "SKELEWAG_CIRCLE_ENABLED", " ", true, "Skelewag circle their prey like hammerhead sharks");
-        this.WITHERED_SKELEWAG_ENABLED = buildBoolean(builder, "WITHERED_SKELEWAG_ENABLED", " ", true, "Withered variants of skelewag that spawn in the nether");
+        this.WITHERED_SKELEWAG_ENABLED = buildBoolean(builder, "WITHERED_SKELEWAG_ENABLED", " ", true, "Withered Variant of Skelewag that can be made with coal");
 
         builder.pop();
         builder.push("Skreecher");

@@ -37,7 +37,7 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && (((AMIGrizzlyBearInterface)grizzlyBear).getNoHoney() >= 10000 || !AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get());
+        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && (((AMIGrizzlyBearInterface)grizzlyBear).getNoHoney() >= 2000 || !AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get());
     }
 
     @Override
@@ -120,6 +120,6 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
     }
 
     protected int nextStartTick(PathfinderMob mob) {
-        return reducedTickDelay(500 + grizzlyBear.getRandom().nextInt(200));
+        return reducedTickDelay(1 + grizzlyBear.getRandom().nextInt(200));
     }
 }

@@ -64,7 +64,7 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
             });
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.STORED_HUNGER_ENABLED.get()) {
-            grizzlyBear.goalSelector.addGoal(8, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
+            grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get()){
             grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 500, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){

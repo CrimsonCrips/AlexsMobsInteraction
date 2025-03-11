@@ -25,6 +25,8 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -36,6 +38,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -91,46 +95,6 @@ public abstract class AMISkelewag extends Monster {
         return level().getFluidState(pos).is(FluidTags.WATER) || (level().getFluidState(pos).is(FluidTags.LAVA) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get()) ? 10.0F + level.getLightLevelDependentMagicValue(pos) - 0.5F : super.getWalkTargetValue(pos, level());
     }
 
-    @Override
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        EntitySkelewag skelewag = (EntitySkelewag)(Object)this;
-        FluidState fluidState = worldIn.getFluidState(skelewag.getOnPos().below());
-
-        skelewag.setVariant(fluidState.is(FluidTags.LAVA) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get() ? (getRandom().nextFloat() < 0.3F ? 3 : 2) : getRandom().nextFloat() < 0.3F ? 1 : 0);
-
-        if (this.random.nextFloat() < 0.2F && fluidState.is(FluidTags.WATER)) {
-            Drowned drowned = (Drowned)EntityType.DROWNED.create(this.level());
-            drowned.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-            drowned.copyPosition(this);
-            drowned.startRiding(this);
-            worldIn.addFreshEntityWithPassengers(drowned);
-        }
-
-
-        if (fluidState.is(FluidTags.LAVA) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get()) {
-            if (this.random.nextFloat() < 0.4F){
-                ZombifiedPiglin zombifiedPiglin = EntityType.ZOMBIFIED_PIGLIN.create(this.level());
-                zombifiedPiglin.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-                zombifiedPiglin.copyPosition(this);
-                zombifiedPiglin.startRiding(this);
-                worldIn.addFreshEntityWithPassengers(zombifiedPiglin);
-            } else if (this.random.nextFloat() < 0.1F) {
-                WitherSkeleton witherSkeleton = EntityType.WITHER_SKELETON.create(this.level());
-                witherSkeleton.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-                witherSkeleton.copyPosition(this);
-                witherSkeleton.startRiding(this);
-                worldIn.addFreshEntityWithPassengers(witherSkeleton);
-            }
-        }
-
-        if (reason == MobSpawnType.STRUCTURE) {
-            this.restrictTo(this.blockPosition(), 15);
-        }
-
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntitySkelewag skelewag = (EntitySkelewag)(Object)this;
@@ -142,11 +106,6 @@ public abstract class AMISkelewag extends Monster {
                 return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT.get());
             }));
         }
-    }
-
-    @Inject(method = "canSkelewagSpawn", at = @At("HEAD"),remap = false, cancellable = true)
-    private static void alexsMobsInteraction$canSkelewagSpawn(EntityType<EntitySkelewag> type, ServerLevelAccessor levelAccessor, MobSpawnType p_32352_, BlockPos below, RandomSource random, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(levelAccessor.getDifficulty() != Difficulty.PEACEFUL && (p_32352_ == MobSpawnType.SPAWNER || (random.nextInt(40) == 0 && (levelAccessor.getFluidState(below).is(FluidTags.WATER) && isDarkEnoughToSpawn(levelAccessor, below, random)) || (levelAccessor.getFluidState(below).is(FluidTags.LAVA) && AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get() && random.nextInt(40) == 0))));
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 1))
@@ -187,6 +146,25 @@ public abstract class AMISkelewag extends Monster {
             return original || this.isInLava();
         }
         return original;
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemStack = pPlayer.getItemInHand(pHand);
+        if (AlexsMobsInteraction.COMMON_CONFIG.BANANA_SHEAR_ENABLED.get() && itemStack.getItem() instanceof ShearsItem && !pPlayer.level().isClientSide) {
+            if (!pPlayer.isCreative()) {
+                itemStack.hurtAndBreak(1, pPlayer, (p_233654_0_) -> {
+                });
+            }
+            pPlayer.swing(pHand,true);
+            AMIUtils.spawnLoot(AMILootTables.BANANA_SHEAR,this,pPlayer,0);
+            this.playSound(SoundEvents.SHEEP_SHEAR, 1, this.getVoicePitch());
+            this.discard();
+            AMIUtils.awardAdvancement(pPlayer,"banana_shear","banana");
+        }
+
+        return super.mobInteract(pPlayer, pHand);
+
     }
 
 

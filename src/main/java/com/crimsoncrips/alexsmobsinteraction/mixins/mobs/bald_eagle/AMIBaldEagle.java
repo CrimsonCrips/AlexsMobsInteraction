@@ -1,4 +1,4 @@
-package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
+package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.bald_eagle;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
@@ -8,17 +8,15 @@ import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.NuclearBombEntity;
 import com.github.alexthe666.alexsmobs.entity.EntityBaldEagle;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.ModList;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -69,9 +67,11 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
     private void alexsMobsInteraction$shouldHoodedReturn(CallbackInfoReturnable<Boolean> cir) {
         boolean normal = !this.isAlive() || this.isInsidePortal || launchTime > 12000 || this.portalTime > 0 || this.isRemoved();
         boolean bombing = !AlexsMobsInteraction.COMMON_CONFIG.BIRD_BOMBING_ENABLED.get() || !shiftBombed;
+        ItemStack itemStack = getItemInHand(InteractionHand.MAIN_HAND);
+        boolean nuclearBomb = ModList.get().isLoaded("alexscaves") && ACCompat.falconBomb(itemStack);
 
         if (this.getOwner() != null) {
-            normal = !this.getOwner().isAlive() || (this.getOwner().isShiftKeyDown() && bombing && this.getPassengers().isEmpty());
+            normal = !this.getOwner().isAlive() || (this.getOwner().isShiftKeyDown() && bombing && !itemStack.is(Items.TNT) && !nuclearBomb);
         }
         cir.setReturnValue(normal);
     }
@@ -84,35 +84,30 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
                 if ((itemEntity.getItem().is(Items.TNT) || nuclearBomb) && (double) this.distanceTo(over) <= (double) over.getBbWidth() + (double) 4.0F && this.getPassengers().isEmpty()) {
                     this.setTackling(true);
                     if ((double) this.distanceTo(over) <= (double) over.getBbWidth() + (double) 2.0F) {
-                        ItemEntity bomb = new ItemEntity(ITEM, over.level());
-                        bomb.setItem(nuclearBomb ? ACBlockRegistry.NUCLEAR_BOMB.get().asItem().getDefaultInstance() : Items.TNT.getDefaultInstance());
-                        bomb.level().addFreshEntity(bomb);
-                        bomb.setPickUpDelay(500);
-                        bomb.setInvulnerable(true);
-                        bomb.startRiding(this);
+                        this.setItemInHand(InteractionHand.MAIN_HAND,itemEntity.getItem());
+                        setTackling(false);
                         itemEntity.discard();
                     }
                 }
             }
 
-            if (this.getOwner() instanceof Player player && !this.getPassengers().isEmpty() && player.isShiftKeyDown() && !shiftBombed){
-                for(Entity entity : this.getPassengers()){
-                    if(entity instanceof ItemEntity itemEntity){
-                        Entity bomb = null;
-                        if (ModList.get().isLoaded("alexscaves") && ACCompat.falconBomb(itemEntity.getItem())) {
-                            bomb = new NuclearBombEntity(ACEntityRegistry.NUCLEAR_BOMB.get(), this.level());
-                        } else if (itemEntity.getItem().is(Items.TNT)) {
-                            bomb = new PrimedTnt(EntityType.TNT, this.level());
-                        }
+            if (this.getOwner() instanceof Player player && player.isShiftKeyDown() && !shiftBombed){
+                ItemStack itemStack = getItemInHand(InteractionHand.MAIN_HAND);
+                boolean nuclearBomb = ModList.get().isLoaded("alexscaves") && ACCompat.falconBomb(itemStack);
 
-                        if (bomb != null){
-                            shiftBombed = true;
-                            bomb.level().addFreshEntity(bomb);
-                            bomb.setPos(this.position().subtract(0,-1.5,0));
-                            AMIUtils.awardAdvancement(player,"bird_bomb","bomb");
-                            itemEntity.discard();
-                        }
-                    }
+                Entity bomb = null;
+                if (nuclearBomb) {
+                    bomb = new NuclearBombEntity(ACEntityRegistry.NUCLEAR_BOMB.get(), this.level());
+                } else if (itemStack.is(Items.TNT)) {
+                    bomb = new PrimedTnt(EntityType.TNT, this.level());
+                }
+
+                if (bomb != null){
+                    shiftBombed = true;
+                    bomb.level().addFreshEntity(bomb);
+                    bomb.setPos(this.position().subtract(0,-1.5,0));
+                    setItemInHand(InteractionHand.MAIN_HAND,ItemStack.EMPTY);
+                    AMIUtils.awardAdvancement(player,"bird_bomb","bomb");
                 }
             }
         }

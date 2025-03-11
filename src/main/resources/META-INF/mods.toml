@@ -58,7 +58,7 @@ side="BOTH"
 
 [[dependencies."${mod_id}"]]
 modId = "alexscaves"
-mandatory = true
+mandatory = false
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange = "[2.0.2,)"
 ordering = "NONE"

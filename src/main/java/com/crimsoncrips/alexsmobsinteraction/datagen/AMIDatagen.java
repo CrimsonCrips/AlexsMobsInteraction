@@ -3,6 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.datagen;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.advancement.AMIAdvancementProvider;
 import com.crimsoncrips.alexsmobsinteraction.datagen.language.locale.AMIEnglishGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.language.locale.AMIRussiaGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.sounds.AMISoundGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
@@ -31,7 +32,14 @@ public class AMIDatagen {
         generator.addProvider(event.includeClient(), new AMISoundGenerator(output, helper));
         generator.addProvider(event.includeServer(), new AMIAdvancementProvider(output, provider, helper));
         generator.addProvider(event.includeServer(), new AMILootGenerator(output));
+
+        //Lang
         generator.addProvider(event.includeClient(), new AMIEnglishGenerator(output));
+        generator.addProvider(event.includeClient(), new AMIRussiaGenerator(output));
+
+
+
+
         generator.addProvider(event.includeServer(), new AMIEntityTagGenerator(output, provider, helper));
         AMIBlockTagGenerator blocktags = new AMIBlockTagGenerator(output, provider, helper);
         generator.addProvider(event.includeServer(), blocktags);
