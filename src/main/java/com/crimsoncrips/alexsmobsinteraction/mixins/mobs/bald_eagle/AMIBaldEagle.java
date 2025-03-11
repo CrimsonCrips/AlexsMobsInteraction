@@ -71,7 +71,7 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
         boolean nuclearBomb = ModList.get().isLoaded("alexscaves") && ACCompat.falconBomb(itemStack);
 
         if (this.getOwner() != null) {
-            normal = !this.getOwner().isAlive() || (this.getOwner().isShiftKeyDown() && bombing && !itemStack.is(Items.TNT) && !nuclearBomb);
+            normal = this.isDeadOrDying() || this.getOwner().isDeadOrDying() || (this.getOwner().isShiftKeyDown() && bombing && !itemStack.is(Items.TNT) && !nuclearBomb);
         }
         cir.setReturnValue(normal);
     }
