@@ -58,7 +58,6 @@ public class AlexsMobsInteraction {
         AMIEffects.EFFECT_REGISTER.register(modEventBus);
         AMIEffects.POTION_REGISTER.register(modEventBus);
         AMIItemRegistry.DEF_REG.register(modEventBus);
-        MinecraftForge.EVENT_BUS.register(new AMIClientEvents());
         AMISoundRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(AMIDatagen::generateData);
 
