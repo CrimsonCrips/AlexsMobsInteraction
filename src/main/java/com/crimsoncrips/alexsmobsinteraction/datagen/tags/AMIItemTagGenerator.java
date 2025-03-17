@@ -56,6 +56,7 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 				AMItemRegistry.LAVA_BOTTLE.get(),
 				Items.MAGMA_CREAM
 		);
+
 	}
 
 	@Override

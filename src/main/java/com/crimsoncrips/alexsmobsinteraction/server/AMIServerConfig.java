@@ -157,7 +157,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Bald Eagle");
         this.EAGLE_CANNIBALIZE_ENABLED = buildBoolean(builder, "EAGLE_CANNIBALIZE_ENABLED", " ", true, "Bald Eagle will rarely cannibalize weaker eagles");
-        builder.comment("--Compatibiility with Alexs Caves--");
+        builder.comment("--Compatibility with Alexs Caves--");
         this.BIRD_BOMBING_ENABLED = buildBoolean(builder, "BIRD_BOMBING_ENABLED", " ", true, "Bald Eagle can bomb targetted areas when being controlled");
 
         builder.pop();

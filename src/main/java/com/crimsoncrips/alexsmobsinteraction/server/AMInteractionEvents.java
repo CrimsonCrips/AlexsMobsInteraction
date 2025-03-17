@@ -454,21 +454,6 @@ public class AMInteractionEvents {
     }
 
 
-    public static Entity getClosestLookingAtEntityFor(Level level, Player player, double dist) {
-        Entity closestValid = null;
-        Vec3 playerEyes = player.getEyePosition(1.0F);
-        HitResult hitresult = level.clip(new ClipContext(playerEyes, playerEyes.add(player.getLookAngle().scale(dist)), ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, player));
-        Vec3 at = hitresult.getLocation();
-        AABB around = new AABB(at.add(-0.5F, -0.5F, -0.5F), at.add(0.5F, 0.5F, 0.5F)).inflate(15);
-        for (Entity entity : level.getEntitiesOfClass(LivingEntity.class, around.inflate(dist))) {
-            if (!entity.equals(player) && !player.isAlliedTo(entity) && !entity.isAlliedTo(player) && entity instanceof Mob && player.hasLineOfSight(entity)) {
-                if (closestValid == null || entity.distanceToSqr(at) < closestValid.distanceToSqr(at)) {
-                    closestValid = entity;
-                }
-            }
-        }
-        return closestValid;
-    }
 
 
 

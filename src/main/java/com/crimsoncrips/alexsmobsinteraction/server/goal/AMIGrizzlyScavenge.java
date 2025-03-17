@@ -120,6 +120,6 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
     }
 
     protected int nextStartTick(PathfinderMob mob) {
-        return reducedTickDelay(1 + grizzlyBear.getRandom().nextInt(200));
+        return reducedTickDelay(500 + grizzlyBear.getRandom().nextInt(200));
     }
 }
