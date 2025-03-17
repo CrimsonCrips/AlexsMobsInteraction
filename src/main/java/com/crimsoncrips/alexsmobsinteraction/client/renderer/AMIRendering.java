@@ -3,9 +3,14 @@ package com.crimsoncrips.alexsmobsinteraction.client.renderer;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIClientConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,6 +54,12 @@ public class AMIRendering {
 
 			renderFarseerText(graphics, screenWidth,screenHeight);
 		});
+
+		event.registerAbove(VanillaGuiOverlay.VIGNETTE.id(), "vignetting", (gui, graphics, partialTick, screenWidth, screenHeight) -> {
+
+
+		});
+
 	}
 
 	public static void renderFarseerText(GuiGraphics graphics, int screenWidth, int screenHeight) {

@@ -1,20 +1,27 @@
 package com.crimsoncrips.alexsmobsinteraction.client.event;
 
+import com.crimsoncrips.alexsmobsinteraction.AMIClientProxy;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
 import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class AMIClientEvents {
-
 
 
     private double vibrate;

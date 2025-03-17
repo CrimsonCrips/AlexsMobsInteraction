@@ -80,11 +80,6 @@ public abstract class AMICrocodileMixin extends TamableAnimal implements AMIBase
         }
     }
 
-    @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 10))
-    private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.CROCODILE_BONKING_ENABLED.get();
-    }
-
     @Override
     public boolean isWally() {
         String name = this.getName().getString().toLowerCase();

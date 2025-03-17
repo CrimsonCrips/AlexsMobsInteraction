@@ -102,6 +102,15 @@ public class AMInteractionEvents {
         }
     }
 
+    @SubscribeEvent
+    public void playerLogin(PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent){
+        if (AlexsMobsInteraction.CLIENT_CONFIG.EFFECTS_REMINDER_ENABLED.get() && AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get()) {
+           playerLoggedInEvent.getEntity().displayClientMessage(Component.nullToEmpty("BEWARE! BEWARE! BEWARE! BEWARE!"),false);
+           playerLoggedInEvent.getEntity().displayClientMessage(Component.nullToEmpty("THERE IS PHOTOSENSITIVE EFFECTS THE FARSEER DOES WHEN TARGETTING A PLAYER,IF YOU ARE PHOTOSENSITIVE PLEASE EITHER DISABLE THE ENTIRE FEATURE IN THE COMMON CONFIG, OR DISABLE THE PHOTOSENSITIVE EFFECTS IN THE CLIENT CONFIG SPECIFICALLY"),false);
+           playerLoggedInEvent.getEntity().displayClientMessage(Component.nullToEmpty("IF YOU DONT WISH TO SEE THIS MESSAGE ANYMORE DURING LOGIN, DISABLE IT IN CLIENT CONFIG"),false);
+
+        }
+    }
 
     @SubscribeEvent
     public void mobTickEvents(LivingEvent.LivingTickEvent livingTickEvent){
