@@ -50,14 +50,18 @@ public class AMIRendering {
 			renderFarseerText(graphics, screenWidth,screenHeight);
 		});
 
+		final ResourceLocation farseerNoise = AlexsMobsInteraction.prefix("textures/gui/farseer_static.png");
 		event.registerAbove(VanillaGuiOverlay.VIGNETTE.id(), "farseer_effects", (gui, graphics, partialTick, screenWidth, screenHeight) -> {
-
+			RenderSystem.setShaderTexture(0, farseerNoise);
 
 			RenderSystem.disableDepthTest();
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();
 			RenderSystem.defaultBlendFunc();
+
 			RenderSystem.setShader(() -> AMIShaders.FARSEER_EFFECTS);
+			AMIShaders.FARSEER_EFFECTS.GAME_TIME.set(RenderSystem.getShaderGameTime());
+
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
 			Tesselator tesselator = Tesselator.getInstance();
@@ -67,6 +71,7 @@ public class AMIRendering {
 			bufferbuilder.vertex(screenWidth, screenHeight, -90.0D).uv(1.0F, 1.0F).endVertex();
 			bufferbuilder.vertex(screenWidth, 0.0D, -90.0D).uv(1.0F, 0.0F).endVertex();
 			bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(0.0F, 0.0F).endVertex();
+
 			tesselator.end();
 			RenderSystem.depthMask(true);
 			RenderSystem.enableDepthTest();

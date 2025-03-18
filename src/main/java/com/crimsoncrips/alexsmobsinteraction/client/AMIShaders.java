@@ -16,7 +16,7 @@ public class AMIShaders {
 	public static void init(IEventBus bus) {
 		bus.addListener((Consumer<RegisterShadersEvent>) event -> {
 			try {
-				event.registerShader(new ShaderInstance(event.getResourceProvider(), AlexsMobsInteraction.prefix("farseer_effects/farseer_effects"), DefaultVertexFormat.BLOCK),
+				event.registerShader(new ShaderInstance(event.getResourceProvider(), AlexsMobsInteraction.prefix("farseer_effects/farseer_effects"), DefaultVertexFormat.POSITION_TEX),
 						shader -> FARSEER_EFFECTS = shader);
 
 			} catch (IOException e) {
