@@ -9,6 +9,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.UUID;
+
 import static com.github.alexthe666.alexsmobs.AlexsMobs.MODID;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -18,5 +20,15 @@ public class AMICommonProxy {
     }
 
     public void init() {
+    }
+
+    public void removeBossBarRender(UUID bossBar) {
+    }
+
+    public void setBossBarRender(UUID bossBar, int renderType) {
+    }
+
+    public Player getClientSidePlayer() {
+        return null;
     }
 }

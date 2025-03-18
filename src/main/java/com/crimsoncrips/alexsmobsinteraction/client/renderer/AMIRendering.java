@@ -1,28 +1,23 @@
 package com.crimsoncrips.alexsmobsinteraction.client.renderer;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.client.AMIClientConfig;
+import com.crimsoncrips.alexsmobsinteraction.client.AMIShaders;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
 import static java.lang.Math.abs;
-import static java.lang.Math.random;
 
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AMIRendering {
@@ -55,7 +50,28 @@ public class AMIRendering {
 			renderFarseerText(graphics, screenWidth,screenHeight);
 		});
 
-		event.registerAbove(VanillaGuiOverlay.VIGNETTE.id(), "vignetting", (gui, graphics, partialTick, screenWidth, screenHeight) -> {
+		event.registerAbove(VanillaGuiOverlay.VIGNETTE.id(), "farseer_effects", (gui, graphics, partialTick, screenWidth, screenHeight) -> {
+
+
+			RenderSystem.disableDepthTest();
+			RenderSystem.depthMask(false);
+			RenderSystem.enableBlend();
+			RenderSystem.defaultBlendFunc();
+			RenderSystem.setShader(() -> AMIShaders.FARSEER_EFFECTS);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+
+			Tesselator tesselator = Tesselator.getInstance();
+			BufferBuilder bufferbuilder = tesselator.getBuilder();
+			bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			bufferbuilder.vertex(0.0D, screenHeight, -90.0D).uv(0.0F, 1.0F).endVertex();
+			bufferbuilder.vertex(screenWidth, screenHeight, -90.0D).uv(1.0F, 1.0F).endVertex();
+			bufferbuilder.vertex(screenWidth, 0.0D, -90.0D).uv(1.0F, 0.0F).endVertex();
+			bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(0.0F, 0.0F).endVertex();
+			tesselator.end();
+			RenderSystem.depthMask(true);
+			RenderSystem.enableDepthTest();
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
 
 
 		});

@@ -37,7 +37,8 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && (((AMIGrizzlyBearInterface)grizzlyBear).getNoHoney() >= 2000 || !AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get());
+        AMIGrizzlyBearInterface beatInterface = (((AMIGrizzlyBearInterface)grizzlyBear));
+        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && (beatInterface.getNoHoney() >= 2000 || !AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get());
     }
 
     @Override

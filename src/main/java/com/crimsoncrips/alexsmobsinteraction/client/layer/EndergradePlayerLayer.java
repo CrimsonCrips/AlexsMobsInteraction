@@ -30,6 +30,7 @@ public class EndergradePlayerLayer extends RenderLayer<AbstractClientPlayer, Pla
 
             VertexConsumer vertexconsumer = multiBufferSource.getBuffer(getParentModel().renderType(ENDEGRADE_LAYER));
             entitymodel.setupAnim(abstractClientPlayer, v, v1, v3, v4, v5);
+            poseStack.scale(1.1F,1.1F,1.1F);
             entitymodel.renderToBuffer(poseStack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 0.4F);
         }
     }

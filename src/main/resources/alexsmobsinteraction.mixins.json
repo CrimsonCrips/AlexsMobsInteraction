@@ -112,6 +112,7 @@
     "mobs.capuchin.AMIRenderTossedItemMixin",
     "mobs.cockroach.AMICockroachRenderMixin",
     "mobs.crocodile.AMICrocodileRenderMixin",
+    "mobs.grizzly_bear.AMIGrizzlyBearRenderer",
     "mobs.kangaroo.AMIKangarooItemLayerMixin",
     "mobs.kangaroo.AMIKangarooRenderMixin",
     "mobs.laviathan.AMILaviathanLayerRenderingMixin",
