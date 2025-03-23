@@ -1,11 +1,15 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.kangaroo;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityKangaroo;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.TamableAnimal;
@@ -36,6 +40,8 @@ public abstract class AMIKangaroo extends TamableAnimal {
 
     @Shadow protected abstract void updateClientInventory();
 
+    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slotIn);
+
     private static final EntityDataAccessor<Integer> TOTEM_INDEX = SynchedEntityData.defineId(EntityKangaroo.class, EntityDataSerializers.INT);
 
 
@@ -43,21 +49,23 @@ public abstract class AMIKangaroo extends TamableAnimal {
         super(pEntityType, pLevel);
     }
 
-    @Inject(method = "getItemBySlot", at = @At("HEAD"), cancellable = true)
-    private void registerGoals(EquipmentSlot slotIn, CallbackInfoReturnable<ItemStack> cir) {
-        cir.cancel();
 
-        if (slotIn == EquipmentSlot.MAINHAND) {
-            cir.setReturnValue(getItemInHand(slotIn));
-        } else if (slotIn == EquipmentSlot.OFFHAND) {
-            cir.setReturnValue(getItemInOffHand(slotIn));
-        } else cir.setReturnValue(getArmorInSlot(slotIn));
 
+    @ModifyReturnValue(method = "getItemBySlot", at = @At("RETURN"))
+    private ItemStack alexsMobsInteraction$getItemBySlot(ItemStack original,@Local EquipmentSlot slot) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.PROPER_ARMAMENTS_ENABLED.get()) {
+            if (slot == EquipmentSlot.MAINHAND) {
+                return getItemInHand(slot);
+            } else if (slot == EquipmentSlot.OFFHAND) {
+                return getItemInOffHand(slot);
+            } else return getArmorInSlot(slot);
+        }
+        return original;
     }
 
     @Inject(method = "resetKangarooSlots", at = @At("TAIL"),remap = false)
     private void registerGoals(CallbackInfo ci) {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide && AlexsMobsInteraction.COMMON_CONFIG.PROPER_ARMAMENTS_ENABLED.get()) {
             int totemIndex = -1;
             for (int i = 0; i < this.kangarooInventory.getContainerSize(); ++i) {
                 ItemStack stack = this.kangarooInventory.getItem(i);

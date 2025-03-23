@@ -21,10 +21,12 @@ public abstract class AMITerrapinRenderMixin extends MobRenderer<EntityTerrapin,
         super(pContext, pModel, pShadowRadius);
     }
 
-    private static final ResourceLocation BLUE_SHELL = new ResourceLocation("alexsmobsinteraction:textures/entity/blue_shell.png");
+    private static final ResourceLocation BLUE_SHELL = new ResourceLocation("alexsmobsinteraction:textures/entity/terrapin/blue_shell.png");
+    private static final ResourceLocation MINE_TURTLE = new ResourceLocation("alexsmobsinteraction:textures/entity/terrapin/mine_turtle.png");
 
     public ResourceLocation getTextureLocation(EntityTerrapin entity) {
-        return ((AMIBaseInterfaces)entity).isBlueKoopa() ? BLUE_SHELL : entity.isKoopa() ? TerrapinTypes.KOOPA.getTexture() : entity.getTurtleType().getTexture();
+        AMIBaseInterfaces amiBaseInterfaces = (AMIBaseInterfaces)entity;
+        return amiBaseInterfaces.isBlueKoopa() ? BLUE_SHELL : amiBaseInterfaces.isMineTurtle() ? MINE_TURTLE : entity.isKoopa() ? TerrapinTypes.KOOPA.getTexture() : entity.getTurtleType().getTexture();
     }
 
 }

@@ -63,3 +63,11 @@ mandatory = false
 versionRange = "[2.0.2,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "jade"
+mandatory = false
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange = "[11.13.1+forge,)"
+ordering = "NONE"
+side = "BOTH"

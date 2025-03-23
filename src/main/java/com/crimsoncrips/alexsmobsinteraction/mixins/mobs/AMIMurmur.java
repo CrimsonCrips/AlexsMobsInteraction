@@ -25,11 +25,13 @@ public abstract class AMIMurmur extends Mob {
     }
 
 
-    @Inject(method = "hurt", at = @At(value = "HEAD"), cancellable = true)
-    private void alexsMobsInteraction$hurt(DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+
+    @ModifyReturnValue(method = "hurt", at = @At("RETURN"))
+    private boolean alexsMobsInteraction$hurt(boolean original,@Local DamageSource source, @Local float damage) {
         if (AlexsMobsInteraction.COMMON_CONFIG.MURMUR_REGROW_ENABLED.get()) {
-            cir.setReturnValue(super.hurt(source,damage));
+            return super.hurt(source,damage);
         }
+        return original;
     }
 
     @Override

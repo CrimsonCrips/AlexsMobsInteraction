@@ -1,10 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.grizzly_bear;
 
-import com.crimsoncrips.alexsmobsinteraction.client.layer.CrocodileHaloLayer;
 import com.crimsoncrips.alexsmobsinteraction.client.layer.UrsaArmorLayer;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIGrizzlyBearInterface;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.GrizzlyExtras;
 import com.github.alexthe666.alexsmobs.client.model.ModelGrizzlyBear;
-import com.github.alexthe666.alexsmobs.client.render.RenderCrocodile;
 import com.github.alexthe666.alexsmobs.client.render.RenderGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -35,6 +33,6 @@ public abstract class AMIGrizzlyBearRenderer extends MobRenderer<EntityGrizzlyBe
     }
 
     public ResourceLocation getTextureLocation(EntityGrizzlyBear entity) {
-        return ((AMIGrizzlyBearInterface)entity).isUrsa() ?  TEXTURE_URSA : (entity.isFreddy() ? TEXTURE_FREDDY : TEXTURE);
+        return ((GrizzlyExtras)entity).isUrsa() ?  TEXTURE_URSA : (entity.isFreddy() ? TEXTURE_FREDDY : TEXTURE);
     }
 }

@@ -7,7 +7,6 @@ import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowAsmon;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISurroundEntity;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCentipedeHead;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -88,8 +87,8 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
             if (ACCompat.toxicCaves(cockroach)){
                 ++conversionTime;
             }
-            if (conversionTime > 160 && !this.level().isClientSide) {
-                ACEntityRegistry.GAMMAROACH.get().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
+            if (conversionTime > 360 && !this.level().isClientSide) {
+                ACCompat.gammaroach().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
                 this.remove(RemovalReason.DISCARDED);
             }
         }

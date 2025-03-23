@@ -8,6 +8,8 @@ public interface AMIBaseInterfaces {
     //Terrapin
     boolean isBlueKoopa();
 
+    boolean isMineTurtle();
+
     //Laviathan
     boolean isRelava();
 
@@ -16,5 +18,8 @@ public interface AMIBaseInterfaces {
 
     //Snapping Turtle
     boolean isDaySleeping();
+
+    //Rattlesnake
+    boolean isWarding();
 
 }

@@ -6,14 +6,15 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class AMIPacketHandler {
     private static final String PROTOCOL_VERSION = "1";
-    public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            AlexsMobsInteraction.prefix("farseer"),
+    private static final String PROTOCOL_VERSION_2 = "2";
+    public static final SimpleChannel FARSEER_ALTER = NetworkRegistry.newSimpleChannel(
+            AlexsMobsInteraction.prefix("farseer_alter"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
     );
 
     public static void init() {
-        INSTANCE.registerMessage(0, FarseerPacket.class, FarseerPacket::encode, FarseerPacket::decode, FarseerPacket::handle);
+        FARSEER_ALTER.registerMessage(0, AlterPacket.class, AlterPacket::encode, AlterPacket::decode, AlterPacket::handle);
     }
 }

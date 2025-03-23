@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIFarseerEffects;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
@@ -54,7 +54,7 @@ public abstract class AMIEffectRenderingInventoryScreenMixin {
 
     public boolean alterGui(){
         if (Minecraft.getInstance().player != null) {
-            return (((AMIFarseerEffects) Minecraft.getInstance().player).getFarseerTime() != 0) && AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get();
+            return (((FarseerFx) Minecraft.getInstance().player).getAlterTime() != 0) && AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get();
         }
         return false;
     }

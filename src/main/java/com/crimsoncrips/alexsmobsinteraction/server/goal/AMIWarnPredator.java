@@ -1,8 +1,10 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityRattlesnake;
 import com.github.alexthe666.alexsmobs.entity.EntityRoadrunner;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
@@ -13,13 +15,9 @@ import java.util.function.Predicate;
 
 public class AMIWarnPredator extends Goal {
     int executionChance = 20;
-    LivingEntity target = null;
+    Entity target = null;
 
     EntityRattlesnake rattlesnake;
-
-    private static final Predicate<LivingEntity> WARNABLE_PREDICATE = (mob) -> {
-        return mob instanceof Player && !((Player) mob).isCreative() && !mob.isSpectator() || mob instanceof EntityRoadrunner || (mob instanceof EntityRattlesnake && AlexsMobsInteraction.COMMON_CONFIG.RATTLESNAKE_TERRITORIAL_ENABLED.get()) ;
-    };
 
     public AMIWarnPredator(EntityRattlesnake rattlesnake) {
         this.rattlesnake = rattlesnake;
@@ -27,15 +25,15 @@ public class AMIWarnPredator extends Goal {
 
     public boolean canUse() {
         if (rattlesnake.getRandom().nextInt(this.executionChance) == 0) {
-            List<LivingEntity> list = rattlesnake.level().getEntitiesOfClass(LivingEntity.class, rattlesnake.getBoundingBox().inflate(5.0, 5.0, 5.0), WARNABLE_PREDICATE);
+            List<LivingEntity> list = rattlesnake.level().getEntitiesOfClass(LivingEntity.class, rattlesnake.getBoundingBox().inflate(5.0F, 5.0F, 5.0F), (living) -> {
+               return living instanceof EntityRattlesnake rattlesnake1 && !((AMIBaseInterfaces)rattlesnake1).isWarding();
+            });
             double d0 = Double.MAX_VALUE;
-            LivingEntity possibleTarget = null;
-            Iterator var7 = list.iterator();
+            Entity possibleTarget = null;
 
-            while(var7.hasNext()) {
-                LivingEntity entity = (LivingEntity) var7.next();
+            for(Entity entity : list) {
                 double d1 = rattlesnake.distanceToSqr(entity);
-                if (!(d1 > d0) && entity != rattlesnake) {
+                if (!(d1 > d0)) {
                     d0 = d1;
                     possibleTarget = entity;
                 }
@@ -49,7 +47,7 @@ public class AMIWarnPredator extends Goal {
     }
 
     public boolean canContinueToUse() {
-        return this.target != null && (double)rattlesnake.distanceTo(this.target) < 5.0 && rattlesnake.getTarget() == null;
+        return this.target != null && (double)rattlesnake.distanceTo(this.target) < 5.0 && rattlesnake.getTarget() == null && ((AMIBaseInterfaces)rattlesnake).isWarding();
     }
 
     public void stop() {

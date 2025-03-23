@@ -2,11 +2,14 @@ package com.crimsoncrips.alexsmobsinteraction.compat;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.NuclearBombEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.mojang.datafixers.types.templates.Sum;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -26,10 +29,11 @@ public class ACCompat {
         return livingEntity.level().getBiome(livingEntity.blockPosition()).is(ACBiomeRegistry.TOXIC_CAVES);
     }
 
-    public static void summonNuke(LivingEntity living){
-        NuclearExplosionEntity explosion = ACEntityRegistry.NUCLEAR_EXPLOSION.get().create(living.level());
-        explosion.copyPosition(living);
-        explosion.setSize(1.75F);
-        living.level().addFreshEntity(explosion);
+    public static Entity nuke(ServerLevel level){
+       return  new NuclearBombEntity(ACEntityRegistry.NUCLEAR_BOMB.get(), level);
+    }
+
+    public static EntityType gammaroach(){
+        return ACEntityRegistry.GAMMAROACH.get();
     }
 }

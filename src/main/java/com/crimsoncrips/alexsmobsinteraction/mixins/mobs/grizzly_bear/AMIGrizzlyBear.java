@@ -5,17 +5,13 @@ import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.UrsaBossEvent;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIGrizzlyBearInterface;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.GrizzlyExtras;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIGrizzlyScavenge;
-import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.server.entity.util.ACBossEvent;
-import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -23,8 +19,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,9 +32,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -55,7 +46,7 @@ import java.util.Objects;
 
 
 @Mixin(EntityGrizzlyBear.class)
-public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInterface {
+public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
 
 
     @Shadow public abstract boolean isHoneyed();
@@ -105,7 +96,7 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
             grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 500, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){
                 @Override
                 public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed() && ((AMIGrizzlyBearInterface)grizzlyBear).getNoHoney() >= 10000;
+                    return super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed() && ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 10000;
                 }
 
                 @Override
@@ -188,7 +179,7 @@ public abstract class AMIGrizzlyBear extends Animal implements AMIGrizzlyBearInt
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void define(CallbackInfo ci) {
         this.entityData.define(NO_HONEY, 0);
-        this.entityData.define(URSA, true);
+        this.entityData.define(URSA, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))

@@ -39,14 +39,14 @@ public abstract class AMITerrapinMixin extends Mob implements AMIBaseInterfaces 
                         AMIUtils.awardAdvancement(player, "stomp", "stomp");
                         terrapin.hurt(player.damageSources().generic(),2);
                     }
-//                    if (AlexsMobsInteraction.COMMON_CONFIG.MINE_TURTLE_ENABLED.get()) {
-//                        if (terrapin.getRandom().nextDouble() < 0.3 && ModList.get().isLoaded("alexscaves")) {
-//                            ACCompat.summonNuke(player);
-//                        } else {
-//                            terrapin.level().explode(this, terrapin.getX() + 1,terrapin.getY() + 2,terrapin.getZ() + 1,3, Level.ExplosionInteraction.BLOCK);
-//                        }
-//                        discard();
-//                    }
+                   // if (AlexsMobsInteraction.COMMON_CONFIG.MINE_TURTLE_ENABLED.get()) {
+                    //    if (terrapin.getRandom().nextDouble() < 0.2 && ModList.get().isLoaded("alexscaves")) {
+                    //        ACCompat.summonNuke(player);
+                     //   } else {
+                     //       terrapin.level().explode(this, terrapin.getX() + 1,terrapin.getY() + 2,terrapin.getZ() + 1,3, Level.ExplosionInteraction.BLOCK);
+                      //  }
+                     //   discard();
+                    //}
                 }
             }
         }
@@ -80,6 +80,16 @@ public abstract class AMITerrapinMixin extends Mob implements AMIBaseInterfaces 
         for (String names : name) {
             return s != null && s.toLowerCase().contains(names) && AlexsMobsInteraction.COMMON_CONFIG.BLUE_SHELL_ENABLED.get();
         }
+        return false;
+    }
+
+    @Override
+    public boolean isMineTurtle() {
+//        String[] name = {"mine turtle","mine","asdf"};
+//        String s = ChatFormatting.stripFormatting(this.getName().getString());
+//        for (String names : name) {
+//            return s != null && s.toLowerCase().contains(names) && AlexsMobsInteraction.COMMON_CONFIG.MINE_TURTLE_ENABLED.get();
+//        }
         return false;
     }
 }

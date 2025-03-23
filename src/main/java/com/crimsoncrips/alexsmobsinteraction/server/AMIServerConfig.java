@@ -73,7 +73,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue MANTIS_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
+    //public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue MOLTEN_BATH_ENABLED;
     public final ForgeConfigSpec.BooleanValue MOSCO_CANNIBALISM_ENABLED;
     public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
@@ -125,6 +125,8 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue BLUE_SHELL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ASMONGOLD_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_HOT_CAT_ENABLED;
+    public final ForgeConfigSpec.BooleanValue PANIC_LAUNCING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue PROPER_ARMAMENTS_ENABLED;
 
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
@@ -256,6 +258,8 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Flying Fish");
         this.WEAVING_WATERS_ENABLED = buildBoolean(builder, "WEAVING_WATERS_ENABLED", " ", true, "Flying Fish Boots's mechanics are changed to be more fluid and based on speed and look angle");
+        this.PANIC_LAUNCING_ENABLED = buildBoolean(builder, "PANIC_LAUNCING_ENABLED", " ", true, "Flying Fish can launch themselves when hurt");
+
         builder.pop();
         builder.push("Frilled Shark");
         this.BLEEDING_HUNGER_ENABLED = buildBoolean(builder, "BLEEDING_HUNGER_ENABLED", " ", true, "Frilled Shark will attack players with exsanguination or low on health");
@@ -276,6 +280,9 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Hummingbird");
         this.POLINATE_DAY_ENABLED = buildBoolean(builder, "POLINATE_DAY_ENABLED", " ", true, "Humming Birds pollinate only in the day");
+        builder.pop();
+        builder.push("Kangaroo");
+        this.PROPER_ARMAMENTS_ENABLED = buildBoolean(builder, "PROPER_ARMAMENTS_ENABLED", " ", true, "Kangaroos can be given totems");
         builder.pop();
         builder.push("Komodo Dragon");
         this.FRIENDLY_KOMODO_ENABLED = buildBoolean(builder, "FRIENDLY_KOMODO_ENABLED", " ", false, "Komodo Dragon is friendly towards players when tamed");
@@ -400,7 +407,7 @@ public class AMIServerConfig {
         this.GOOFY_RAINFROG_SPAWNAGE_ENABLED = buildBoolean(builder, "GOOFY_RAINFROG_SPAWNAGE_ENABLED", " ", false, "April Fools Rain Frog Effects");
         this.GOOFY_CAPUCHIN_BOMB_ENABLED = buildBoolean(builder, "GOOFY_CAPUCHIN_BOMB_ENABLED", " ", false, "April Fools Capuchin Monkey Effects");
         this.GOOFY_STRADDLER_SHOTGUN_ENABLED = buildBoolean(builder, "GOOFY_STRADDLER_SHOTGUN_ENABLED", " ", false, "April Fools Straddler Effects");
-        this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", " ", false, "Mine Turtle");
+//        this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", " ", false, "Mine Turtle");
         this.BOXING_GLOVES_ENABLED = buildBoolean(builder, "BOXING_GLOVES_ENABLED", " ", false, "Boxing Gloves");
         this.GOOFY_HOT_CAT_ENABLED = buildBoolean(builder, "GOOFY_HOT_CAT_ENABLED", " ", false, "Catfish texture changes when hot thing in mouth");
 

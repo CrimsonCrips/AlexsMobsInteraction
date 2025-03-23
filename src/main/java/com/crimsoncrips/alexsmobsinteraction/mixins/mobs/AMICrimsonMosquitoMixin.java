@@ -1,19 +1,22 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIBloodedAttraction;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFungusBonemeal;
-import com.github.alexthe666.alexsmobs.entity.EntityAnteater;
-import com.github.alexthe666.alexsmobs.entity.EntityCosmaw;
-import com.github.alexthe666.alexsmobs.entity.EntityCrimsonMosquito;
-import com.github.alexthe666.alexsmobs.entity.EntityTriops;
+import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
+import com.github.alexthe666.alexsmobs.entity.*;
+import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -56,6 +59,11 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
 
         if (AlexsMobsInteraction.COMMON_CONFIG.FUNGUS_POLLINATE_ENABLED.get()) {
             this.goalSelector.addGoal(2, new AMIFungusBonemeal(crimsonMosquito, 1.1, 10));
+        }
+
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()){
+            this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, Player.class, 10, true, false, (mob) -> !mob.hasEffect(AMEffectRegistry.MOSQUITO_REPELLENT.get())));
+            this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, LivingEntity.class, 30, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.CRIMSON_MOSQUITO_TARGETS)));
         }
     }
 

@@ -39,7 +39,6 @@ public class AMIDatagen {
 
 
 
-
         generator.addProvider(event.includeServer(), new AMIEntityTagGenerator(output, provider, helper));
         AMIBlockTagGenerator blocktags = new AMIBlockTagGenerator(output, provider, helper);
         generator.addProvider(event.includeServer(), blocktags);

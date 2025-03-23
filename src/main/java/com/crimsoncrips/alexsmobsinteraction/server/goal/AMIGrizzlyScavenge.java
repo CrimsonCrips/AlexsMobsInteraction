@@ -1,15 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIGrizzlyBearInterface;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.GrizzlyExtras;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexthe666.alexsmobs.entity.EntityCrimsonMosquito;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -19,10 +16,7 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.FungusBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class AMIGrizzlyScavenge extends MoveToBlockGoal {
@@ -37,7 +31,7 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
 
     @Override
     public boolean canContinueToUse() {
-        AMIGrizzlyBearInterface beatInterface = (((AMIGrizzlyBearInterface)grizzlyBear));
+        GrizzlyExtras beatInterface = (((GrizzlyExtras)grizzlyBear));
         return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && (beatInterface.getNoHoney() >= 2000 || !AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get());
     }
 

@@ -3,6 +3,8 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.*;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -80,17 +82,13 @@ public class AMIStraddlerMixin extends Mob {
         super(p_21368_, p_21369_);
     }
 
-    @Inject(method = "shouldShoot", at = @At("HEAD"), cancellable = true,remap = false)
-    private void injected(CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(doSomething4());
-    }
 
-
-    private boolean doSomething4() {
+    @ModifyReturnValue(method = "shouldShoot", at = @At("RETURN"),remap = false)
+    private boolean alexsMobsInteraction$shouldShoot(boolean original) {
         if (AlexsMobsInteraction.COMMON_CONFIG.STRADDLER_SHOTS_AMOUNT.get() != 0) {
             return !(getShootShots() <= 0);
         }else {
-            return true;
+            return original;
         }
     }
 
