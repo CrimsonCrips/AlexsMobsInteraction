@@ -90,7 +90,8 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
             }
 
             if (getAlterTime() > 0){
-                if (random.nextDouble() < 0.05 && !level().isClientSide) {//Thanks ItemmStack for the help
+                if (random.nextDouble() < 0.05 && !level().isClientSide) {
+                    //Thanks ItemmStack for the help
                     for (int i = 0; i < 9; i++) {
                         Inventory inv = player.getInventory();
                         int j = this.getRandom().nextInt(0, 9);
@@ -105,7 +106,9 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
             }
         }
 
-        renderStaticScreenFor = (int) (30 * getStalkTime());
+        if (level().isClientSide) {
+            renderStaticScreenFor = (int) (30 * getStalkTime());
+        }
 
         if (getStalkDelay() == 0) {
             if (getStalkTime() > 0){
