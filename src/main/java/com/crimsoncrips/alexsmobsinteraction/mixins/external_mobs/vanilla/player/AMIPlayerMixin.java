@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.AlterPacket;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
+import com.github.alexthe666.alexsmobs.client.event.ClientEvents;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
 import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
@@ -106,9 +107,6 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
             }
         }
 
-        if (level().isClientSide) {
-            renderStaticScreenFor = (int) (30 * getStalkTime());
-        }
 
         if (getStalkDelay() == 0) {
             if (getStalkTime() > 0){

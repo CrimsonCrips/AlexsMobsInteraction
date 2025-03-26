@@ -16,6 +16,7 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
 import static java.lang.Math.abs;
 
 @Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -58,6 +59,8 @@ public class AMIRendering {
 				return;
 			if (!AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get())
 				return;
+
+			renderStaticScreenFor = (int) (30 * STALK_PROGRESS);
 
 			RenderSystem.setShaderColor(1F, 1F, 1F, STALK_PROGRESS);
 
