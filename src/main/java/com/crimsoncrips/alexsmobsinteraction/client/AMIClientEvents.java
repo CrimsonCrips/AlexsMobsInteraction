@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.client;
 
 import com.crimsoncrips.alexsmobsinteraction.AMIClientProxy;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -102,6 +104,17 @@ public class AMIClientEvents {
             }
         }
 
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void logIn(ClientPlayerNetworkEvent.LoggingIn event) {
+        if (AlexsMobsInteraction.CLIENT_CONFIG.EFFECTS_REMINDER_ENABLED.get() && AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get()) {
+            event.getPlayer().displayClientMessage(Component.nullToEmpty("BEWARE! BEWARE! BEWARE! BEWARE!"),false);
+            event.getPlayer().displayClientMessage(Component.nullToEmpty("THERE IS PHOTOSENSITIVE EFFECTS THE FARSEER DOES WHEN TARGETTING A PLAYER,IF YOU ARE PHOTOSENSITIVE PLEASE EITHER DISABLE THE ENTIRE FEATURE IN THE COMMON CONFIG, OR DISABLE THE PHOTOSENSITIVE EFFECTS IN THE CLIENT CONFIG SPECIFICALLY"),false);
+            event.getPlayer().displayClientMessage(Component.nullToEmpty("IF YOU DONT WISH TO SEE THIS MESSAGE ANYMORE DURING LOGIN, DISABLE IT IN CLIENT CONFIG"),false);
+
+        }
     }
 
 

@@ -129,9 +129,11 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
 
 
         if (AlexsMobsInteraction.COMMON_CONFIG.SNAPPING_DORMANCY_ENABLED.get()){
-            Entity lookAt = AMIUtils.getClosestLookingAtEntityFor(player);
-            if (lookAt instanceof EntityAlligatorSnappingTurtle snappingTurtle && ((AMIBaseInterfaces)snappingTurtle).isDaySleeping() && player.getUseItem().getItem() instanceof SpyglassItem){
-                AMIUtils.awardAdvancement(player,"observe_dormancy","observe");
+            if (player.getUseItem().getItem() instanceof SpyglassItem) {
+                Entity lookAt = AMIUtils.getClosestLookingAtEntityFor(player);
+                if (lookAt instanceof EntityAlligatorSnappingTurtle snappingTurtle && ((AMIBaseInterfaces) snappingTurtle).isDaySleeping()) {
+                    AMIUtils.awardAdvancement(player, "observe_dormancy", "observe");
+                }
             }
         }
     }

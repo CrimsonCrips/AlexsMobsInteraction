@@ -1,12 +1,11 @@
-package com.crimsoncrips.alexsmobsinteraction.datagen.language.locale;
+package com.crimsoncrips.alexsmobsinteraction.datagen.language;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.datagen.language.AMILangProvider;
 import net.minecraft.data.PackOutput;
 
-public class AMIEnglishGenerator extends AMILangProvider {
+public class AMILangGen extends AMILangProvider {
 
-	public AMIEnglishGenerator(PackOutput output) {
+	public AMILangGen(PackOutput output) {
 		super(output, AlexsMobsInteraction.MODID,"en_us");
 	}
 
@@ -60,7 +59,7 @@ public class AMIEnglishGenerator extends AMILangProvider {
 		this.addAdvancementDesc("stretchy_accumulation","Stretchy Accumulation", "Pickup some xp/items with the enchantment 'Stretchy Accumulation' with a tendon whip");
 		this.addAdvancementDesc("sugar_rush","Sugar Rushed", "Speed up a sugar glider with sugar");
 		this.addAdvancementDesc("throw_pupi","Pupigation", "Throw a Leafcutter Pupi to place a new leafcutter colony");
-		this.addAdvancementDesc("trusted_riding","Tuskliking", "Give a tuskling a mushroom stew to have it trust you, just dont attack it..");
+		this.addAdvancementDesc("trusted_riding","Tuskliking", "Give a tusklin a mushroom stew to have it trust you, just dont attack it..");
 		this.addAdvancementDesc("uncover_roach","Propagation Chambers", "Burst up a cockroach when breaking a leafcutter chamber");
 		this.addAdvancementDesc("vassalized","The Chat", "Have Asmongold vassalize more than 20 cockroaches upon conversion");
 		this.addAdvancementDesc("venomous_cat","Catbi§kt§rch", "Be inflicted with poison by a catfish");
@@ -80,11 +79,11 @@ public class AMIEnglishGenerator extends AMILangProvider {
 		this.addEffectPotionMisc("long_gusting","Gusting");
 		this.addEffectPotionMisc("skreeching","Skreeching");
 		this.addEnchantmentDesc("lightweight","Lightweight", "Cosmaws suffer no penalty when carrying heavy players");
-		this.addEnchantmentDesc("rolling_thunder","Rolling Thunder", "Pickups Item and XP as it hits entities");
+		this.addEnchantmentDesc("rolling_thunder","Rolling Thunder", " Roll-through liquids for the rocky chestplate");
 		this.addEnchantmentDesc("stabilizer","Stabilizer", "Stabilizes the players mind from entities");
-		this.addEnchantmentDesc("stretchy_accumulation","Stretchy Accumulation", "Roll-through liquids for the rocky chestplate");
-		this.addMisc("ami_book.description","Welcome to an exemplified reality!");
-		this.addMisc("ami_book.title","Alexs Caves Exemplified");
+		this.addEnchantmentDesc("stretchy_accumulation","Stretchy Accumulation", "Pickups Item and XP as it hits entities");
+		this.addMisc("ami_book.description","Welcome to an interactive universe!");
+		this.addMisc("ami_book.title","Alexs Mobs Interaction");
 		this.addMisc("feature_disabled", "Feature Disabled");
 
 
