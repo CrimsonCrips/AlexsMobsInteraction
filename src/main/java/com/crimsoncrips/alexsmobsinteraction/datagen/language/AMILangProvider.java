@@ -27,7 +27,7 @@ public abstract class AMILangProvider extends LanguageProvider {
 	}
 
 	public void addDeathMessage(String deathKey, int number, String name) {
-		this.add("death.attack." + deathKey + "_" + number, name);
+		this.add("death.attack.death.alexsmobsinteraction.attack." + deathKey + "_" + number, name);
 	}
 
 	public void addAdvancementDesc(String advancementKey, String title,String description){
