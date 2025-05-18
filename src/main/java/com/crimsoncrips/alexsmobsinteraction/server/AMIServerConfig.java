@@ -127,6 +127,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue GOOFY_HOT_CAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue PANIC_LAUNCING_ENABLED;
     public final ForgeConfigSpec.BooleanValue PROPER_ARMAMENTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
 
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
@@ -233,6 +234,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Endergrade");
         this.VOIDED_ENDERGRADE_ENABLED = buildBoolean(builder, "VOIDED_ENDERGRADE_ENABLED", " ", true, "Endergrade and its passengers are immune to the void");
+        this.ENDERBOOSTING_ENABLED = buildBoolean(builder, "ENDERBOOSTING_ENABLED", " ", true, "Endergrades can be boosted with a chorus fruit on a stick");
 
         builder.pop();
         builder.push("Devils Hole Pupfish");

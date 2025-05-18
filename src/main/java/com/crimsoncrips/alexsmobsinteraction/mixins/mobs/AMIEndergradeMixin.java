@@ -68,7 +68,8 @@ public abstract class AMIEndergradeMixin extends Animal implements AMIBaseInterf
             boostTime--;
         }
 
-        if (boostTime == 50 && getControllingPassenger() instanceof Player player){
+        if (boostTime == 70 && getControllingPassenger() instanceof Player player){
+            this.playSound(SoundEvents.FIREWORK_ROCKET_LAUNCH, 1, this.getVoicePitch());
             this.addDeltaMovement(player.getLookAngle().multiply(1.0F,0.5F, 1.0F).normalize().scale((5F) * this.getAttributeValue(Attributes.MOVEMENT_SPEED)));
         }
     }

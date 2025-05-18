@@ -14,6 +14,7 @@ import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
+import com.github.alexthe666.alexsmobs.client.model.ModelWanderingVillagerRider;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -49,6 +50,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -301,14 +303,16 @@ public class AMInteractionEvents {
         Level level = event.getLevel();
         InteractionHand hand = event.getHand();
 
-        if (itemStack.is(AMItemRegistry.CHORUS_ON_A_STICK.get()) && player.getControlledVehicle() instanceof EntityEndergrade entityEndergrade && !player.getCooldowns().isOnCooldown(itemStack.getItem())){
+        if (AlexsMobsInteraction.COMMON_CONFIG.ENDERBOOSTING_ENABLED.get() && itemStack.is(AMItemRegistry.CHORUS_ON_A_STICK.get()) && player.getControlledVehicle() instanceof EntityEndergrade entityEndergrade && !player.getCooldowns().isOnCooldown(itemStack.getItem())){
             if (level.isClientSide){
                 player.swing(hand);
             }
-            player.getCooldowns().addCooldown(itemStack.getItem(), 100);
+            AMIUtils.awardAdvancement(player,"ender_boost","ender_boost");
+            player.getCooldowns().addCooldown(itemStack.getItem(), 500);
             ((AMIBaseInterfaces)entityEndergrade).boost();
         }
     }
+
 
 
     @SubscribeEvent

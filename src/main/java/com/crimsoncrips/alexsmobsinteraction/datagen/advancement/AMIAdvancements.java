@@ -223,6 +223,14 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.rewards(AdvancementRewards.Builder.experience(200))
 				.save(consumer, "alexsmobsinteraction:void_dweller");
 
+		Advancement ender_boost = (Advancement.Builder.advancement().parent(void_dweller).display(
+						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/ender_boost.png"),
+						Component.translatable("advancement.alexsmobsinteraction.void_dweller"),
+						Component.translatable("advancement.alexsmobsinteraction.void_dweller.desc"),
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("ender_boost", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:ender_boost");
+
 		Advancement alterred = (Advancement.Builder.advancement().parent(root).display(
 						createCitadelIcon("alexsmobsinteraction:textures/mob_effect/farseer_icon.png"),
 						Component.translatable("advancement.alexsmobsinteraction.alterred"),
