@@ -22,4 +22,7 @@ public interface AMIBaseInterfaces {
     //Rattlesnake
     boolean isWarding();
 
+    //Endergrade
+    void boost();
+
 }

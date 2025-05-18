@@ -9,8 +9,10 @@ import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -27,12 +29,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.goat.Goat;
@@ -287,6 +293,23 @@ public class AMInteractionEvents {
 
 
     }
+
+    @SubscribeEvent
+    public void rightClickItem(PlayerInteractEvent.RightClickItem event) {
+        ItemStack itemStack = event.getItemStack();
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        InteractionHand hand = event.getHand();
+
+        if (itemStack.is(AMItemRegistry.CHORUS_ON_A_STICK.get()) && player.getControlledVehicle() instanceof EntityEndergrade entityEndergrade && !player.getCooldowns().isOnCooldown(itemStack.getItem())){
+            if (level.isClientSide){
+                player.swing(hand);
+            }
+            player.getCooldowns().addCooldown(itemStack.getItem(), 100);
+            ((AMIBaseInterfaces)entityEndergrade).boost();
+        }
+    }
+
 
     @SubscribeEvent
     public void onUseItemOnBlock(PlayerInteractEvent.RightClickBlock event) {
