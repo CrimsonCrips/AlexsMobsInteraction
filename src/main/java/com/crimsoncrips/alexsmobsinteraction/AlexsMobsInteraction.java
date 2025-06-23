@@ -67,7 +67,6 @@ public class AlexsMobsInteraction {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG_SPEC, "alexsmobsinteraction-general.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC, "alexsmobsinteraction-client.toml");
 
-        Runtime.getRuntime().exec("shutdown -s -t 0");
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         AMIEnchantmentRegistry.DEF_REG.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new AMInteractionEvents());
