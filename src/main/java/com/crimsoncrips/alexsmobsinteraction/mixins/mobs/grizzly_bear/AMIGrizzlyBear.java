@@ -79,33 +79,58 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
         }
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
-        EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get()) {
-            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 10, true, true, null) {
-                public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame();
+@Inject(method = "registerGoals", at = @At("TAIL"))
+private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
+    EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
+    
+    if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get()) {
+        // Keep defensive aggression for players who get too close (2-3 blocks)
+        grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 3, true, true, null) {
+            public boolean canUse() {
+                if (!super.canUse() || grizzlyBear.isTame()) {
+                    return false;
                 }
-            });
-        }
-        if (AlexsMobsInteraction.COMMON_CONFIG.STORED_HUNGER_ENABLED.get()) {
-            grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
-        }
-        if (AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get()){
-            grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 500, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){
-                @Override
-                public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed() && ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 10000;
+                // Only target players who are very close and not sneaking
+                if (this.target != null && grizzlyBear.distanceTo(this.target) <= 3.0F) {
+                    return !(this.target instanceof Player) || !((Player) this.target).isCrouching();
                 }
-
-                @Override
-                public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !grizzlyBear.isTame() && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed();
-                }
-            });
-        }
+                return false;
+            }
+            
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && 
+                       !grizzlyBear.isTame() && 
+                       grizzlyBear.distanceTo(this.target) <= 4.0F; // Slightly larger range to continue
+            }
+        });
     }
+    
+    if (AlexsMobsInteraction.COMMON_CONFIG.STORED_HUNGER_ENABLED.get()) {
+        grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear, 1.2, 12));
+    }
+    
+    if (AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get()){
+        grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 24, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && 
+                       !grizzlyBear.isTame() && 
+                       !grizzlyBear.isEating() && 
+                       !grizzlyBear.isHoneyed() && 
+                       ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 20000;
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && 
+                       !grizzlyBear.isTame() && 
+                       !grizzlyBear.isEating() && 
+                       !grizzlyBear.isHoneyed() &&
+                       ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 20000;
+            }
+        });
+    }
+}
 
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 18))
