@@ -87,20 +87,14 @@ public abstract class AMIVoidWorm extends Monster {
 
             if (damageRetain < 0) damageTaken = 0;
 
-            if (this.getY() > -50){
+            if (this.getY() > -50) {
                 if (damageTaken > 30) {
+                    AMIUtils.awardAdvancement(getLastHurtByMob(), "voidworm_stun", "stun");
                     setStunned(true);
                     damageTaken = 0;
                 }
             } else setStunned(false);
 
-            if (damageTaken > 30) {
-                if (this.getY() > -50) {
-                    AMIUtils.awardAdvancement(getLastHurtByMob(), "voidworm_stun", "stun");
-                    setStunned(true);
-                }
-                damageTaken = 0;
-            }
             if (isStunned() && !(stunTicks <= 0)) {
                 AMIReflectionUtil.setField(voidWorm, "stillTicks", 0);
                 stunTicks--;
