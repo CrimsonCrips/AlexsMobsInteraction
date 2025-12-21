@@ -46,12 +46,12 @@ public abstract class AMIDimensionalCarverMixin extends Item {
         if (player instanceof ServerPlayer serverPlayer && itemStack.getItem() instanceof CompassItem && AlexsMobsInteraction.COMMON_CONFIG.DIMENSIONAL_LODESTONE_ENABLED.get()){
             CompoundTag lodestoneTag = itemStack.getTag();
             if (lodestoneTag != null && CompassItem.getLodestonePosition(lodestoneTag) != null){
-                if(!serverPlayer.isCreative()){
+                if(!serverPlayer.isCreative() && AlexsMobsInteraction.COMMON_CONFIG.DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED.get()){
                     itemStack.shrink(1);
                 }
                 GlobalPos globalLodestone = CompassItem.getLodestonePosition(lodestoneTag);
-                portal.setDestination(globalLodestone.pos().above(3));
                 portal.exitDimension = globalLodestone.dimension();
+                portal.setDestination(globalLodestone.pos().above(3));
                 if (globalLodestone.dimension() != player.level().dimension()){
                     AMIUtils.awardAdvancement(player, "multidimensional_lodestone", "dimension");
                 }

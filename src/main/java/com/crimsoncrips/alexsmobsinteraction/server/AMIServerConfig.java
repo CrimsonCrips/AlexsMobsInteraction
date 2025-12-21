@@ -32,6 +32,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
     public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED;
     public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
@@ -128,7 +129,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue PANIC_LAUNCING_ENABLED;
     public final ForgeConfigSpec.BooleanValue PROPER_ARMAMENTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
-
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
@@ -393,7 +393,9 @@ public class AMIServerConfig {
         builder.push("Void Worm");
         this.VOIDWORM_STUN_ENABLED = buildBoolean(builder, "VOIDWORM_STUN_ENABLED", " ", true, "Void Worm can be stunned and brought down when hit in the head enough");
         this.DIMENSIONAL_LODESTONE_ENABLED = buildBoolean(builder, "DIMENSIONAL_LODESTONE_ENABLED", " ", true, "Dimensional Carver can be used to make a portal to a linked lodestone when holding the compass off-hand");
+        this.DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED = buildBoolean(builder, "DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED", " ", true, "The compass linked to a lodestone will be consumed when used to make a portal");
         this.HASTY_CARVING_ENABLED = buildBoolean(builder, "HASTY_CARVING_ENABLED", " ", true, "Dimensional Carver speeds up with haste");
+
 
         builder.pop();
         builder.push("Warped Mosco");
