@@ -1,0 +1,10 @@
+{
+  "book_texture": "alexsmobsinteraction:textures/gui/ami_gui_book.png",
+  "creative_tab": "minecraft:tools_and_utilities",
+  "landing_text": "Welcome to an interactive universe!",
+  "model": "alexsmobsinteraction:ami_book",
+  "name": "         AMI Wiki",
+  "nameplate_color": "e3cccc",
+  "subtitle": "Bastion of Interaction",
+  "use_resource_pack": true
+}

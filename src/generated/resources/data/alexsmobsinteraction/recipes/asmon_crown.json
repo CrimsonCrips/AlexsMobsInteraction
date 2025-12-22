@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "f": {
+      "item": "alexsmobs:cockroach_wing_fragment"
+    },
+    "w": {
+      "item": "alexsmobs:cockroach_wing"
+    }
+  },
+  "pattern": [
+    "w w",
+    "fwf",
+    "fff"
+  ],
+  "result": {
+    "item": "alexsmobsinteraction:asmon_crown"
+  },
+  "show_notification": true
+}

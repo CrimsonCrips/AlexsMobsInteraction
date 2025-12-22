@@ -1,0 +1,13 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Redoable Spelunky",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexscaves:spelunkery_table",
+      "text": "Allows for you to back-out of the spelunkery table and not have the tablet break,useful for when interrupted by any unwanted interruptions",
+      "title": "Redoable Spelunky"
+    }
+  ]
+}
