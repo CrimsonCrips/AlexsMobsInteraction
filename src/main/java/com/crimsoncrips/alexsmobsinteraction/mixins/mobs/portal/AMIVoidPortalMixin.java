@@ -1,10 +1,13 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.portal;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,6 +21,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -42,18 +46,25 @@ public abstract class AMIVoidPortalMixin extends Entity implements AMIBaseInterf
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void define(CallbackInfo ci) {
+    private void alexsMobsInteraction$define(CallbackInfo ci) {
         this.entityData.define(VARIANT, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void add(CompoundTag compound, CallbackInfo ci) {
+    private void alexsMobsInteraction$add(CompoundTag compound, CallbackInfo ci) {
         compound.putInt("Variant", this.getVariant());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void read(CompoundTag compound, CallbackInfo ci) {
+    private void alexsMobsInteraction$read(CompoundTag compound, CallbackInfo ci) {
         this.setVariant(compound.getInt("Variant"));
+    }
+
+    @Inject(method = "createAndSetSister", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityVoidPortal;setShattered(Z)V"),remap = false)
+    private void alexsMobsInteraction$createAndSetSister(Level world, Direction dir, CallbackInfo ci, @Local EntityVoidPortal sister) {
+        ((AMIBaseInterfaces)sister).setVariant(this.getVariant());
+        String result = sister.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
+        ((AMIBaseInterfaces)sister).setVariant(AMIUtils.dimensionDeterminer(result));
     }
 
 

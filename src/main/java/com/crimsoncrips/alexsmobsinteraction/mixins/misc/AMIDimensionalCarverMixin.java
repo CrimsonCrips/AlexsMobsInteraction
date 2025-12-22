@@ -58,7 +58,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
                 }
                 AMIUtils.awardAdvancement(player, "dimensional_lodestone", "lodestone");
                 String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-                ((AMIBaseInterfaces)portal).setVariant(dimensionDeterminer(result));
+                ((AMIBaseInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
             }
         } else {
             ResourceKey<Level> respawnDimension = Level.OVERWORLD;
@@ -72,6 +72,8 @@ public abstract class AMIDimensionalCarverMixin extends Item {
 
             portal.exitDimension = respawnDimension;
             portal.setDestination(respawnPosition.above(2));
+            String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
+            ((AMIBaseInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
         }
 
     }
@@ -83,15 +85,6 @@ public abstract class AMIDimensionalCarverMixin extends Item {
             return amount + (haste != null ? (haste.getAmplifier() == 0 ? 100 : 150) : 0);
         }
         return amount;
-    }
-
-    public int dimensionDeterminer(String string){
-        return switch (string) {
-            case "minecraft:overworld" -> 1;
-            case "minecraft:nether" -> 2;
-            case "minecraft:the_end" -> 3;
-            default -> 0;
-        };
     }
 
 

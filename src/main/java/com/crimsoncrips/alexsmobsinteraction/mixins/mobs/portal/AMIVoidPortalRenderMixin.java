@@ -14,10 +14,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(RenderVoidPortal.class)
@@ -51,12 +57,6 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
 
     protected AMIVoidPortalRenderMixin(EntityRendererProvider.Context pContext) {
         super(pContext);
-
-        for(int i = 0; i < 10; ++i) {
-            OVERWORLD_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_grow_" + i + ".png");
-            NETHER_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_grow_" + i + ".png");
-            THE_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/the_end/the_end_grow_" + i + ".png");
-        }
     }
 
     @WrapOperation(method = "renderPortal", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/client/render/RenderVoidPortal;getIdleTexture(IZ)Lnet/minecraft/resources/ResourceLocation;"),remap = false)
@@ -66,7 +66,16 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
 
     @WrapOperation(method = "renderPortal", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/client/render/RenderVoidPortal;getGrowingTexture(IZ)Lnet/minecraft/resources/ResourceLocation;"),remap = false)
     private ResourceLocation alexsMobsInteraction$renderPortal1(RenderVoidPortal instance, int age, boolean shattered, Operation<ResourceLocation> original, @Local (argsOnly = true) EntityVoidPortal entityVoidPortal) {
-        return getModifiedIdleTexture(age,shattered,entityVoidPortal);
+        return getModifiedGrowingTexture(age,shattered,entityVoidPortal);
+    }
+
+    @Inject(method = "<init>", at = @At(value = "TAIL"))
+    private void alexsMobsInteraction$init(EntityRendererProvider.Context renderManagerIn, CallbackInfo ci){
+        for(int i = 0; i < 10; ++i) {
+            OVERWORLD_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_grow_" + i + ".png");
+            NETHER_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_grow_" + i + ".png");
+            THE_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/the_end/the_end_grow_" + i + ".png");
+        }
     }
 
 

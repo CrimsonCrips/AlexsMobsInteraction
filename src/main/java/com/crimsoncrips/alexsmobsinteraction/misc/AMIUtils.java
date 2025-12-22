@@ -87,5 +87,14 @@ public class AMIUtils {
         poseStack.mulPose(new Quaternionf(new AxisAngle4f(value, 0.0F, 0.0F, 1.0F)));
     }
 
+    static public int dimensionDeterminer(String string){
+        return switch (string) {
+            case "minecraft:overworld" -> 1;
+            case "minecraft:nether" -> 2;
+            case "minecraft:the_end" -> 3;
+            default -> 0;
+        };
+    }
+
 
 }
