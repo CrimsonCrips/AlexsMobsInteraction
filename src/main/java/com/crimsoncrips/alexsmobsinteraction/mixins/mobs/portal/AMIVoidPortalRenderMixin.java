@@ -50,9 +50,9 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
     private static final ResourceLocation NETHER_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_2.png");
     private static final ResourceLocation[] NETHER_PROGRESS = new ResourceLocation[10];
 
-    private static final ResourceLocation THE_END_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/the_end/the_end_idle_0.png");
-    private static final ResourceLocation THE_END_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/the_end/the_end_idle_1.png");
-    private static final ResourceLocation THE_END_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/the_end/the_end_idle_2.png");
+    private static final ResourceLocation THE_END_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_idle_0.png");
+    private static final ResourceLocation THE_END_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_idle_1.png");
+    private static final ResourceLocation THE_END_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_idle_2.png");
     private static final ResourceLocation[] THE_END_PROGRESS = new ResourceLocation[10];
 
     protected AMIVoidPortalRenderMixin(EntityRendererProvider.Context pContext) {
@@ -74,7 +74,7 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
         for(int i = 0; i < 10; ++i) {
             OVERWORLD_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_grow_" + i + ".png");
             NETHER_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_grow_" + i + ".png");
-            THE_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/the_end/the_end_grow_" + i + ".png");
+            THE_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_grow_" + i + ".png");
         }
     }
 

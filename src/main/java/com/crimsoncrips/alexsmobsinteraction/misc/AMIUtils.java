@@ -91,7 +91,7 @@ public class AMIUtils {
     static public int dimensionDeterminer(String string){
         return switch (string) {
             case "minecraft:overworld" -> 1;
-            case "minecraft:nether" -> 2;
+            case "minecraft:the_nether" -> 2;
             case "minecraft:the_end" -> 3;
             default -> 0;
         };

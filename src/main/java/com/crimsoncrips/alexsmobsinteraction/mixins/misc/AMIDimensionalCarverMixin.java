@@ -59,6 +59,9 @@ public abstract class AMIDimensionalCarverMixin extends Item {
                 AMIUtils.awardAdvancement(player, "dimensional_lodestone", "lodestone");
                 String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
                 ((AMIBaseInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
+
+                //Used to determine string for dimension
+                System.out.println(result);
             }
         } else {
             ResourceKey<Level> respawnDimension = Level.OVERWORLD;
