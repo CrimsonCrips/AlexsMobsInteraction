@@ -28,6 +28,8 @@ import net.minecraft.world.phys.HitResult;
 import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 
+import java.util.Random;
+
 
 public class AMIUtils {
 
@@ -39,6 +41,13 @@ public class AMIUtils {
                 serverPlayer.getAdvancements().award(advancement, criteria);
             }
         }
+    }
+
+    public static boolean chanceTrue(int level,int max) {
+        if(level >= max) return true;   // 10 = 100%
+        Random r = new Random();
+        int roll = r.nextInt(max) + 1;  // 1-10
+        return roll <= level;
     }
 
     public static Entity getClosestLookingAtEntityFor(Player player) {

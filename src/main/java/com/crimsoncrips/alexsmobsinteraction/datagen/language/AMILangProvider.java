@@ -39,8 +39,8 @@ public abstract class AMILangProvider extends LanguageProvider {
 		this.add("subtitle.alexsmobsinteraction.sound." + subtitleKey,name);
 	}
 
-	public void addMisc(String subtitleKey,String name) {
-		this.add("misc.alexsmobsinteraction." + subtitleKey,name);
+	public void addMisc(String subtitleKey,String text) {
+		this.add("misc.alexsmobsinteraction." + subtitleKey,text);
 	}
 
 

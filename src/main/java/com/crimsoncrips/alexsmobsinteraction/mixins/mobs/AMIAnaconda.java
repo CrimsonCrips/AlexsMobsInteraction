@@ -35,7 +35,7 @@ public abstract class AMIAnaconda extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityAnaconda anaconda = (EntityAnaconda)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ANACONDA_CANNIBALIZE_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()) {
             anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(this, EntityAnaconda.class));
             anaconda.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(anaconda, EntityAnaconda.class, 2500, true, false, (livingEntity) -> {
                 return (livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth() || livingEntity.isBaby());
@@ -48,7 +48,7 @@ public abstract class AMIAnaconda extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 13))
     private boolean hurtByTarget(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.ANACONDA_CANNIBALIZE_ENABLED.get();
+        return !AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 6))

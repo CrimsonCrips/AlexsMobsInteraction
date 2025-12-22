@@ -26,6 +26,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -82,12 +83,10 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
+
         if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get()) {
-            grizzlyBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(grizzlyBear, Player.class, 10, true, true, null) {
-                public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame();
-                }
-            });
+            this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::modifiedIsAngryAt));
+
         }
         if (AlexsMobsInteraction.COMMON_CONFIG.STORED_HUNGER_ENABLED.get()) {
             grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
@@ -101,17 +100,26 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
 
                 @Override
                 public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !grizzlyBear.isTame() && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed();
+                    return super.canContinueToUse() && canUse();
                 }
             });
         }
     }
 
-
-    @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 18))
-    private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get();
+    boolean modifiedIsAngryAt(LivingEntity pTarget) {
+        EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
+        if (!this.canAttack(pTarget)) {
+            return false;
+        } else {
+            return !grizzlyBear.isTame() && (pTarget.getType() == EntityType.PLAYER && grizzlyBear.isAngryAtAllPlayers(pTarget.level()) || pTarget.getUUID().equals(grizzlyBear.getPersistentAngerTarget()));
+        }
     }
+
+
+//    @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 18))
+//    private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {
+//        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get();
+//    }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 19))
     private boolean alexsMobsInteraction$registerGoals3(GoalSelector instance, int pPriority, Goal pGoal) {

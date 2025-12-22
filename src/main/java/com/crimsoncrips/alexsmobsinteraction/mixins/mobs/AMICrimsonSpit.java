@@ -39,7 +39,7 @@ public abstract class AMICrimsonSpit extends Entity {
         if (p_213868_1_.getEntity() instanceof LivingEntity livingHitEntity) {
 
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOOD_DAMAGE_DIFFERENCE_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()) {
             if (spitOwner instanceof EntityCrimsonMosquito || spitOwner instanceof EntityWarpedMosco) {
                 damageAmount = 4.0F;
             } else {
@@ -47,7 +47,7 @@ public abstract class AMICrimsonSpit extends Entity {
             }
         } else damageAmount = 4.0F;
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOOD_PROTECTION_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()) {
             if (livingHitEntity instanceof EntityCrimsonMosquito mosquito && !this.level().isClientSide && mosquito.getRandom().nextDouble() < 0.2 && AlexsMobsInteraction.COMMON_CONFIG.BLOODED_CHANCE.get() > 0) {
                 mosquito.setBloodLevel(mosquito.getBloodLevel() + 1);
             }
@@ -70,7 +70,7 @@ public abstract class AMICrimsonSpit extends Entity {
             }
         }
 
-            if (!AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get())
+            if (!AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get())
                 return;
             livingHitEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
         }

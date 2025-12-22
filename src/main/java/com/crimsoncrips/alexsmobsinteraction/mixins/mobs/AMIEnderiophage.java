@@ -34,7 +34,7 @@ public abstract class AMIEnderiophage extends Animal {
         EntityEnderiophage enderiophage = (EntityEnderiophage)(Object)this;
 
         enderiophage.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(enderiophage, EnderMan.class, 15, true, true, (livingEntity) -> {
-            if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_IMMUNITY_ENABLED.get()) {
+            if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_INTERACTION_ENABLED.get()) {
                 return !(livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE));
             } else return true;
         }) {
@@ -44,14 +44,14 @@ public abstract class AMIEnderiophage extends Animal {
         });
 
         enderiophage.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(enderiophage, LivingEntity.class, 15, true, true, (livingEntity) -> {
-            if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_WEAK_ENABLED.get()){
-                if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_IMMUNITY_ENABLED.get()){
+            if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_INTERACTION_ENABLED.get()){
+                if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_INTERACTION_ENABLED.get()){
                     return !(livingEntity instanceof EntityEnderiophage) && (livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) || livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth()) && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
                 } else {
                     return !(livingEntity instanceof EntityEnderiophage) && livingEntity.getHealth() <= 0.30F * livingEntity.getMaxHealth() && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
                 }
             } else {
-                if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_IMMUNITY_ENABLED.get()){
+                if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_INTERACTION_ENABLED.get()){
                     return !(livingEntity instanceof EntityEnderiophage) && livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
                 } else {
                     return !(livingEntity instanceof EntityEnderiophage)  && (livingEntity instanceof EntityEndergrade || livingEntity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));

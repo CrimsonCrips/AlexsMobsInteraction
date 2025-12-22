@@ -21,90 +21,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityVoidWorm.class)
 public abstract class AMIVoidWorm extends Monster {
 
-    float damageTaken;
-
-    int damageRetain;
-
-    int stunTicks;
-
-    static {
-        STUNNED = SynchedEntityData.defineId(EntityVoidWorm.class, EntityDataSerializers.BOOLEAN);
-    }
-
-    private static final EntityDataAccessor<Boolean> STUNNED;
-
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(STUNNED, false);
-    }
-
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
-        compound.putBoolean("Stunned", this.isStunned());
-    }
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
-        this.setStunned(compound.getBoolean("Stunned"));
-    }
-
-    public boolean isStunned() {
-        return this.entityData.get(STUNNED);
-    }
-
-    public void setStunned(boolean stunned) {
-        this.entityData.set(STUNNED, stunned);
-    }
 
     protected AMIVoidWorm(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public boolean isNoGravity() {
-        return !isStunned();
-    }
-
-    @Override
-    protected boolean isImmobile() {
-        return isStunned();
-    }
-
-    public boolean hurt(DamageSource source, float amount) {
-        boolean prev = super.hurt(source, amount);
-       if (!isStunned()) {
-           damageTaken = damageTaken + amount;
-       }
-        damageRetain = 500;
-
-        return prev;
-    }
-
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(CallbackInfo ci) {
-        if(AlexsMobsInteraction.COMMON_CONFIG.VOIDWORM_STUN_ENABLED.get()){
-            EntityVoidWorm voidWorm = (EntityVoidWorm) (Object) this;
-
-            if (damageRetain > 0) damageRetain--;
-
-            if (damageRetain < 0) damageTaken = 0;
-
-            if (this.getY() > -50) {
-                if (damageTaken > 30) {
-                    AMIUtils.awardAdvancement(getLastHurtByMob(), "voidworm_stun", "stun");
-                    setStunned(true);
-                    damageTaken = 0;
-                }
-            } else setStunned(false);
-
-            if (isStunned() && !(stunTicks <= 0)) {
-                AMIReflectionUtil.setField(voidWorm, "stillTicks", 0);
-                stunTicks--;
-
-            } else {
-                stunTicks = 100;
-                setStunned(false);
-            }
-        }
-
-    }
-
+    //for later uses
 }

@@ -32,7 +32,7 @@ public abstract class AMIEmu extends Animal {
     private void registerGoals(CallbackInfo ci) {
         EntityEmu emu = (EntityEmu)(Object)this;
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.EMU_EGG_ATTACK_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.EGG_ATTACK_ENABLED.get()){
             emu.targetSelector.addGoal(6, new AMIEggHeldAttack<>(emu, LivingEntity.class, true));
         }
 

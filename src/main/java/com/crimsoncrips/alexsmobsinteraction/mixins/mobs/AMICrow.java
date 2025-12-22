@@ -65,7 +65,7 @@ public abstract class AMICrow extends Mob {
                 }
             });
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.CROW_CANNIBALIZE_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()){
             crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, EntityCrow.class, 500, true, true, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth();
             }){

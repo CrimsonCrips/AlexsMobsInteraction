@@ -58,7 +58,7 @@ public abstract class AMILayerCapuchinItem extends RenderLayer<EntityCapuchinMon
     @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/github/alexthe666/alexsmobs/entity/EntityCapuchinMonkey;FFFFFF)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V",ordinal = 0))
     private void alexsMobsInteraction$render2(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityCapuchinMonkey entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
         int color = ((AncientDartPotion) entitylivingbaseIn).getPotionColor();
-        if (color != -1 && AlexsMobsInteraction.COMMON_CONFIG.ANCIENT_EFFECTS_ENABLED.get()) {
+        if (color != -1 && AlexsMobsInteraction.COMMON_CONFIG.DART_EFFECTS_ENABLED.get()) {
             float r = (float) (color >> 16 & 255) / 255.0F;
             float g = (float) (color >> 8 & 255) / 255.0F;
             float b = (float) (color & 255) / 255.0F;

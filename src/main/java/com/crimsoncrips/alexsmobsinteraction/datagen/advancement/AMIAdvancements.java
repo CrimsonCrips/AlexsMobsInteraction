@@ -225,8 +225,8 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 
 		Advancement ender_boost = (Advancement.Builder.advancement().parent(void_dweller).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/ender_boost.png"),
-						Component.translatable("advancement.alexsmobsinteraction.void_dweller"),
-						Component.translatable("advancement.alexsmobsinteraction.void_dweller.desc"),
+						Component.translatable("advancement.alexsmobsinteraction.ender_boost"),
+						Component.translatable("advancement.alexsmobsinteraction.ender_boost.desc"),
 						null, FrameType.TASK, true,true,false)
 				.addCriterion("ender_boost", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:ender_boost");
@@ -488,7 +488,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.save(consumer, "alexsmobsinteraction:multidimensional_lodestone");
 
 		Advancement asmongold = (Advancement.Builder.advancement().parent(root).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/asmongold.png"),
+						AMIItemRegistry.ASMON_CROWN.get(),
 						Component.translatable("advancement.alexsmobsinteraction.asmongold"),
 						Component.translatable("advancement.alexsmobsinteraction.asmongold.desc"),
 						null, FrameType.TASK, true,true,false)

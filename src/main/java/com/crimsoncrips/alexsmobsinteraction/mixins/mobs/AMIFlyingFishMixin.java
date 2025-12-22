@@ -55,7 +55,7 @@ public abstract class AMIFlyingFishMixin extends WaterAnimal {
 
     @Inject(method = "hurt", at = @At("TAIL"))
     private void alexsMobsInteraction$hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir){
-        if (level().getRandom().nextDouble() < 0.25 && AlexsMobsInteraction.COMMON_CONFIG.PANIC_LAUNCING_ENABLED.get()){
+        if (level().getRandom().nextDouble() < 0.25 && AlexsMobsInteraction.COMMON_CONFIG.PANIC_LAUNCHING_ENABLED.get()){
             this.setGliding(true);
             this.setDeltaMovement(random.nextDouble(),1.4,random.nextDouble());
         }

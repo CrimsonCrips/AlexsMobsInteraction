@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.datagen.tags;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -33,6 +34,10 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 		tag(EMU_TRIGGER).add(
 				Items.CROSSBOW,
 				Items.BOW
+		);
+
+		tag(AMTagRegistry.KOMODO_DRAGON_TAMEABLES).add(
+				Items.ROTTEN_FLESH
 		);
 
 		tag(LIGHT_FEAR).add(

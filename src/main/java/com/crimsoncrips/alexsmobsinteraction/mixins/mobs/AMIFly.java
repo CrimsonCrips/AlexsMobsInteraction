@@ -97,7 +97,7 @@ public class AMIFly extends Mob implements TransformingEntities {
         if(AlexsMobsInteraction.COMMON_CONFIG.CANDLE_REPEL_ENABLED.get()){
             fly.goalSelector.addGoal(3, new AMIAvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
                 BlockState state = fly.level().getBlockState(pos);
-                if (state.is(BlockTags.CANDLES)){
+                if (state.is(BlockTags.CANDLES) && state.getBlock() instanceof CandleBlock){
                     return state.getValue(CandleBlock.LIT);
                 } else return false;
             }));

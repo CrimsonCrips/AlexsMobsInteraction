@@ -54,7 +54,8 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
 
     @Override
     public boolean canStandOnFluid(FluidState pFluidState) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.ROLLING_THUNDER_ENABLED.get() && this.getItemBySlot(EquipmentSlot.CHEST).is(AMItemRegistry.ROCKY_CHESTPLATE.get())) {
+        ItemStack chestItem = this.getItemBySlot(EquipmentSlot.CHEST);
+        if (AlexsMobsInteraction.COMMON_CONFIG.ROLLING_THUNDER_ENABLED.get() && chestItem.is(AMItemRegistry.ROCKY_CHESTPLATE.get()) && chestItem.getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0) {
             BlockState blockState = getBlockStateOn();
             double z = this.getLookAngle().z;
             double x = this.getLookAngle().x;
@@ -63,11 +64,11 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
                 ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
                 if (random.nextDouble() < 0.1) this.level().addParticle(particle, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1), x * -2 * this.getRandom().nextInt(2), 0.1 + d1, z * -2 * this.getRandom().nextInt(2));
                 if (random.nextDouble() < 0.001) {
-                    this.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(2, this, (p_233654_0_) -> {
+                    chestItem.hurtAndBreak(2, this, (p_233654_0_) -> {
                     });
                 }
                 AMIUtils.awardAdvancement(this,"rolling_thunder","roll");
-                return this.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0;
+                return true;
             } else return false;
         } else return false;
     }

@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.datagen.language;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import net.minecraft.data.PackOutput;
 
 public class AMILangGen extends AMILangProvider {
@@ -15,7 +16,7 @@ public class AMILangGen extends AMILangProvider {
 
 		this.addAdvancementDesc("acclamate","Acclamation", "Make an inactive shreaker active with a skreecher soul");
 		this.addAdvancementDesc("alterred","§kEEERRORRR", "§k-§rGet altered by a farseer.§k-§r");
-		this.addAdvancementDesc("asmongold","The Roach King", "Give a controller to a cockroach");
+		this.addAdvancementDesc("asmongold","The Roach King", "Give 'The Roach Crown' to a cockroach");
 		this.addAdvancementDesc("banana_shear","Banana Shearing", "Shear a banana slug for banana");
 		this.addAdvancementDesc("bird_bomb","Bomber Birds", "Drop an explosive, and have a controlled falcon pick it up. Sneak to drop it");
 		this.addAdvancementDesc("blooded","Blood Stained Earth", "Be inflicted with Blooded effect");
@@ -64,6 +65,7 @@ public class AMILangGen extends AMILangProvider {
 		this.addAdvancementDesc("vassalized","The Chat", "Have Asmongold vassalize more than 20 cockroaches upon conversion");
 		this.addAdvancementDesc("venomous_cat","Catbi§kt§rch", "Be inflicted with poison by a catfish");
 		this.addAdvancementDesc("void_dweller","Void Dweller", "Ride a endergrade, protecting itself and its rider from the void");
+		this.addAdvancementDesc("ender_boost","Ender Boost", "Using a chorus on a stick, propel yourself to victory");
 		this.addAdvancementDesc("voidworm_stun","Shoot Down", "Stun a void worm by inflicting enough damage to it");
 		this.addAdvancementDesc("wally","Emotional Support Alligator", "Name an alligator 'Wally', pacifying it");
 		this.addAdvancementDesc("weight_lifting","Weight Lifting", "Have a guster FAIL to lift you to even be lifted 1 block for being too heavy");
@@ -85,6 +87,7 @@ public class AMILangGen extends AMILangProvider {
 		this.addMisc("ami_book.description","Welcome to an interactive universe!");
 		this.addMisc("ami_book.title","Alexs Mobs Interaction");
 		this.addMisc("feature_disabled", "Feature Disabled");
+		this.addItem(AMIItemRegistry.ASMON_CROWN, "The Roach Crown");
 
 
 	}

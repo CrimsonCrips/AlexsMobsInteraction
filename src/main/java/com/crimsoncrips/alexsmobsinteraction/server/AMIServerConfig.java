@@ -4,43 +4,34 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue ACCIDENTAL_BETRAYAL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ACIDIC_LEAFCUTTER_ENABLED;
     public final ForgeConfigSpec.BooleanValue ADD_TARGETS_ENABLED;
     public final ForgeConfigSpec.BooleanValue AMI_WIKI_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ANACONDA_CANNIBALIZE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ANCIENT_EFFECTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CANNIBALIZATION_ENABLED;
+    public final ForgeConfigSpec.BooleanValue DART_EFFECTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLOODED_EFFECT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLOOD_DAMAGE_DIFFERENCE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLOOD_PROTECTION_ENABLED;
+    public final ForgeConfigSpec.BooleanValue BLOODED_ENABLED;
     public final ForgeConfigSpec.BooleanValue BOTTOMLESS_SAND_ENABLED;
     public final ForgeConfigSpec.BooleanValue BOXING_GLOVES_ENABLED;
     public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
     public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
     public final ForgeConfigSpec.BooleanValue CAIMAN_AGGRO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CAIMAN_EGG_ATTACK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue EGG_ATTACK_ENABLED;
     public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CATFISH_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
     public final ForgeConfigSpec.BooleanValue CRIMSON_TRANSFORM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CROW_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
     public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EAGLE_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EMU_EGG_ATTACK_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERIOPHAGE_ADAPTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FARSEER_HUMANLIKE_ATTACK_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLOWERING_ATTRACTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
@@ -50,7 +41,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO_ENABLED;
     public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FUNGUS_POLLINATE_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_CAPUCHIN_BOMB_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_CRIMSON_MULTIPLY_ENABLED;
@@ -63,8 +53,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue GUSTING_EFFECT_ENABLED;
     public final ForgeConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
     public final ForgeConfigSpec.BooleanValue HELD_FOOD_ENABLED;
-    public final ForgeConfigSpec.BooleanValue INFECT_IMMUNITY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue INFECT_WEAK_ENABLED;
+    public final ForgeConfigSpec.BooleanValue INFECT_INTERACTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue LEAFCUTTER_VARIANTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
     public final ForgeConfigSpec.BooleanValue LIGHT_FEAR_ENABLED;
@@ -75,17 +64,14 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
     //public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MOLTEN_BATH_ENABLED;
     public final ForgeConfigSpec.BooleanValue MOSCO_CANNIBALISM_ENABLED;
     public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
     public final ForgeConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
     public final ForgeConfigSpec.BooleanValue ORPHANED_ANACONDAS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue POISONOUS_BATH_ENABLED;
     public final ForgeConfigSpec.BooleanValue POLINATE_DAY_ENABLED;
     public final ForgeConfigSpec.BooleanValue POTOO_VISION_ENABLED;
     public final ForgeConfigSpec.BooleanValue RANGED_AGGRO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue RATTLESNAKE_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue RATTLESNAKE_TERRITORIAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ROADRUNNER_DAY_ENABLED;
     public final ForgeConfigSpec.BooleanValue ROLLING_THUNDER_ENABLED;
@@ -100,7 +86,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue STORED_HUNGER_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADPOLE_BOB_UP_ENABLED;
-    public final ForgeConfigSpec.BooleanValue STRADPOLE_FLAME_ENABLED;
     public final ForgeConfigSpec.BooleanValue SUGAR_RUSH_ENABLED;
     public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue TENDON_GRAB_ENABLED;
@@ -112,7 +97,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
     public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue VOIDWORM_STUN_ENABLED;
     public final ForgeConfigSpec.BooleanValue VULTURE_STEAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue WARPED_FRIENDLY_ENABLED;
     public final ForgeConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
@@ -126,18 +110,22 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue BLUE_SHELL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ASMONGOLD_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_HOT_CAT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue PANIC_LAUNCING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue PANIC_LAUNCHING_ENABLED;
     public final ForgeConfigSpec.BooleanValue PROPER_ARMAMENTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue DETUSKING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue CONSUME_COMPASS_ENABLED;
+
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
         this.AMI_WIKI_ENABLED = buildBoolean(builder, "AMI_WIKI_ENABLED", " ", true, "Gives you the ami wiki book at start");
         this.FOOD_TARGET_EFFECTS_ENABLED = buildBoolean(builder, "FOOD_TARGET_EFFECTS_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
-        this.MOLTEN_BATH_ENABLED = buildBoolean(builder, "MOLTEN_BATH_ENABLED", " ", true, "Pour lava bottles into mobs to combust them to flames");
-        this.POISONOUS_BATH_ENABLED = buildBoolean(builder, "POISONOUS_BATH_ENABLED", " ", true, "Pour poison bottles into mobs to poison them alike");
         this.BOTTOMLESS_SAND_ENABLED = buildBoolean(builder, "BOTTOMLESS_SAND_ENABLED", " ", true, "Infinite ammo for pocket sand");
         this.ADD_TARGETS_ENABLED = buildBoolean(builder, "ADD_TARGETS_ENABLED", " ", true, "Add targets for mobs");
+        this.CANNIBALIZATION_ENABLED = buildBoolean(builder, "CANNIBALIZATION_ENABLED", " ", true, "Animals may cannibalize their own kind");
+        this.EGG_ATTACK_ENABLED = buildBoolean(builder, "EGG_ATTACK_ENABLED", " ", true, "Animals with eggs will be hostile to those seen holding their eggs");
+
         builder.comment("--Compatibility with Soul Fire--");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
 
@@ -145,7 +133,6 @@ public class AMIServerConfig {
         builder.push("Mobs");
         builder.push("Vanilla Mob Tweaks");
         this.WITCH_ADDITIONS_ENABLED = buildBoolean(builder, "WITCH_ADDITIONS_ENABLED", " ", true, "Witch drinks poison resistance when poisoned");
-        this.FROG_TRANSFORM_ENABLED = buildBoolean(builder, "FROG_TRANSFORM_ENABLED", " ", true, "Frogs and Rain Frogs can be converted into a Warped Toad");
 
         builder.pop();
         builder.push("Alligator Snapping Turtle");
@@ -154,12 +141,10 @@ public class AMIServerConfig {
 
         builder.pop();
         builder.push("Anaconda");
-        this.ANACONDA_CANNIBALIZE_ENABLED = buildBoolean(builder, "ANACONDA_CANNIBALIZE_ENABLED", " ", true, "Large Anacondas will rarely cannibalize on anacondas when 10% health or babies");
         this.ORPHANED_ANACONDAS_ENABLED = buildBoolean(builder, "ORPHANED_ANACONDAS_ENABLED", " ", true, "Large Anacondas abandon their babies");
 
         builder.pop();
         builder.push("Bald Eagle");
-        this.EAGLE_CANNIBALIZE_ENABLED = buildBoolean(builder, "EAGLE_CANNIBALIZE_ENABLED", " ", true, "Bald Eagle will rarely cannibalize weaker eagles");
         builder.comment("--Compatibility with Alexs Caves--");
         this.BIRD_BOMBING_ENABLED = buildBoolean(builder, "BIRD_BOMBING_ENABLED", " ", true, "Bald Eagle can bomb targetted areas when being controlled");
 
@@ -174,15 +159,13 @@ public class AMIServerConfig {
         this.CARROT_HARVESTING_ENABLED = buildBoolean(builder, "CARROT_HARVESTING_ENABLED", " ", true, "Bunfungus harvests carrots from crops");
         builder.pop();
         builder.push("Caiman");
-        this.CAIMAN_EGG_ATTACK_ENABLED = buildBoolean(builder, "CAIMAN_EGG_ATTACK_ENABLED", " ", true, "Caimans will attack players that are seen holding their eggs");
         this.CAIMAN_AGGRO_ENABLED = buildBoolean(builder, "CAIMAN_AGGRO_ENABLED", " ", true, "Caimans will attack players now");
         builder.pop();
         builder.push("Capuchin Monkey");
-        this.ANCIENT_EFFECTS_ENABLED = buildBoolean(builder, "ANCIENT_EFFECTS_ENABLED", " ", true, "Capuchin Monkeys's darts can be applied with potions");
+        this.DART_EFFECTS_ENABLED = buildBoolean(builder, "DART_EFFECTS_ENABLED", " ", true, "Capuchin Monkeys's darts can be applied with potions");
 
         builder.pop();
         builder.push("Catfish");
-        this.CATFISH_CANNIBALIZE_ENABLED = buildBoolean(builder, "CATFISH_CANNIBALIZE_ENABLED", " ", true, "Large Catfish will cannibalize on smaller catfish");
         this.CATFISH_VENOM_ENABLED = buildBoolean(builder, "CATFISH_VENOM_ENABLED", " ", true, "Catfish has a chance to inflicts poison to attackers");
 
         builder.pop();
@@ -193,42 +176,38 @@ public class AMIServerConfig {
         builder.push("Cockroach");
         builder.comment("--Requires Alexs Caves--");
         this.COCKROACH_MUTATION_ENABLED = buildBoolean(builder, "COCKROACH_MUTATION_ENABLED", " ", true, "Cockroaches will mutate into Gammaroaches from Alex's Caves when in the Toxic Caves (if the mod is present)");
-        builder.comment("--Requires Alexs Caves--");
-        this.ASMONGOLD_ENABLED = buildBoolean(builder, "ASMONGOLD_ENABLED", " ", true, "Use a AC Game Controller,to convert an average cockroach into a god");
+        this.ASMONGOLD_ENABLED = buildBoolean(builder, "ASMONGOLD_ENABLED", " ", true, "Use 'The Roach Crown',to convert an average cockroach into a king");
 
         builder.pop();
         builder.push("Cosmaw");
         this.COSMAW_WEAKENED_ENABLED = buildBoolean(builder, "COSMAW_WEAKENED_ENABLED", " ", true, "Cosmaws will get weak when they carry a heavy player, while weak, they cannot carry their owners at all");
         builder.pop();
         builder.push("Crimson Mosquito");
-        this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened");
-        this.BLOODED_CHANCE = buildDouble(builder, "BLOODED_CHANCE", " ", 0.2,0.0,1.0, "Chance of crimson mosquitoes to spawn with blood inside them");
-        this.BLOOD_PROTECTION_ENABLED = buildBoolean(builder, "BLOOD_PROTECTION_ENABLED", " ", true, "Crimson Mosquitoes is immune to blood spits");
-        this.BLOOD_DAMAGE_DIFFERENCE_ENABLED = buildBoolean(builder, "BLOOD_DAMAGE_DIFFERENCE_ENABLED", " ", true, "Damage from blood spits is dependant from the source");
-        this.FUNGUS_POLLINATE_ENABLED = buildBoolean(builder, "FUNGUS_POLLINATE_ENABLED", " ", true, "Crimson Mosquitoes with blood will pollinate nearby funguses");
         builder.comment("--Compatibility with Biomes Of Plenty--");
-        this.BLOODED_EFFECT_ENABLED = buildBoolean(builder, "BLOODED_EFFECT_ENABLED", " ", true, "Blood spits will inflict you with the new 'Blooded' effect that causes temporary substantial weakness");
+        this.BLOODED_ENABLED = buildBoolean(builder, "BLOODED_ENABLED", " ", true, "New blood interactions with Crimson Mosquitoes and more");
+        builder.push("Crimson Mosquito spawning with Blood");
+        this.BLOODED_CHANCE = buildDouble(builder, "BLOODED_CHANCE", " ", 0.2,0.0,1.0, "Chance of crimson mosquitoes to spawn with blood inside them");
+        builder.comment("--Requires Blooded Effect--");
+        this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
 
         builder.pop();
         builder.push("Crocodile");
         this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", " ", true, "Crocodile has a halo when named 'Wally'");
         builder.pop();
         builder.push("Crow");
-        this.CROW_CANNIBALIZE_ENABLED = buildBoolean(builder, "CROW_CANNIBALIZE_ENABLED", " ", true, "Crow will rarely eat their weaker selves unless if tamed");
         this.CROW_WARRIORS_ENABLED = buildBoolean(builder, "CROW_WARRIORS_ENABLED", " ", true, "Crows will not drop their weapons in their beak when attacked");
 
         builder.pop();
         builder.push("Elephant");
+        this.DETUSKING_ENABLED = buildBoolean(builder, "DETUSKING_ENABLED", " ", true, "Tusked Elephants can be detusked by axeing it enough");
         this.ELEPHANT_TERRITORIAL_ENABLED = buildBoolean(builder, "ELEPHANT_TERRITORIAL_ENABLED", " ", true, "Tusked Elephants attack players when lingering long enough,unless holding Acacia Blossom");
         this.ELEPHANT_TRAMPLE_ENABLED = buildBoolean(builder, "ELEPHANT_TRAMPLE_ENABLED", " ", true, "Tamed Elephants will trample small entities when ridden");
         builder.pop();
         builder.push("Emu");
         this.RANGED_AGGRO_ENABLED = buildBoolean(builder, "RANGED_AGGRO_ENABLED", " ", true, "Emus will attack any that are seen with a ranged weapon");
-        this.EMU_EGG_ATTACK_ENABLED = buildBoolean(builder, "EMU_EGG_ATTACK_ENABLED", " ", true, "Emu will attack any that are seen holding their eggs");
         builder.pop();
         builder.push("Enderiophage");
-        this.INFECT_WEAK_ENABLED = buildBoolean(builder, "INFECT_WEAK_ENABLED", " ", true, "Enderiophage will attack any that are below 30% health");
-        this.INFECT_IMMUNITY_ENABLED = buildBoolean(builder, "INFECT_IMMUNITY_ENABLED", " ", true, "Enderiophage will ignore any that have damage resistance, unless if attacked");
+        this.INFECT_INTERACTION_ENABLED = buildBoolean(builder, "INFECT_INTERACTION_ENABLED", " ", true, "Added interaction with Enderiophage infection");
         this.ENDERIOPHAGE_ADAPTION_ENABLED = buildBoolean(builder, "ENDERIOPHAGE_ADAPTION_ENABLED", " ", true, "Enderiophage when created will adapt to their dimension");
 
         builder.pop();
@@ -242,7 +221,6 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Farseer");
         this.FARSEER_ALTERING_ENABLED = buildBoolean(builder, "FARSEER_ALTERING_ENABLED", " ", true, "Farseer will discombobulate players when targeted,by scrambling their inventory and flashing them with illusions");
-        this.FARSEER_HUMANLIKE_ATTACK_ENABLED = buildBoolean(builder, "FARSEER_HUMANLIKE_ATTACK_ENABLED", " ", true, "Farseer will attack any that are human-like");
         builder.pop();
         builder.push("Flutter");
         this.FLUTTER_WITHERED_ENABLED = buildBoolean(builder, "FLUTTER_WITHERED_ENABLED", " ", true, "Flutter can be fed a wither flower to be inflicted with withered");
@@ -254,13 +232,11 @@ public class AMIServerConfig {
         this.FLY_PESTER_ENABLED = buildBoolean(builder, "FLY_PESTER_ENABLED", " ", true, "Flies will pester certain smelling animals");
         this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "CANDLE_REPEL_ENABLED", " ", true, "Lit candles will cause flies to run away from it");
         this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", " ", true, "Hoflding a maggot while fishing will cause it to be consumed and increase luck for fishing");
-        builder.comment("--Requires Blooded Effect--");
-        this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
 
         builder.pop();
         builder.push("Flying Fish");
         this.WEAVING_WATERS_ENABLED = buildBoolean(builder, "WEAVING_WATERS_ENABLED", " ", true, "Flying Fish Boots's mechanics are changed to be more fluid and based on speed and look angle");
-        this.PANIC_LAUNCING_ENABLED = buildBoolean(builder, "PANIC_LAUNCING_ENABLED", " ", true, "Flying Fish can launch themselves when hurt");
+        this.PANIC_LAUNCHING_ENABLED = buildBoolean(builder, "PANIC_LAUNCHING_ENABLED", " ", true, "Flying Fish can launch themselves when hurt");
 
         builder.pop();
         builder.push("Frilled Shark");
@@ -294,7 +270,6 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Leafcutter Ants");
         this.COCKROACH_CHAMBER_ENABLED = buildBoolean(builder, "COCKROACH_CHAMBER_ENABLED", " ", true, "Leafcutter Chambers that are bustling with fungus can burst out cockroaches");
-        this.ACIDIC_LEAFCUTTER_ENABLED = buildBoolean(builder, "ACIDIC_LEAFCUTTER_ENABLED", " ", true, "Leafcutter ants inflict quick poisons at hit");
         this.THROWABLE_PUPI_ENABLED = buildBoolean(builder, "THROWABLE_PUPI_ENABLED", " ", true, "Whether leafcutter pupi is throwable that places anthills like normal");
         this.LEAFCUTTER_VARIANTS_ENABLED = buildBoolean(builder, "LEAFCUTTER_VARIANTS_ENABLED", " ", true, "Leafcutters have variants which also causes rivalry");
 
@@ -325,7 +300,6 @@ public class AMIServerConfig {
         this.BURROW_AWAY_ENABLED = buildBoolean(builder, "BURROW_AWAY_ENABLED", " ", true, "Rainfrogs burrow away when threatened");
         builder.pop();
         builder.push("Rattlesnake");
-        this.RATTLESNAKE_CANNIBALIZE_ENABLED = buildBoolean(builder, "RATTLESNAKE_CANNIBALIZE_ENABLED", " ", true, "Rattlesnake will cannibalize on weaker snakes");
         this.RATTLESNAKE_TERRITORIAL_ENABLED = buildBoolean(builder, "RATTLESNAKE_TERRITORIAL_ENABLED", " ", true, "Rattlesnakes are territorial against other snakes");
 
         builder.pop();
@@ -367,7 +341,6 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Stradpole");
         this.STRADPOLE_BOB_UP_ENABLED = buildBoolean(builder, "STRADPOLE_BOB_UP_ENABLED", " ", true, "Stradpole can be seen bobbing up or hopping in lava");
-        this.STRADPOLE_FLAME_ENABLED = buildBoolean(builder, "STRADPOLE_FLAME_ENABLED", " ", true, "Stradpole have a chance to inflict flame when launcher by straddlers");
 
         builder.pop();
         builder.push("Sugar Glider");
@@ -391,17 +364,19 @@ public class AMIServerConfig {
         this.ZOGLINNED_ENABLED = buildBoolean(builder, "ZOGLINNED_ENABLED", " ", true, "Tusklin struck by lightning will be converted to zoglins");
         builder.pop();
         builder.push("Void Worm");
-        this.VOIDWORM_STUN_ENABLED = buildBoolean(builder, "VOIDWORM_STUN_ENABLED", " ", true, "Void Worm can be stunned and brought down when hit in the head enough");
         this.DIMENSIONAL_LODESTONE_ENABLED = buildBoolean(builder, "DIMENSIONAL_LODESTONE_ENABLED", " ", true, "Dimensional Carver can be used to make a portal to a linked lodestone when holding the compass off-hand");
-        this.DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED = buildBoolean(builder, "DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED", " ", true, "The compass linked to a lodestone will be consumed when used to make a portal");
-        this.HASTY_CARVING_ENABLED = buildBoolean(builder, "HASTY_CARVING_ENABLED", " ", true, "Dimensional Carver speeds up with haste");
+        builder.push("Compass consumption");
+        this.CONSUME_COMPASS_ENABLED = buildBoolean(builder, "CONSUME_COMPASS_ENABLED", " ", true, "The compass linked to a lodestone will be consumed when used to make a portal");
 
+        this.HASTY_CARVING_ENABLED = buildBoolean(builder, "HASTY_CARVING_ENABLED", " ", true, "Dimensional Carver speeds up with haste");
 
         builder.pop();
         builder.push("Warped Mosco");
+        this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened");
         this.MOSCO_CANNIBALISM_ENABLED = buildBoolean(builder, "MOSCO_CANNIBALISM_ENABLED", " ", true, "Warped Mosco rarely cannibalize on Crimson Mosquitoes");
         builder.pop();
         builder.push("Warped Toad");
+        this.FROG_TRANSFORM_ENABLED = buildBoolean(builder, "FROG_TRANSFORM_ENABLED", " ", true, "Frogs and Rain Frogs can be converted into a Warped Toad");
         this.WARPED_FRIENDLY_ENABLED = buildBoolean(builder, "WARPED_FRIENDLY_ENABLED", " ", true, "Warped Toads will not attack food unless given the orders so");
         builder.pop(2);
         builder.push("April Fools");

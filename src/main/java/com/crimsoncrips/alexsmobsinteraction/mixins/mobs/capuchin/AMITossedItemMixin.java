@@ -125,7 +125,7 @@ public abstract class AMITossedItemMixin extends ThrowableItemProjectile impleme
     private void alexsMobsInteraction$onHitEntity(EntityHitResult p_213868_1_, CallbackInfo ci) {
         MobEffect potion = getPotionEffect();
 
-        if(potion != null && p_213868_1_.getEntity() instanceof LivingEntity livingEntity && AlexsMobsInteraction.COMMON_CONFIG.ANCIENT_EFFECTS_ENABLED.get()){
+        if(potion != null && p_213868_1_.getEntity() instanceof LivingEntity livingEntity && AlexsMobsInteraction.COMMON_CONFIG.DART_EFFECTS_ENABLED.get()){
             MobEffectInstance instance = new MobEffectInstance(potion, 100, getPotionLevel());
             livingEntity.addEffect(instance);
         }

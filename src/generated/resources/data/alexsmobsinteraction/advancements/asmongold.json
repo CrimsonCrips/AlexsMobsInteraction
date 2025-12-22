@@ -13,8 +13,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "citadel:icon_item",
-      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/asmongold.png\"}"
+      "item": "alexsmobsinteraction:asmon_crown"
     },
     "show_toast": true,
     "title": {

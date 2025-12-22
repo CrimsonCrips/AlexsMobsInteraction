@@ -57,27 +57,9 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.FUNGUS_POLLINATE_ENABLED.get()) {
-            this.goalSelector.addGoal(2, new AMIFungusBonemeal(crimsonMosquito, 1.1, 10));
-        }
-
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()){
             this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, Player.class, 10, true, false, (mob) -> !mob.hasEffect(AMEffectRegistry.MOSQUITO_REPELLENT.get())));
             this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, LivingEntity.class, 30, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.CRIMSON_MOSQUITO_TARGETS)));
-        }
-    }
-
-    @Inject(method = "rideTick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCrimsonMosquito;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"))
-    private void alexsMobsInteraction$rideTick(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.FUNGUS_POLLINATE_ENABLED.get()) {
-
-            List<MobEffectInstance> mobEffects = this.getActiveEffects().stream().toList();
-            for (MobEffectInstance mobEffect : mobEffects){
-                if (mobEffect.getEffect().getCategory().equals(MobEffectCategory.HARMFUL) && getVehicle() instanceof LivingEntity living){
-                    living.addEffect(new MobEffectInstance(mobEffect.getEffect(), (int) (mobEffect.getDuration() * 0.1),mobEffect.getAmplifier() > 0 ? mobEffect.getAmplifier() - mobEffect.getAmplifier() + 1 : 0));
-                }
-            }
-
         }
     }
 

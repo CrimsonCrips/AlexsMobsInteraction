@@ -102,6 +102,7 @@
     "mobs.laviathan.AMILaviathan",
     "mobs.leafcutter.AMILeafcutterAntMixin",
     "mobs.leafcutter.AMILeafcutterAntRenderMixin",
+    "mobs.portal.AMIVoidPortalMixin",
     "mobs.skelewag.AMISkelewag",
     "mobs.snapping_turtle.AMISnappingTurtleMixin",
     "mobs.snapping_turtle.AMISnappingTurtleRenderMixin",
@@ -121,6 +122,7 @@
     "mobs.kangaroo.AMIKangarooRenderMixin",
     "mobs.laviathan.AMILaviathanLayerRenderingMixin",
     "mobs.laviathan.AMILaviathanRendering",
+    "mobs.portal.AMIVoidPortalRenderMixin",
     "mobs.skelewag.AMISkelewagRenderMixin",
     "mobs.terrapin.AMITerrapinMixin",
     "mobs.terrapin.AMITerrapinRenderMixin"

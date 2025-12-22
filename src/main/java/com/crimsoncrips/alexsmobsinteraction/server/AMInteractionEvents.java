@@ -3,43 +3,30 @@ package com.crimsoncrips.alexsmobsinteraction.server;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
-import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
-import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
-import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
-import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.AMInDamageTypes;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
-import com.crimsoncrips.alexsmobsinteraction.misc.AMIDamageTypes;
-import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
-import com.github.alexthe666.alexsmobs.client.model.ModelWanderingVillagerRider;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.EmeraldsForItemsTrade;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
-import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.goat.Goat;
@@ -47,27 +34,15 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PotionItem;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -118,7 +93,7 @@ public class AMInteractionEvents {
 
 
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()){
             if (ModList.get().isLoaded("biomesoplenty") && livingEntity.getFeetBlockState().is(BOPCompat.getBOPBlock())) {
                 livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
             }
@@ -184,7 +159,8 @@ public class AMInteractionEvents {
         if(livingEntity instanceof EntityBananaSlug bananaSlug && AlexsMobsInteraction.COMMON_CONFIG.GOOFY_BANANA_SLIP_ENABLED.get()){
             for (LivingEntity livingEntitys : level.getEntitiesOfClass(LivingEntity.class, bananaSlug.getBoundingBox().expandTowards(0.5, 0.2, 0.5))) {
                 if (livingEntitys instanceof Player player && !player.isCreative() && player.isAlive()) {
-                    player.hurt(AMIDamageTypes.causeBananaSlip(level.registryAccess()),100);
+                    player.hurt(AMInDamageTypes.getDamageSource(livingEntitys.level(), AMInDamageTypes.BANANA_SLIP), 1000F);
+
                     player.playSound(AMISoundRegistry.BANANA_SLIP.get());
                 }
             }
@@ -221,7 +197,7 @@ public class AMInteractionEvents {
 
             if(AlexsMobsInteraction.COMMON_CONFIG.GOOFY_BANANA_SLIP_ENABLED.get()){
                 if (feetBlockstate.is(AMBlockRegistry.BANANA_PEEL.get()) && !player.isCreative() && player.isAlive()){
-                    player.hurt(AMIDamageTypes.causeBananaSlip(level.registryAccess()),100);
+                    player.hurt(AMInDamageTypes.getDamageSource(player.level(), AMInDamageTypes.BANANA_SLIP), 1000F);
                     player.playSound(AMISoundRegistry.BANANA_SLIP.get());
                 }
             }
@@ -266,31 +242,6 @@ public class AMInteractionEvents {
         RandomSource random = player.getRandom();
         Entity entity = event.getTarget();
         Level level = entity.level();
-
-
-        if (entity instanceof LivingEntity living) {
-            if (itemStack.getItem() == AMItemRegistry.LAVA_BOTTLE.get() && AlexsMobsInteraction.COMMON_CONFIG.MOLTEN_BATH_ENABLED.get()) {
-                if (!player.isCreative()) {
-                    itemStack.shrink(1);
-                    player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
-                }
-                living.setSecondsOnFire(10);
-                player.playSound(SoundEvents.LAVA_POP, 1F, 1F);
-                player.swing(event.getHand());
-                AMIUtils.awardAdvancement(player,"molten_bath","molten");
-            }
-            if (itemStack.getItem() == AMItemRegistry.POISON_BOTTLE.get() && AlexsMobsInteraction.COMMON_CONFIG.POISONOUS_BATH_ENABLED.get()) {
-                if (!player.isCreative()) itemStack.shrink(1);
-                living.addEffect(new MobEffectInstance(MobEffects.POISON, 150, 1));
-                if (!player.isCreative()) {
-                    itemStack.shrink(1);
-                    player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
-                }
-                player.playSound(SoundEvents.FIRE_EXTINGUISH, 1F, 1F);
-                player.swing(event.getHand());
-                AMIUtils.awardAdvancement(player,"poison_bath","poison");
-            }
-        }
 
 
 
@@ -363,6 +314,16 @@ public class AMInteractionEvents {
                 if (entityToSpawn instanceof EntityCockroach cockroach && worldIn.getRandom().nextDouble() < 0.07)
                     cockroach.setBaby(true);
                 AMIUtils.awardAdvancement(livingEntity,"uncover_roach","uncover");
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void hurtEvent(LivingHurtEvent event) {
+        if (event.getEntity() instanceof EntityElephant elephant && elephant.isTusked() && event.getSource().getEntity() instanceof Player player && player.getMainHandItem().is(ItemTags.AXES)){
+            if (AMIUtils.chanceTrue((int) event.getAmount(),20)){
+                elephant.setTusked(false);
+                elephant.playSound(SoundEvents.WITHER_BREAK_BLOCK, 1.2F, 1);
             }
         }
     }
@@ -466,16 +427,6 @@ public class AMInteractionEvents {
             if (!(time > 13000 && time < 23460)) {
                 spawnPlacementCheck.setResult(Event.Result.DENY);
             }
-        }
-    }
-
-    @SubscribeEvent
-    public void livingDamage(LivingDamageEvent livingDamageEvent) {
-        Entity damager = livingDamageEvent.getSource().getEntity();
-        LivingEntity damaged = livingDamageEvent.getEntity();
-
-        if(AlexsMobsInteraction.COMMON_CONFIG.ACIDIC_LEAFCUTTER_ENABLED.get() && damager instanceof EntityLeafcutterAnt leafcutterAnt){
-            damaged.addEffect(new MobEffectInstance(MobEffects.POISON, 100 * (leafcutterAnt.isQueen() ? 4 : 2), leafcutterAnt.isQueen() ? 2 : 0));
         }
     }
 

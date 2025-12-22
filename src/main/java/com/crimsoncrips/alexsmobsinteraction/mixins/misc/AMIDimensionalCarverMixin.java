@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.github.alexthe666.alexsmobs.item.ItemDimensionalCarver;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -46,7 +47,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
         if (player instanceof ServerPlayer serverPlayer && itemStack.getItem() instanceof CompassItem && AlexsMobsInteraction.COMMON_CONFIG.DIMENSIONAL_LODESTONE_ENABLED.get()){
             CompoundTag lodestoneTag = itemStack.getTag();
             if (lodestoneTag != null && CompassItem.getLodestonePosition(lodestoneTag) != null){
-                if(!serverPlayer.isCreative() && AlexsMobsInteraction.COMMON_CONFIG.DIMENSIONAL_LODESTONE_CONSUME_COMPASS_ENABLED.get()){
+                if(!serverPlayer.isCreative() && AlexsMobsInteraction.COMMON_CONFIG.CONSUME_COMPASS_ENABLED.get()){
                     itemStack.shrink(1);
                 }
                 GlobalPos globalLodestone = CompassItem.getLodestonePosition(lodestoneTag);
@@ -56,6 +57,8 @@ public abstract class AMIDimensionalCarverMixin extends Item {
                     AMIUtils.awardAdvancement(player, "multidimensional_lodestone", "dimension");
                 }
                 AMIUtils.awardAdvancement(player, "dimensional_lodestone", "lodestone");
+                String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
+                ((AMIBaseInterfaces)portal).setVariant(dimensionDeterminer(result));
             }
         } else {
             ResourceKey<Level> respawnDimension = Level.OVERWORLD;
@@ -80,6 +83,15 @@ public abstract class AMIDimensionalCarverMixin extends Item {
             return amount + (haste != null ? (haste.getAmplifier() == 0 ? 100 : 150) : 0);
         }
         return amount;
+    }
+
+    public int dimensionDeterminer(String string){
+        return switch (string) {
+            case "minecraft:overworld" -> 1;
+            case "minecraft:nether" -> 2;
+            case "minecraft:the_end" -> 3;
+            default -> 0;
+        };
     }
 
 

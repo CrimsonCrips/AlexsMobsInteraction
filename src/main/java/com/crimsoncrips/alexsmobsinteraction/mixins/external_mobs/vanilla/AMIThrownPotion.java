@@ -29,7 +29,7 @@ public abstract class AMIThrownPotion extends ThrowableItemProjectile {
             double d0 = this.distanceToSqr(livingentity);
             if (d0 < 16.0D) {
 
-                if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()){
+                if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()){
                     MobEffectInstance blooded = livingentity.getEffect(AMIEffects.BLOODED.get());
                     if (blooded != null){
                         livingentity.removeEffect(AMIEffects.BLOODED.get());

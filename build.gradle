@@ -96,6 +96,19 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.blamejared.com' }
+
+    maven {
+        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+        content {
+            includeGroup "com.klikli_dev"
+        }
+    }
+    maven {
+        name = 'tterrag maven'
+        url = 'https://maven.tterrag.com/'
+    }
     exclusiveContent {
         forRepository {
             maven {
@@ -108,13 +121,23 @@ repositories {
             includeGroup "maven.modrinth"
         }
 
+        maven {
+            url = 'https://www.cursemaven.com'
+            content {
+                includeGroup 'curse.maven'
+            }
+        }
     }
-
 }
 
 dependencies {
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    //Thank you reimnop :prayge:
+    implementation fg.deobf('com.github.Reimnop:PGen:1.1.0-1.20.1')
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84.1-FORGE:api")
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84.1-FORGE")
 
     implementation fg.deobf("maven.modrinth:alexs-mobs:1.22.9")
     implementation fg.deobf("maven.modrinth:citadel:2.6.0")

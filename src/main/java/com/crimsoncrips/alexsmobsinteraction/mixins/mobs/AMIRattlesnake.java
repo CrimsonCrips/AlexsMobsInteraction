@@ -48,7 +48,7 @@ public abstract class AMIRattlesnake extends Animal implements AMIBaseInterfaces
                 }
             });
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.RATTLESNAKE_CANNIBALIZE_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()) {
             rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, EntityRattlesnake.class, 1500, true, true, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.60F * livingEntity.getMaxHealth() || livingEntity.isBaby();
             }));

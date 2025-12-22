@@ -2,6 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.client.layer;
 
 import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
+import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.github.alexthe666.alexsmobs.client.model.ModelCockroach;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,7 +35,7 @@ public class AsmonLayer extends RenderLayer<EntityCockroach, ModelCockroach> {
         if (pLivingEntity.isAlive() && !pLivingEntity.isDancing() && !pLivingEntity.hasMaracas() && ((AsmonRoach)pLivingEntity).isGod()){
             VertexConsumer crown = pBuffer.getBuffer(getParentModel().neck.getModel().renderType(TEXTURE_CROWN));
             pPoseStack.pushPose();
-            pPoseStack.translate(0.115F, 1.5F, -2.2F);
+            pPoseStack.translate(0.080F, 1.5F, -2.2F);
             pPoseStack.mulPose(Axis.XP.rotationDegrees(90F));
             pPoseStack.scale(1.3F, 1.3F, 1.3F);
             this.getParentModel().renderToBuffer(pPoseStack, crown, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -42,20 +43,18 @@ public class AsmonLayer extends RenderLayer<EntityCockroach, ModelCockroach> {
 
             float cameraY = Minecraft.getInstance().getEntityRenderDispatcher().camera.getYRot();
 
-            if (ModList.get().isLoaded("alexscaves")) {
-                ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
+            ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
 
-                ItemStack haloStack = new ItemStack(ACCompat.gameController().getItem());
-                pPoseStack.pushPose();
-                float f = 0.1F * (float) Math.sin((pLivingEntity.tickCount + pPartialTick) * 0.1F) + (pLivingEntity.isBaby() ? 0.2F : 0F);
-                pPoseStack.translate(0.0F, 1F - f, 0F);
-                pPoseStack.mulPose(Axis.XP.rotationDegrees(180F));
-                //Thanks drull with the math
-                pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - cameraY + Mth.rotLerp(pPartialTick, pLivingEntity.yBodyRotO, pLivingEntity.yBodyRot)));
-                pPoseStack.scale(0.6F, 0.6F, 0.6F);
-                renderer.renderItem(pLivingEntity, haloStack, ItemDisplayContext.GROUND, false, pPoseStack, pBuffer, pPackedLight);
-                pPoseStack.popPose();
-            }
+            ItemStack haloStack = new ItemStack(AMIItemRegistry.ASMON_CROWN.get());
+            pPoseStack.pushPose();
+            float f = 0.1F * (float) Math.sin((pLivingEntity.tickCount + pPartialTick) * 0.1F) + (pLivingEntity.isBaby() ? 0.2F : 0F);
+            pPoseStack.translate(0.0F, 1F - f, 0F);
+            pPoseStack.mulPose(Axis.XP.rotationDegrees(180F));
+            //Thanks drull with the math
+            pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - cameraY + Mth.rotLerp(pPartialTick, pLivingEntity.yBodyRotO, pLivingEntity.yBodyRot)));
+            pPoseStack.scale(0.6F, 0.6F, 0.6F);
+            renderer.renderItem(pLivingEntity, haloStack, ItemDisplayContext.GROUND, false, pPoseStack, pBuffer, pPackedLight);
+            pPoseStack.popPose();
         }
 
     }

@@ -38,7 +38,7 @@ public abstract class AMICaiman extends TamableAnimal {
                 }
             });
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.CAIMAN_EGG_ATTACK_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.EGG_ATTACK_ENABLED.get()) {
             caiman.targetSelector.addGoal(8, new AMIEggHeldAttack<>(caiman, LivingEntity.class,true));
         }
     }

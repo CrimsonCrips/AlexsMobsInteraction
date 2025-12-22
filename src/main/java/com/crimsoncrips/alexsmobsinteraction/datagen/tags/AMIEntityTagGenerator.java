@@ -3,6 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.datagen.tags;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.AMIEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;

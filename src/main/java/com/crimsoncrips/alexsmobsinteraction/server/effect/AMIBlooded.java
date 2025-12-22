@@ -22,7 +22,7 @@ public class AMIBlooded extends MobEffect {
     }
 
     public String getDescriptionId() {
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()) {
             return "effect.alexsmobsinteraction.blooded.title";
         } else {
             return "misc.alexsmobsinteraction.feature_disabled";
@@ -30,7 +30,7 @@ public class AMIBlooded extends MobEffect {
     }
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_EFFECT_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()){
             AMIUtils.awardAdvancement(entity, "blooded", "blood");
         }
     }

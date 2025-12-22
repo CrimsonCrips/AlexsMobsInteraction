@@ -1,0 +1,15 @@
+{
+  "type": "patchouli:shapeless_book_recipe",
+  "ingredients": [
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "alexscaves:cave_tablet"
+    }
+  ],
+  "book": "alexsmobsinteraction:amiwiki"
+}
