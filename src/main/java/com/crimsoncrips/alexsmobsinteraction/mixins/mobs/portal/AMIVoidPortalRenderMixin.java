@@ -55,6 +55,17 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
     private static final ResourceLocation THE_END_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_idle_2.png");
     private static final ResourceLocation[] THE_END_PROGRESS = new ResourceLocation[10];
 
+    private static final ResourceLocation BETTER_END_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_0.png");
+    private static final ResourceLocation BETTER_END_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_1.png");
+    private static final ResourceLocation BETTER_END_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_2.png");
+    private static final ResourceLocation[] BETTER_END_PROGRESS = new ResourceLocation[10];
+
+    private static final ResourceLocation BETTER_NETHER_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_0.png");
+    private static final ResourceLocation BETTER_NETHER_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_1.png");
+    private static final ResourceLocation BETTER_NETHER_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_2.png");
+    private static final ResourceLocation[] BETTER_NETHER_PROGRESS = new ResourceLocation[10];
+
+
     protected AMIVoidPortalRenderMixin(EntityRendererProvider.Context pContext) {
         super(pContext);
     }
@@ -75,6 +86,8 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
             OVERWORLD_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_grow_" + i + ".png");
             NETHER_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_grow_" + i + ".png");
             THE_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_grow_" + i + ".png");
+            BETTER_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_grow_" + i + ".png");
+            BETTER_NETHER_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_grow_" + i + ".png");
         }
     }
 
@@ -106,6 +119,8 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
             case 1 -> OVERWORLD_PROGRESS;
             case 2 -> NETHER_PROGRESS;
             case 3 -> THE_END_PROGRESS;
+            case 4 -> BETTER_END_PROGRESS;
+            case 5 -> BETTER_NETHER_PROGRESS;
             default -> TEXTURE_PROGRESS;
         };
     }
@@ -123,6 +138,12 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
             }
             case 3 -> {
                 return no == 0 ? THE_END_0 : (no == 1 ? THE_END_1 : THE_END_2);
+            }
+            case 4 -> {
+                return no == 0 ? BETTER_END_0 : (no == 1 ? BETTER_END_1 : BETTER_END_2);
+            }
+            case 5 -> {
+                return no == 0 ? BETTER_NETHER_0 : (no == 1 ? BETTER_NETHER_1 : BETTER_NETHER_2);
             }
             default -> {
                 return no == 0 ? TEXTURE_0 : (no == 1 ? TEXTURE_1 : TEXTURE_2);

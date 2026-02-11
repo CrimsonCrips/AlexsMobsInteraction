@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.fml.ModList;
 import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 
@@ -91,8 +92,26 @@ public class AMIUtils {
     static public int dimensionDeterminer(String string){
         return switch (string) {
             case "minecraft:overworld" -> 1;
-            case "minecraft:the_nether" -> 2;
-            case "minecraft:the_end" -> 3;
+            case "minecraft:the_nether" -> {
+                //5 means better nether texture. 2 means vanilla nether texture
+
+                int variantNo = AlexsMobsInteraction.CLIENT_CONFIG.NETHER_PORTAL_VARIANT.get();
+                if (variantNo == 0){
+                   yield ModList.get().isLoaded("betternether") ? 5 : 2;
+                } else {
+                   yield variantNo == 1 ? 2 : 5;
+                }
+            }
+            case "minecraft:the_end" -> {
+                //4 means better end texture. 3 means vanilla end texture
+
+                int variantNo = AlexsMobsInteraction.CLIENT_CONFIG.END_PORTAL_VARIANT.get();
+                if (variantNo == 0) {
+                    yield ModList.get().isLoaded("betterend") ? 4 : 3;
+                } else {
+                    yield variantNo == 1 ? 3 : 4;
+                }
+            }
             default -> 0;
         };
     }
