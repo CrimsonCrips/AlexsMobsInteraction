@@ -1,0 +1,15 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Egg Attack",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/egg_attack.png"
+      ],
+      "text": "Animals attack those seen holding their eggs",
+      "title": "Egg Attack"
+    }
+  ]
+}

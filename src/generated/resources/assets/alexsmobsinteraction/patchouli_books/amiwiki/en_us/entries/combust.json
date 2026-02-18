@@ -1,0 +1,15 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Combustion",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/combust.png"
+      ],
+      "text": "Combustion occurs to oiled mobs",
+      "title": "Combustion"
+    }
+  ]
+}

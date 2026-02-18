@@ -1,0 +1,23 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Add Targets",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/add_targets.png"
+      ],
+      "text": "Adds extra targets for mobs to improve immersion",
+      "title": "Add Targets"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/cannibalism.png"
+      ],
+      "text": "Adds cannibalism onto mobs",
+      "title": "Cannibalism"
+    }
+  ]
+}
