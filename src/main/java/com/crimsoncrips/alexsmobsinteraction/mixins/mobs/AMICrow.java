@@ -57,7 +57,7 @@ public abstract class AMICrow extends Mob {
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
 
         EntityCrow crow = (EntityCrow)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CROW_ENABLED.get()){
             crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.CROW_KILL)){
                 @Override
                 public boolean canUse() {
@@ -65,7 +65,7 @@ public abstract class AMICrow extends Mob {
                 }
             });
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()){
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()){
             crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, EntityCrow.class, 500, true, true, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth();
             }){
@@ -79,7 +79,7 @@ public abstract class AMICrow extends Mob {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

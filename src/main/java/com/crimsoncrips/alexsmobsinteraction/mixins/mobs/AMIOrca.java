@@ -27,7 +27,7 @@ public abstract class AMIOrca extends TamableAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityOrca orca = (EntityOrca)(Object)this;
-        if(AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+        if(AlexsMobsInteraction.TARGETS_CONFIG.ORCA_ENABLED.get()){
             orca.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(orca, LivingEntity.class, 200, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.ORCA_KILL)));
         }
     }

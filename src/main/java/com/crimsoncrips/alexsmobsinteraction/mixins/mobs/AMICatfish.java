@@ -72,7 +72,7 @@ public abstract class AMICatfish extends WaterAnimal {
 
     @ModifyReturnValue(method = "isFood", at = @At("RETURN"),remap = false)
     private boolean alexsMobsInteraction$isFood(boolean original,@Local Entity entity) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             if (this.getCatfishSize() == 2) {
                 return !entity.getType().is(AMTagRegistry.CATFISH_IGNORE_EATING) && entity instanceof Mob && !(entity instanceof EntityCatfish catfish && catfish.getCatfishSize() == 2 ) && entity.getBbHeight() <= 1.0F;
             } else {

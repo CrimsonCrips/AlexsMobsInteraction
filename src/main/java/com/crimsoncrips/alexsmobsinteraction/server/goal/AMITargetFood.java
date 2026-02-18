@@ -85,7 +85,7 @@ public class AMITargetFood extends Goal {
     }
 
     private boolean isFood(Entity entity) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             if (catfish.getCatfishSize() == 2) {
                 return !entity.getType().is(AMTagRegistry.CATFISH_IGNORE_EATING) && entity instanceof Mob && entity.getBbHeight() <= 1.0F;
             } else {

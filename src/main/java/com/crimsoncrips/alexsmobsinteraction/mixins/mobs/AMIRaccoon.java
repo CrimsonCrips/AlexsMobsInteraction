@@ -36,7 +36,7 @@ public abstract class AMIRaccoon extends TamableAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRaccoon raccoon = (EntityRaccoon)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.RACCOON_ENABLED.get()) {
             raccoon.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(raccoon, LivingEntity.class, 200, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.INSECTS)) {
                 @Override
                 public boolean canContinueToUse() {
@@ -48,7 +48,7 @@ public abstract class AMIRaccoon extends TamableAnimal {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

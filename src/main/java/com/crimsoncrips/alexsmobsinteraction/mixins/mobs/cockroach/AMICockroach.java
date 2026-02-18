@@ -69,7 +69,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void alexsMobsInteraction$getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

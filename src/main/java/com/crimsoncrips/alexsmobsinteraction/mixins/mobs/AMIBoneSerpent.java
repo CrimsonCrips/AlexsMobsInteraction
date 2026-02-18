@@ -35,7 +35,7 @@ public abstract class AMIBoneSerpent extends Monster {
         if(AlexsMobsInteraction.COMMON_CONFIG.SERPENT_FEAR_ENABLED.get()) {
             boneSerpent.goalSelector.addGoal(7, new AvoidEntityGoal<>(boneSerpent, EntityLaviathan.class, 10.0F, 1.6, 2));
         }
-        if(AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if(AlexsMobsInteraction.TARGETS_CONFIG.BONE_SERPENT_ENABLED.get()) {
             boneSerpent.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(boneSerpent, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.NETHER_KILL)));
         }
 

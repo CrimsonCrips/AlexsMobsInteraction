@@ -34,7 +34,7 @@ public abstract class AMIShoebill extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityShoebill shoebill = (EntityShoebill)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.SHOEBILL_ENABLED.get()) {
             shoebill.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(shoebill, LivingEntity.class, 400, true, true, livingEntity -> {
                 return livingEntity.getType().is(AMIEntityTagGenerator.SHOEBILL_BABY_KILL) && livingEntity.isBaby() || livingEntity.getType().is(AMIEntityTagGenerator.INSECTS);
             }));
@@ -43,7 +43,7 @@ public abstract class AMIShoebill extends Animal {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){

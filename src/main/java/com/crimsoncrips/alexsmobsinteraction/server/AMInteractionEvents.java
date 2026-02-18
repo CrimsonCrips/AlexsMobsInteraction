@@ -16,6 +16,7 @@ import com.github.alexthe666.alexsmobs.misc.EmeraldsForItemsTrade;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -50,6 +52,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.Iterator;
 
@@ -261,6 +264,24 @@ public class AMInteractionEvents {
             AMIUtils.awardAdvancement(player,"ender_boost","ender_boost");
             player.getCooldowns().addCooldown(itemStack.getItem(), 500);
             ((AMIBaseInterfaces)entityEndergrade).boost();
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (ModList.get().isLoaded("patchouli")){
+            Player player = event.getEntity();
+            CompoundTag playerData = event.getEntity().getPersistentData();
+            CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+
+            ItemStack book = new ItemStack(PatchouliItems.BOOK);
+            book.getOrCreateTag().putString("patchouli:book", "alexsmobsinteraction:amiwiki");
+
+            if (!data.getBoolean("ami_book") && AlexsMobsInteraction.COMMON_CONFIG.AMI_WIKI_ENABLED.get()) {
+                player.addItem(book);
+                data.putBoolean("ami_book", true);
+                playerData.put(Player.PERSISTED_NBT_TAG, data);
+            }
         }
     }
 

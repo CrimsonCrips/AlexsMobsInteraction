@@ -29,7 +29,7 @@ public abstract class AMIFrilledShark {
                 return livingEntity.getHealth() <= 0.25F * livingEntity.getMaxHealth();
             }));
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.FRILLED_SHARK_ENABLED.get()) {
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, LivingEntity.class, 20, false, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.KILL_FISHES)));
         }
     }

@@ -42,7 +42,7 @@ public abstract class AMIRoadrunner extends Animal {
             });
 
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+        if (AlexsMobsInteraction.TARGETS_CONFIG.ROADRUNNER_ENABLED.get()){
             roadrunner.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(roadrunner, LivingEntity.class, 200, true, true, livingEntity -> {
                 return livingEntity.getType().is(AMIEntityTagGenerator.INSECTS) || livingEntity instanceof EntityRattlesnake;
             }) {

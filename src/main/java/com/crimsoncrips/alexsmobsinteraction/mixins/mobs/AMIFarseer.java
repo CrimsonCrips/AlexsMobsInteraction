@@ -35,7 +35,7 @@ public abstract class AMIFarseer extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityFarseer farseer = (EntityFarseer)(Object)this;
-        if(AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+        if(AlexsMobsInteraction.TARGETS_CONFIG.FARSEER_ENABLED.get()){
             farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, Raider.class, 3, false, true, null));
             farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, Villager.class, 3, false, true, null));
             farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, WanderingTrader.class, 3, false, true, null));

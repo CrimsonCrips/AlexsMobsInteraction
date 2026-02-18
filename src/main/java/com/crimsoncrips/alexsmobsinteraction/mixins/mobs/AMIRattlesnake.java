@@ -41,14 +41,14 @@ public abstract class AMIRattlesnake extends Animal implements AMIBaseInterfaces
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRattlesnake rattlesnake = (EntityRattlesnake)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.RATTLESNAKE_ENABLED.get()) {
             rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.WEAK_PREY)) {
                 public void start() {
                     super.start();
                 }
             });
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, EntityRattlesnake.class, 1500, true, true, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.60F * livingEntity.getMaxHealth() || livingEntity.isBaby();
             }));

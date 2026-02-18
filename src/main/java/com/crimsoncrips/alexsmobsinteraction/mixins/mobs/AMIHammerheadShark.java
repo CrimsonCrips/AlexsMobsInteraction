@@ -31,7 +31,7 @@ public class AMIHammerheadShark extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityHammerheadShark hammerheadShark = (EntityHammerheadShark)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.HAMMERHEAD_ENABLED.get()) {
             hammerheadShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(hammerheadShark, LivingEntity.class, 0, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.HAMMERHEAD_KILL)));
         }
     }

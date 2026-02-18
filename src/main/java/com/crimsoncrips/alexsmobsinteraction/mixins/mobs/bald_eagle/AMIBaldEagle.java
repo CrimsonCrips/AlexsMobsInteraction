@@ -52,7 +52,7 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityBaldEagle baldEagle = (EntityBaldEagle)(Object)this;
-        if(AlexsMobsInteraction.COMMON_CONFIG.CANNIBALIZATION_ENABLED.get()){
+        if(AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()){
             baldEagle.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(baldEagle, EntityBaldEagle.class, 1000, true, false, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
             }) {

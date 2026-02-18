@@ -42,18 +42,59 @@ public class AMInBookProvider extends PGenBookProvider {
                                                 "General Additions",
                                                 new ResourceLocation("alexsmobsinteraction:textures/gui/adv_icon/ami_adv_icon.png"),
                                                 category -> category.withSortnum(0))
-                                        .addEntry("redo_spelunky",
-                                                "Redoable Spelunky",
+                                        .addEntry("food_fx",
+                                                "Food Effects",
                                                 new ResourceLocation("paper"),
                                                 new ResourceLocation(AlexsMobsInteraction.MODID, "general"),
                                                 entry -> {
                                                     entry
-                                                            .addSpotlightPage(
-                                                                    itemIconGiver(ACBlockRegistry.SPELUNKERY_TABLE),
-                                                                    page -> page.withText(
-                                                                            "Allows for you to back-out of the spelunkery table and not have the tablet break," +
-                                                                                    "useful for when interrupted by any unwanted interruptions").withTitle("Redoable Spelunky")
-                                                            );
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/general/food_fx.png")
+                                                                        .withText("Animals eating dropped food will inherit the food's effects")
+                                                                        .withTitle("Food Effects");
+                                                            });
+                                                })
+                                        .addEntry("add_targets",
+                                                "Add Targets",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "general"),
+                                                entry -> {
+                                                    entry
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/general/add_targets.png")
+                                                                        .withText("Adds extra targets for mobs to improve immersion")
+                                                                        .withTitle("Add Targets");
+                                                            })
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/general/cannibalism.png")
+                                                                        .withText("Adds cannibalism onto mobs")
+                                                                        .withTitle("Cannibalism");
+                                                            });
+                                                })
+                                        .addEntry("egg_attack",
+                                                "Egg Attack",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "general"),
+                                                entry -> {
+                                                    entry
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/general/egg_attack.png")
+                                                                        .withText("Animals attack those seen holding their eggs")
+                                                                        .withTitle("Egg Attack");
+                                                            });
+                                                })
+                                        .addEntry("combust",
+                                                "Combustion",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "general"),
+                                                entry -> {
+                                                    entry
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/general/combust.png")
+                                                                        .withText("Combustion occurs to oiled mobs \n" +
+                                                                                "Compatibility with Soul Fire")
+                                                                        .withTitle("Combustion");
+                                                            });
                                                 });
                             });
 

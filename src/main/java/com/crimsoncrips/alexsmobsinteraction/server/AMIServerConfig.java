@@ -4,15 +4,12 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue ACCIDENTAL_BETRAYAL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ADD_TARGETS_ENABLED;
     public final ForgeConfigSpec.BooleanValue AMI_WIKI_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CANNIBALIZATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue DART_EFFECTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLOODED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BOTTOMLESS_SAND_ENABLED;
     public final ForgeConfigSpec.BooleanValue BOXING_GLOVES_ENABLED;
     public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
     public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
@@ -37,7 +34,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLY_PESTER_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLY_TRANSFORM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FOOD_TARGET_EFFECTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue FOOD_FX_ENABLED;
     public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO_ENABLED;
     public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
@@ -60,11 +57,9 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue LOBSTER_NIGHT_ENABLED;
     public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
     public final ForgeConfigSpec.BooleanValue MANTIS_AGGRO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MANTIS_CANNIBALIZE_ENABLED;
     public final ForgeConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
     //public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MOSCO_CANNIBALISM_ENABLED;
     public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
     public final ForgeConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
@@ -120,12 +115,8 @@ public class AMIServerConfig {
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
         this.AMI_WIKI_ENABLED = buildBoolean(builder, "AMI_WIKI_ENABLED", " ", true, "Gives you the ami wiki book at start");
-        this.FOOD_TARGET_EFFECTS_ENABLED = buildBoolean(builder, "FOOD_TARGET_EFFECTS_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
-        this.BOTTOMLESS_SAND_ENABLED = buildBoolean(builder, "BOTTOMLESS_SAND_ENABLED", " ", true, "Infinite ammo for pocket sand");
-        this.ADD_TARGETS_ENABLED = buildBoolean(builder, "ADD_TARGETS_ENABLED", " ", true, "Add targets for mobs");
-        this.CANNIBALIZATION_ENABLED = buildBoolean(builder, "CANNIBALIZATION_ENABLED", " ", true, "Animals may cannibalize their own kind");
+        this.FOOD_FX_ENABLED = buildBoolean(builder, "FOOD_FX_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
         this.EGG_ATTACK_ENABLED = buildBoolean(builder, "EGG_ATTACK_ENABLED", " ", true, "Animals with eggs will be hostile to those seen holding their eggs");
-
         builder.comment("--Compatibility with Soul Fire--");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
 
@@ -278,7 +269,6 @@ public class AMIServerConfig {
         this.LOBSTER_NIGHT_ENABLED = buildBoolean(builder, "LOBSTER_NIGHT_ENABLED", " ", true, "Lobster will only spawn at night");
         builder.pop();
         builder.push("Mantis Shrimp");
-        this.MANTIS_CANNIBALIZE_ENABLED = buildBoolean(builder, "MANTIS_CANNIBALIZE_ENABLED", " ", true, "Mantis Shrimp will cannibalize on low health mantis shrimp");
         this.MANTIS_AGGRO_ENABLED = buildBoolean(builder, "MANTIS_AGGRO_ENABLED", " ", true, "Mantis will attack players, unless if holding tropical fish");
         builder.pop();
         builder.push("Mimicube");
@@ -373,7 +363,6 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Warped Mosco");
         this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened");
-        this.MOSCO_CANNIBALISM_ENABLED = buildBoolean(builder, "MOSCO_CANNIBALISM_ENABLED", " ", true, "Warped Mosco rarely cannibalize on Crimson Mosquitoes");
         builder.pop();
         builder.push("Warped Toad");
         this.FROG_TRANSFORM_ENABLED = buildBoolean(builder, "FROG_TRANSFORM_ENABLED", " ", true, "Frogs and Rain Frogs can be converted into a Warped Toad");

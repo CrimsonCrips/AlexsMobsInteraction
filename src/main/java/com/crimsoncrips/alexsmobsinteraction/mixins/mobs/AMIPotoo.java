@@ -37,7 +37,7 @@ public abstract class AMIPotoo extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityPotoo potoo = (EntityPotoo)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+        if (AlexsMobsInteraction.TARGETS_CONFIG.POTOO_ENABLED.get()){
             potoo.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(potoo, EntityFly.class, 600, true, false, LivingEntity::isAlive));
         }
 

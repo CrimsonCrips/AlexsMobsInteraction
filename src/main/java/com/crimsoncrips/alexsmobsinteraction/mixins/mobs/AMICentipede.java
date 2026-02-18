@@ -46,7 +46,7 @@ public class AMICentipede extends Monster {
                 return centipede.getLastAttacker() != livingEntity && CuriosCompat.hasLight(livingEntity);
             }));
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CAVE_CENTIPEDE_ENABLED .get()){
             centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, LivingEntity.class, 55, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.CENTIPEDE_KILL)));
         }
 

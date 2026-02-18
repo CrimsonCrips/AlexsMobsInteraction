@@ -70,7 +70,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCapuchinMonkey capuchinMonkey = (EntityCapuchinMonkey)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CAPUCHIN_ENABLED.get()) {
             capuchinMonkey.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(capuchinMonkey, LivingEntity.class, 400, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.INSECTS)) {
                 @Override
                 public boolean canContinueToUse() {
@@ -89,7 +89,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
             if (!test.isEmpty()){
@@ -103,7 +103,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.getItem() instanceof PotionItem && this.hasDart() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_TARGET_EFFECTS_ENABLED.get()) {
+        if (itemStack.getItem() instanceof PotionItem && this.hasDart() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             Potion contained = PotionUtils.getPotion(itemStack);
             if(applyPotion(contained)){
                 this.gameEvent(GameEvent.ENTITY_INTERACT);

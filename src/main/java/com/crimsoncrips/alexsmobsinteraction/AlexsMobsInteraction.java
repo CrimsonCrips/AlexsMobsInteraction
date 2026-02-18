@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.client.AMIShaders;
 import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.datagen.AMIDatagen;
 import com.crimsoncrips.alexsmobsinteraction.message.UrsaUpdateBossBarMessage;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAddTargetsConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIServerConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
@@ -42,6 +43,10 @@ public class AlexsMobsInteraction {
 
     public static final AMIServerConfig COMMON_CONFIG;
     private static final ForgeConfigSpec COMMON_CONFIG_SPEC;
+
+    public static final AMIAddTargetsConfig TARGETS_CONFIG;
+    private static final ForgeConfigSpec TARGETS_CONFIG_SPEC;
+
     public static final AMIClientConfig CLIENT_CONFIG;
     private static final ForgeConfigSpec CLIENT_CONFIG_SPEC;
 
@@ -58,6 +63,9 @@ public class AlexsMobsInteraction {
         final Pair<AMIServerConfig, ForgeConfigSpec> serverPair = new ForgeConfigSpec.Builder().configure(AMIServerConfig::new);
         COMMON_CONFIG = serverPair.getLeft();
         COMMON_CONFIG_SPEC = serverPair.getRight();
+        final Pair<AMIAddTargetsConfig, ForgeConfigSpec> targetPair = new ForgeConfigSpec.Builder().configure(AMIAddTargetsConfig::new);
+        TARGETS_CONFIG = targetPair.getLeft();
+        TARGETS_CONFIG_SPEC = targetPair.getRight();
         final Pair<AMIClientConfig, ForgeConfigSpec> clientPair = new ForgeConfigSpec.Builder().configure(AMIClientConfig::new);
         CLIENT_CONFIG = clientPair.getLeft();
         CLIENT_CONFIG_SPEC = clientPair.getRight();
@@ -65,6 +73,7 @@ public class AlexsMobsInteraction {
 
     public AlexsMobsInteraction() throws IOException {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG_SPEC, "alexsmobsinteraction-general.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TARGETS_CONFIG_SPEC, "alexsmobsinteraction-add_targets.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC, "alexsmobsinteraction-client.toml");
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

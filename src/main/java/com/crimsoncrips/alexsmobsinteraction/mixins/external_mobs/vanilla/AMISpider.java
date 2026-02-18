@@ -25,7 +25,7 @@ public abstract class AMISpider extends Monster {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.SPIDER_ENABLED.get()) {
             this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, EntityCockroach.class, 2, true, false, null));
             this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Silverfish.class, 2, true, false, null));
             this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Bee.class, 2, true, false, null));

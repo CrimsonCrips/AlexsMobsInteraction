@@ -34,7 +34,7 @@ public abstract class AMIMantisShrimp extends TamableAnimal {
                 }
             });
         }
-        if(AlexsMobsInteraction.COMMON_CONFIG.MANTIS_CANNIBALIZE_ENABLED.get()) {
+        if(AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             mantisShrimp.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(mantisShrimp, EntityMantisShrimp.class, 200, true, false, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.15F * livingEntity.getMaxHealth();
             }){

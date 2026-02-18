@@ -24,7 +24,7 @@ public abstract class AMICachalotWhale extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityCachalotWhale cachalotWhale = (EntityCachalotWhale)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()){
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CACHALOT_ENABLED.get()){
             cachalotWhale.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(cachalotWhale, LivingEntity.class, 300, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.KILL_FISHES)));
         }
     }

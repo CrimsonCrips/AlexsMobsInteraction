@@ -39,7 +39,7 @@ public abstract class AMIEmu extends Animal {
         if (AlexsMobsInteraction.COMMON_CONFIG.RANGED_AGGRO_ENABLED.get()){
             emu.targetSelector.addGoal(7, new AMIEmuRangedTrigger(emu, LivingEntity.class,  true));
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.ADD_TARGETS_ENABLED.get()) {
+        if (AlexsMobsInteraction.TARGETS_CONFIG.EMU_ENABLED.get()) {
             emu.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(emu, LivingEntity.class, 55, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.INSECTS)) {
                 @Override
                 public boolean canContinueToUse() {
