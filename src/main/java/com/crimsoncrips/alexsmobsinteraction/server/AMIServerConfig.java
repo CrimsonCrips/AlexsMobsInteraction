@@ -21,7 +21,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
     public final ForgeConfigSpec.BooleanValue CRIMSON_TRANSFORM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CROW_WARRIORS_ENABLED;
     public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
@@ -110,7 +109,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
     public final ForgeConfigSpec.BooleanValue DETUSKING_ENABLED;
     public final ForgeConfigSpec.BooleanValue CONSUME_COMPASS_ENABLED;
-
+    public final ForgeConfigSpec.BooleanValue DEVILS_FISHING_ENABLED;
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
@@ -185,10 +184,6 @@ public class AMIServerConfig {
         builder.push("Crocodile");
         this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", " ", true, "Crocodile has a halo when named 'Wally'");
         builder.pop();
-        builder.push("Crow");
-        this.CROW_WARRIORS_ENABLED = buildBoolean(builder, "CROW_WARRIORS_ENABLED", " ", true, "Crows will not drop their weapons in their beak when attacked");
-
-        builder.pop();
         builder.push("Elephant");
         this.DETUSKING_ENABLED = buildBoolean(builder, "DETUSKING_ENABLED", " ", true, "Tusked Elephants can be detusked by axeing it enough");
         this.ELEPHANT_TERRITORIAL_ENABLED = buildBoolean(builder, "ELEPHANT_TERRITORIAL_ENABLED", " ", true, "Tusked Elephants attack players when lingering long enough,unless holding Acacia Blossom");
@@ -208,6 +203,7 @@ public class AMIServerConfig {
 
         builder.pop();
         builder.push("Devils Hole Pupfish");
+        this.DEVILS_FISHING_ENABLED = buildBoolean(builder, "DEVILS_FISHING_ENABlED", " ", true, "Devils Hole Pupfish can be fished up within its chunk");
         this.DEVILS_TRADE_ENABLED = buildBoolean(builder, "DEVILS_TRADE_ENABLED", " ", true, "Adds Trade for Fisherman with Devils Hole Pupfish ");
         builder.pop();
         builder.push("Farseer");

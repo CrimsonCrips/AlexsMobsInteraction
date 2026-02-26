@@ -23,6 +23,11 @@ public class AMIManualLoot implements LootTableSubProvider {
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
 
+        consumer.accept(AMILootTables.DEVIL_LOOTTABLE, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(AMItemRegistry.DEVILS_HOLE_PUPFISH_BUCKET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 2))).setWeight(80))
+                ));
+
         consumer.accept(AMILootTables.FLUTTER_SHEAR, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Blocks.MOSS_BLOCK.asItem()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 2))).setWeight(80))

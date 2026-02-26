@@ -1,7 +1,7 @@
-// 1.20.1	2026-02-13T19:10:42.099297	PGen book provider for mod id alexsmobsinteraction
+// 1.20.1	2026-02-26T16:12:34.6647482	PGen book provider for mod id alexsmobsinteraction
 35499d8d2cc4aac317f8b28fa1a550328ba7446f assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/categories/general.json
 a56bb87dba341eef1aea2a580ae68398698145f2 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/add_targets.json
-56d31ffd7e85c5affd6116a8d784d8c6290add01 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/combust.json
+90f2ed4cdf5ab4011160367a14113a3d2acd4b77 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/combust.json
 2f6d364297686acf223ba4471e70c38f445fc745 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/egg_attack.json
 1c2b2d3ed772a487d56d18757f61b544998028fb assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/food_fx.json
 35175159e694fda0a8fc89f24c2f26716cc2a9ec data/alexsmobsinteraction/patchouli_books/amiwiki/book.json

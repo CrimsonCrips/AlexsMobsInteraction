@@ -15,13 +15,13 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 
-public class AMITargetFood extends Goal {
+public class AMICatfishCannibalism extends Goal {
     private int eatCooldown = 0;
     private final EntityCatfish catfish;
     private Entity food;
     private int executionCooldown = 50;
 
-    public AMITargetFood(EntityCatfish catfish) {
+    public AMICatfishCannibalism(EntityCatfish catfish) {
         this.setFlags(EnumSet.of(Flag.MOVE));
         this.catfish = catfish;
     }

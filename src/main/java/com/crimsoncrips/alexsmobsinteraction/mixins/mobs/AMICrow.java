@@ -34,24 +34,6 @@ public abstract class AMICrow extends Mob {
         super(pEntityType, pLevel);
     }
 
-    @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCrow;spawnAtLocation(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;"))
-    private void alexsMobsInteraction$hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.CROW_WARRIORS_ENABLED.get() && !(this.getMainHandItem().getItem() instanceof SwordItem)){
-            this.spawnAtLocation(this.getMainHandItem().copy());
-            this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        }
-    }
-
-    @WrapWithCondition(method = "hurt", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCrow;spawnAtLocation(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;"))
-    private boolean alexsMobsInteraction$hurt1(EntityCrow instance, ItemStack itemStack) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.CROW_WARRIORS_ENABLED.get();
-    }
-
-    @WrapWithCondition(method = "hurt", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCrow;spawnAtLocation(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;"))
-    private boolean alexsMobsInteraction$hurt2(EntityCrow instance, ItemStack itemStack) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.CROW_WARRIORS_ENABLED.get();
-    }
-
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {

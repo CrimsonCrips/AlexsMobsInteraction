@@ -8,7 +8,7 @@
       "images": [
         "alexsmobsinteraction:textures/gui/wiki/general/combust.png"
       ],
-      "text": "Combustion occurs to oiled mobs",
+      "text": "Combustion occurs to oiled mobs \nCompatibility with Soul Fire",
       "title": "Combustion"
     }
   ]
