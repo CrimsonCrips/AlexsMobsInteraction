@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.github.alexthe666.alexsmobs.item.ItemDimensionalCarver;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -18,7 +18,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CompassItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.spongepowered.asm.mixin.Mixin;
@@ -58,7 +57,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
                 }
                 AMIUtils.awardAdvancement(player, "dimensional_lodestone", "lodestone");
                 String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-                ((AMIBaseInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
+                ((AMIBasicInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
 
                 //Used to determine string for dimension
                 System.out.println(result);
@@ -76,7 +75,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
             portal.exitDimension = respawnDimension;
             portal.setDestination(respawnPosition.above(2));
             String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-            ((AMIBaseInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
+            ((AMIBasicInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
         }
 
     }

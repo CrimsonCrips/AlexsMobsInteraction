@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.leafcutter;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityLeafcutterAnt.class)
-public abstract class AMILeafcutterAntMixin extends Animal implements AMIBaseInterfaces {
+public abstract class AMILeafcutterAntMixin extends Animal implements AMIBasicInterfaces {
 
     protected AMILeafcutterAntMixin(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -44,7 +44,7 @@ public abstract class AMILeafcutterAntMixin extends Animal implements AMIBaseInt
         EntityLeafcutterAnt leafcutterAnt = (EntityLeafcutterAnt)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()) {
             leafcutterAnt.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, EntityLeafcutterAnt.class, 100, false, true, livingEntity ->  {
-                return ((AMIBaseInterfaces) livingEntity).getVariant() != getVariant();
+                return ((AMIBasicInterfaces) livingEntity).getVariant() != getVariant();
             }){
                 public boolean canUse() {
                     return super.canUse() && !leafcutterAnt.hasLeaf();

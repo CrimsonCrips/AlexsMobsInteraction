@@ -1,13 +1,11 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.EntityLeafcutterPupa;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.item.ItemLeafcutterPupa;
-import com.github.alexthe666.alexsmobs.tileentity.TileEntityLeafcutterAnthill;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -20,14 +18,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(ItemLeafcutterPupa.class)
@@ -71,9 +66,9 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"))
     private void variable(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local EntityLeafcutterAnt beeentity){
         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
-            ((AMIBaseInterfaces) beeentity).setVariant(variant);
+            ((AMIBasicInterfaces) beeentity).setVariant(variant);
         } else {
-            ((AMIBaseInterfaces) beeentity).setVariant(1);
+            ((AMIBasicInterfaces) beeentity).setVariant(1);
         }
     }
 

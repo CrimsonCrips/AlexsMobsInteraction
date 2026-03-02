@@ -1,7 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.portal;
 
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.client.render.RenderVoidPortal;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -11,19 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(RenderVoidPortal.class)
@@ -93,7 +85,7 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
 
 
     public ResourceLocation getModifiedIdleTexture(int age, boolean shattered,EntityVoidPortal entityVoidPortal) {
-        int portalVariant = shattered ? -1 : ((AMIBaseInterfaces)entityVoidPortal).getVariant();
+        int portalVariant = shattered ? -1 : ((AMIBasicInterfaces)entityVoidPortal).getVariant();
         if (age < 3) {
             return idlePortalDeterminer(portalVariant,0);
         } else if (age < 6) {
@@ -109,7 +101,7 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
     }
 
     public ResourceLocation getModifiedGrowingTexture(int age, boolean shattered, EntityVoidPortal entityVoidPortal) {
-        return portalDeterminer(((AMIBaseInterfaces)entityVoidPortal).getVariant())[Mth.clamp(age, 0, 9)];
+        return portalDeterminer(((AMIBasicInterfaces)entityVoidPortal).getVariant())[Mth.clamp(age, 0, 9)];
     }
 
 

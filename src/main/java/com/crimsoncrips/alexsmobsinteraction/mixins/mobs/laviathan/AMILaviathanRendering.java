@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.laviathan;
 
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.client.model.ModelLaviathan;
 import com.github.alexthe666.alexsmobs.client.render.RenderLaviathan;
 import com.github.alexthe666.alexsmobs.entity.EntityLaviathan;
@@ -24,7 +24,7 @@ public class AMILaviathanRendering extends MobRenderer<EntityLaviathan, ModelLav
         super(pContext, pModel, pShadowRadius);
     }
     public ResourceLocation getTextureLocation(EntityLaviathan laviathan) {
-        return laviathan.isObsidian() ? TEXTURE_OBSIDIAN : (((AMIBaseInterfaces) laviathan).isRelava() ? TEXTURE_RELAVA : TEXTURE);
+        return laviathan.isObsidian() ? TEXTURE_OBSIDIAN : (((AMIBasicInterfaces) laviathan).isRelava() ? TEXTURE_RELAVA : TEXTURE);
     }
 
 

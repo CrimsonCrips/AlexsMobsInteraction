@@ -2,12 +2,11 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla.playe
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.AlterPacket;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
-import com.github.alexthe666.alexsmobs.client.event.ClientEvents;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
 import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
@@ -29,9 +28,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpyglassItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,8 +38,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
 
 
 @Mixin(Player.class)
@@ -132,7 +127,7 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
         if (AlexsMobsInteraction.COMMON_CONFIG.SNAPPING_DORMANCY_ENABLED.get()){
             if (player.getUseItem().getItem() instanceof SpyglassItem) {
                 Entity lookAt = AMIUtils.getClosestLookingAtEntityFor(player);
-                if (lookAt instanceof EntityAlligatorSnappingTurtle snappingTurtle && ((AMIBaseInterfaces) snappingTurtle).isDaySleeping()) {
+                if (lookAt instanceof EntityAlligatorSnappingTurtle snappingTurtle && ((AMIBasicInterfaces) snappingTurtle).isDaySleeping()) {
                     AMIUtils.awardAdvancement(player, "observe_dormancy", "observe");
                 }
             }

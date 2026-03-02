@@ -1,26 +1,18 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.crocodile;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
-import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
-import com.github.alexthe666.alexsmobs.entity.ai.AnimalAIHurtByTargetNotBaby;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -36,7 +28,7 @@ import static com.github.alexthe666.alexsmobs.entity.EntityCrocodile.NOT_CREEPER
 
 
 @Mixin(EntityCrocodile.class)
-public abstract class AMICrocodileMixin extends TamableAnimal implements AMIBaseInterfaces {
+public abstract class AMICrocodileMixin extends TamableAnimal implements AMIBasicInterfaces {
 
     boolean panned = false;
 

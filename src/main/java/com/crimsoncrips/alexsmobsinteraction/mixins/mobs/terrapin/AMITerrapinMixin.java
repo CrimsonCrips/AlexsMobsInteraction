@@ -2,9 +2,8 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.terrapin;
 
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.EntityType;
@@ -12,7 +11,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.ModList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +20,7 @@ import java.util.List;
 
 
 @Mixin(EntityTerrapin.class)
-public abstract class AMITerrapinMixin extends Mob implements AMIBaseInterfaces {
+public abstract class AMITerrapinMixin extends Mob implements AMIBasicInterfaces {
 
     protected AMITerrapinMixin(EntityType<? extends Mob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);

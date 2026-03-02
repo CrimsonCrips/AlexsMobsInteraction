@@ -1,28 +1,20 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIWarnPredator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityRattlesnake;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(EntityRattlesnake.class)
-public abstract class AMIRattlesnake extends Animal implements AMIBaseInterfaces {
+public abstract class AMIRattlesnake extends Animal implements AMIBasicInterfaces {
 
     protected AMIRattlesnake(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -58,7 +50,7 @@ public abstract class AMIRattlesnake extends Animal implements AMIBaseInterfaces
             rattlesnake.goalSelector.addGoal(2, new AMIWarnPredator(rattlesnake));
 
             rattlesnake.goalSelector.addGoal(1, new AvoidEntityGoal<>(rattlesnake, EntityRattlesnake.class, 5.0F, 1.2, 1.5, (livingEntity) -> {
-                return livingEntity instanceof EntityRattlesnake rattle && ((AMIBaseInterfaces)rattle).isWarding() && rattle.isRattling();
+                return livingEntity instanceof EntityRattlesnake rattle && ((AMIBasicInterfaces)rattle).isWarding() && rattle.isRattling();
             }));
         }
 

@@ -126,8 +126,8 @@ public class AMIServerConfig {
 
         builder.pop();
         builder.push("Alligator Snapping Turtle");
-        this.SNAPPING_DORMANCY_ENABLED = buildBoolean(builder, "SNAPPING_DORMANCY_ENABLED", " ", true, "Snapping Turtles will be active at night or when raining and will remain dormant unless disturbed");
-        this.MOSS_PROPOGATION_ENABLED = buildBoolean(builder, "MOSS_PROPOGATION_ENABLED", " ", true, "Snapping Turtles will rarely accumulate moss when raining or within water or grown by bonemealing watered turtles");
+        this.SNAPPING_DORMANCY_ENABLED = buildBoolean(builder, "SNAPPING_DORMANCY_ENABLED", " ", true, "ASTs will sleep unless raining or disturbed");
+        this.MOSS_PROPOGATION_ENABLED = buildBoolean(builder, "MOSS_PROPOGATION_ENABLED", " ", true, "ASTs will rarely accumulate moss when raining or within water or grown by bonemealing watered turtles");
 
         builder.pop();
         builder.push("Anaconda");

@@ -1,11 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.terrapin;
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
-import com.github.alexthe666.alexsmobs.client.model.ModelAlligatorSnappingTurtle;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.client.model.ModelTerrapin;
-import com.github.alexthe666.alexsmobs.client.render.RenderAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.client.render.RenderTerrapin;
-import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
 import com.github.alexthe666.alexsmobs.entity.util.TerrapinTypes;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -25,7 +22,7 @@ public abstract class AMITerrapinRenderMixin extends MobRenderer<EntityTerrapin,
     private static final ResourceLocation MINE_TURTLE = new ResourceLocation("alexsmobsinteraction:textures/entity/terrapin/mine_turtle.png");
 
     public ResourceLocation getTextureLocation(EntityTerrapin entity) {
-        AMIBaseInterfaces amiBaseInterfaces = (AMIBaseInterfaces)entity;
+        AMIBasicInterfaces amiBaseInterfaces = (AMIBasicInterfaces)entity;
         return amiBaseInterfaces.isBlueKoopa() ? BLUE_SHELL : amiBaseInterfaces.isMineTurtle() ? MINE_TURTLE : entity.isKoopa() ? TerrapinTypes.KOOPA.getTexture() : entity.getTurtleType().getTexture();
     }
 

@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.tileentity.TileEntityLeafcutterAnthill;
 import com.github.alexthe666.alexsmobs.world.FeatureLeafcutterAnthill;
@@ -33,9 +33,9 @@ public abstract class AMIAnthillFeatureMixin {
     @Inject(method = "place", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"),locals = LocalCapture.CAPTURE_FAILSOFT)
     private void variable(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir, int x, int z, BlockPos pos, int y, BlockPos heightPos, int outOfGround, Random chunkSeedRandom, BlockEntity tileentity, TileEntityLeafcutterAnthill beehivetileentity, int j, int k, EntityLeafcutterAnt beeentity){
         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
-            ((AMIBaseInterfaces) beeentity).setVariant(variant);
+            ((AMIBasicInterfaces) beeentity).setVariant(variant);
         } else {
-            ((AMIBaseInterfaces) beeentity).setVariant(1);
+            ((AMIBasicInterfaces) beeentity).setVariant(1);
         }
     }
 

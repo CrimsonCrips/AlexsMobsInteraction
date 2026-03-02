@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.leafcutter;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.client.render.RenderLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
@@ -31,7 +31,7 @@ public abstract class AMILeafcutterAntRenderMixin extends MobRenderer<EntityLeaf
 
     public ResourceLocation getTextureLocation(EntityLeafcutterAnt entity) {
         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
-            if (((AMIBaseInterfaces) entity).getVariant() == 1){
+            if (((AMIBasicInterfaces) entity).getVariant() == 1){
                 if(entity.getRemainingPersistentAngerTime() > 0){
                     return entity.isQueen() ? BROWN_TEXTURE_QUEEN_ANGRY : BROWN_TEXTURE_ANGRY;
                 }else {

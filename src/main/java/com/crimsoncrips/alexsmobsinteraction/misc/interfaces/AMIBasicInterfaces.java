@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.misc.interfaces;
 
-public interface AMIBaseInterfaces {
+public interface AMIBasicInterfaces {
     int getVariant();
 
     void setVariant(int variant);

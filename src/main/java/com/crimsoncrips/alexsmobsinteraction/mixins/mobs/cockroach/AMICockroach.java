@@ -219,7 +219,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V"))
     private boolean alexsMobsInteraction$registerGoals(GoalSelector instance, int pPriority, Goal pGoal) {
         if (pGoal instanceof PanicGoal || pGoal instanceof AvoidEntityGoal<?>) {
-            return !AlexsMobsInteraction.COMMON_CONFIG.ORPHANED_ANACONDAS_ENABLED.get();
+            return !AlexsMobsInteraction.COMMON_CONFIG.ASMONGOLD_ENABLED.get();
         } else {
             return true;
         }

@@ -3,7 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.laviathan;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityLaviathan.class)
-public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerdPanic , AMIBaseInterfaces {
+public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerdPanic , AMIBasicInterfaces {
 
 
     @Shadow protected abstract float getXForPart(float yaw, float degree);

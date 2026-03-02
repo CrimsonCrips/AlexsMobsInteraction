@@ -3,7 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.snapping_turtle;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -43,7 +43,7 @@ import javax.annotation.Nullable;
 
 
 @Mixin(EntityAlligatorSnappingTurtle.class)
-public abstract class AMISnappingTurtleMixin extends Animal implements AMIBaseInterfaces {
+public abstract class AMISnappingTurtleMixin extends Animal implements AMIBasicInterfaces {
 
     @Shadow @Nullable public abstract LivingEntity getTarget();
 

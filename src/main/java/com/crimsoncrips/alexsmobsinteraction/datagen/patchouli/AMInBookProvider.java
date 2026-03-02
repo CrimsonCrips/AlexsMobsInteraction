@@ -96,19 +96,74 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                         .withTitle("Combustion");
                                                             });
                                                 });
+
+                                lang.addCategory("Mobs",
+                                        "Mobs",
+                                        "Specific Mob Additions",
+                                        new ResourceLocation("alexsmobsinteraction:textures/gui/wiki/mobs/mobs.png"),
+                                        category -> category.withSortnum(1))
+                                        .addEntry("vanilla_mobs",
+                                                "Vanilla Mobs",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(0)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/witch_additions.png")
+                                                                        .withText("Witches imploy the use of poison resistance when poisoned")
+                                                                        .withTitle("Poison Resistance");
+                                                            });
+                                                })
+                                        .addEntry("alligator_snapping_turtle",
+                                                "Alligator Snapping Turtle",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/snapping_dormancy.png")
+                                                                        .withText("ASTs will fall into a dormant sleep during the day and only awaken when raining or disturbed ")
+                                                                        .withTitle("Snapping Dormancy");
+                                                            })
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/moss_propogation.png")
+                                                                        .withText("ASTs propogate moss within their shells when its within water or raining, \n" +
+                                                                                "bonemeal can be applied to the AST to propagate its moss accumulation")
+                                                                        .withTitle("Moss Propogation");
+                                                            });
+                                                })
+                                        .addEntry("anaconda",
+                                                "Anaconda",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/snapping_dormancy.png")
+                                                                        .withText("ASTs will fall into a dormant sleep during the day and only awaken when raining or disturbed ")
+                                                                        .withTitle("Snapping Dormancy");
+                                                            })
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/moss_propogation.png")
+                                                                        .withText("ASTs propogate moss within their shells when its within water or raining, \n" +
+                                                                                "bonemeal can be applied to the AST to propagate its moss accumulation")
+                                                                        .withTitle("Moss Propogation");
+                                                            });
+                                                })
+                                ;
                             });
 
 
 
                 });
 
-}
+    }
 
-public Consumer<PGenSpotlightPageBuilder.ItemBuilder> itemIconGiver(RegistryObject itemIcon){
-    return item -> {
-        item.addItem(itemIcon.getKey() != null ? itemIcon.getKey().location() : new ResourceLocation("error"));
-    };
-}
+    public Consumer<PGenSpotlightPageBuilder.ItemBuilder> itemIconGiver(RegistryObject itemIcon){
+        return item -> {
+            item.addItem(itemIcon.getKey() != null ? itemIcon.getKey().location() : new ResourceLocation("error"));
+        };
+    }
 
     public static CompoundTag nbtInt(String name, int value){
         CompoundTag nbt = new CompoundTag();

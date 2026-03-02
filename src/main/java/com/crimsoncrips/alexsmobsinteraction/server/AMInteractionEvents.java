@@ -6,7 +6,7 @@ import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.AMInDamageTypes;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
@@ -263,7 +263,7 @@ public class AMInteractionEvents {
             }
             AMIUtils.awardAdvancement(player,"ender_boost","ender_boost");
             player.getCooldowns().addCooldown(itemStack.getItem(), 500);
-            ((AMIBaseInterfaces)entityEndergrade).boost();
+            ((AMIBasicInterfaces)entityEndergrade).boost();
         }
     }
 

@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.snapping_turtle;
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBaseInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.client.model.ModelAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.client.render.RenderAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
@@ -25,6 +25,6 @@ public abstract class AMISnappingTurtleRenderMixin extends MobRenderer<EntityAll
 
     @Override
     public ResourceLocation getTextureLocation(EntityAlligatorSnappingTurtle entity) {
-        return ((AMIBaseInterfaces)entity).isDaySleeping() ? TEXTURE_SLEEPING : TEXTURE;
+        return ((AMIBasicInterfaces)entity).isDaySleeping() ? TEXTURE_SLEEPING : TEXTURE;
     }
 }
