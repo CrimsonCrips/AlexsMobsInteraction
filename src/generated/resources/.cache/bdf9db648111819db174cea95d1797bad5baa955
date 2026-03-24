@@ -1,0 +1,6 @@
+// 1.20.1	2026-03-20T18:16:06.315152638	Global Loot Modifiers : alexsmobsinteraction
+d828b59bdea8461c1a342122986c17f082cce54f data/alexsmobsinteraction/loot_modifiers/light_weight.json
+2804cd12e1959bdaecabee46a5a0747dedd7c1d1 data/alexsmobsinteraction/loot_modifiers/rolling_thunder.json
+b9dc4b1efb0513c84f358236db6e2c3c81178a4d data/alexsmobsinteraction/loot_modifiers/stabilizer.json
+9359a4884d9125dc60ce4b133676745d312ea704 data/alexsmobsinteraction/loot_modifiers/stretchy_accumuation.json
+7377dae93602c2f6b197ef566d0f0a805a5eb383 data/forge/loot_modifiers/global_loot_modifiers.json

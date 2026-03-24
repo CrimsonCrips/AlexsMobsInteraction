@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Cave Centipede",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/light_fear.png"
+      ],
+      "text": "Cave Centipedes flee from light held by players unless attacked (Compatible with Curios Lanterns)",
+      "title": "Light Fear"
+    }
+  ],
+  "sortnum": 1
+}

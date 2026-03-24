@@ -1,0 +1,24 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Alligator Snapping Turtle",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/snapping_dormancy.png"
+      ],
+      "text": "ASTs will go dormant during the day unless when raining or disturbed",
+      "title": "Snapping Dormancy"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/moss_propagation.png"
+      ],
+      "text": "ASTs propagate moss when in water or raining, bone-meal can be applied to AST's to increase moss",
+      "title": "Moss Propagation"
+    }
+  ],
+  "sortnum": 1
+}

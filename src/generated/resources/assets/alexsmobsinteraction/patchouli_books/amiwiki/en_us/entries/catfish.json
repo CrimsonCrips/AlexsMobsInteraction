@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Catfish",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/cat_venom.png"
+      ],
+      "text": "Catfish expels poison when hurt",
+      "title": "Cat Venom"
+    }
+  ],
+  "sortnum": 1
+}

@@ -1,0 +1,29 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Cockroach",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/asmongold.png"
+      ],
+      "text": "Cockroaches can be given 'The Roach Crown', becoming the Roach King,nearby cockroaches also get turned into servants",
+      "title": "Asmongold"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "alexsmobsinteraction:asmon_crown",
+      "text": "Cockroach servants convert other roaches and attack those that harm the king"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/cockroach_mutation.png"
+      ],
+      "text": "[MUST HAVE ALEXS CAVES PRESENT] Cockroach mutate to Gammaroach when exposed to radiation",
+      "title": "Cockroach Mutation"
+    }
+  ],
+  "sortnum": 1
+}

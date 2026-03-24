@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Capuchin Monkey",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/dart_effects.png"
+      ],
+      "text": "Lace darts by monkeys with potion effects,by right clicking with a potion.Limited to the top effect of the given potion",
+      "title": "Dart Effects"
+    }
+  ],
+  "sortnum": 1
+}

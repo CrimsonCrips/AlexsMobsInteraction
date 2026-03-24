@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Vanilla Mobs",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/witch_additions.png"
+      ],
+      "text": "Witches imploy the use of poison resistance when poisoned",
+      "title": "Poison Resistance"
+    }
+  ],
+  "sortnum": 0
+}

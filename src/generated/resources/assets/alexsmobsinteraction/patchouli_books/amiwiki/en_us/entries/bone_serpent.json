@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Bone Serpent",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/body_shielding.png"
+      ],
+      "text": "Bone Serpent takes 1 damage while losing a body segment, the head takes normal damage once enough are destroyed",
+      "title": "Body Shielding"
+    }
+  ],
+  "sortnum": 1
+}

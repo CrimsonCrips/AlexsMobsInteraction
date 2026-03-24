@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Banana Slug",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/banana_shear.png"
+      ],
+      "text": "Allows shearing of banana slugs for banana related items",
+      "title": "Banana Shear"
+    }
+  ],
+  "sortnum": 1
+}

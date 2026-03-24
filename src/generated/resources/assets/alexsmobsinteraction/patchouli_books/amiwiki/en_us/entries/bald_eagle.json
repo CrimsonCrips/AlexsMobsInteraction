@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Bald Eagle",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/bird_bombing.png"
+      ],
+      "text": "Bald Eagles while controlled can pickup explosives, allowing the user to drop it by pressing 'sneak' key",
+      "title": "Bird Bombing"
+    }
+  ],
+  "sortnum": 1
+}

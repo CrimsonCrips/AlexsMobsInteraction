@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Bunfungus",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/crop_farming.png"
+      ],
+      "text": "Bunfungus during the day harvests nearby crops, healing a bit",
+      "title": "Crop Farming"
+    }
+  ],
+  "sortnum": 1
+}
