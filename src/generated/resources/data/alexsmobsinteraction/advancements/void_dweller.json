@@ -1,0 +1,33 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "void": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.void_dweller.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/void_dweller.png\"}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.void_dweller"
+    }
+  },
+  "requirements": [
+    [
+      "void"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  },
+  "sends_telemetry_event": true
+}

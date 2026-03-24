@@ -1,0 +1,74 @@
+package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
+
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
+import com.github.alexthe666.alexsmobs.entity.EntityCrow;
+import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
+import java.util.Objects;
+
+
+@Mixin(EntityCrow.class)
+public abstract class AMICrow extends Mob {
+
+    protected AMICrow(EntityType<? extends Mob> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
+
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
+
+        EntityCrow crow = (EntityCrow)(Object)this;
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CROW_ENABLED.get()){
+            crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.CROW_KILL)){
+                @Override
+                public boolean canUse() {
+                    return super.canUse() && !crow.isTame() && !crow.isBaby();
+                }
+            });
+        }
+        if (AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()){
+            crow.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crow, EntityCrow.class, 500, true, true, (livingEntity) -> {
+                return livingEntity.getHealth() <= 0.10F * livingEntity.getMaxHealth();
+            }){
+                @Override
+                public boolean canContinueToUse() {
+                    return super.canContinueToUse() && !crow.isTame() && !crow.isBaby();
+                }
+            });
+        }
+    }
+
+    @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
+    private void getItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+            this.heal(5);
+            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            if (!test.isEmpty()){
+                for (int i = 0; i < test.size(); i++){
+                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "alexsmobs:bison",
+    "alexsmobs:moose",
+    "#alexsmobsinteraction:kill_fishes",
+    "#alexsmobsinteraction:significant_prey",
+    "#alexsmobsinteraction:weak_prey"
+  ]
+}

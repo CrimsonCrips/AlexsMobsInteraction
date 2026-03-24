@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "stun": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.voidworm_stun.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "alexsmobs:void_worm_eye"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.voidworm_stun"
+    }
+  },
+  "requirements": [
+    [
+      "stun"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

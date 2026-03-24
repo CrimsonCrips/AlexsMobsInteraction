@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "trample": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.elephant_trample.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "alexsmobs:acacia_blossom"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.elephant_trample"
+    }
+  },
+  "requirements": [
+    [
+      "trample"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

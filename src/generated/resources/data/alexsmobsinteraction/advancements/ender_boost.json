@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:void_dweller",
+  "criteria": {
+    "ender_boost": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.ender_boost.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/ender_boost.png\"}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.ender_boost"
+    }
+  },
+  "requirements": [
+    [
+      "ender_boost"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

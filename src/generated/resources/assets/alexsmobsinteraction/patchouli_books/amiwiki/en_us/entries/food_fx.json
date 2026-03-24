@@ -1,0 +1,15 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Food Effects",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/food_fx.png"
+      ],
+      "text": "Animals eating dropped food will inherit the food's effects",
+      "title": "Food Effects"
+    }
+  ]
+}

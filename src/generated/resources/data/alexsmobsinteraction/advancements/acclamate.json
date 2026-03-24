@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "acclamate": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.acclamate.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/acclamate.png\"}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.acclamate"
+    }
+  },
+  "requirements": [
+    [
+      "acclamate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

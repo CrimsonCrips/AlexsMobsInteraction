@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "stomp": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.stomp.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/stomp.png\"}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.stomp"
+    }
+  },
+  "requirements": [
+    [
+      "stomp"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

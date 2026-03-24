@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "alexsmobs:devils_hole_pupfish_bucket",
+          "weight": 80
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "alexsmobsinteraction:fishing/devil_loottable"
+}

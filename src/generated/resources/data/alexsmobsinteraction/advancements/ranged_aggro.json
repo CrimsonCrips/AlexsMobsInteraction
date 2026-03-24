@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "aggro": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.ranged_aggro.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/ranged_aggro.png\"}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.ranged_aggro"
+    }
+  },
+  "requirements": [
+    [
+      "aggro"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

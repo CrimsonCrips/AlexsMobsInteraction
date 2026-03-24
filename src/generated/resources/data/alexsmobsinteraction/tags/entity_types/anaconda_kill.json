@@ -1,0 +1,16 @@
+{
+  "values": [
+    "minecraft:zombie",
+    "minecraft:skeleton",
+    "minecraft:zombie_villager",
+    "minecraft:zombie_horse",
+    "minecraft:zombified_piglin",
+    "minecraft:husk",
+    "minecraft:drowned",
+    "alexsmobs:rattlesnake",
+    "#alexsmobsinteraction:kill_fishes",
+    "#alexsmobsinteraction:significant_prey",
+    "#alexsmobsinteraction:strong_prey",
+    "#alexsmobsinteraction:weak_prey"
+  ]
+}
