@@ -1,0 +1,21 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Crimson Mosquito",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/hemogenicism.png"
+      ],
+      "text": "'Blooded' is inflicted from blood projectiles to liquid blood from 'Biomes Of Plenty'can be washed off with water",
+      "title": "Hemogenicism"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Blooded can be targeted by Crimson Mosquitoes twice as far.Blooded slows,reduces armor and damage for those inflicted.",
+      "title": " "
+    }
+  ],
+  "sortnum": 1
+}

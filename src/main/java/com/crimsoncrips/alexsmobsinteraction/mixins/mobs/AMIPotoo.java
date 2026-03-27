@@ -51,12 +51,7 @@ public abstract class AMIPotoo extends Animal {
                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 0));
                 player.playSound(SoundEvents.BELL_RESONATE);
                 RandomSource randomSource = player.getRandom();
-                for(int i = 0; i < 6; ++i) {
-                    double d0 = randomSource.nextGaussian() * 0.02D;
-                    double d1 = randomSource.nextGaussian() * 0.02D;
-                    double d2 = randomSource.nextGaussian() * 0.02D;
-                    player.level().addParticle(ParticleTypes.END_ROD, player.getRandomX(1.0D), player.getRandomY() + 0.3D, player.getRandomZ(1.0D), d0, d1, d2);
-                }
+                AMIUtils.addParticlesAroundSelf(ParticleTypes.END_ROD,player,6,1);
                 AMIUtils.awardAdvancement(player,"potoo_vision","vision");
             }
         }

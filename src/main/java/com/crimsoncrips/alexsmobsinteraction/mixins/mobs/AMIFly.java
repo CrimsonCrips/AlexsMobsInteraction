@@ -19,6 +19,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -57,8 +58,8 @@ public class AMIFly extends Mob implements TransformingEntities {
     @Inject(method = "mobInteract", at = @At("HEAD"))
     private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
-        if (AlexsMobsInteraction.COMMON_CONFIG.FLY_TRANSFORM_ENABLED.get()) {
-            if (itemstack.getItem() == AMItemRegistry.BLOOD_SAC.get() && this.hasEffect(AMIEffects.BLOODED.get())){
+        if (AlexsMobsInteraction.COMMON_CONFIG.TRANSFORMATION_ENABLED.get()) {
+            if (itemstack.getItem() == AMItemRegistry.BLOOD_SAC.get() && this.hasEffect(MobEffects.WEAKNESS)){
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }

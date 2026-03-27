@@ -38,7 +38,7 @@ public abstract class AMICrocodileMixin extends TamableAnimal implements AMIBasi
 
     @Inject(method = "mobInteract", at = @At("TAIL"))
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (isWally() && AlexsMobsInteraction.COMMON_CONFIG.EMOTIONAL_REMEMEMBRANCE_ENABLED.get()){
+        if (isWally()){
             AMIUtils.awardAdvancement(player, "wally", "wally");
         }
     }

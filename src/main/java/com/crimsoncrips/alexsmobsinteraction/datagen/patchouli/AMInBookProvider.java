@@ -1,17 +1,27 @@
 package com.crimsoncrips.alexsmobsinteraction.datagen.patchouli;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
+import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.reimnop.pgen.PGenBookProvider;
+import com.reimnop.pgen.builder.PGenEntryBuilder;
 import com.reimnop.pgen.builder.page.PGenSpotlightPageBuilder;
 import com.reimnop.pgen.data.PGenMultiblock;
+import com.reimnop.pgen.data.page.PGenSpotlightPage;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraftforge.registries.RegistryObject;
 
 
@@ -95,6 +105,21 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                                 "Compatibility with Soul Fire")
                                                                         .withTitle("Combustion");
                                                             });
+                                                })
+                                        .addEntry("mob_transformation",
+                                                "Mob Transformation",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "general"),
+                                                entry -> {
+                                                    entry
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMIItemRegistry.MUTATE_ITEMS),
+                                                                    page -> page.withText(
+                                                                            "Transform mobs into different mobs by splashing weakness and feeding their respective items \n" +
+                                                                                    "Rainfrog/Frog + Warped Fungus = Warped Toad \n" +
+                                                                                    "Fly + Blood Sac = Crimson Mosquito \n" +
+                                                                                    "Crimson Mosquito + Warped Muscle = Warped Mosco").withTitle("Mob Transformation")
+                                                            );
                                                 });
 
                                 lang.addCategory("mobs",
@@ -239,6 +264,40 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                         .withText("[MUST HAVE ALEXS CAVES PRESENT] Cockroach mutate to Gammaroach when exposed to radiation")
                                                                         .withTitle("Cockroach Mutation");
                                                             });
+
+                                                })
+                                        .addEntry("cosmaw",
+                                                "Cosmaw",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/cosmaw_weakness.png")
+                                                                        .withText("Cosmaws gets weak when carrying heavily armored players, Cosmaws cannot carry players when weakened")
+                                                                        .withTitle("Cosmaw Weakness");
+                                                            })
+                                                            .addTextPage("With the 'Lightweight' enchantment, found within the cities of the end. Cosmaws no longer get weak when carrying their owner", page ->
+                                                                    page.withTitle("Lightweight")
+                                                            );
+
+                                                })
+                                        .addEntry("crimson_mosquito",
+                                                "Crimson Mosquito",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/hemogenicism.png")
+                                                                        .withText("'Blooded' is inflicted from blood projectiles to liquid blood from 'Biomes Of Plenty'" +
+                                                                                "can be washed off with water")
+                                                                        .withTitle("Hemogenicism");
+                                                            })
+                                                            .addTextPage("Blooded can be targeted by Crimson Mosquitoes twice as far." +
+                                                                    "Blooded slows,reduces armor and damage for those inflicted.", page ->
+                                                                    page.withTitle(" ")
+                                                            );
 
                                                 })
                                 ;

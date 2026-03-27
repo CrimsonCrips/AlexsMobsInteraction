@@ -97,7 +97,7 @@
     "mobs.capuchin.AMITossedItemMixin",
     "mobs.cockroach.AMICockroach",
     "mobs.crocodile.AMICrocodileMixin",
-    "mobs.elephant.AMIElephant",
+    "mobs.AMIElephant",
     "mobs.grizzly_bear.AMIGrizzlyBear",
     "mobs.kangaroo.AMIKangaroo",
     "mobs.laviathan.AMILaviathan",

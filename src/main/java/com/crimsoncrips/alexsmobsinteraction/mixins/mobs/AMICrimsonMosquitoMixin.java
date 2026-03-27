@@ -57,7 +57,7 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
             this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, Player.class, 10, true, false, (mob) -> !mob.hasEffect(AMEffectRegistry.MOSQUITO_REPELLENT.get())));
             this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, LivingEntity.class, 30, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.CRIMSON_MOSQUITO_TARGETS)));
         }
@@ -66,7 +66,7 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
     @Inject(method = "mobInteract", at = @At("TAIL"))
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (AlexsMobsInteraction.COMMON_CONFIG.CRIMSON_TRANSFORM_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.TRANSFORMATION_ENABLED.get()) {
             if (itemStack.getItem() == AMItemRegistry.WARPED_MUSCLE.get() && this.hasEffect(MobEffects.WEAKNESS)) {
                 if (!player.isCreative()) {
                     itemStack.shrink(1);

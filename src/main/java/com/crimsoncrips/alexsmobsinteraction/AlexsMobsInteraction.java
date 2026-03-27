@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.datagen.AMIDatagen;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootModifiers;
 import com.crimsoncrips.alexsmobsinteraction.message.UrsaUpdateBossBarMessage;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAddTargetsConfig;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIModEvents;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIServerConfig;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
@@ -87,7 +88,7 @@ public class AlexsMobsInteraction {
         AMISoundRegistry.DEF_REG.register(modEventBus);
         modEventBus.addListener(AMIDatagen::generateData);
         AMILootModifiers.LOOT_MODIFIERS.register(modEventBus);
-
+        modEventBus.register(new AMIModEvents());
         PROXY.init();
         modEventBus.addListener(this::setupClient);
         AMIEntityRegistry.DEF_REG.register(modEventBus);

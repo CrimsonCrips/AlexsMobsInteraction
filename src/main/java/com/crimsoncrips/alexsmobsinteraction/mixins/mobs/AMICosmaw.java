@@ -1,6 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMICosmawOwner;
 import com.github.alexthe666.alexsmobs.entity.EntityCosmaw;
 import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
@@ -8,10 +10,14 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.animal.Animal;
@@ -35,7 +41,7 @@ public abstract class AMICosmaw extends Animal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.COSMAW_WEAKENED_ENABLED.get()) {
             cosmaw.goalSelector.addGoal(4, new AMICosmawOwner(cosmaw));
@@ -43,12 +49,12 @@ public abstract class AMICosmaw extends Animal {
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 4))
-    private boolean findWater(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals1(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.COSMAW_WEAKENED_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void getItem(ItemEntity e, CallbackInfo ci) {
+    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
         if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
@@ -57,6 +63,16 @@ public abstract class AMICosmaw extends Animal {
                     this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
                 }
             }
+        }
+    }
+
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCosmaw;distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D"),remap = false)
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
+        EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
+        LivingEntity owner = cosmaw.getOwner();
+        if (owner != null && cosmaw.hasPassenger(owner) && owner.getArmorValue() > 8 && cosmaw.getRandom().nextDouble() < 0.3){
+            System.out.println("test");
+            AMIUtils.addParticlesAroundSelf(ParticleTypes.SPLASH,cosmaw,1,0.2);
         }
     }
 

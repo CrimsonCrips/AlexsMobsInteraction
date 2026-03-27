@@ -82,7 +82,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (AlexsMobsInteraction.COMMON_CONFIG.FROG_TRANSFORM_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.TRANSFORMATION_ENABLED.get()) {
             if (itemstack.getItem() == Items.WARPED_FUNGUS && this.hasEffect(MobEffects.WEAKNESS) ){
                 if (!player.isCreative()) {
                     itemstack.shrink(1);

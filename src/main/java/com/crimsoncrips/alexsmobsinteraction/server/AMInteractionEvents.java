@@ -8,6 +8,7 @@ import com.crimsoncrips.alexsmobsinteraction.datagen.AMInDamageTypes;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
+import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
@@ -35,8 +36,10 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -76,6 +79,7 @@ public class AMInteractionEvents {
             enderiophage.setSkinForDimension();
         }
 
+
     }
 
     @SubscribeEvent
@@ -96,9 +100,9 @@ public class AMInteractionEvents {
 
 
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.BLOODED_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
             if (ModList.get().isLoaded("biomesoplenty") && livingEntity.getFeetBlockState().is(BOPCompat.getBOPBlock())) {
-                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 140, 0));
+                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 400, 0));
             }
 
             MobEffectInstance blooded = livingEntity.getEffect(AMIEffects.BLOODED.get());
@@ -317,12 +321,7 @@ public class AMInteractionEvents {
                 worldIn.setBlockAndUpdate(pos, blockState.setValue(CAN_SUMMON, true));
                 if (livingEntity instanceof Player player && !player.isCreative())
                     event.getItemStack().shrink(1);
-                for (int i = 0; i < 100; ++i) {
-                    double d0 = random.nextGaussian() * 0.02D;
-                    double d1 = random.nextGaussian() * 0.02D;
-                    double d2 = random.nextGaussian() * 0.02D;
-                    worldIn.addParticle(ParticleTypes.SCULK_SOUL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, d0, d1, d2);
-                }
+                AMIUtils.addParticlesAroundBlock(ParticleTypes.SCULK_SOUL,pos,worldIn,100);
                 AMIUtils.awardAdvancement(livingEntity, "acclamate", "acclamate");
             }
 

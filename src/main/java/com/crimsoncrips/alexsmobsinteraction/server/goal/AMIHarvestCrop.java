@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.EntityBunfungus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,13 +42,7 @@ public class AMIHarvestCrop extends MoveToBlockGoal {
         if (this.isReachedTarget()){
             Level level = bunfungus.level();
             if (level.getBlockState(blockPos).getBlock() instanceof CropBlock) {
-                for (int i = 0; i < 8; ++i) {
-                    RandomSource randomSource = bunfungus.getRandom();
-                    double d0 = randomSource.nextGaussian() * 0.02D;
-                    double d1 = randomSource.nextGaussian() * 0.02D;
-                    double d2 = randomSource.nextGaussian() * 0.02D;
-                    ((ServerLevel) level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bunfungus.getRandomX(0.4D),bunfungus.getRandomY() + 0.4D, bunfungus.getRandomZ(0.4D), 1, d0, d1, d2, 0.5D);
-                }
+                AMIUtils.addParticlesAroundSelf(ParticleTypes.HAPPY_VILLAGER,bunfungus,8,0.4);
                 level.destroyBlock(blockPos, true, bunfungus);
                 bunfungus.heal(2);
                 stop();

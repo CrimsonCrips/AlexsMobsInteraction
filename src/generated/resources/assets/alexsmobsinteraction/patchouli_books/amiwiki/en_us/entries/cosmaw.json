@@ -1,0 +1,21 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Cosmaw",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/cosmaw_weakness.png"
+      ],
+      "text": "Cosmaws gets weak when carrying heavily armored players, Cosmaws cannot carry players when weakened",
+      "title": "Cosmaw Weakness"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "With the 'Lightweight' enchantment, found within the cities of the end. Cosmaws no longer get weak when carrying their owner",
+      "title": "Lightweight"
+    }
+  ],
+  "sortnum": 1
+}

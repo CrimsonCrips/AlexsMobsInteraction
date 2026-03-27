@@ -100,12 +100,7 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBasicI
             this.playSound(SoundEvents.BONE_MEAL_USE, 1, 1);
 
             RandomSource randomSource = this.getRandom();
-            for(int i = 0; i < 8; ++i) {
-                double d0 = randomSource.nextGaussian() * 0.02D;
-                double d1 = randomSource.nextGaussian() * 0.02D;
-                double d2 = randomSource.nextGaussian() * 0.02D;
-                this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
-            }
+            AMIUtils.addParticlesAroundSelf(ParticleTypes.HAPPY_VILLAGER,this,8,1);
 
 
 

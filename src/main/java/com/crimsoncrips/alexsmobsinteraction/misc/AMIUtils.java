@@ -1,31 +1,34 @@
 package com.crimsoncrips.alexsmobsinteraction.misc;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
-import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Position;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.RegistryObject;
 import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 
@@ -74,6 +77,39 @@ public class AMIUtils {
             }
         }
     }
+
+    //From Villager Class
+    public static void addParticlesAroundSelf(ParticleOptions pParticleOption, LivingEntity entity, int amount, double scale) {
+        Level level = entity.level();
+        if (level.isClientSide){
+            for(int i = 0; i < amount; ++i) {
+                double d0 = entity.getRandom().nextGaussian() * 0.02D;
+                double d1 = entity.getRandom().nextGaussian() * 0.02D;
+                double d2 = entity.getRandom().nextGaussian() * 0.02D;
+                level.addParticle(pParticleOption, entity.getRandomX(scale), entity.getRandomY() + scale, entity.getRandomZ(scale), d0, d1, d2);
+            }
+        } else {
+            for(int i = 0; i < amount; ++i) {
+                double d0 = entity.getRandom().nextGaussian() * 0.02D;
+                double d1 = entity.getRandom().nextGaussian() * 0.02D;
+                double d2 = entity.getRandom().nextGaussian() * 0.02D;
+                ((ServerLevel) level).sendParticles(pParticleOption, entity.getRandomX(scale),entity.getRandomY() + scale, entity.getRandomZ(scale), 1, d0, d1, d2, 0.5D);
+            }
+        }
+
+    }
+
+    public static void addParticlesAroundBlock(ParticleOptions pParticleOption, BlockPos pos, Level level, int amount) {
+        for(int i = 0; i < amount; ++i) {
+            double d0 = level.getRandom().nextGaussian() * 0.02D;
+            double d1 = level.getRandom().nextGaussian() * 0.02D;
+            double d2 = level.getRandom().nextGaussian() * 0.02D;
+            level.addParticle(pParticleOption, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, d0, d1, d2);
+        }
+
+    }
+
+
 
     //give it up for reimnop again for the help cus im too retarded to know what the fuck to do
     static void yaw(PoseStack poseStack, float value) {

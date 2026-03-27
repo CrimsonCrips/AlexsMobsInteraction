@@ -9,7 +9,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLOODED_ENABLED;
+    public final ForgeConfigSpec.BooleanValue HEMOGENICISM_ENABLED;
     public final ForgeConfigSpec.BooleanValue BOXING_GLOVES_ENABLED;
     public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
     public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
@@ -19,7 +19,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CRIMSON_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
@@ -31,11 +30,10 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLY_PESTER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FLY_TRANSFORM_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TRANSFORMATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue FOOD_FX_ENABLED;
     public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FROG_TRANSFORM_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_CAPUCHIN_BOMB_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_CRIMSON_MULTIPLY_ENABLED;
@@ -105,7 +103,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue PANIC_LAUNCHING_ENABLED;
     public final ForgeConfigSpec.BooleanValue PROPER_ARMAMENTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DETUSKING_ENABLED;
     public final ForgeConfigSpec.BooleanValue CONSUME_COMPASS_ENABLED;
     public final ForgeConfigSpec.BooleanValue DEVILS_FISHING_ENABLED;
 
@@ -116,6 +113,7 @@ public class AMIServerConfig {
         this.EGG_ATTACK_ENABLED = buildBoolean(builder, "EGG_ATTACK_ENABLED", " ", true, "Animals with eggs will be hostile to those seen holding their eggs");
         builder.comment("--Compatibility with Soul Fire--");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
+        this.TRANSFORMATION_ENABLED = buildBoolean(builder, "TRANSFORMATION_ENABLED", " ", true, "Mob Transformation");
 
         builder.pop();
         builder.push("Mobs");
@@ -163,18 +161,10 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Crimson Mosquito");
         builder.comment("--Compatibility with Biomes Of Plenty--");
-        this.BLOODED_ENABLED = buildBoolean(builder, "BLOODED_ENABLED", " ", true, "New blood interactions with Crimson Mosquitoes and more");
-        builder.push("Crimson Mosquito spawning with Blood");
+        this.HEMOGENICISM_ENABLED = buildBoolean(builder, "HEMOGENICISM_ENABLED", " ", true, "New blood interactions with Crimson Mosquitoes and more");
         this.BLOODED_CHANCE = buildDouble(builder, "BLOODED_CHANCE", " ", 0.2,0.0,1.0, "Chance of crimson mosquitoes to spawn with blood inside them");
-        builder.comment("--Requires Blooded Effect--");
-        this.FLY_TRANSFORM_ENABLED = buildBoolean(builder, "FLY_TRANSFORM_ENABLED", " ", true, "Flies can be transformed to Crimson Mosquitoes");
-
-        builder.pop();
-        builder.push("Crocodile");
-        this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", " ", true, "Crocodile has a halo when named 'Wally'");
         builder.pop();
         builder.push("Elephant");
-        this.DETUSKING_ENABLED = buildBoolean(builder, "DETUSKING_ENABLED", " ", true, "Tusked Elephants can be detusked by axeing it enough");
         this.ELEPHANT_TERRITORIAL_ENABLED = buildBoolean(builder, "ELEPHANT_TERRITORIAL_ENABLED", " ", true, "Tusked Elephants attack players when lingering long enough,unless holding Acacia Blossom");
         this.ELEPHANT_TRAMPLE_ENABLED = buildBoolean(builder, "ELEPHANT_TRAMPLE_ENABLED", " ", true, "Tamed Elephants will trample small entities when ridden");
         builder.pop();
@@ -346,11 +336,7 @@ public class AMIServerConfig {
         this.HASTY_CARVING_ENABLED = buildBoolean(builder, "HASTY_CARVING_ENABLED", " ", true, "Dimensional Carver speeds up with haste");
 
         builder.pop();
-        builder.push("Warped Mosco");
-        this.CRIMSON_TRANSFORM_ENABLED = buildBoolean(builder, "CRIMSON_TRANSFORM_ENABLED", " ", true, "Crimson Mosquitoes can be transformed into Warped Mosco by feeding warped muscle while weakened");
-        builder.pop();
         builder.push("Warped Toad");
-        this.FROG_TRANSFORM_ENABLED = buildBoolean(builder, "FROG_TRANSFORM_ENABLED", " ", true, "Frogs and Rain Frogs can be converted into a Warped Toad");
         this.WARPED_FRIENDLY_ENABLED = buildBoolean(builder, "WARPED_FRIENDLY_ENABLED", " ", true, "Warped Toads will not attack food unless given the orders so");
         builder.pop(2);
         builder.push("April Fools");
@@ -363,7 +349,10 @@ public class AMIServerConfig {
 //        this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", " ", false, "Mine Turtle");
         this.BOXING_GLOVES_ENABLED = buildBoolean(builder, "BOXING_GLOVES_ENABLED", " ", false, "Boxing Gloves");
         this.GOOFY_HOT_CAT_ENABLED = buildBoolean(builder, "GOOFY_HOT_CAT_ENABLED", " ", false, "Catfish texture changes when hot thing in mouth");
-
+        builder.pop();
+        builder.push("Easter eggs");
+        this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", " ", true, "Crocodile has a halo when named 'Wally'");
+        builder.pop();
     }
 
     private static ForgeConfigSpec.BooleanValue buildBoolean(ForgeConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment){

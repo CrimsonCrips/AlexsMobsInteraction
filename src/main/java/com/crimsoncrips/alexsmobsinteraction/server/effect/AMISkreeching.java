@@ -66,12 +66,7 @@ public class AMISkreeching extends MobEffect {
                 level.playSound(null,entity.getOnPos(),SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.AMBIENT, 2, 1);
                 entity.hurt(entity.damageSources().generic(),damage);
                 damage = damage * 1.1F;
-                for (int i = 0; i < 50; ++i) {
-                    double d0 = entity.getRandom().nextGaussian() * 0.02D;
-                    double d1 = entity.getRandom().nextGaussian() * 0.02D;
-                    double d2 = entity.getRandom().nextGaussian() * 0.02D;
-                    level.addParticle(ParticleTypes.SCULK_SOUL, entity.getX(), entity.getY() + 0.5, entity.getZ(), d0, d1, d2);
-                }
+                AMIUtils.addParticlesAroundSelf(ParticleTypes.SCULK_SOUL,entity,50,0.1);
                 entity.removeEffect(AMIEffects.SKREECHING.get());
                 entity.addEffect(new MobEffectInstance(AMIEffects.SKREECHING.get(), 200, 0));
             } else {

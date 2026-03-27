@@ -16,7 +16,6 @@ public class AMIClientConfig {
         this.EFFECTS_REMINDER_ENABLED = buildBoolean(builder, "EFFECTS_REMINDER_ENABLED", " ", true, "Whether Farseer's effects reminder is enabled in login");
         builder.comment("0. Default Value, 1.Vanilla End, 2. Better End");
         this.END_PORTAL_VARIANT = buildInt(builder,"END_PORTAL_VARIANT", " ", 0, 0, 2, "Defines the texture for the end portal");
-
         builder.comment("0. Default Value, 1.Vanilla Nether, 2. Better Nether");
         this.NETHER_PORTAL_VARIANT = buildInt(builder,"NETHER_PORTAL_VARIANT", " ", 0, 0, 2, "Defines the texture for the nether portal");
 

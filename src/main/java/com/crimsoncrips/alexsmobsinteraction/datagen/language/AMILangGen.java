@@ -88,6 +88,7 @@ public class AMILangGen extends AMILangProvider {
 		this.addMisc("ami_book.title","Alexs Mobs Interaction");
 		this.addMisc("feature_disabled", "Feature Disabled");
 		this.addItem(AMIItemRegistry.ASMON_CROWN, "The Roach Crown");
+		this.addItem(AMIItemRegistry.MUTATE_ITEMS, "Mutate Items");
 
 
 	}

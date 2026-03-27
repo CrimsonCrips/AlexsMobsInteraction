@@ -4,11 +4,14 @@ package com.crimsoncrips.alexsmobsinteraction.server.goal;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCosmaw;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.npc.Villager;
 
 public class AMICosmawOwner extends Goal {
 
@@ -45,6 +48,8 @@ public class AMICosmawOwner extends Goal {
                 this.owner.startRiding(cosmaw);
             }
             if (cosmaw.hasPassenger(owner) && owner.getArmorValue() > 8){
+                System.out.println("test");
+
                 if(!(owner.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.LIGHTWEIGHT.get()) > 0)){
                     AMIUtils.awardAdvancement(owner, "heavy_carriage", "heavy");
                     cosmaw.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, owner.getArmorValue() * 100, 0));

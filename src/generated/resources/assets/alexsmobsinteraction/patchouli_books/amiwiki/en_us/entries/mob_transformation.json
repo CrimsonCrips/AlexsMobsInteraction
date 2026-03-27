@@ -1,0 +1,13 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Mob Transformation",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobsinteraction:mutate_items",
+      "text": "Transform mobs into different mobs by splashing weakness and feeding their respective items \nRainfrog/Frog + Warped Fungus = Warped Toad \nFly + Blood Sac = Crimson Mosquito \nCrimson Mosquito + Warped Muscle = Warped Mosco",
+      "title": "Mob Transformation"
+    }
+  ]
+}
