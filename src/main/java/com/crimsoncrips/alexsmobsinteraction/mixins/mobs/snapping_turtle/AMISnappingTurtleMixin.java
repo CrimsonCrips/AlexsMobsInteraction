@@ -145,11 +145,18 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBasicI
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
+        EntityAlligatorSnappingTurtle snappingturtle = (EntityAlligatorSnappingTurtle)(Object)this;
         Level level = this.level();
         if (!level.isClientSide){
             boolean awake = level.isNight() || level.isRaining() || level.isThundering() || this.getTarget() != null || this.isInLove();
             setDaySleeping(!awake);
 
+        }
+
+        if(AlexsMobsInteraction.COMMON_CONFIG.MOSS_PROPOGATION_ENABLED.get()){
+            if ((level.isRaining() || level.isThundering() || snappingturtle.isInWater()) && snappingturtle.getRandom().nextDouble() < 0.0001){
+                snappingturtle.setMoss(Math.min(10, snappingturtle.getMoss() + 1));
+            }
         }
     }
 

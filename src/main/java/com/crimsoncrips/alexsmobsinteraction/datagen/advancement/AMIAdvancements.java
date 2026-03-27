@@ -193,7 +193,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/wally.png"),
 						Component.translatable("advancement.alexsmobsinteraction.wally"),
 						Component.translatable("advancement.alexsmobsinteraction.wally.desc"),
-						null, FrameType.TASK, true,true,false)
+						null, FrameType.TASK, true,false,true)
 				.addCriterion("wally", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:wally");
 
@@ -440,7 +440,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/blue_shell.png"),
 						Component.translatable("advancement.alexsmobsinteraction.blue_shell"),
 						Component.translatable("advancement.alexsmobsinteraction.blue_shell.desc"),
-						null, FrameType.TASK, true,true,false)
+						null, FrameType.TASK, true,false,true)
 				.addCriterion("blue_shell", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:blue_shell");
 

@@ -81,6 +81,18 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                         .withTitle("Cannibalism");
                                                             });
                                                 })
+                                        .addEntry("tamed_friendlies",
+                                                "Tamed Friendlies",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "general"),
+                                                entry -> {
+                                                    entry
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/general/tamed_friendlies.png")
+                                                                        .withText("Some tamable animals from AM are passive when tamed")
+                                                                        .withTitle("Tamed Friendlies");
+                                                            });
+                                                })
                                         .addEntry("egg_attack",
                                                 "Egg Attack",
                                                 new ResourceLocation("paper"),
@@ -297,6 +309,22 @@ public class AMInBookProvider extends PGenBookProvider {
                                                             .addTextPage("Blooded can be targeted by Crimson Mosquitoes twice as far." +
                                                                     "Blooded slows,reduces armor and damage for those inflicted.", page ->
                                                                     page.withTitle(" ")
+                                                            );
+
+                                                })
+                                        .addEntry("cosmaw",
+                                                "Cosmaw",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/cosmaw_weakness.png")
+                                                                        .withText("Cosmaws gets weak when carrying heavily armored players, Cosmaws cannot carry players when weakened")
+                                                                        .withTitle("Cosmaw Weakness");
+                                                            })
+                                                            .addTextPage("With the 'Lightweight' enchantment, found within the cities of the end. Cosmaws no longer get weak when carrying their owner", page ->
+                                                                    page.withTitle("Lightweight")
                                                             );
 
                                                 })

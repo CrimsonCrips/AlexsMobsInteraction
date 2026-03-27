@@ -35,7 +35,7 @@ public abstract class AMIWarpedToad extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityWarpedToad warpedToad = (EntityWarpedToad)(Object)this;
-        if(!AlexsMobsInteraction.COMMON_CONFIG.WARPED_FRIENDLY_ENABLED.get())
+        if(!AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get())
             return;
         warpedToad.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(warpedToad, LivingEntity.class, 50, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.WARPED_TOAD_TARGETS)){
             @Override
@@ -47,7 +47,7 @@ public abstract class AMIWarpedToad extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 15))
     private boolean nearestTarget(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.WARPED_FRIENDLY_ENABLED.get();
+        return !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)

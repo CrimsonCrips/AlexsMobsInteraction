@@ -122,45 +122,6 @@ public class AMInteractionEvents {
             entityCombJelly.heal(0.05F);
         }
 
-        if (livingEntity instanceof EntityCrimsonMosquito crimsonMosquito){
-            Entity attach = crimsonMosquito.getVehicle();
-
-            if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_CRIMSON_MULTIPLY_ENABLED.get() && attach != null && crimsonMosquito.getBloodLevel() > 1) {
-                if (!(attach instanceof Player) && attach.isAlive()){
-                    AMEntityRegistry.CRIMSON_MOSQUITO.get().spawn((ServerLevel) level, BlockPos.containing(crimsonMosquito.getX(), crimsonMosquito.getY() + 0.2, crimsonMosquito.getZ()), MobSpawnType.MOB_SUMMONED);
-                    attach.remove(Entity.RemovalReason.DISCARDED);
-                }
-
-            }
-        }
-
-
-        if (livingEntity instanceof EntityGrizzlyBear grizzlyBear){
-            if(AlexsMobsInteraction.COMMON_CONFIG.FREDDYABLE_ENABLED.get()){
-                String freddy = "Freddy Fazbear";
-                if (grizzlyBear.getName().getString().equals(freddy)) {
-                    grizzlyBear.setAprilFoolsFlag(2);
-                    grizzlyBear.setTame(false);
-                    grizzlyBear.setOwnerUUID(null);
-                }
-            }
-        }
-
-        if (livingEntity instanceof EntityElephant elephant){
-            if(AlexsMobsInteraction.COMMON_CONFIG.ELEPHANT_TRAMPLE_ENABLED.get()){
-                Iterator<LivingEntity> var4 = level.getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator();
-                if (elephant.isVehicle() && elephant.isTame()) {
-                    while (var4.hasNext()) {
-                        LivingEntity entity = var4.next();
-                        if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.0F) {
-                            entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 3);
-                            AMIUtils.awardAdvancement(elephant.getFirstPassenger(), "elephant_trample", "trample");
-                        }
-                    }
-                }
-            }
-        }
-
 
 
         if(livingEntity instanceof EntityBananaSlug bananaSlug && AlexsMobsInteraction.COMMON_CONFIG.GOOFY_BANANA_SLIP_ENABLED.get()){
@@ -170,12 +131,6 @@ public class AMInteractionEvents {
 
                     player.playSound(AMISoundRegistry.BANANA_SLIP.get());
                 }
-            }
-        }
-
-        if(livingEntity instanceof EntityAlligatorSnappingTurtle snappingturtle && AlexsMobsInteraction.COMMON_CONFIG.MOSS_PROPOGATION_ENABLED.get()){
-            if ((level.isRaining() || level.isThundering() || snappingturtle.isInWater()) && snappingturtle.getRandom().nextDouble() < 0.0001){
-                snappingturtle.setMoss(Math.min(10, snappingturtle.getMoss() + 1));
             }
         }
 
@@ -338,15 +293,6 @@ public class AMInteractionEvents {
         }
     }
 
-    @SubscribeEvent
-    public void hurtEvent(LivingHurtEvent event) {
-        if (event.getEntity() instanceof EntityElephant elephant && elephant.isTusked() && event.getSource().getEntity() instanceof Player player && player.getMainHandItem().is(ItemTags.AXES)){
-            if (AMIUtils.chanceTrue((int) event.getAmount(),20)){
-                elephant.setTusked(false);
-                elephant.playSound(SoundEvents.WITHER_BREAK_BLOCK, 1.2F, 1);
-            }
-        }
-    }
 
 
     @SubscribeEvent
@@ -378,7 +324,7 @@ public class AMInteractionEvents {
 
     @SubscribeEvent
     public void mobAttack(LivingAttackEvent attackEvent){
-        if(attackEvent.getSource().getDirectEntity() instanceof EntitySoulVulture soulVulture){
+        if(attackEvent.getSource().getDirectEntity() instanceof EntitySoulVulture soulVulture && AlexsMobsInteraction.COMMON_CONFIG.VULTURE_STEAL_ENABLED.get()){
             soulVulture.setSoulLevel(soulVulture.getSoulLevel() + 1);
         }
 

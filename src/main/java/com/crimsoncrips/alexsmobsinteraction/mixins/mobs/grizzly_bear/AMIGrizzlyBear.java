@@ -84,7 +84,7 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get()) {
             this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::modifiedIsAngryAt));
 
         }
@@ -95,7 +95,7 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
             grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 500, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){
                 @Override
                 public boolean canUse() {
-                    return super.canUse() && !grizzlyBear.isTame() && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed() && ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 10000;
+                    return super.canUse() && (!grizzlyBear.isTame() || !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get()) && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed() && ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 10000;
                 }
 
                 @Override
@@ -118,12 +118,12 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
 
 //    @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 18))
 //    private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {
-//        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get();
+//        return !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get();
 //    }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 19))
     private boolean alexsMobsInteraction$registerGoals3(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.GRIZZLY_PACIFIED_ENABLED.get();
+        return !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
@@ -151,6 +151,8 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
     @Inject(method = "mobInteract", at = @At("TAIL"))
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
+        EntityGrizzlyBear grizzlyBear = (EntityGrizzlyBear) (Object) this;
+
         if (AlexsMobsInteraction.COMMON_CONFIG.BRUSHED_ENABLED.get() && itemStack.getItem() instanceof BrushItem && !this.level().isClientSide && this.isHoneyed() && !isUrsa()) {
             if (!player.isCreative()) {
                 itemStack.hurtAndBreak(15, player, (p_233654_0_) -> {
@@ -159,6 +161,15 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
             AMIUtils.spawnLoot(AMILootTables.GRIZZLY_BRUSH,this,player,0);
             this.playSound(SoundEvents.BRUSH_GENERIC, 1, this.getVoicePitch());
             AMIUtils.awardAdvancement(player,"brushed","brushed");
+        }
+
+        if(AlexsMobsInteraction.COMMON_CONFIG.FREDDYABLE_ENABLED.get()){
+            String freddy = "Freddy Fazbear";
+            if (grizzlyBear.getName().getString().equals(freddy)) {
+                grizzlyBear.setAprilFoolsFlag(2);
+                grizzlyBear.setTame(false);
+                grizzlyBear.setOwnerUUID(null);
+            }
         }
     }
 

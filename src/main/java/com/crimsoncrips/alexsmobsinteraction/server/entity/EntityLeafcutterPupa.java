@@ -80,14 +80,14 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
                     int j = Math.min(3, AMConfig.leafcutterAntColonySize);
                     int variant = world.random.nextBoolean() ? 1 : 2;
                     for(int k = 0; k < j; ++k) {
-                        EntityLeafcutterAnt beeentity = new EntityLeafcutterAnt(AMEntityRegistry.LEAFCUTTER_ANT.get(), world);
+                        EntityLeafcutterAnt antentity = new EntityLeafcutterAnt(AMEntityRegistry.LEAFCUTTER_ANT.get(), world);
                         if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
-                            ((AMIBasicInterfaces) beeentity).setVariant(variant);
+                            ((AMIBasicInterfaces) antentity).setVariant(variant);
                         } else {
-                            ((AMIBasicInterfaces) beeentity).setVariant(1);
+                            ((AMIBasicInterfaces) antentity).setVariant(1);
                         }
-                        beeentity.setQueen(k == 0);
-                        beehivetileentity.tryEnterHive(beeentity, false, 100);
+                        antentity.setQueen(k == 0);
+                        beehivetileentity.tryEnterHive(antentity, false, 100);
                     }
                 }
             }

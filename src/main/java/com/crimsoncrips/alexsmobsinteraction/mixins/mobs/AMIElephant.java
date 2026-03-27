@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -11,11 +12,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,7 +33,7 @@ public abstract class AMIElephant extends Mob {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityElephant elephant = (EntityElephant)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.ELEPHANT_TERRITORIAL_ENABLED.get()){
             elephant.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(elephant, Player.class, 1000, true, true, (entity1 -> {
@@ -45,9 +48,27 @@ public abstract class AMIElephant extends Mob {
 
     }
 
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void alexsMobsInteraction$tick(CallbackInfo ci){
+        EntityElephant elephant = (EntityElephant)(Object)this;
+        if (!AlexsMobsInteraction.COMMON_CONFIG.ELEPHANT_TRAMPLE_ENABLED.get())
+            return;
+        if (elephant.isTame() && elephant.getFirstPassenger() instanceof Player player){
+            Iterator<LivingEntity> var4 = elephant.level().getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator();
+            System.out.println(elephant.getDeltaMovement());
+            while (var4.hasNext()) {
+                LivingEntity entity = var4.next();
+                if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.0F) {
+                    entity.hurt(elephant.damageSources().mobAttack((LivingEntity) elephant), 3);
+                    AMIUtils.awardAdvancement(elephant.getFirstPassenger(), "elephant_trample", "trample");
+                }
+            }
+        }
+    }
+
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void getItem(ItemEntity e, CallbackInfo ci) {
+    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
         if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
             List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();

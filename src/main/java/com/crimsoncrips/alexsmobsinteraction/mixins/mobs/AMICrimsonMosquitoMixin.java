@@ -13,6 +13,8 @@ import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,6 +25,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -55,8 +58,6 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
-        EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
-
         if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
             this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, Player.class, 10, true, false, (mob) -> !mob.hasEffect(AMEffectRegistry.MOSQUITO_REPELLENT.get())));
             this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, LivingEntity.class, 30, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.CRIMSON_MOSQUITO_TARGETS)));
@@ -79,4 +80,20 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
             }
         }
     }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
+        EntityCrimsonMosquito crimsonMosquito = (EntityCrimsonMosquito)(Object)this;
+
+        Entity attach = crimsonMosquito.getVehicle();
+
+        if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_CRIMSON_MULTIPLY_ENABLED.get() && attach != null && crimsonMosquito.getBloodLevel() > 1) {
+            if (!(attach instanceof Player) && attach.isAlive()){
+                AMEntityRegistry.CRIMSON_MOSQUITO.get().spawn((ServerLevel) crimsonMosquito.level(), BlockPos.containing(crimsonMosquito.getX(), crimsonMosquito.getY() + 0.2, crimsonMosquito.getZ()), MobSpawnType.MOB_SUMMONED);
+                attach.remove(Entity.RemovalReason.DISCARDED);
+            }
+
+        }
+    }
+
 }

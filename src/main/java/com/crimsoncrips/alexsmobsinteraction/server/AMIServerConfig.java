@@ -3,7 +3,6 @@ package com.crimsoncrips.alexsmobsinteraction.server;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class AMIServerConfig {
-    public final ForgeConfigSpec.BooleanValue ACCIDENTAL_BETRAYAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue AMI_WIKI_ENABLED;
     public final ForgeConfigSpec.BooleanValue DART_EFFECTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
@@ -33,14 +32,13 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue TRANSFORMATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue FOOD_FX_ENABLED;
     public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FRIENDLY_KOMODO_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TAMED_FRIENDLIES_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_CAPUCHIN_BOMB_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_CRIMSON_MULTIPLY_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_MURMUR_DECAPITATED_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_RAINFROG_SPAWNAGE_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_STRADDLER_SHOTGUN_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GRIZZLY_PACIFIED_ENABLED;
     public final ForgeConfigSpec.BooleanValue GUSTER_PROJECTILE_PROT_ENABLED;
     public final ForgeConfigSpec.BooleanValue GUSTER_WEIGHT_ENABLED;
     public final ForgeConfigSpec.BooleanValue GUSTING_EFFECT_ENABLED;
@@ -88,7 +86,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
     public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue VULTURE_STEAL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue WARPED_FRIENDLY_ENABLED;
     public final ForgeConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
     public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
     public final ForgeConfigSpec.BooleanValue WITHERED_SKELEWAG_ENABLED;
@@ -101,7 +98,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue ASMONGOLD_ENABLED;
     public final ForgeConfigSpec.BooleanValue GOOFY_HOT_CAT_ENABLED;
     public final ForgeConfigSpec.BooleanValue PANIC_LAUNCHING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue PROPER_ARMAMENTS_ENABLED;
+    public final ForgeConfigSpec.BooleanValue ARMAMENTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
     public final ForgeConfigSpec.BooleanValue CONSUME_COMPASS_ENABLED;
     public final ForgeConfigSpec.BooleanValue DEVILS_FISHING_ENABLED;
@@ -114,6 +111,8 @@ public class AMIServerConfig {
         builder.comment("--Compatibility with Soul Fire--");
         this.COMBUSTABLE_ENABLED = buildBoolean(builder, "COMBUSTABLE_ENABLED", " ", true, "Being oiled will cause you to combust more from 'hot' blocks");
         this.TRANSFORMATION_ENABLED = buildBoolean(builder, "TRANSFORMATION_ENABLED", " ", true, "Mob Transformation");
+        this.TAMED_FRIENDLIES_ENABLED = buildBoolean(builder, "TAMED_FRIENDLIES_ENABLED", " ", true, "Tamed animals have their behaviors be more passive");
+
 
         builder.pop();
         builder.push("Mobs");
@@ -209,7 +208,6 @@ public class AMIServerConfig {
         this.BLEEDING_HUNGER_ENABLED = buildBoolean(builder, "BLEEDING_HUNGER_ENABLED", " ", true, "Frilled Shark will attack players with exsanguination or low on health");
         builder.pop();
         builder.push("Grizzly Bear");
-        this.GRIZZLY_PACIFIED_ENABLED = buildBoolean(builder, "GRIZZLY_PACIFIED_ENABLED", " ", true, "Grizzlies will not attack players when tamed");
         this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
         this.BRUSHED_ENABLED = buildBoolean(builder, "BRUSHED_ENABLED", " ", true, "Grizzlies that are pacified with honey can be brushed for hair");
         this.STORED_HUNGER_ENABLED = buildBoolean(builder, "STORED_HUNGER_ENABLED", " ", true, "Grizzlies destroy containers containing food they like");
@@ -226,10 +224,7 @@ public class AMIServerConfig {
         this.POLINATE_DAY_ENABLED = buildBoolean(builder, "POLINATE_DAY_ENABLED", " ", true, "Humming Birds pollinate only in the day");
         builder.pop();
         builder.push("Kangaroo");
-        this.PROPER_ARMAMENTS_ENABLED = buildBoolean(builder, "PROPER_ARMAMENTS_ENABLED", " ", true, "Kangaroos can be given totems");
-        builder.pop();
-        builder.push("Komodo Dragon");
-        this.FRIENDLY_KOMODO_ENABLED = buildBoolean(builder, "FRIENDLY_KOMODO_ENABLED", " ", false, "Komodo Dragon is friendly towards players when tamed");
+        this.ARMAMENTS_ENABLED = buildBoolean(builder, "ARMAMENTS_ENABLED", " ", true, "Kangaroos can be given totems");
         builder.pop();
         builder.push("Laviathan");
         this.OBSIDIAN_EXTRACT_ENABLED = buildBoolean(builder, "OBSIDIAN_EXTRACT_ENABLED", " ", true, "Obsidian Laviathans can be mined for obsidian, but will cause them slight harm");
@@ -267,9 +262,6 @@ public class AMIServerConfig {
         builder.push("Rattlesnake");
         this.RATTLESNAKE_TERRITORIAL_ENABLED = buildBoolean(builder, "RATTLESNAKE_TERRITORIAL_ENABLED", " ", true, "Rattlesnakes are territorial against other snakes");
 
-        builder.pop();
-        builder.push("Rhino");
-        this.ACCIDENTAL_BETRAYAL_ENABLED = buildBoolean(builder, "ACCIDENTAL_BETRAYAL_ENABLED", " ", true, "Adult rhinos will rarely accidentally attack baby rhinos");
         builder.pop();
         builder.push("Roadrunner");
         this.ROADRUNNER_DAY_ENABLED = buildBoolean(builder, "ROADRUNNER_DAY_ENABLED", " ", true, "Roadrunners will only hunt at day");
@@ -316,7 +308,6 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Terrapin");
         this.TERRAPIN_STOMP_ENABLED = buildBoolean(builder, "TERRAPIN_STOMP_ENABLED", " ", true, "Terrapin take damage when they get launched");
-        this.BLUE_SHELL_ENABLED = buildBoolean(builder, "BLUE_SHELL_ENABLED", " ", true, "Blue Shell Terrapin");
 
         builder.pop();
         builder.push("Tiger");
@@ -335,9 +326,6 @@ public class AMIServerConfig {
 
         this.HASTY_CARVING_ENABLED = buildBoolean(builder, "HASTY_CARVING_ENABLED", " ", true, "Dimensional Carver speeds up with haste");
 
-        builder.pop();
-        builder.push("Warped Toad");
-        this.WARPED_FRIENDLY_ENABLED = buildBoolean(builder, "WARPED_FRIENDLY_ENABLED", " ", true, "Warped Toads will not attack food unless given the orders so");
         builder.pop(2);
         builder.push("April Fools");
         this.GOOFY_BANANA_SLIP_ENABLED = buildBoolean(builder, "GOOFY_BANANA_SLIP_ENABLED", " ", false, "April Fools Banana Slug and Banana Effects");
@@ -352,6 +340,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Easter eggs");
         this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", " ", true, "Crocodile has a halo when named 'Wally'");
+        this.BLUE_SHELL_ENABLED = buildBoolean(builder, "BLUE_SHELL_ENABLED", " ", true, "Blue Shell Terrapin");
         builder.pop();
     }
 

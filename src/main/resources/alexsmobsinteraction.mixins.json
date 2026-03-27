@@ -71,7 +71,6 @@
     "mobs.AMIRaccoon",
     "mobs.AMIRainfrog",
     "mobs.AMIRattlesnake",
-    "mobs.AMIRhino",
     "mobs.AMIRoadrunner",
     "mobs.AMISeagull",
     "mobs.AMISeal",
@@ -130,8 +129,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixinextras": {
-    "minVersion": "0.5.0-beta.5"
   }
 }

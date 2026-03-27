@@ -53,7 +53,7 @@ public abstract class AMIKangaroo extends TamableAnimal {
 
     @ModifyReturnValue(method = "getItemBySlot", at = @At("RETURN"))
     private ItemStack alexsMobsInteraction$getItemBySlot(ItemStack original,@Local EquipmentSlot slot) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.PROPER_ARMAMENTS_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ARMAMENTS_ENABLED.get()) {
             if (slot == EquipmentSlot.MAINHAND) {
                 return getItemInHand(slot);
             } else if (slot == EquipmentSlot.OFFHAND) {
@@ -65,7 +65,7 @@ public abstract class AMIKangaroo extends TamableAnimal {
 
     @Inject(method = "resetKangarooSlots", at = @At("TAIL"),remap = false)
     private void registerGoals(CallbackInfo ci) {
-        if (!this.level().isClientSide && AlexsMobsInteraction.COMMON_CONFIG.PROPER_ARMAMENTS_ENABLED.get()) {
+        if (!this.level().isClientSide && AlexsMobsInteraction.COMMON_CONFIG.ARMAMENTS_ENABLED.get()) {
             int totemIndex = -1;
             for (int i = 0; i < this.kangarooInventory.getContainerSize(); ++i) {
                 ItemStack stack = this.kangarooInventory.getItem(i);
