@@ -35,7 +35,7 @@ public abstract class AMIElephant extends Mob {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityElephant elephant = (EntityElephant)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ELEPHANT_TERRITORIAL_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.TUSKED_TERRITORIAL_ENABLED.get()){
             elephant.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(elephant, Player.class, 1000, true, true, (entity1 -> {
                 return entity1.isHolding(Ingredient.of(AMItemRegistry.ACACIA_BLOSSOM.get()));
             })) {

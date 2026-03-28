@@ -20,7 +20,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
     public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ELEPHANT_TERRITORIAL_ENABLED;
+    public final ForgeConfigSpec.BooleanValue TUSKED_TERRITORIAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERIOPHAGE_ADAPTION_ENABLED;
@@ -74,7 +74,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue STORED_HUNGER_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
     public final ForgeConfigSpec.BooleanValue STRADPOLE_BOB_UP_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SUGAR_RUSH_ENABLED;
     public final ForgeConfigSpec.BooleanValue SUNBIRD_UPGRADE_ENABLED;
     public final ForgeConfigSpec.BooleanValue TENDON_GRAB_ENABLED;
     public final ForgeConfigSpec.BooleanValue TERRAPIN_STOMP_ENABLED;
@@ -164,7 +163,7 @@ public class AMIServerConfig {
         this.BLOODED_CHANCE = buildDouble(builder, "BLOODED_CHANCE", " ", 0.2,0.0,1.0, "Chance of crimson mosquitoes to spawn with blood inside them");
         builder.pop();
         builder.push("Elephant");
-        this.ELEPHANT_TERRITORIAL_ENABLED = buildBoolean(builder, "ELEPHANT_TERRITORIAL_ENABLED", " ", true, "Tusked Elephants attack players when lingering long enough,unless holding Acacia Blossom");
+        this.TUSKED_TERRITORIAL_ENABLED = buildBoolean(builder, "TUSKED_TERRITORIAL_ENABLED", " ", true, "Tusked Elephants attack players when lingering long enough,unless holding Acacia Blossom");
         this.ELEPHANT_TRAMPLE_ENABLED = buildBoolean(builder, "ELEPHANT_TRAMPLE_ENABLED", " ", true, "Tamed Elephants will trample small entities when ridden");
         builder.pop();
         builder.push("Emu");
@@ -299,9 +298,6 @@ public class AMIServerConfig {
         builder.push("Stradpole");
         this.STRADPOLE_BOB_UP_ENABLED = buildBoolean(builder, "STRADPOLE_BOB_UP_ENABLED", " ", true, "Stradpole can be seen bobbing up or hopping in lava");
 
-        builder.pop();
-        builder.push("Sugar Glider");
-        this.SUGAR_RUSH_ENABLED = buildBoolean(builder, "SUGAR_RUSH_ENABLED", " ", true, "Sugar Gliders can be speed up with sugar");
         builder.pop();
         builder.push("Sunbird");
         this.SUNBIRD_UPGRADE_ENABLED = buildBoolean(builder, "SUNBIRD_UPGRADE_ENABLED", " ", true, "Sun Bird Effects are changed for the better and the worst");

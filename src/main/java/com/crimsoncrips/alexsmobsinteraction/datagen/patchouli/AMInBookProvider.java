@@ -312,20 +312,53 @@ public class AMInBookProvider extends PGenBookProvider {
                                                             );
 
                                                 })
-                                        .addEntry("cosmaw",
-                                                "Cosmaw",
+                                        .addEntry("elephant",
+                                                "Elephant",
                                                 new ResourceLocation("paper"),
                                                 new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
                                                 entry -> {
                                                     entry.withSortnum(1)
                                                             .addImagePage(page -> {
-                                                                page.addImage("textures/gui/wiki/mobs/cosmaw_weakness.png")
-                                                                        .withText("Cosmaws gets weak when carrying heavily armored players, Cosmaws cannot carry players when weakened")
-                                                                        .withTitle("Cosmaw Weakness");
+                                                                page.addImage("textures/gui/wiki/mobs/tusked_territorial.png")
+                                                                        .withText("Tusked elephants aggro towards players not holding Acacia Blossoms")
+                                                                        .withTitle("Tusked Territorial");
                                                             })
-                                                            .addTextPage("With the 'Lightweight' enchantment, found within the cities of the end. Cosmaws no longer get weak when carrying their owner", page ->
-                                                                    page.withTitle("Lightweight")
-                                                            );
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/elephant_trample.png")
+                                                                        .withText("Tusked elephants aggro towards players not holding Acacia Blossoms")
+                                                                        .withTitle("Elephant Trample");
+                                                            });
+
+                                                })
+                                        .addEntry("emu",
+                                                "Emu",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/ranged_aggro.png")
+                                                                        .withText("Emu attack enemies holding ranged weapons")
+                                                                        .withTitle("Ranged Aggro");
+                                                            });
+
+                                                })
+                                        .addEntry("enderiophage",
+                                                "Enderiophage",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/ranged_aggro.png")
+                                                                        .withText("Emu attack enemies holding ranged weapons")
+                                                                        .withTitle("Ranged Aggro");
+                                                            })
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/ranged_aggro.png")
+                                                                        .withText("Emu attack enemies holding ranged weapons")
+                                                                        .withTitle("Ranged Aggro");
+                                                            });
 
                                                 })
                                 ;
