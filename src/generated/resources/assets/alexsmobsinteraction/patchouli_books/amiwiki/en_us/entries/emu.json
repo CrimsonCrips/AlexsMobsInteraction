@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Emu",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/ranged_aggro.png"
+      ],
+      "text": "Emu attack enemies holding ranged weapons",
+      "title": "Ranged Aggro"
+    }
+  ],
+  "sortnum": 1
+}

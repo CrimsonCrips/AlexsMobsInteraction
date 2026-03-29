@@ -1,6 +1,6 @@
 {
   "book_texture": "alexsmobsinteraction:textures/gui/ami_gui_book.png",
-  "creative_tab": "minecraft:tools_and_utilities",
+  "creative_tab": "alexsmobs:alexsmobs",
   "landing_text": "Welcome to an interactive universe!",
   "model": "alexsmobsinteraction:ami_book",
   "name": "         AMI Wiki",

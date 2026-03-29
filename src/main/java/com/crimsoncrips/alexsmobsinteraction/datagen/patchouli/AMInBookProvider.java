@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMCreativeTabRegistry;
 import com.reimnop.pgen.PGenBookProvider;
 import com.reimnop.pgen.builder.PGenEntryBuilder;
 import com.reimnop.pgen.builder.page.PGenSpotlightPageBuilder;
@@ -44,7 +45,7 @@ public class AMInBookProvider extends PGenBookProvider {
                 "Welcome to an interactive universe!",
                 true,
                 book -> {
-                    book.withBookTexture("textures/gui/ami_gui_book.png").withModel("ami_book").withNameplateColor("e3cccc").withSubtitle("Bastion of Interaction").withCreativeTab(CreativeModeTabs.TOOLS_AND_UTILITIES.location())
+                    book.withBookTexture("textures/gui/ami_gui_book.png").withModel("ami_book").withNameplateColor("e3cccc").withSubtitle("Bastion of Interaction").withCreativeTab(AMCreativeTabRegistry.TAB.getId())
                             .addLanguage("en_us", lang -> {
                                 //General Category
                                 lang.addCategory("general",

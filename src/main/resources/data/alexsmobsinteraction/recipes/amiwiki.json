@@ -2,13 +2,13 @@
   "type": "patchouli:shapeless_book_recipe",
   "ingredients": [
     {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:crimson_fungus"
     },
     {
       "item": "minecraft:book"
     },
     {
-      "item": "alexscaves:cave_tablet"
+      "tag": "alexsmobs:animal_dictionary_ingredient"
     }
   ],
   "book": "alexsmobsinteraction:amiwiki"

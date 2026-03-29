@@ -42,11 +42,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityFly.class)
 public class AMIFly extends Mob implements TransformingEntities {
 
-    private static final EntityDataAccessor<Boolean> TRANFORMING = SynchedEntityData.defineId(EntityFly.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TRANSFORMING = SynchedEntityData.defineId(EntityFly.class, EntityDataSerializers.BOOLEAN);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynched(CallbackInfo ci){
-        this.entityData.define(TRANFORMING, false);
+        this.entityData.define(TRANSFORMING, false);
     }
 
     int flyConvert;
@@ -113,11 +113,11 @@ public class AMIFly extends Mob implements TransformingEntities {
 
 
     public boolean isTransforming() {
-        return this.entityData.get(TRANFORMING);
+        return this.entityData.get(TRANSFORMING);
     }
 
     public void setTransforming(boolean transformingBoolean) {
-        this.entityData.set(TRANFORMING, transformingBoolean);
+        this.entityData.set(TRANSFORMING, transformingBoolean);
     }
 
 

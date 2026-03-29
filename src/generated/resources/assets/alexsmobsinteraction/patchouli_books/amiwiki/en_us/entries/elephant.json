@@ -1,0 +1,24 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Elephant",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/tusked_territorial.png"
+      ],
+      "text": "Tusked elephants aggro towards players not holding Acacia Blossoms",
+      "title": "Tusked Territorial"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/elephant_trample.png"
+      ],
+      "text": "Tusked elephants aggro towards players not holding Acacia Blossoms",
+      "title": "Elephant Trample"
+    }
+  ],
+  "sortnum": 1
+}

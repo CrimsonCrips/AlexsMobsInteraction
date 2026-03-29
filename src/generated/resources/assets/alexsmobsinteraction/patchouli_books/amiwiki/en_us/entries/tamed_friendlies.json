@@ -1,0 +1,15 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Tamed Friendlies",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/tamed_friendlies.png"
+      ],
+      "text": "Some tamable animals from AM are passive when tamed",
+      "title": "Tamed Friendlies"
+    }
+  ]
+}
