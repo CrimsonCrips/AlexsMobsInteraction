@@ -4,10 +4,8 @@
   "name": "Elephant",
   "pages": [
     {
-      "type": "patchouli:image",
-      "images": [
-        "alexsmobsinteraction:textures/gui/wiki/mobs/tusked_territorial.png"
-      ],
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:acacia_blossom",
       "text": "Tusked elephants aggro towards players not holding Acacia Blossoms",
       "title": "Tusked Territorial"
     },
@@ -16,7 +14,7 @@
       "images": [
         "alexsmobsinteraction:textures/gui/wiki/mobs/elephant_trample.png"
       ],
-      "text": "Tusked elephants aggro towards players not holding Acacia Blossoms",
+      "text": "Ridden Elephants trample entities below 2 blocks",
       "title": "Elephant Trample"
     }
   ],

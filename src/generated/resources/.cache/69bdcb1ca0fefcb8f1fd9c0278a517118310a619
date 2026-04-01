@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-29T14:02:05.74808423	PGen book provider for mod id alexsmobsinteraction
+// 1.20.1	2026-03-31T17:55:23.0363066	PGen book provider for mod id alexsmobsinteraction
 35499d8d2cc4aac317f8b28fa1a550328ba7446f assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/categories/general.json
 e84ad02ccc22d0c130d17ca97f1139cd6ee5674e assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/categories/mobs.json
 a56bb87dba341eef1aea2a580ae68398698145f2 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/add_targets.json
@@ -15,9 +15,9 @@ ac2946b2657a0575304fc3ff1d0e00fe055a4abf assets/alexsmobsinteraction/patchouli_b
 21ae9d2ef2f05c56e2347d0d402e1846439c0986 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/cosmaw.json
 240362a5772ad4f29639394eebbf4de55dbee855 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/crimson_mosquito.json
 2f6d364297686acf223ba4471e70c38f445fc745 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/egg_attack.json
-371d79ca222d15c3a58fda15da0c179087907f6c assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/elephant.json
+713f0849b2ef71abb24b3fce22aaa2ef8f9ef6e9 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/elephant.json
 721eb5a64b7080541b91ab02c6a186c12c64b819 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/emu.json
-4c6eceaf2bdc05639e0370506b00856b868d74b5 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/enderiophage.json
+9292ce2fd2ba50899422cb8e636f64c0fe940f13 assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/enderiophage.json
 1c2b2d3ed772a487d56d18757f61b544998028fb assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/food_fx.json
 64c5584a08874eda370de90680e3483e6c761b9b assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/mob_transformation.json
 104179064f7dd660aeb49142b67e79f4439ff17c assets/alexsmobsinteraction/patchouli_books/amiwiki/en_us/entries/tamed_friendlies.json

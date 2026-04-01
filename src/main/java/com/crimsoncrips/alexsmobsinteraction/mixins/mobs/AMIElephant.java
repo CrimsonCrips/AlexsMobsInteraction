@@ -53,9 +53,8 @@ public abstract class AMIElephant extends Mob {
         EntityElephant elephant = (EntityElephant)(Object)this;
         if (!AlexsMobsInteraction.COMMON_CONFIG.ELEPHANT_TRAMPLE_ENABLED.get())
             return;
-        if (elephant.isTame() && elephant.getFirstPassenger() instanceof Player player){
+        if (elephant.isTame() && elephant.getFirstPassenger() instanceof Player){
             Iterator<LivingEntity> var4 = elephant.level().getEntitiesOfClass(LivingEntity.class, elephant.getBoundingBox().expandTowards(0.25, -2, 0.25)).iterator();
-            System.out.println(elephant.getDeltaMovement());
             while (var4.hasNext()) {
                 LivingEntity entity = var4.next();
                 if (entity != elephant && entity != elephant.getControllingPassenger() && entity.getBbHeight() <= 2.0F) {

@@ -6,18 +6,38 @@
     {
       "type": "patchouli:image",
       "images": [
-        "alexsmobsinteraction:textures/gui/wiki/mobs/ranged_aggro.png"
+        "alexsmobsinteraction:textures/gui/wiki/mobs/infect_interaction.png"
       ],
-      "text": "Emu attack enemies holding ranged weapons",
-      "title": "Ranged Aggro"
+      "text": "Added infection interactions from Enderiophage",
+      "title": "Infect Interraction"
     },
     {
-      "type": "patchouli:image",
-      "images": [
-        "alexsmobsinteraction:textures/gui/wiki/mobs/ranged_aggro.png"
-      ],
-      "text": "Emu attack enemies holding ranged weapons",
-      "title": "Ranged Aggro"
+      "type": "patchouli:text",
+      "text": "Enderiophage cannot infect mobs inflicted with Damage Resistance",
+      "title": " "
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "mapping": {
+          "0": "alexsmobs:capsid",
+          "E": "minecraft:end_rod"
+        },
+        "pattern": [
+          [
+            " ",
+            "0",
+            " "
+          ],
+          [
+            " ",
+            "E",
+            " "
+          ]
+        ]
+      },
+      "name": "Enderiophage Adaption",
+      "text": "Enderiophage adapt to their dimension when created"
     }
   ],
   "sortnum": 1

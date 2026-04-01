@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.misc.AMCreativeTabRegistry;
 import com.reimnop.pgen.PGenBookProvider;
 import com.reimnop.pgen.builder.PGenEntryBuilder;
@@ -319,14 +320,15 @@ public class AMInBookProvider extends PGenBookProvider {
                                                 new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
                                                 entry -> {
                                                     entry.withSortnum(1)
-                                                            .addImagePage(page -> {
-                                                                page.addImage("textures/gui/wiki/mobs/tusked_territorial.png")
-                                                                        .withText("Tusked elephants aggro towards players not holding Acacia Blossoms")
-                                                                        .withTitle("Tusked Territorial");
-                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.ACACIA_BLOSSOM),
+                                                                    page -> page
+                                                                            .withText("Tusked elephants aggro towards players not holding Acacia Blossoms")
+                                                                            .withTitle("Tusked Territorial")
+                                                            )
                                                             .addImagePage(page -> {
                                                                 page.addImage("textures/gui/wiki/mobs/elephant_trample.png")
-                                                                        .withText("Tusked elephants aggro towards players not holding Acacia Blossoms")
+                                                                        .withText("Ridden Elephants trample entities below 2 blocks")
                                                                         .withTitle("Elephant Trample");
                                                             });
 
@@ -351,15 +353,25 @@ public class AMInBookProvider extends PGenBookProvider {
                                                 entry -> {
                                                     entry.withSortnum(1)
                                                             .addImagePage(page -> {
-                                                                page.addImage("textures/gui/wiki/mobs/ranged_aggro.png")
-                                                                        .withText("Emu attack enemies holding ranged weapons")
-                                                                        .withTitle("Ranged Aggro");
+                                                                page.addImage("textures/gui/wiki/mobs/infect_interaction.png")
+                                                                        .withText("Added infection interactions from Enderiophage")
+                                                                        .withTitle("Infect Interraction");
                                                             })
-                                                            .addImagePage(page -> {
-                                                                page.addImage("textures/gui/wiki/mobs/ranged_aggro.png")
-                                                                        .withText("Emu attack enemies holding ranged weapons")
-                                                                        .withTitle("Ranged Aggro");
-                                                            });
+                                                            .addTextPage("Enderiophage cannot infect mobs inflicted with Damage Resistance", page ->
+                                                                    page.withTitle(" ")
+                                                            )
+                                                            .addMultiblockPage("Enderiophage Adaption", page -> page.withText("Enderiophage adapt to their dimension when created").withMultiblock(new PGenMultiblock(
+                                                                            List.of(
+                                                                                    List.of(" ", // Layer 3
+                                                                                            "0",
+                                                                                            " "),
+                                                                                    List.of(" ", // Layer 2
+                                                                                            "E",
+                                                                                            " ")
+                                                                            ),
+                                                                            Map.of("0","alexsmobs:capsid","E","minecraft:end_rod")
+                                                                    ))
+                                                            );
 
                                                 })
                                 ;

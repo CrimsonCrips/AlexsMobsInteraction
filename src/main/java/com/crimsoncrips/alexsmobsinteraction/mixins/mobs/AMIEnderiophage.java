@@ -51,7 +51,11 @@ public abstract class AMIEnderiophage extends Animal {
             });
             this.targetSelector.addGoal(1, new EntityAINearestTarget3D(this, LivingEntity.class, 15, true, true, ENDERGRADE_OR_INFECTED) {
                 public boolean canUse() {
-                    return !enderiophage.isMissingEye() && (int) AMIReflectionUtil.getField(this, "fleeAfterStealTime") == 0 && super.canUse();
+                    Object fleeAfterSteal = AMIReflectionUtil.getField(this, "fleeAfterStealTime");
+                    if (fleeAfterSteal == null) {
+                        return false;
+                    }
+                    return !enderiophage.isMissingEye() && (int) fleeAfterSteal == 0  && super.canUse();
                 }
 
                 public boolean canContinueToUse() {
