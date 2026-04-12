@@ -13,12 +13,12 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
     public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
     public final ForgeConfigSpec.BooleanValue EGG_ATTACK_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CANDLE_REPEL_ENABLED;
+    public final ForgeConfigSpec.BooleanValue SCENTED_INTERACTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
     public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue COMBUSTABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DEVILS_TRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue DEVILS_FISHING_INDUSTRY;
     public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKED_TERRITORIAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
@@ -28,7 +28,6 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue FLOWERING_ATTRACTION_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue FLUTTER_WITHERED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FLY_PESTER_ENABLED;
     public final ForgeConfigSpec.BooleanValue TRANSFORMATION_ENABLED;
     public final ForgeConfigSpec.BooleanValue FOOD_FX_ENABLED;
     public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
@@ -83,7 +82,7 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue ZOGLINNED_ENABLED;
     public final ForgeConfigSpec.BooleanValue TUSKLIN_TRUST_ENABLED;
     public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue VOIDED_ENDERGRADE_ENABLED;
+    public final ForgeConfigSpec.BooleanValue UNAVOIDABLE_ENABLED;
     public final ForgeConfigSpec.BooleanValue VULTURE_STEAL_ENABLED;
     public final ForgeConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
     public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
@@ -95,12 +94,10 @@ public class AMIServerConfig {
     public final ForgeConfigSpec.BooleanValue HONEYLESS_HUNTING_ENABLED;
     public final ForgeConfigSpec.BooleanValue BLUE_SHELL_ENABLED;
     public final ForgeConfigSpec.BooleanValue ASMONGOLD_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GOOFY_HOT_CAT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue PANIC_LAUNCHING_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GOOFY_HOT_POCKET_ENABLED;
     public final ForgeConfigSpec.BooleanValue ARMAMENTS_ENABLED;
     public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
     public final ForgeConfigSpec.BooleanValue CONSUME_COMPASS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DEVILS_FISHING_ENABLED;
 
     public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("General");
@@ -175,13 +172,12 @@ public class AMIServerConfig {
 
         builder.pop();
         builder.push("Endergrade");
-        this.VOIDED_ENDERGRADE_ENABLED = buildBoolean(builder, "VOIDED_ENDERGRADE_ENABLED", " ", true, "Endergrade and its passengers are immune to the void");
+        this.UNAVOIDABLE_ENABLED = buildBoolean(builder, "UNAVOIDABLE_ENABLED", " ", true, "Endergrade and its passengers are immune to the void");
         this.ENDERBOOSTING_ENABLED = buildBoolean(builder, "ENDERBOOSTING_ENABLED", " ", true, "Endergrades can be boosted with a chorus fruit on a stick");
 
         builder.pop();
         builder.push("Devils Hole Pupfish");
-        this.DEVILS_FISHING_ENABLED = buildBoolean(builder, "DEVILS_FISHING_ENABlED", " ", true, "Devils Hole Pupfish can be fished up within its chunk");
-        this.DEVILS_TRADE_ENABLED = buildBoolean(builder, "DEVILS_TRADE_ENABLED", " ", true, "Adds Trade for Fisherman with Devils Hole Pupfish ");
+        this.DEVILS_FISHING_INDUSTRY = buildBoolean(builder, "DEVILS_FISHING_INDUSTRY", " ", true, "Added mechanics with Devil Hole Pupfish");
         builder.pop();
         builder.push("Farseer");
         this.FARSEER_ALTERING_ENABLED = buildBoolean(builder, "FARSEER_ALTERING_ENABLED", " ", true, "Farseer will discombobulate players when targeted,by scrambling their inventory and flashing them with illusions");
@@ -193,21 +189,18 @@ public class AMIServerConfig {
 
         builder.pop();
         builder.push("Fly");
-        this.FLY_PESTER_ENABLED = buildBoolean(builder, "FLY_PESTER_ENABLED", " ", true, "Flies will pester certain smelling animals");
-        this.CANDLE_REPEL_ENABLED = buildBoolean(builder, "CANDLE_REPEL_ENABLED", " ", true, "Lit candles will cause flies to run away from it");
+        this.SCENTED_INTERACTION_ENABLED = buildBoolean(builder, "SCENTED_INTERACTION_ENABLED", " ", true, "Added interactions with animals and blocks for the fly");
         this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", " ", true, "Hoflding a maggot while fishing will cause it to be consumed and increase luck for fishing");
 
         builder.pop();
         builder.push("Flying Fish");
         this.WEAVING_WATERS_ENABLED = buildBoolean(builder, "WEAVING_WATERS_ENABLED", " ", true, "Flying Fish Boots's mechanics are changed to be more fluid and based on speed and look angle");
-        this.PANIC_LAUNCHING_ENABLED = buildBoolean(builder, "PANIC_LAUNCHING_ENABLED", " ", true, "Flying Fish can launch themselves when hurt");
-
+        
         builder.pop();
         builder.push("Frilled Shark");
         this.BLEEDING_HUNGER_ENABLED = buildBoolean(builder, "BLEEDING_HUNGER_ENABLED", " ", true, "Frilled Shark will attack players with exsanguination or low on health");
         builder.pop();
         builder.push("Grizzly Bear");
-        this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
         this.BRUSHED_ENABLED = buildBoolean(builder, "BRUSHED_ENABLED", " ", true, "Grizzlies that are pacified with honey can be brushed for hair");
         this.STORED_HUNGER_ENABLED = buildBoolean(builder, "STORED_HUNGER_ENABLED", " ", true, "Grizzlies destroy containers containing food they like");
         this.HONEYLESS_HUNTING_ENABLED = buildBoolean(builder, "HONEYLESS_HUNTING_ENABLED", " ", true, "Grizzlies will hunt food when hadnt had honey for a while");
@@ -332,9 +325,10 @@ public class AMIServerConfig {
         this.GOOFY_STRADDLER_SHOTGUN_ENABLED = buildBoolean(builder, "GOOFY_STRADDLER_SHOTGUN_ENABLED", " ", false, "April Fools Straddler Effects");
 //        this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", " ", false, "Mine Turtle");
         this.BOXING_GLOVES_ENABLED = buildBoolean(builder, "BOXING_GLOVES_ENABLED", " ", false, "Boxing Gloves");
-        this.GOOFY_HOT_CAT_ENABLED = buildBoolean(builder, "GOOFY_HOT_CAT_ENABLED", " ", false, "Catfish texture changes when hot thing in mouth");
+        this.GOOFY_HOT_POCKET_ENABLED = buildBoolean(builder, "GOOFY_HOT_POCKET_ENABLED", " ", false, "Catfish texture changes when hot thing in mouth");
         builder.pop();
         builder.push("Easter eggs");
+        this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", " ", true, "Grizzlies will turn to Freddy Fazbear when named such");
         this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", " ", true, "Crocodile has a halo when named 'Wally'");
         this.BLUE_SHELL_ENABLED = buildBoolean(builder, "BLUE_SHELL_ENABLED", " ", true, "Blue Shell Terrapin");
         builder.pop();

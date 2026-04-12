@@ -36,12 +36,12 @@ public abstract class AMIEndergradeMixin extends Animal implements AMIBasicInter
 
     @Override
     public boolean isInvulnerableTo(DamageSource pSource) {
-        return super.isInvulnerableTo(pSource) || pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && AlexsMobsInteraction.COMMON_CONFIG.VOIDED_ENDERGRADE_ENABLED.get();
+        return super.isInvulnerableTo(pSource) || pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && AlexsMobsInteraction.COMMON_CONFIG.UNAVOIDABLE_ENABLED.get();
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.VOIDED_ENDERGRADE_ENABLED.get() && this.getY() < (double)(this.level().getMinBuildHeight() - 64) && getFirstPassenger() instanceof LivingEntity living){
+        if (AlexsMobsInteraction.COMMON_CONFIG.UNAVOIDABLE_ENABLED.get() && this.getY() < (double)(this.level().getMinBuildHeight() - 64) && getFirstPassenger() instanceof LivingEntity living){
             AMIUtils.awardAdvancement(living,"void_dweller","void");
         }
 

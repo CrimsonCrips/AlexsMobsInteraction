@@ -41,8 +41,11 @@ public abstract class AMIFlutterMixin extends TamableAnimal {
             AMIUtils.awardAdvancement(player,"withered","withered");
         }
 
-        if (itemStack.getItem() == Items.SHEARS && AlexsMobsInteraction.COMMON_CONFIG.FLUTTER_SHEAR_ENABLED.get() && !flutter.isTame() && flutter.level() instanceof ServerLevel serverLevel) {
+        if (itemStack.getItem() == Items.SHEARS && AlexsMobsInteraction.COMMON_CONFIG.FLUTTER_SHEAR_ENABLED.get() && !flutter.isTame() && flutter.level() instanceof ServerLevel) {
             AMIUtils.spawnLoot(AMILootTables.FLUTTER_SHEAR,flutter,player,1);
+            if (flutter.isPotted()){
+                player.drop(Items.FLOWER_POT.asItem().getDefaultInstance(), false);
+            }
             player.swing(hand,true);
             if (!player.isCreative()) itemStack.hurtAndBreak(3, flutter, (p_233654_0_) -> {});
             flutter.discard();

@@ -25,7 +25,7 @@ public abstract class AMIFishingHookMixin {
 
     @ModifyArg(method = "retrieve", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z",ordinal = 0),remap = false)
     private Entity alexsMobsInteraction$retrieve1(Entity par1, @Local Player player) {
-        if(AlexsMobsInteraction.COMMON_CONFIG.DEVILS_FISHING_ENABLED.get() && player.getRandom().nextDouble() < 0.80){
+        if(AlexsMobsInteraction.COMMON_CONFIG.DEVILS_FISHING_INDUSTRY.get() && player.getRandom().nextDouble() < 0.80){
             FishingHook hook = (FishingHook) (Object) this;
 
             EntityDevilsHolePupfish pupfish = AMEntityRegistry.DEVILS_HOLE_PUPFISH.get().create(player.level());

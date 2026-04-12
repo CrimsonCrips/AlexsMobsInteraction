@@ -23,7 +23,7 @@ public class EndergradePlayerLayer extends RenderLayer<AbstractClientPlayer, Pla
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, AbstractClientPlayer abstractClientPlayer, float v, float v1, float v2, float v3, float v4, float v5) {
-        if (abstractClientPlayer.getVehicle() instanceof EntityEndergrade && AlexsMobsInteraction.COMMON_CONFIG.VOIDED_ENDERGRADE_ENABLED.get()){
+        if (abstractClientPlayer.getVehicle() instanceof EntityEndergrade && AlexsMobsInteraction.COMMON_CONFIG.UNAVOIDABLE_ENABLED.get()){
             PlayerModel<AbstractClientPlayer> entitymodel = this.getParentModel();
             entitymodel.prepareMobModel(abstractClientPlayer, v, v1, v2);
             this.getParentModel().copyPropertiesTo(entitymodel);

@@ -292,7 +292,7 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                         .withTitle("Cosmaw Weakness");
                                                             })
                                                             .addTextPage("With the 'Lightweight' enchantment, found within the cities of the end. Cosmaws no longer get weak when carrying their owner", page ->
-                                                                    page.withTitle("Lightweight")
+                                                                    {}
                                                             );
 
                                                 })
@@ -373,6 +373,97 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                     ))
                                                             );
 
+                                                })
+
+                                        .addEntry("endergrade",
+                                                "Endergrade",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/unavoidable.png")
+                                                                        .withText("Endergrade are immune to the void, including their riders")
+                                                                        .withTitle("UnaVoidable");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.CHORUS_ON_A_STICK),
+                                                                    page -> page
+                                                                            .withText("Endergrade can be boosted forward with a chorus fruit on a stick")
+                                                                            .withTitle("Enderboosting")
+                                                            );
+
+                                                })
+                                        .addEntry("devils_hole_pupfish",
+                                                "Devils Hole Pupfish",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/devils_fishing_industry.png")
+                                                                        .withText("Added interactions and trades, allowing to fish up DHPs within its chunk and trade with fishermen")
+                                                                        .withTitle("Devils Fishing Industry");
+                                                            });
+
+                                                })
+                                        .addEntry("farseer",
+                                                "Farseer",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/farseer_altering.png")
+                                                                        .withText("Farseer discombobulate targeted players, scrambling inventory and messing with the mind")
+                                                                        .withTitle("Farseer Altering");
+                                                            })
+                                                            .addTextPage("With the 'Stabilizer' enchantment, found within the remains of a massive worm. Mind altering effects are nullified, from farseers,elder guardians and watchers (IF ALEXS CAVES IS ENABLED)", page ->
+                                                                    {}
+                                                            );
+
+                                                })
+                                        .addEntry("flutter",
+                                                "Flutter",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/flutter_shear.png")
+                                                                        .withText("Flutters can be sheared for azalea, moss and spore blossoms")
+                                                                        .withTitle("Flutter Shear");
+                                                            })
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/flutter_withered.png")
+                                                                        .withText("Flutter gets inflicted with withered by feeding wither roses when fed")
+                                                                        .withTitle("Flutter Withered");
+                                                            })
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/flowering_attraction.png")
+                                                                        .withText("Attracts bees and hummingbirds")
+                                                                        .withTitle("Flower Attraction");
+                                                            });
+                                                })
+                                        .addEntry("fly",
+                                                "Fly",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/scented_interaction.png")
+                                                                        .withText("Flies get attracted to certain animals and get repelled by candles")
+                                                                        .withTitle("Scented Interaction");
+                                                            })
+                                                            .addTextPage("Cow,Sheep,Pig,Llamas,Sniffer,Horses,Ravager,Elephant,Rhino,Seal,Bison", page ->
+                                                                    {}
+                                                            )
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/maggot_fishing.png")
+                                                                        .withText("Casting a fishing rod with a maggot in hand increases fishing luck")
+                                                                        .withTitle("Maggot Fishing");
+                                                            });
                                                 })
                                 ;
                             });

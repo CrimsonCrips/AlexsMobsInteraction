@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Endergrade",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/unavoidable.png"
+      ],
+      "text": "Endergrade are immune to the void, including their riders",
+      "title": "UnaVoidable"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:chorus_on_a_stick",
+      "text": "Endergrade can be boosted forward with a chorus fruit on a stick",
+      "title": "Enderboosting"
+    }
+  ],
+  "sortnum": 1
+}

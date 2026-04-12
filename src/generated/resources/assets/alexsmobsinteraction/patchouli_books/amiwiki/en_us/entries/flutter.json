@@ -1,0 +1,32 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Flutter",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/flutter_shear.png"
+      ],
+      "text": "Flutters can be sheared for azalea, moss and spore blossoms",
+      "title": "Flutter Shear"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/flutter_withered.png"
+      ],
+      "text": "Flutter gets inflicted with withered by feeding wither roses when fed",
+      "title": "Flutter Withered"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/flowering_attraction.png"
+      ],
+      "text": "Attracts bees and hummingbirds",
+      "title": "Flower Attraction"
+    }
+  ],
+  "sortnum": 1
+}

@@ -54,7 +54,7 @@ public abstract class AMICatfish extends WaterAnimal {
     @Inject(method = "tick", at = @At(value = "TAIL"))
     private void alexsmobsinteraction$tick(CallbackInfo ci) {
         for (int i = 0; i < catfishInventory.getContainerSize(); i++) {
-            if (catfishInventory.getItem(i).is(AMIItemTagGenerator.HOT) && AlexsMobsInteraction.COMMON_CONFIG.GOOFY_HOT_CAT_ENABLED.get()){
+            if (catfishInventory.getItem(i).is(AMIItemTagGenerator.HOT) && AlexsMobsInteraction.COMMON_CONFIG.GOOFY_HOT_POCKET_ENABLED.get()){
                 setSpitTime(100);
                 break;
             }

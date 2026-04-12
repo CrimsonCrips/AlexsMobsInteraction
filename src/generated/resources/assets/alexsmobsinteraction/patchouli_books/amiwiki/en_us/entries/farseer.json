@@ -1,0 +1,20 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Farseer",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/farseer_altering.png"
+      ],
+      "text": "Farseer discombobulate targeted players, scrambling inventory and messing with the mind",
+      "title": "Farseer Altering"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "With the 'Stabilizer' enchantment, found within the remains of a massive worm. Mind altering effects are nullified, from farseers,elder guardians and watchers (IF ALEXS CAVES IS ENABLED)"
+    }
+  ],
+  "sortnum": 1
+}

@@ -70,7 +70,7 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
 
     @ModifyReturnValue(method = "isInvulnerableTo", at = @At("RETURN"))
     private boolean alexsMobsInteraction$isInvulnerableTo(boolean original,@Local DamageSource pSource) {
-        return original || pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && this.getVehicle() instanceof EntityEndergrade && AlexsMobsInteraction.COMMON_CONFIG.VOIDED_ENDERGRADE_ENABLED.get();
+        return original || pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && this.getVehicle() instanceof EntityEndergrade && AlexsMobsInteraction.COMMON_CONFIG.UNAVOIDABLE_ENABLED.get();
     }
 
     @Inject(method = "tick", at = @At("HEAD"))

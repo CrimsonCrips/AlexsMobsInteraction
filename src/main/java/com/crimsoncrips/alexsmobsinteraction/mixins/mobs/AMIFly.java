@@ -95,7 +95,7 @@ public class AMIFly extends Mob implements TransformingEntities {
     private void registerGoals(CallbackInfo ci) {
         EntityFly fly = (EntityFly)(Object)this;
 
-        if(AlexsMobsInteraction.COMMON_CONFIG.CANDLE_REPEL_ENABLED.get()){
+        if(AlexsMobsInteraction.COMMON_CONFIG.SCENTED_INTERACTION_ENABLED.get()){
             fly.goalSelector.addGoal(3, new AMIAvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
                 BlockState state = fly.level().getBlockState(pos);
                 if (state.is(BlockTags.CANDLES) && state.getBlock() instanceof CandleBlock){
@@ -103,7 +103,7 @@ public class AMIFly extends Mob implements TransformingEntities {
                 } else return false;
             }));
         }
-        if(AlexsMobsInteraction.COMMON_CONFIG.FLY_PESTER_ENABLED.get()) {
+        if(AlexsMobsInteraction.COMMON_CONFIG.SCENTED_INTERACTION_ENABLED.get()) {
             fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.FLY_PESTER)));
         }
 

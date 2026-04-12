@@ -1,0 +1,28 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Fly",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/scented_interaction.png"
+      ],
+      "text": "Flies get attracted to certain animals and get repelled by candles",
+      "title": "Scented Interaction"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Cow,Sheep,Pig,Llamas,Sniffer,Horses,Ravager,Elephant,Rhino,Seal,Bison"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/maggot_fishing.png"
+      ],
+      "text": "Casting a fishing rod with a maggot in hand increases fishing luck",
+      "title": "Maggot Fishing"
+    }
+  ],
+  "sortnum": 1
+}

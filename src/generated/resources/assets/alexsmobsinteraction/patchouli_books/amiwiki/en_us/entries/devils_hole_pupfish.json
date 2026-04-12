@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Devils Hole Pupfish",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/devils_fishing_industry.png"
+      ],
+      "text": "Added interactions and trades, allowing to fish up DHPs within its chunk and trade with fishermen",
+      "title": "Devils Fishing Industry"
+    }
+  ],
+  "sortnum": 1
+}
