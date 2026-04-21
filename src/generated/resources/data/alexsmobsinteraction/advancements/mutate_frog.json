@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancement.alexsmobsinteraction.mutate_frog.desc"
     },
-    "frame": "challenge",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "citadel:icon_item",

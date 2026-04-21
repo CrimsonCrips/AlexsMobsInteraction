@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.EntityFlutter;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,14 +34,6 @@ public abstract class AMIFlutterMixin extends TamableAnimal {
         ItemStack itemStack = player.getItemInHand(hand);
         EntityFlutter flutter = (EntityFlutter)(Object)this;
 
-        if (itemStack.getItem() == Items.WITHER_ROSE && AlexsMobsInteraction.COMMON_CONFIG.FLUTTER_WITHERED_ENABLED.get() && !flutter.isTame()) {
-            if (!player.isCreative())
-                itemStack.hurtAndBreak(1, flutter, (p_233654_0_) -> {});
-            player.swing(hand,true);
-            flutter.addEffect(new MobEffectInstance(MobEffects.WITHER, 900, 0));
-            AMIUtils.awardAdvancement(player,"withered","withered");
-        }
-
         if (itemStack.getItem() == Items.SHEARS && AlexsMobsInteraction.COMMON_CONFIG.FLUTTER_SHEAR_ENABLED.get() && !flutter.isTame() && flutter.level() instanceof ServerLevel) {
             AMIUtils.spawnLoot(AMILootTables.FLUTTER_SHEAR,flutter,player,1);
             if (flutter.isPotted()){
@@ -48,6 +41,7 @@ public abstract class AMIFlutterMixin extends TamableAnimal {
             }
             player.swing(hand,true);
             if (!player.isCreative()) itemStack.hurtAndBreak(3, flutter, (p_233654_0_) -> {});
+            this.playSound(SoundEvents.SHEEP_SHEAR, 1, this.getVoicePitch());
             flutter.discard();
             AMIUtils.awardAdvancement(player,"flutter_shear","flutter");
         }

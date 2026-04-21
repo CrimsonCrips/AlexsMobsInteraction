@@ -5,6 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
 import com.crimsoncrips.alexsmobsinteraction.compat.SoulFiredCompat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.AMInDamageTypes;
+import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
@@ -140,17 +141,17 @@ public class AMInteractionEvents {
 
             BlockState feetBlockstate = player.getBlockStateOn();
 
-            if (AlexsMobsInteraction.COMMON_CONFIG.COMBUSTABLE_ENABLED.get() && player.hasEffect(AMEffectRegistry.OILED.get())){
+            if (AlexsMobsInteraction.COMMON_CONFIG.COMBUSTIBLE_ENABLED.get() && player.hasEffect(AMEffectRegistry.OILED.get())){
                 if (feetBlockstate.is(Blocks.MAGMA_BLOCK) || feetBlockstate.is(Blocks.CAMPFIRE)) {
                     player.setSecondsOnFire(20);
-                    AMIUtils.awardAdvancement(player,"combustable","combust");
+                    AMIUtils.awardAdvancement(player,"combustible","combust");
                 }
 
                 if (feetBlockstate.is(Blocks.SOUL_CAMPFIRE)){
                     if (ModList.get().isLoaded("soulfired")) {
                         SoulFiredCompat.setOnFire(player,20);
                     } else player.setSecondsOnFire(20);
-                    AMIUtils.awardAdvancement(player,"combustable","combust");
+                    AMIUtils.awardAdvancement(player,"combustible","combust");
                 }
 
             }
@@ -164,7 +165,7 @@ public class AMInteractionEvents {
                 }
             }
 
-            if(AlexsMobsInteraction.COMMON_CONFIG.SUNBIRD_UPGRADE_ENABLED.get()){
+            if(AlexsMobsInteraction.COMMON_CONFIG.JUDGEMENTAL_RETURNS_ENABLED.get()){
 
                 for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7, 4, 7))) {
                     MobType entityType = entity.getMobType();
@@ -179,10 +180,6 @@ public class AMInteractionEvents {
                         }
                     }
                 }
-            }
-
-            if (AlexsMobsInteraction.COMMON_CONFIG.TIGER_STEALTH_ENABLED.get() && player.hasEffect(AMEffectRegistry.TIGERS_BLESSING.get()) && !player.isSprinting() && !player.isSwimming()){
-                player.addEffect(new MobEffectInstance(MobEffects. INVISIBILITY, 60, 0,false,false));
             }
 
 //            if (getClosestLookingAtEntityFor(level,player,32D) != null){
@@ -277,7 +274,7 @@ public class AMInteractionEvents {
                 if (livingEntity instanceof Player player && !player.isCreative())
                     event.getItemStack().shrink(1);
                 AMIUtils.addParticlesAroundBlock(ParticleTypes.SCULK_SOUL,pos,worldIn,100);
-                AMIUtils.awardAdvancement(livingEntity, "acclamate", "acclamate");
+                AMIUtils.awardAdvancement(livingEntity, "acclimate", "acclimate");
             }
 
         }
@@ -303,28 +300,14 @@ public class AMInteractionEvents {
         if(AlexsMobsInteraction.COMMON_CONFIG.SNOW_LUCK_ENABLED.get()){
             if (murdererEntity instanceof EntitySnowLeopard) {
                 RandomSource random = murdererEntity.getRandom();
-                if (deadEntity instanceof Goat && random.nextDouble() < 0.5) {
-                    murdererEntity.spawnAtLocation(Items.GOAT_HORN);
-                    if (random.nextDouble() < 0.05) murdererEntity.spawnAtLocation(Items.GOAT_HORN);
-                } else if (deadEntity instanceof Turtle && random.nextDouble() < 0.2) {
-                    murdererEntity.spawnAtLocation(Items.SCUTE);
-                } else if (deadEntity instanceof EntityFrilledShark && random.nextDouble() < 0.08) {
-                    murdererEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
-                    if (random.nextDouble() < 0.01)
-                        murdererEntity.spawnAtLocation(AMItemRegistry.SERRATED_SHARK_TOOTH.get());
-                } else if (deadEntity instanceof EntityBananaSlug && random.nextDouble() < 0.2) {
-                    murdererEntity.spawnAtLocation(AMItemRegistry.BANANA_SLUG_SLIME.get());
-                } else if (deadEntity instanceof Rabbit) {
-                    murdererEntity.spawnAtLocation(Items.RABBIT_FOOT);
-                    if (random.nextDouble() < 0.02) deadEntity.spawnAtLocation(Items.RABBIT_FOOT);
-                }
+                AMIUtils.spawnLoot(deadEntity.getLootTable(),deadEntity,deadEntity,random.nextInt(1,2));
             }
         }
     }
 
     @SubscribeEvent
     public void mobAttack(LivingAttackEvent attackEvent){
-        if(attackEvent.getSource().getDirectEntity() instanceof EntitySoulVulture soulVulture && AlexsMobsInteraction.COMMON_CONFIG.VULTURE_STEAL_ENABLED.get()){
+        if(attackEvent.getSource().getDirectEntity() instanceof EntitySoulVulture soulVulture && AlexsMobsInteraction.COMMON_CONFIG.SOUL_STEAL_ENABLED.get()){
             soulVulture.setSoulLevel(soulVulture.getSoulLevel() + 1);
         }
 
@@ -381,20 +364,7 @@ public class AMInteractionEvents {
 
 
 
-    @SubscribeEvent
-    public void mobSpawn(MobSpawnEvent.PositionCheck spawnPlacementCheck){
-        EntityType<?> entityType = spawnPlacementCheck.getEntity().getType();
-        Holder<Biome> biome = spawnPlacementCheck.getLevel().getBiome(spawnPlacementCheck.getEntity().blockPosition());
-        long time = spawnPlacementCheck.getLevel().dayTime();
 
-        if(entityType == AMEntityRegistry.LOBSTER.get()){
-            if (!AlexsMobsInteraction.COMMON_CONFIG.LOBSTER_NIGHT_ENABLED.get())
-                return;
-            if (!(time > 13000 && time < 23460)) {
-                spawnPlacementCheck.setResult(Event.Result.DENY);
-            }
-        }
-    }
 
 
 

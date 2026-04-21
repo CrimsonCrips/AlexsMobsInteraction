@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Soul Vulture",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/soul_steal.png"
+      ],
+      "text": "Soul Vultures no matter what, when attacking a mob will cause its soul level to go up",
+      "title": "Soul Steal"
+    }
+  ],
+  "sortnum": 1
+}

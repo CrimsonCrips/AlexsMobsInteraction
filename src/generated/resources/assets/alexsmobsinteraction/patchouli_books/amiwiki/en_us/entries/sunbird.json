@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Sunbird",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/judgemental_returns.png"
+      ],
+      "text": "Provides additional effects, blessings burn and weaken nearby undead,curses buffs nearby undead",
+      "title": "Judgemental Returns"
+    }
+  ],
+  "sortnum": 1
+}

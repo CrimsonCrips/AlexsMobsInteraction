@@ -43,15 +43,10 @@ public class AMISeagullSteal extends Goal {
             if ((this.seagull.getRandom().nextInt(12) == 0 || worldTime == 0L) && this.seagull.stealCooldown <= 0) {
                 if (this.seagull.getMainHandItem().isEmpty()) {
                     Player valid = this.getClosestValidPlayer();
-                    if(AlexsMobsInteraction.COMMON_CONFIG.SOMBRERO_PROTECTION_ENABLED.get()){
-                        if (valid != null && !valid.getItemBySlot(EquipmentSlot.HEAD).is((Item) AMItemRegistry.SOMBRERO.get())){{
-                                this.target = valid;
-                                return true;
-                            }}
-                    } else if (valid != null){{
-                            this.target = valid;
-                            return true;
-                        }}
+                    if (valid != null && !valid.getItemBySlot(EquipmentSlot.HEAD).is((Item) AMItemRegistry.SOMBRERO.get())){{
+                        this.target = valid;
+                        return true;
+                    }}
                 }
 
                 return false;

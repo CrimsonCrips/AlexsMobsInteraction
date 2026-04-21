@@ -48,8 +48,6 @@ public class AMICosmawOwner extends Goal {
                 this.owner.startRiding(cosmaw);
             }
             if (cosmaw.hasPassenger(owner) && owner.getArmorValue() > 8){
-                System.out.println("test");
-
                 if(!(owner.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(AMIEnchantmentRegistry.LIGHTWEIGHT.get()) > 0)){
                     AMIUtils.awardAdvancement(owner, "heavy_carriage", "heavy");
                     cosmaw.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, owner.getArmorValue() * 100, 0));

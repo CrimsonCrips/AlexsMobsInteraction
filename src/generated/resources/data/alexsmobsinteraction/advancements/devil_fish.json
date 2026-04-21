@@ -1,28 +1,28 @@
 {
-  "parent": "alexsmobsinteraction:root",
+  "parent": "alexsmobsinteraction:maggot_fishing",
   "criteria": {
-    "rush": {
+    "fish": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.alexsmobsinteraction.sugar_rush.desc"
+      "translate": "advancement.alexsmobsinteraction.devil_fish.desc"
     },
-    "frame": "task",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "minecraft:sugar"
+      "item": "alexsmobs:devils_hole_pupfish_bucket"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.alexsmobsinteraction.sugar_rush"
+      "translate": "advancement.alexsmobsinteraction.devil_fish"
     }
   },
   "requirements": [
     [
-      "rush"
+      "fish"
     ]
   ],
   "sends_telemetry_event": true

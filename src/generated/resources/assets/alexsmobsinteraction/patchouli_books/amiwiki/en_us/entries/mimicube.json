@@ -1,0 +1,13 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Mimicube",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Mimicubes mimic their targeted players speech",
+      "title": "Mimickry"
+    }
+  ],
+  "sortnum": 1
+}

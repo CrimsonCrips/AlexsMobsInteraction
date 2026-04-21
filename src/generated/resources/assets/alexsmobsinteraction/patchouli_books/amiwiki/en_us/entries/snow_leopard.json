@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Snow Leopard",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/snow_luck.png"
+      ],
+      "text": "Snow Leopards causes slain mobs to drop their loot table 1-2 times",
+      "title": "Snow Luck"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:moose_headgear",
+      "text": "Snow Leopard will hunt weakened moose, and also attack players with moose headgear",
+      "title": "Leopard Desires"
+    }
+  ],
+  "sortnum": 1
+}

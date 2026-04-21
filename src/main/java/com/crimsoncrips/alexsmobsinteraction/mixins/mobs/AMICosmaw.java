@@ -66,12 +66,11 @@ public abstract class AMICosmaw extends Animal {
         }
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCosmaw;distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D"),remap = false)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCosmaw;distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
         LivingEntity owner = cosmaw.getOwner();
         if (owner != null && cosmaw.hasPassenger(owner) && owner.getArmorValue() > 8 && cosmaw.getRandom().nextDouble() < 0.3){
-            System.out.println("test");
             AMIUtils.addParticlesAroundSelf(ParticleTypes.SPLASH,cosmaw,1,0.2);
         }
     }

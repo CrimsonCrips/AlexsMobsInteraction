@@ -1,0 +1,30 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Leafcutter Ants",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/cockroach_chamber.png"
+      ],
+      "text": "Leafcutter chambers with high levels of fungus may contain cockroaches when destroyed",
+      "title": "Cockroach Chamber"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:leafcutter_ant_pupa",
+      "text": "Leafcutter pupi can be thrown as a projectile and spawns anthills when landing on appropriate terrain",
+      "title": "Throwable Pupi"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/ant_war.png"
+      ],
+      "text": "Ant variants appear, causing rivalry between ant colonies",
+      "title": "Ant War"
+    }
+  ],
+  "sortnum": 1
+}

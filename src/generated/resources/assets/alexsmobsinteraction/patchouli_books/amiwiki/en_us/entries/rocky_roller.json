@@ -1,0 +1,14 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Rocky Roller",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:rocky_chestplate",
+      "text": "With the enchantment 'Rolling Thunder', found within underground mineshafts. You're able to roll through liquids",
+      "title": "Rolling Thunder"
+    }
+  ],
+  "sortnum": 1
+}

@@ -62,17 +62,6 @@ public abstract class AMIStradpole extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.STRADPOLE_BOB_UP_ENABLED.get()) {
-            setHopUpTick(getHopUpTick() + 1);
-            if (getHopUpTick() >= 200 + random.nextInt(600) && this.isInLava()){
-                y2 = 0.05 + y2;
-                this.setDeltaMovement(0, y2, 0);
-            }
-            if (!this.isInLava()) {
-                setHopUpTick(0);
-                y2 = 0;
-            }
-        }
         if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get() && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();

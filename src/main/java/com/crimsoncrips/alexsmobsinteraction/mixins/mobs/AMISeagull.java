@@ -34,7 +34,7 @@ public abstract class AMISeagull extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntitySeagull seagull = (EntitySeagull)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.SEAGULL_WEAKEN_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.SNATCH_INTERACTION_ENABLED.get()){
             seagull.targetSelector.addGoal(2, new AMISeagullSteal(seagull){
                 public boolean canUse() {
                     return super.canUse() && !(seagull.getHealth() <= 0.40F * seagull.getMaxHealth());
@@ -45,7 +45,7 @@ public abstract class AMISeagull extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 2))
     private boolean targetFood(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.SEAGULL_WEAKEN_ENABLED.get();
+        return !AlexsMobsInteraction.COMMON_CONFIG.SNATCH_INTERACTION_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)

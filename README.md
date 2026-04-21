@@ -4,7 +4,7 @@
 Alexs Mobs Interaction is an addon of [Alex's Mobs](https://modrinth.com/mod/alexs-mobs).
 Adding tons of ***interactions*** and features for the mobs of the mod,
 Enhancing the mobs with how they interact with the world and the tools given
-by the mod. Adding 100+ varied features for the contents of the mobs and its related tools.
+by the mod.
 
 
 

@@ -1,0 +1,28 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Murmur",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/murmur_regrow.png"
+      ],
+      "text": "Murmur's body and head are seperate and its head will regrow until the body is dead",
+      "title": "Murmur Regrow"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:tendon_whip",
+      "text": "With the new enchantment 'Stretchy Accumulation' found within the abandoned railwaysTendon Whips can grab items and xp for its user when launched",
+      "title": "Tendon Grab"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:unsettling_kimono",
+      "text": "Wearing a unsettling kimono will cause iron golems and snow golems to attack you",
+      "title": "Unsettling Backfire"
+    }
+  ],
+  "sortnum": 1
+}

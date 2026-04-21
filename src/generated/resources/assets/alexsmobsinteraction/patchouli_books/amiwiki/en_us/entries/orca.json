@@ -1,0 +1,13 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Orca",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Orca's Might give neutrality towards skelewags",
+      "title": "Might Upgrade"
+    }
+  ],
+  "sortnum": 1
+}

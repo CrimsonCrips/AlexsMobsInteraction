@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:acclamate",
+  "parent": "alexsmobsinteraction:acclimate",
   "criteria": {
     "judgement": {
       "trigger": "minecraft:impossible"

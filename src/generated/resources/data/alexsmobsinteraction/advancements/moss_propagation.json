@@ -1,29 +1,29 @@
 {
-  "parent": "alexsmobsinteraction:molten_bath",
+  "parent": "alexsmobsinteraction:interrupt_dormancy",
   "criteria": {
-    "poison": {
+    "propagate": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.alexsmobsinteraction.poison_bath.desc"
+      "translate": "advancement.alexsmobsinteraction.moss_propagation.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "item": "citadel:icon_item",
-      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/poison_bath.png\"}"
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/moss_propagation.png\"}"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.alexsmobsinteraction.poison_bath"
+      "translate": "advancement.alexsmobsinteraction.moss_propagation"
     }
   },
   "requirements": [
     [
-      "poison"
+      "propagate"
     ]
   ],
   "sends_telemetry_event": true

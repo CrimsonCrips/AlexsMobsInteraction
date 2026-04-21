@@ -32,7 +32,7 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
     @Override
     public boolean canContinueToUse() {
         GrizzlyExtras beatInterface = (((GrizzlyExtras)grizzlyBear));
-        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && (beatInterface.getNoHoney() >= 2000 || !AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get());
+        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && beatInterface.getNoHoney() >= 4000;
     }
 
     @Override
@@ -85,6 +85,7 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
     }
 
     public boolean chestHasFood(LevelReader levelReader, BlockPos pos) {
+        //Copy of AC code with chest scavenging
         if (levelReader.getBlockState(pos).getBlock() instanceof BaseEntityBlock) {
             BlockEntity entity = levelReader.getBlockEntity(pos);
             if (entity instanceof Container inventory) {
@@ -97,7 +98,6 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
                         }
                     }
                 } catch (Exception e) {
-                    AlexsCaves.LOGGER.warn("Alex's Caves stopped a " + entity.getClass().getSimpleName() + " from causing a crash during access");
                     e.printStackTrace();
                 }
             }

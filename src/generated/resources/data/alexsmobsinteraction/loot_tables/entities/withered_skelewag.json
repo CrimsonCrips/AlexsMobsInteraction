@@ -33,7 +33,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "alexsmobs:skelewag_sword"
+          "name": "alexsmobs:skelewag_sword",
+          "weight": 2
         }
       ],
       "rolls": 1.0

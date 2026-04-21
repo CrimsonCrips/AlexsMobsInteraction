@@ -1,29 +1,29 @@
 {
-  "parent": "alexsmobsinteraction:root",
+  "parent": "alexsmobsinteraction:observe_dormancy",
   "criteria": {
-    "alter": {
+    "interrupt": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.alexsmobsinteraction.alterred.desc"
+      "translate": "advancement.alexsmobsinteraction.interrupt_dormancy.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "item": "citadel:icon_item",
-      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/mob_effect/farseer_icon.png\"}"
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/interrupt_dormancy.png\"}"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.alexsmobsinteraction.alterred"
+      "translate": "advancement.alexsmobsinteraction.interrupt_dormancy"
     }
   },
   "requirements": [
     [
-      "alter"
+      "interrupt"
     ]
   ],
   "sends_telemetry_event": true

@@ -83,7 +83,7 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
                 setAlterTime(100);
                 AMIPacketHandler.FARSEER_ALTER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new AlterPacket());
                 addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
-                AMIUtils.awardAdvancement(player,"alterred","alter");
+                AMIUtils.awardAdvancement(player,"altered","alter");
             }
 
             if (getAlterTime() > 0){

@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:trusted_riding",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "zoglinned": {
       "trigger": "minecraft:impossible"

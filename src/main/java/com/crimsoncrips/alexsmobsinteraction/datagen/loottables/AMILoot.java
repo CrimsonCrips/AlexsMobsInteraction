@@ -32,19 +32,19 @@ public class AMILoot implements LootTableSubProvider {
         consumer.accept(AMILootTables.BANANA_SHEAR, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(AMItemRegistry.BANANA.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))).setWeight(5))
-                        .add(LootItem.lootTableItem(AMItemRegistry.BANANA_SLUG_SLIME.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))))
+                        .add(LootItem.lootTableItem(AMItemRegistry.BANANA_SLUG_SLIME.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))).setWeight(20))
                 ));
 
         consumer.accept(AMILootTables.GRIZZLY_BRUSH, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(AMItemRegistry.BEAR_FUR.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))).setWeight(100))
-                        .add(LootItem.lootTableItem(AMItemRegistry.BEAR_DUST.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))))
+                        .add(LootItem.lootTableItem(AMItemRegistry.BEAR_FUR.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))).setWeight(1000))
+                        .add(LootItem.lootTableItem(AMItemRegistry.BEAR_DUST.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))).setWeight(1))
                 ));
 
         consumer.accept(AMILootTables.WITHERED_SKELEWAG, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Items.COAL).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))).setWeight(50))
-                        .add(LootItem.lootTableItem(AMItemRegistry.SKELEWAG_SWORD.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))))
+                        .add(LootItem.lootTableItem(AMItemRegistry.SKELEWAG_SWORD.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1))).setWeight(2))
                 ));
 
         consumer.accept(AMILootTables.SCAVENGE_STRADDLEBOARD, LootTable.lootTable()

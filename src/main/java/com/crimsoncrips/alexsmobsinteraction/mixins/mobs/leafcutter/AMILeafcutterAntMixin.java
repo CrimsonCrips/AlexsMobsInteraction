@@ -42,7 +42,7 @@ public abstract class AMILeafcutterAntMixin extends Animal implements AMIBasicIn
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityLeafcutterAnt leafcutterAnt = (EntityLeafcutterAnt)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()) {
             leafcutterAnt.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, EntityLeafcutterAnt.class, 100, false, true, livingEntity ->  {
                 return ((AMIBasicInterfaces) livingEntity).getVariant() != getVariant();
             }){
@@ -71,14 +71,14 @@ public abstract class AMILeafcutterAntMixin extends Animal implements AMIBasicIn
 
     @Inject(method = "finalizeSpawn", at = @At("HEAD"))
     private void finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()) {
             this.setVariant(random.nextBoolean() ? 1 : 2);
         } else this.setVariant(1);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void finalizeSpawn(CallbackInfo ci) {
-        if (!AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get() && getVariant() == 2) {
+        if (!AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get() && getVariant() == 2) {
             this.setVariant(1);
         }
     }

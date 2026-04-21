@@ -36,10 +36,10 @@ public abstract class AMISnowLeopard extends Animal {
         EntitySnowLeopard snowLeopard = (EntitySnowLeopard)(Object)this;
         if(AlexsMobsInteraction.COMMON_CONFIG.LEOPARD_DESIRES_ENABLED.get()){
             snowLeopard.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(snowLeopard, EntityMoose.class, 100, true, false, (livingEntity) -> {
-                return livingEntity.getHealth() <= 0.20F * livingEntity.getMaxHealth();
+                return livingEntity.getHealth() <= 0.35F * livingEntity.getMaxHealth();
             }));
             snowLeopard.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(snowLeopard, Player.class, 100, true, false, (livingEntity) -> {
-                return livingEntity.getHealth() <= 0.15F * livingEntity.getMaxHealth() && livingEntity.getItemBySlot(EquipmentSlot.HEAD).is((Item) AMItemRegistry.MOOSE_HEADGEAR.get());
+                return livingEntity.getItemBySlot(EquipmentSlot.HEAD).is((Item) AMItemRegistry.MOOSE_HEADGEAR.get());
             }));
         }
     }

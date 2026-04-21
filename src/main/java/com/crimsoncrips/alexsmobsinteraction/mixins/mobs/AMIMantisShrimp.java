@@ -26,14 +26,6 @@ public abstract class AMIMantisShrimp extends TamableAnimal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityMantisShrimp mantisShrimp = (EntityMantisShrimp)(Object)this;
-        if(AlexsMobsInteraction.COMMON_CONFIG.MANTIS_AGGRO_ENABLED.get()  && !mantisShrimp.isBaby()) {
-            mantisShrimp.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(mantisShrimp, Player.class, 150, true, true, null){
-                @Override
-                public boolean canContinueToUse() {
-                    return super.canContinueToUse() && !mantisShrimp.isTame();
-                }
-            });
-        }
         if(AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             mantisShrimp.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(mantisShrimp, EntityMantisShrimp.class, 200, true, false, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.15F * livingEntity.getMaxHealth();

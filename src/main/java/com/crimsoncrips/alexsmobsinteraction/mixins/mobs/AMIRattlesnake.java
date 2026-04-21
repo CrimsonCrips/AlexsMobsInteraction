@@ -3,7 +3,6 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
-import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIWarnPredator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityRattlesnake;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -43,14 +42,6 @@ public abstract class AMIRattlesnake extends Animal implements AMIBasicInterface
         if (AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, EntityRattlesnake.class, 1500, true, true, (livingEntity) -> {
                 return livingEntity.getHealth() <= 0.60F * livingEntity.getMaxHealth() || livingEntity.isBaby();
-            }));
-        }
-
-        if (AlexsMobsInteraction.COMMON_CONFIG.RATTLESNAKE_TERRITORIAL_ENABLED.get()) {
-            rattlesnake.goalSelector.addGoal(2, new AMIWarnPredator(rattlesnake));
-
-            rattlesnake.goalSelector.addGoal(1, new AvoidEntityGoal<>(rattlesnake, EntityRattlesnake.class, 5.0F, 1.2, 1.5, (livingEntity) -> {
-                return livingEntity instanceof EntityRattlesnake rattle && ((AMIBasicInterfaces)rattle).isWarding() && rattle.isRattling();
             }));
         }
 

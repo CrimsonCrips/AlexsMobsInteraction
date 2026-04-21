@@ -7,6 +7,7 @@ import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowAsmon;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMISurroundEntity;
+import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCentipedeHead;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -180,7 +181,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         ItemStack itemStack = player.getItemInHand(hand);
         EntityCockroach cockroach = (EntityCockroach)(Object)this;
 
-        if (ModList.get().isLoaded("alexscaves") && itemStack.is(ACCompat.gameController().getItem()) && !this.isDancing() && !this.hasMaracas() && !isGod() && this.getWorshiping() == null && AlexsMobsInteraction.COMMON_CONFIG.ASMONGOLD_ENABLED.get()){
+        if (itemStack.is(AMIItemRegistry.ASMON_CROWN.get()) && !this.isDancing() && !this.hasMaracas() && !isGod() && this.getWorshiping() == null && AlexsMobsInteraction.COMMON_CONFIG.ASMONGOLD_ENABLED.get()){
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }

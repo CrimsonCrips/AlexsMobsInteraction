@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:voidworm_stun",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "lodestone": {
       "trigger": "minecraft:impossible"

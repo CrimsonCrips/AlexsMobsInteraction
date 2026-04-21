@@ -40,35 +40,19 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("tick", PlayerTrigger.TriggerInstance.tick())
 				.save(consumer, "alexsmobsinteraction:root");
 
-		Advancement combustable = (Advancement.Builder.advancement().parent(root).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/combustable.png"),
-						Component.translatable("advancement.alexsmobsinteraction.combustable"),
-						Component.translatable("advancement.alexsmobsinteraction.combustable.desc"),
+		Advancement combustible = (Advancement.Builder.advancement().parent(root).display(
+						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/combustible.png"),
+						Component.translatable("advancement.alexsmobsinteraction.combustible"),
+						Component.translatable("advancement.alexsmobsinteraction.combustible.desc"),
 						null, FrameType.TASK, true,true,false)
 				.addCriterion("combust", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:combustable");
-
-		Advancement molten_bath = (Advancement.Builder.advancement().parent(root).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/molten_bath.png"),
-						Component.translatable("advancement.alexsmobsinteraction.molten_bath"),
-						Component.translatable("advancement.alexsmobsinteraction.molten_bath.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("molten", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:molten_bath");
-
-		Advancement poison_bath = (Advancement.Builder.advancement().parent(molten_bath).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/poison_bath.png"),
-						Component.translatable("advancement.alexsmobsinteraction.poison_bath"),
-						Component.translatable("advancement.alexsmobsinteraction.poison_bath.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("poison", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:poison_bath");
+				.save(consumer, "alexsmobsinteraction:combustible");
 
 		Advancement mutate_frog = (Advancement.Builder.advancement().parent(root).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/mutate_frog.png"),
 						Component.translatable("advancement.alexsmobsinteraction.mutate_frog"),
 						Component.translatable("advancement.alexsmobsinteraction.mutate_frog.desc"),
-						null, FrameType.CHALLENGE, true,true,false)
+						null, FrameType.TASK, true,true,false)
 				.addCriterion("mutate", new ImpossibleTrigger.TriggerInstance()))
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.save(consumer, "alexsmobsinteraction:mutate_frog");
@@ -81,21 +65,21 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("observe", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:observe_dormancy");
 
-		Advancement interupt_dormancy = (Advancement.Builder.advancement().parent(observe_dormancy).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/interupt_dormancy.png"),
-						Component.translatable("advancement.alexsmobsinteraction.interupt_dormancy"),
-						Component.translatable("advancement.alexsmobsinteraction.interupt_dormancy.desc"),
+		Advancement interrupt_dormancy = (Advancement.Builder.advancement().parent(observe_dormancy).display(
+						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/interrupt_dormancy.png"),
+						Component.translatable("advancement.alexsmobsinteraction.interrupt_dormancy"),
+						Component.translatable("advancement.alexsmobsinteraction.interrupt_dormancy.desc"),
 						null, FrameType.TASK, true,true,false)
-				.addCriterion("interupt", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:interupt_dormancy");
+				.addCriterion("interrupt", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:interrupt_dormancy");
 
-		Advancement moss_propogation = (Advancement.Builder.advancement().parent(interupt_dormancy).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/moss_propogation.png"),
-						Component.translatable("advancement.alexsmobsinteraction.moss_propogation"),
-						Component.translatable("advancement.alexsmobsinteraction.moss_propogation.desc"),
+		Advancement moss_propagation = (Advancement.Builder.advancement().parent(interrupt_dormancy).display(
+						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/moss_propagation.png"),
+						Component.translatable("advancement.alexsmobsinteraction.moss_propagation"),
+						Component.translatable("advancement.alexsmobsinteraction.moss_propagation.desc"),
 						null, FrameType.TASK, true,true,false)
-				.addCriterion("propogate", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:moss_propogation");
+				.addCriterion("propagate", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:moss_propagation");
 
 		Advancement bird_bomb = (Advancement.Builder.advancement().parent(root).display(
 						Items.TNT,
@@ -113,13 +97,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("banana", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:banana_shear");
 
-		Advancement egg_steal = (Advancement.Builder.advancement().parent(root).display(
-						AMIItemRegistry.EGGS.get(),
-						Component.translatable("advancement.alexsmobsinteraction.egg_steal"),
-						Component.translatable("advancement.alexsmobsinteraction.egg_steal.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("egg_steal", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:egg_steal");
+
 
 		Advancement dart_effect = (Advancement.Builder.advancement().parent(root).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/dart_effect.png"),
@@ -214,7 +192,23 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("aggro", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:ranged_aggro");
 
-		Advancement void_dweller = (Advancement.Builder.advancement().parent(root).display(
+		Advancement egg_steal = (Advancement.Builder.advancement().parent(ranged_aggro).display(
+						AMIItemRegistry.EGGS.get(),
+						Component.translatable("advancement.alexsmobsinteraction.egg_steal"),
+						Component.translatable("advancement.alexsmobsinteraction.egg_steal.desc"),
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("egg_steal", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:egg_steal");
+
+		Advancement ender_boost = (Advancement.Builder.advancement().parent(root).display(
+						AMItemRegistry.CHORUS_ON_A_STICK.get(),
+						Component.translatable("advancement.alexsmobsinteraction.ender_boost"),
+						Component.translatable("advancement.alexsmobsinteraction.ender_boost.desc"),
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("ender_boost", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:ender_boost");
+
+		Advancement void_dweller = (Advancement.Builder.advancement().parent(ender_boost).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/void_dweller.png"),
 						Component.translatable("advancement.alexsmobsinteraction.void_dweller"),
 						Component.translatable("advancement.alexsmobsinteraction.void_dweller.desc"),
@@ -223,23 +217,16 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.rewards(AdvancementRewards.Builder.experience(200))
 				.save(consumer, "alexsmobsinteraction:void_dweller");
 
-		Advancement ender_boost = (Advancement.Builder.advancement().parent(void_dweller).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/ender_boost.png"),
-						Component.translatable("advancement.alexsmobsinteraction.ender_boost"),
-						Component.translatable("advancement.alexsmobsinteraction.ender_boost.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("ender_boost", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:ender_boost");
 
-		Advancement alterred = (Advancement.Builder.advancement().parent(root).display(
+		Advancement altered = (Advancement.Builder.advancement().parent(root).display(
 						createCitadelIcon("alexsmobsinteraction:textures/mob_effect/farseer_icon.png"),
-						Component.translatable("advancement.alexsmobsinteraction.alterred"),
-						Component.translatable("advancement.alexsmobsinteraction.alterred.desc"),
+						Component.translatable("advancement.alexsmobsinteraction.altered"),
+						Component.translatable("advancement.alexsmobsinteraction.altered.desc"),
 						null, FrameType.TASK, true,true,false)
 				.addCriterion("alter", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:alterred");
+				.save(consumer, "alexsmobsinteraction:altered");
 
-		Advancement repel = (Advancement.Builder.advancement().parent(alterred).display(
+		Advancement repel = (Advancement.Builder.advancement().parent(altered).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/repel.png"),
 						Component.translatable("advancement.alexsmobsinteraction.repel"),
 						Component.translatable("advancement.alexsmobsinteraction.repel.desc"),
@@ -247,15 +234,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("repel", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:repel");
 
-		Advancement withered = (Advancement.Builder.advancement().parent(root).display(
-						Items.WITHER_ROSE,
-						Component.translatable("advancement.alexsmobsinteraction.withered"),
-						Component.translatable("advancement.alexsmobsinteraction.withered.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("withered", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:withered");
-
-		Advancement flutter_shear = (Advancement.Builder.advancement().parent(withered).display(
+		Advancement flutter_shear = (Advancement.Builder.advancement().parent(root).display(
 						Items.SPORE_BLOSSOM,
 						Component.translatable("advancement.alexsmobsinteraction.flutter_shear"),
 						Component.translatable("advancement.alexsmobsinteraction.flutter_shear.desc"),
@@ -271,6 +250,14 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 						null, FrameType.TASK, true,true,false)
 				.addCriterion("fish", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:maggot_fishing");
+
+		Advancement devil_fish = (Advancement.Builder.advancement().parent(maggot_fishing).display(
+						AMItemRegistry.DEVILS_HOLE_PUPFISH_BUCKET.get(),
+						Component.translatable("advancement.alexsmobsinteraction.devil_fish"),
+						Component.translatable("advancement.alexsmobsinteraction.devil_fish.desc"),
+						null, FrameType.CHALLENGE, true,true,false)
+				.addCriterion("fish", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:devil_fish");
 
 		Advancement brushed = (Advancement.Builder.advancement().parent(root).display(
 						Items.BRUSH,
@@ -344,14 +331,6 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("reheaded", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:reheaded");
 
-		Advancement enemy_of_enemy = (Advancement.Builder.advancement().parent(reheaded).display(
-						AMItemRegistry.UNSETTLING_KIMONO.get(),
-						Component.translatable("advancement.alexsmobsinteraction.enemy_of_enemy"),
-						Component.translatable("advancement.alexsmobsinteraction.enemy_of_enemy.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("enemies", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:enemy_of_enemy");
-
 		Advancement stretchy_accumulation = (Advancement.Builder.advancement().parent(reheaded).display(
 						AMItemRegistry.TENDON_WHIP.get(),
 						Component.translatable("advancement.alexsmobsinteraction.stretchy_accumulation"),
@@ -385,24 +364,15 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.rewards(AdvancementRewards.Builder.experience(50))
 				.save(consumer, "alexsmobsinteraction:rolling_thunder");
 
-		Advancement kill_withered_skelewag = (Advancement.Builder.advancement().parent(root).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/kill_withered_skelewag.png"),
-						Component.translatable("advancement.alexsmobsinteraction.kill_withered_skelewag"),
-						Component.translatable("advancement.alexsmobsinteraction.kill_withered_skelewag.desc"),
+		Advancement acclimate = (Advancement.Builder.advancement().parent(root).display(
+						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/acclimate.png"),
+						Component.translatable("advancement.alexsmobsinteraction.acclimate"),
+						Component.translatable("advancement.alexsmobsinteraction.acclimate.desc"),
 						null, FrameType.TASK, true,true,false)
-				.addCriterion("kill", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:kill_withered_skelewag");
+				.addCriterion("acclimate", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:acclimate");
 
-
-		Advancement acclamate = (Advancement.Builder.advancement().parent(root).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/acclamate.png"),
-						Component.translatable("advancement.alexsmobsinteraction.acclamate"),
-						Component.translatable("advancement.alexsmobsinteraction.acclamate.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("acclamate", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:acclamate");
-
-		Advancement day_of_judgement = (Advancement.Builder.advancement().parent(acclamate).display(
+		Advancement day_of_judgement = (Advancement.Builder.advancement().parent(acclimate).display(
 						createCitadelIcon("alexsmobsinteraction:textures/mob_effect/skreeching.png"),
 						Component.translatable("advancement.alexsmobsinteraction.day_of_judgement"),
 						Component.translatable("advancement.alexsmobsinteraction.day_of_judgement.desc"),
@@ -419,13 +389,6 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("rearm", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:rearming_kill");
 
-		Advancement sugar_rush = (Advancement.Builder.advancement().parent(root).display(
-						Items.SUGAR,
-						Component.translatable("advancement.alexsmobsinteraction.sugar_rush"),
-						Component.translatable("advancement.alexsmobsinteraction.sugar_rush.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("rush", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:sugar_rush");
 
 
 		Advancement stomp = (Advancement.Builder.advancement().parent(root).display(
@@ -444,16 +407,7 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.addCriterion("blue_shell", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:blue_shell");
 
-
-		Advancement trusted_riding = (Advancement.Builder.advancement().parent(root).display(
-						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/trusted_riding.png"),
-						Component.translatable("advancement.alexsmobsinteraction.trusted_riding"),
-						Component.translatable("advancement.alexsmobsinteraction.trusted_riding.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("trust", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:trusted_riding");
-
-		Advancement zoglinned = (Advancement.Builder.advancement().parent(trusted_riding).display(
+		Advancement zoglinned = (Advancement.Builder.advancement().parent(root).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/zoglinned.png"),
 						Component.translatable("advancement.alexsmobsinteraction.zoglinned"),
 						Component.translatable("advancement.alexsmobsinteraction.zoglinned.desc"),
@@ -462,21 +416,21 @@ public class AMIAdvancements implements ForgeAdvancementProvider.AdvancementGene
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.save(consumer, "alexsmobsinteraction:zoglinned");
 
-		Advancement voidworm_stun = (Advancement.Builder.advancement().parent(root).display(
-						AMItemRegistry.VOID_WORM_EYE.get(),
-						Component.translatable("advancement.alexsmobsinteraction.voidworm_stun"),
-						Component.translatable("advancement.alexsmobsinteraction.voidworm_stun.desc"),
-						null, FrameType.TASK, true,true,false)
-				.addCriterion("stun", new ImpossibleTrigger.TriggerInstance()))
-				.save(consumer, "alexsmobsinteraction:voidworm_stun");
-
-		Advancement dimensional_lodestone = (Advancement.Builder.advancement().parent(voidworm_stun).display(
+		Advancement dimensional_lodestone = (Advancement.Builder.advancement().parent(root).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/dimensional_lodestone.png"),
 						Component.translatable("advancement.alexsmobsinteraction.dimensional_lodestone"),
 						Component.translatable("advancement.alexsmobsinteraction.dimensional_lodestone.desc"),
 						null, FrameType.TASK, true,true,false)
 				.addCriterion("lodestone", new ImpossibleTrigger.TriggerInstance()))
 				.save(consumer, "alexsmobsinteraction:dimensional_lodestone");
+
+		Advancement hasty_carving = (Advancement.Builder.advancement().parent(dimensional_lodestone).display(
+						AMItemRegistry.DIMENSIONAL_CARVER.get(),
+						Component.translatable("advancement.alexsmobsinteraction.hasty_carving"),
+						Component.translatable("advancement.alexsmobsinteraction.hasty_carving.desc"),
+						null, FrameType.TASK, true,true,false)
+				.addCriterion("haste", new ImpossibleTrigger.TriggerInstance()))
+				.save(consumer, "alexsmobsinteraction:hasty_carving");
 
 		Advancement multidimensional_lodestone = (Advancement.Builder.advancement().parent(dimensional_lodestone).display(
 						createCitadelIcon("alexsmobsinteraction:textures/gui/adv_icon/multidimensional_lodestone.png"),

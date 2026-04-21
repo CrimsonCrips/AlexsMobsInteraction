@@ -1,0 +1,14 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Flying Fish",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:flying_fish_boots",
+      "text": "Flying Fish Boots's mechanics changed to be more fluid and based on speed and look angle",
+      "title": "Weaving Waters"
+    }
+  ],
+  "sortnum": 1
+}

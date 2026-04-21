@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Laviathan",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/obsidian_extract.png"
+      ],
+      "text": "Obsidian can be extracted from laviathans when solidified,causing them to take small damage and needing to reheat",
+      "title": "Obsidian Extract"
+    }
+  ],
+  "sortnum": 1
+}

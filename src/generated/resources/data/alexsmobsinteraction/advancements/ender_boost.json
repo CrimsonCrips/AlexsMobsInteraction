@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:void_dweller",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "ender_boost": {
       "trigger": "minecraft:impossible"
@@ -13,8 +13,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "citadel:icon_item",
-      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/ender_boost.png\"}"
+      "item": "alexsmobs:chorus_on_a_stick"
     },
     "show_toast": true,
     "title": {

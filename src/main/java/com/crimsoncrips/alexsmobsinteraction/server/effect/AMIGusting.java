@@ -34,7 +34,7 @@ public class AMIGusting extends MobEffect {
 
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
-        if (!AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get())
+        if (!AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get())
             return;
         AMIUtils.awardAdvancement(entity,"gusting","gusting");
         if (entity.getRandom().nextDouble() < 0.5){
@@ -63,10 +63,6 @@ public class AMIGusting extends MobEffect {
                     }
                 }
             }
-            if (entity instanceof Player) {
-                summonGust(entity, 2, 0);
-                summonGust(entity, -2, 0);
-            }
         }
     }
 
@@ -75,7 +71,7 @@ public class AMIGusting extends MobEffect {
     }
 
     public String getDescriptionId() {
-        if (AlexsMobsInteraction.COMMON_CONFIG.GUSTING_EFFECT_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get()) {
             return "effect.alexsmobsinteraction.gusting.title";
         } else {
             return "misc.alexsmobsinteraction.feature_disabled";

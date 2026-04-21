@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Tusklin",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/zoglinned.png"
+      ],
+      "text": "Tusklin can be turned to zoglins with lightning",
+      "title": "Zoglinned"
+    }
+  ],
+  "sortnum": 1
+}

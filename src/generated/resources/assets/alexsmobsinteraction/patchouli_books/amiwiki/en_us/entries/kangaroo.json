@@ -1,0 +1,14 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Kangaroo",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:totem_of_undying",
+      "text": "Allows kangaroos to be equipped with totems, also fixes non breakable weapons to break when equipped",
+      "title": "Armaments"
+    }
+  ],
+  "sortnum": 1
+}

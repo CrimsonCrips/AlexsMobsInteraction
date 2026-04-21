@@ -1,0 +1,13 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Rainfrog",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Rain frog burrow away when hurt",
+      "title": "Burrow Away"
+    }
+  ],
+  "sortnum": 1
+}

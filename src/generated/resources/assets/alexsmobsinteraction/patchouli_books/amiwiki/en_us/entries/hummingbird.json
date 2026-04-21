@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Hummingbird",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/day_pollination.png"
+      ],
+      "text": "Pollinates only during the day",
+      "title": "Day Pollination"
+    }
+  ],
+  "sortnum": 1
+}

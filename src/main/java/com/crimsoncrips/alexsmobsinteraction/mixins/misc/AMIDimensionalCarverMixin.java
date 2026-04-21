@@ -84,6 +84,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
     private int modifyAmount(int amount, @Local(ordinal = 0, argsOnly = true) LivingEntity player) {
         MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
         if (AlexsMobsInteraction.COMMON_CONFIG.HASTY_CARVING_ENABLED.get()) {
+            AMIUtils.awardAdvancement(player, "hasty_carving", "haste");
             return amount + (haste != null ? (haste.getAmplifier() == 0 ? 100 : 150) : 0);
         }
         return amount;

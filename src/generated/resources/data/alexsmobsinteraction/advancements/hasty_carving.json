@@ -1,29 +1,29 @@
 {
   "parent": "alexsmobsinteraction:root",
   "criteria": {
-    "molten": {
+    "haste": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.alexsmobsinteraction.molten_bath.desc"
+      "translate": "advancement.alexsmobsinteraction.hasty_carving.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "citadel:icon_item",
-      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/molten_bath.png\"}"
+      "item": "alexsmobs:dimensional_carver",
+      "nbt": "{Damage:0}"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.alexsmobsinteraction.molten_bath"
+      "translate": "advancement.alexsmobsinteraction.hasty_carving"
     }
   },
   "requirements": [
     [
-      "molten"
+      "haste"
     ]
   ],
   "sends_telemetry_event": true

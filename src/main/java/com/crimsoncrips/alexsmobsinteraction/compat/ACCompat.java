@@ -17,9 +17,6 @@ import java.util.logging.Level;
 
 public class ACCompat {
 
-    public static boolean falconBomb(ItemStack itemStack){
-        return itemStack.is(ACBlockRegistry.NUCLEAR_BOMB.get().asItem().getDefaultInstance().getItem());
-    }
 
     public static ItemStack gameController(){
         return ACItemRegistry.GAME_CONTROLLER.get().getDefaultInstance();
@@ -29,9 +26,6 @@ public class ACCompat {
         return livingEntity.level().getBiome(livingEntity.blockPosition()).is(ACBiomeRegistry.TOXIC_CAVES);
     }
 
-    public static Entity nuke(ServerLevel level){
-       return  new NuclearBombEntity(ACEntityRegistry.NUCLEAR_BOMB.get(), level);
-    }
 
     public static EntityType gammaroach(){
         return ACEntityRegistry.GAMMAROACH.get();

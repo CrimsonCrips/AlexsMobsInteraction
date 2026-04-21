@@ -33,30 +33,16 @@ public abstract class AMIRoadrunner extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityRoadrunner roadrunner = (EntityRoadrunner)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.ROADRUNNER_DAY_ENABLED.get()){
-            roadrunner.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EntityRattlesnake.class, 55, true, true, LivingEntity::isAlive){
-                @Override
-                public boolean canContinueToUse() {
-                    return super.canContinueToUse() && roadrunner.level().isDay();
-                }
-            });
-
-        }
         if (AlexsMobsInteraction.TARGETS_CONFIG.ROADRUNNER_ENABLED.get()){
             roadrunner.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(roadrunner, LivingEntity.class, 200, true, true, livingEntity -> {
                 return livingEntity.getType().is(AMIEntityTagGenerator.INSECTS) || livingEntity instanceof EntityRattlesnake;
             }) {
                 public boolean canContinueToUse() {
-                    return super.canContinueToUse() && roadrunner.level().isDay() || !AlexsMobsInteraction.COMMON_CONFIG.ROADRUNNER_DAY_ENABLED.get();
+                    return super.canContinueToUse();
                 }
             });
         }
 
-    }
-
-    @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 9))
-    private boolean nearestAttackable(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.ROADRUNNER_DAY_ENABLED.get();
     }
 
 }

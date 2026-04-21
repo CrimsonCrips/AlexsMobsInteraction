@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Frilled Shark",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/bleeding_hunger.png"
+      ],
+      "text": "Frilled Shark attack players with exsanguination or low health",
+      "title": "Bleeding Hunger"
+    }
+  ],
+  "sortnum": 1
+}

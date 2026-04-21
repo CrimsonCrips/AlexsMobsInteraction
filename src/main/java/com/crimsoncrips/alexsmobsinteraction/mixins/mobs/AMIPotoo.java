@@ -46,11 +46,10 @@ public abstract class AMIPotoo extends Animal {
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityPotoo;gameEvent(Lnet/minecraft/world/level/gameevent/GameEvent;)V"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         EntityPotoo potoo = (EntityPotoo)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.POTOO_VISION_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.VISIONARY_ENABLED.get()){
             if (potoo.getVehicle() instanceof Player player && !player.hasEffect(MobEffects.NIGHT_VISION)){
                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 0));
                 player.playSound(SoundEvents.BELL_RESONATE);
-                RandomSource randomSource = player.getRandom();
                 AMIUtils.addParticlesAroundSelf(ParticleTypes.END_ROD,player,6,1);
                 AMIUtils.awardAdvancement(player,"potoo_vision","vision");
             }

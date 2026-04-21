@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:root",
+  "parent": "alexsmobsinteraction:ranged_aggro",
   "criteria": {
     "egg_steal": {
       "trigger": "minecraft:impossible"

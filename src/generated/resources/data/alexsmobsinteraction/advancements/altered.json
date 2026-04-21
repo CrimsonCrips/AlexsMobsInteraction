@@ -1,29 +1,29 @@
 {
   "parent": "alexsmobsinteraction:root",
   "criteria": {
-    "trust": {
+    "alter": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.alexsmobsinteraction.trusted_riding.desc"
+      "translate": "advancement.alexsmobsinteraction.altered.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "item": "citadel:icon_item",
-      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/trusted_riding.png\"}"
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/mob_effect/farseer_icon.png\"}"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.alexsmobsinteraction.trusted_riding"
+      "translate": "advancement.alexsmobsinteraction.altered"
     }
   },
   "requirements": [
     [
-      "trust"
+      "alter"
     ]
   ],
   "sends_telemetry_event": true

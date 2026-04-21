@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:alterred",
+  "parent": "alexsmobsinteraction:altered",
   "criteria": {
     "repel": {
       "trigger": "minecraft:impossible"

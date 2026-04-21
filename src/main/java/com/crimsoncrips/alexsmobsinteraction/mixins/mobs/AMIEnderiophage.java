@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 @Mixin(EntityEnderiophage.class)
 public abstract class AMIEnderiophage extends Animal {
 
-    private static final Predicate<LivingEntity> ENDERGRADE_OR_INFECTED = (entity) -> !(entity.hasEffect(MobEffects.DAMAGE_RESISTANCE)) && (entity instanceof EntityEndergrade || entity.hasEffect((MobEffect)AMEffectRegistry.ENDER_FLU.get()));
+    private static final Predicate<LivingEntity> ENDERGRADE_OR_INFECTED = (entity) -> !entity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && (entity instanceof EntityEndergrade || entity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
 
     protected AMIEnderiophage(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -42,7 +42,7 @@ public abstract class AMIEnderiophage extends Animal {
                 return livingEntity instanceof LivingEntity entity && !entity.hasEffect(MobEffects.DAMAGE_RESISTANCE);
             }) {
                 public boolean canUse() {
-                    return super.canContinueToUse();
+                    return enderiophage.isMissingEye() && super.canUse();
                 }
 
                 public boolean canContinueToUse() {
@@ -51,7 +51,7 @@ public abstract class AMIEnderiophage extends Animal {
             });
             this.targetSelector.addGoal(1, new EntityAINearestTarget3D(this, LivingEntity.class, 15, true, true, ENDERGRADE_OR_INFECTED) {
                 public boolean canUse() {
-                    Object fleeAfterSteal = AMIReflectionUtil.getField(this, "fleeAfterStealTime");
+                    Object fleeAfterSteal = AMIReflectionUtil.getField(enderiophage, "fleeAfterStealTime");
                     if (fleeAfterSteal == null) {
                         return false;
                     }

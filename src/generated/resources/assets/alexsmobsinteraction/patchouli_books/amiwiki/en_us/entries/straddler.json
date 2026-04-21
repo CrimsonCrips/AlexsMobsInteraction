@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Straddler",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/straddler_shots.png"
+      ],
+      "text": "Straddler can shoot a number of times before needing to reload, (default:8)",
+      "title": "Straddler Shots"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:straddleboard",
+      "text": "Straddleboards drop half of its material costs if it doesnt drop itself",
+      "title": "Straddle Scavenge"
+    }
+  ],
+  "sortnum": 1
+}

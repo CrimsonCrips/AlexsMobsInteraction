@@ -14,14 +14,6 @@
     {
       "type": "patchouli:image",
       "images": [
-        "alexsmobsinteraction:textures/gui/wiki/mobs/flutter_withered.png"
-      ],
-      "text": "Flutter gets inflicted with withered by feeding wither roses when fed",
-      "title": "Flutter Withered"
-    },
-    {
-      "type": "patchouli:image",
-      "images": [
         "alexsmobsinteraction:textures/gui/wiki/mobs/flowering_attraction.png"
       ],
       "text": "Attracts bees and hummingbirds",

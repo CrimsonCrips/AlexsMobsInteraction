@@ -1,18 +1,19 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.kangaroo;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.github.alexthe666.alexsmobs.entity.EntityKangaroo;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -23,7 +24,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityKangaroo.class)
@@ -95,6 +95,11 @@ public abstract class AMIKangaroo extends TamableAnimal {
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void read(CompoundTag compound, CallbackInfo ci) {
         this.entityData.set(TOTEM_INDEX, compound.getInt("TotemInvIndex"));
+    }
+
+    @WrapWithCondition(method = "doHurtTarget", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityKangaroo;damageItem(Lnet/minecraft/world/item/ItemStack;)V"))
+    private boolean aiStep(EntityKangaroo instance, ItemStack stack) {
+        return !AlexsMobsInteraction.COMMON_CONFIG.ARMAMENTS_ENABLED.get() || stack.isDamageableItem();
     }
 
 

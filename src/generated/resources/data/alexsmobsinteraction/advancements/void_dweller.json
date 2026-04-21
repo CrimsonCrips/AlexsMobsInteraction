@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:root",
+  "parent": "alexsmobsinteraction:ender_boost",
   "criteria": {
     "void": {
       "trigger": "minecraft:impossible"

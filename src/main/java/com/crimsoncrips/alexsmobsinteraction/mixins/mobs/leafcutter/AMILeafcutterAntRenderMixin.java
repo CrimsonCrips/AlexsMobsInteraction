@@ -30,7 +30,7 @@ public abstract class AMILeafcutterAntRenderMixin extends MobRenderer<EntityLeaf
     }
 
     public ResourceLocation getTextureLocation(EntityLeafcutterAnt entity) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){
             if (((AMIBasicInterfaces) entity).getVariant() == 1){
                 if(entity.getRemainingPersistentAngerTime() > 0){
                     return entity.isQueen() ? BROWN_TEXTURE_QUEEN_ANGRY : BROWN_TEXTURE_ANGRY;

@@ -1,0 +1,14 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Terrapin",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:terrapin",
+      "name": "Terrapin Stomp",
+      "text": "Terrapin takes damage when stepped on"
+    }
+  ],
+  "sortnum": 1
+}

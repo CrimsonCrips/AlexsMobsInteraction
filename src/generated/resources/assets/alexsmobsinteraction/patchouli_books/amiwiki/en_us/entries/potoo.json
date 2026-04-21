@@ -1,0 +1,13 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Potoo",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Potoo when held with falcon glove, give night vision to its holder",
+      "title": "Visionary"
+    }
+  ],
+  "sortnum": 1
+}

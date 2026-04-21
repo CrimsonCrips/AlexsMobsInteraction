@@ -65,7 +65,7 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"))
     private void variable(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local EntityLeafcutterAnt beeentity){
-        if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){
             ((AMIBasicInterfaces) beeentity).setVariant(variant);
         } else {
             ((AMIBasicInterfaces) beeentity).setVariant(1);

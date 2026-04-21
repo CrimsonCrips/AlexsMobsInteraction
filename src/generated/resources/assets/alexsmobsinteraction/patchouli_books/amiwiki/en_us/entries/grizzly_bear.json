@@ -1,0 +1,32 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Grizzly Bear",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/honeyless_hunting.png"
+      ],
+      "text": "If they haven't had honey in a while, Grizzlies may break containers containing food",
+      "title": "Honeyless Hunting"
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "alexsmobsinteraction:add_targets"
+      ],
+      "text": "If enabled for the grizzly bear, it will hunt for animals as well",
+      "title": " "
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/grizzly_brushed.png"
+      ],
+      "text": "Grizzlies can be brushed for their hair",
+      "title": "Grizzly Brushed"
+    }
+  ],
+  "sortnum": 1
+}

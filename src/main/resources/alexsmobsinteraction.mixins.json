@@ -48,7 +48,6 @@
     "mobs.AMIFarseer",
     "mobs.AMIFlutterMixin",
     "mobs.AMIFly",
-    "mobs.AMIFlyingFishMixin",
     "mobs.AMIFrilledShark",
     "mobs.AMIGeladaMonkey",
     "mobs.AMIGorilla",
@@ -84,7 +83,6 @@
     "mobs.AMITiger",
     "mobs.AMIToucan",
     "mobs.AMITriops",
-    "mobs.AMITusklinMixin",
     "mobs.AMIVoidWorm",
     "mobs.AMIWarpedMosco",
     "mobs.AMIWarpedToad",
@@ -128,5 +126,8 @@
   ],
   "injectors": {
     "defaultRequire": 1
+  },
+  "mixinextras": {
+    "minVersion": "0.5.4"
   }
 }

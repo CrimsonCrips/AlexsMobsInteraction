@@ -30,7 +30,7 @@ public abstract class AMIHummingbird extends Animal {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void registerGoals(CallbackInfo ci) {
         EntityHummingbird hummingbird = (EntityHummingbird)(Object)this;
-        if(AlexsMobsInteraction.COMMON_CONFIG.POLINATE_DAY_ENABLED.get()) {
+        if(AlexsMobsInteraction.COMMON_CONFIG.DAY_POLINATION_ENABLED.get()) {
 
             hummingbird.goalSelector.addGoal(4, new HummingbirdAIPollinate(hummingbird){
                 public boolean canUse() {
@@ -49,7 +49,7 @@ public abstract class AMIHummingbird extends Animal {
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 4))
     private boolean polinate(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.POLINATE_DAY_ENABLED.get();
+        return !AlexsMobsInteraction.COMMON_CONFIG.DAY_POLINATION_ENABLED.get();
     }
 
 }

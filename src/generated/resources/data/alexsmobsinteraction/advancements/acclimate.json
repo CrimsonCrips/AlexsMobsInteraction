@@ -1,28 +1,29 @@
 {
   "parent": "alexsmobsinteraction:root",
   "criteria": {
-    "withered": {
+    "acclimate": {
       "trigger": "minecraft:impossible"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.alexsmobsinteraction.withered.desc"
+      "translate": "advancement.alexsmobsinteraction.acclimate.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:wither_rose"
+      "item": "citadel:icon_item",
+      "nbt": "{IconLocation:\"alexsmobsinteraction:textures/gui/adv_icon/acclimate.png\"}"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.alexsmobsinteraction.withered"
+      "translate": "advancement.alexsmobsinteraction.acclimate"
     }
   },
   "requirements": [
     [
-      "withered"
+      "acclimate"
     ]
   ],
   "sends_telemetry_event": true

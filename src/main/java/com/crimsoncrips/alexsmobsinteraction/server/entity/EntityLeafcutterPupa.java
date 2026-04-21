@@ -81,7 +81,7 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
                     int variant = world.random.nextBoolean() ? 1 : 2;
                     for(int k = 0; k < j; ++k) {
                         EntityLeafcutterAnt antentity = new EntityLeafcutterAnt(AMEntityRegistry.LEAFCUTTER_ANT.get(), world);
-                        if (AlexsMobsInteraction.COMMON_CONFIG.LEAFCUTTER_VARIANTS_ENABLED.get()){
+                        if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){
                             ((AMIBasicInterfaces) antentity).setVariant(variant);
                         } else {
                             ((AMIBasicInterfaces) antentity).setVariant(1);

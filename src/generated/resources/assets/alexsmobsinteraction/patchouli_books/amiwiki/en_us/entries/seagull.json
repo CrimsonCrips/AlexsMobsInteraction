@@ -1,0 +1,21 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Seagull",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/snatch_interaction.png"
+      ],
+      "text": "Seagulls will avoid snatching when low on health, or when player has sombrero",
+      "title": "Snatch Interaction"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Seagulls will only snatch food from hands",
+      "title": "(OPTIONAL)"
+    }
+  ],
+  "sortnum": 1
+}

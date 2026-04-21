@@ -88,22 +88,23 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
             this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::modifiedIsAngryAt));
 
         }
-        if (AlexsMobsInteraction.COMMON_CONFIG.STORED_HUNGER_ENABLED.get()) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get()) {
             grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
-        }
-        if (AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get()){
-            grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 500, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){
-                @Override
-                public boolean canUse() {
-                    return super.canUse() && (!grizzlyBear.isTame() || !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get()) && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed() && ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 10000;
-                }
+            if (AlexsMobsInteraction.TARGETS_CONFIG.GRIZZLY_BEAR_ENABLED.get()){
+                grizzlyBear.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(grizzlyBear, LivingEntity.class, 10, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.GRIZZLY_BEAR_KILL)){
+                    @Override
+                    public boolean canUse() {
+                        return super.canUse() && (!grizzlyBear.isTame() || !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get()) && !grizzlyBear.isEating() && !grizzlyBear.isHoneyed() && ((GrizzlyExtras)grizzlyBear).getNoHoney() >= 10000;
+                    }
 
-                @Override
-                public boolean canContinueToUse() {
-                    return super.canContinueToUse() && canUse();
-                }
-            });
+                    @Override
+                    public boolean canContinueToUse() {
+                        return super.canContinueToUse() && canUse();
+                    }
+                });
+            }
         }
+
     }
 
     boolean modifiedIsAngryAt(LivingEntity pTarget) {

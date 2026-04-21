@@ -18,6 +18,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
@@ -435,11 +436,6 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                         .withTitle("Flutter Shear");
                                                             })
                                                             .addImagePage(page -> {
-                                                                page.addImage("textures/gui/wiki/mobs/flutter_withered.png")
-                                                                        .withText("Flutter gets inflicted with withered by feeding wither roses when fed")
-                                                                        .withTitle("Flutter Withered");
-                                                            })
-                                                            .addImagePage(page -> {
                                                                 page.addImage("textures/gui/wiki/mobs/flowering_attraction.png")
                                                                         .withText("Attracts bees and hummingbirds")
                                                                         .withTitle("Flower Attraction");
@@ -465,6 +461,355 @@ public class AMInBookProvider extends PGenBookProvider {
                                                                         .withTitle("Maggot Fishing");
                                                             });
                                                 })
+
+                                        .addEntry("flying_fish",
+                                                "Flying Fish",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.FLYING_FISH_BOOTS),
+                                                                    page -> page
+                                                                            .withText("Flying Fish Boots's mechanics changed to be more fluid and based on speed and look angle")
+                                                                            .withTitle("Weaving Waters")
+                                                            );
+
+                                                })
+
+                                        .addEntry("frilled_shark",
+                                                "Frilled Shark",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/bleeding_hunger.png")
+                                                                        .withText("Frilled Shark attack players with exsanguination or low health")
+                                                                        .withTitle("Bleeding Hunger");
+                                                            });
+                                                })
+                                        .addEntry("guster",
+                                                "Guster",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/gusting.png")
+                                                                        .withText("Gusters ability to lift players is determined by their armor value")
+                                                                        .withTitle("Gusting");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.GUSTER_EYE),
+                                                                    page -> page
+                                                                            .withText("Introduces a new effect, 'Gusting'. It allows mobs to resist gusters and gusts lifting,increasing movement speed," +
+                                                                                    " and players spawn gusts around them")
+                                                                            .withTitle(" ")
+                                                            );
+                                                })
+                                        .addEntry("grizzly_bear",
+                                                "Grizzly Bear",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/honeyless_hunting.png")
+                                                                        .withText("If they haven't had honey in a while, Grizzlies may break containers containing food")
+                                                                        .withTitle("Honeyless Hunting");
+                                                            })
+                                                            .addRelationsPage(page -> {
+                                                                page.addEntry("add_targets")
+                                                                        .withText("If enabled for the grizzly bear, it will hunt for animals as well")
+                                                                        .withTitle(" ");
+                                                            })
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/grizzly_brushed.png")
+                                                                        .withText("Grizzlies can be brushed for their hair")
+                                                                        .withTitle("Grizzly Brushed");
+                                                            });
+                                                })
+                                        .addEntry("hummingbird",
+                                                "Hummingbird",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/day_pollination.png")
+                                                                        .withText("Pollinates only during the day")
+                                                                        .withTitle("Day Pollination");
+                                                            });
+                                                })
+                                        .addEntry("kangaroo",
+                                                "Kangaroo",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(new ResourceLocation("minecraft:totem_of_undying")),
+                                                                    page -> page
+                                                                            .withText("Allows kangaroos to be equipped with totems, also fixes non breakable weapons to break when equipped")
+                                                                            .withTitle("Armaments")
+                                                            );
+
+                                                })
+                                        .addEntry("laviathan",
+                                                "Laviathan",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/obsidian_extract.png")
+                                                                        .withText("Obsidian can be extracted from laviathans when solidified," +
+                                                                                "causing them to take small damage and needing to reheat")
+                                                                        .withTitle("Obsidian Extract");
+                                                            });
+                                                })
+                                        .addEntry("leafcutter_ant",
+                                                "Leafcutter Ants",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/cockroach_chamber.png")
+                                                                        .withText("Leafcutter chambers with high levels of fungus may contain cockroaches when destroyed")
+                                                                        .withTitle("Cockroach Chamber");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.LEAFCUTTER_ANT_PUPA),
+                                                                    page -> page
+                                                                            .withText("Leafcutter pupi can be thrown as a projectile and spawns anthills when landing on appropriate terrain")
+                                                                            .withTitle("Throwable Pupi")
+                                                            )
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/ant_war.png")
+                                                                        .withText("Ant variants appear, causing rivalry between ant colonies")
+                                                                        .withTitle("Ant War");
+                                                            });
+                                                })
+                                        .addEntry("mimicube",
+                                                "Mimicube",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addTextPage("Mimicubes mimic their targeted players speech", page ->
+                                                                    {page.withTitle("Mimickry");}
+                                                            );
+                                                })
+                                        .addEntry("murmur",
+                                                "Murmur",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/murmur_regrow.png")
+                                                                        .withText("Murmur's body and head are seperate and its head will regrow until the body is dead")
+                                                                        .withTitle("Murmur Regrow");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.TENDON_WHIP),
+                                                                    page -> page
+                                                                            .withText("With the new enchantment 'Stretchy Accumulation' found within the abandoned railways" +
+                                                                                    "Tendon Whips can grab items and xp for its user when launched")
+                                                                            .withTitle("Tendon Grab")
+                                                            )
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.UNSETTLING_KIMONO),
+                                                                    page -> page
+                                                                            .withText("Wearing a unsettling kimono will cause iron golems and snow golems to attack you")
+                                                                            .withTitle("Unsettling Backfire")
+                                                            );
+                                                })
+                                        .addEntry("orca",
+                                                "Orca",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addTextPage("Orca's Might give neutrality towards skelewags", page ->
+                                                                    {page.withTitle("Might Upgrade");}
+                                                            );
+                                                })
+                                        .addEntry("potoo",
+                                                "Potoo",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addTextPage("Potoo when held with falcon glove, " +
+                                                                    "give night vision to its holder", page ->
+                                                                    {page.withTitle("Visionary");}
+                                                            );
+                                                })
+                                        .addEntry("rainfrog",
+                                                "Rainfrog",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addTextPage("Rain frog burrow away when hurt", page ->
+                                                                    {page.withTitle("Burrow Away");}
+                                                            );
+                                                })
+                                        .addEntry("rocky_roller",
+                                                "Rocky Roller",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.ROCKY_CHESTPLATE),
+                                                                    page -> page
+                                                                            .withText("With the enchantment 'Rolling Thunder', found within underground mineshafts. " +
+                                                                                    "You're able to roll through liquids")
+                                                                            .withTitle("Rolling Thunder")
+                                                            );
+
+                                                })
+                                        .addEntry("seagull",
+                                                "Seagull",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/snatch_interaction.png")
+                                                                        .withText("Seagulls will avoid snatching when low on health, or when player has sombrero")
+                                                                        .withTitle("Snatch Interaction");
+                                                            })
+                                                            .addTextPage("Seagulls will only snatch food from hands", page ->
+                                                                    {page.withTitle("(OPTIONAL)");}
+                                                            );
+                                                })
+                                        .addEntry("skreecher",
+                                                "Skreecher",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/skreecher_ward.png")
+                                                                        .withText("Skreecher Souls can be applied to sculk shriekers to allow them to spawn wardens")
+                                                                        .withTitle("Skreecher Ward");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.SKREECHER_SOUL),
+                                                                    page -> page
+                                                                            .withText("A new effect made from skreecher souls, that spawns a warden when the effect ends naturally")
+                                                                            .withTitle("Skreech Your Last")
+                                                            );
+                                                })
+                                        .addEntry("snow_leopard",
+                                                "Snow Leopard",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/snow_luck.png")
+                                                                        .withText("Snow Leopards causes slain mobs to drop their loot table 1-2 times")
+                                                                        .withTitle("Snow Luck");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.MOOSE_HEADGEAR),
+                                                                    page -> page
+                                                                            .withText("Snow Leopard will hunt weakened moose, and also attack players with moose headgear")
+                                                                            .withTitle("Leopard Desires")
+                                                            );
+                                                })
+                                        .addEntry("soul_vulture",
+                                                "Soul Vulture",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/soul_steal.png")
+                                                                        .withText("Soul Vultures no matter what, when attacking a mob will cause its soul level to go up")
+                                                                        .withTitle("Soul Steal");
+                                                            });
+                                                })
+                                        .addEntry("straddler",
+                                                "Straddler",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/straddler_shots.png")
+                                                                        .withText("Straddler can shoot a number of times before needing to reload, (default:8)")
+                                                                        .withTitle("Straddler Shots");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.STRADDLEBOARD),
+                                                                    page -> page
+                                                                            .withText("Straddleboards drop half of its material costs if it doesnt drop itself")
+                                                                            .withTitle("Straddle Scavenge")
+                                                            );
+                                                })
+                                        .addEntry("sunbird",
+                                                "Sunbird",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/judgemental_returns.png")
+                                                                        .withText("Provides additional effects, " +
+                                                                                "blessings burn and weaken nearby undead," +
+                                                                                "curses buffs nearby undead")
+                                                                        .withTitle("Judgemental Returns");
+                                                            });
+                                                })
+                                        .addEntry("terrapin",
+                                                "Terrapin",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addEntityPage(new ResourceLocation("alexsmobs:terrapin"),null,page -> {
+                                                                page.withText("Terrapin takes damage when stepped on")
+                                                                        .withName("Terrapin Stomp");
+                                                            });
+                                                })
+                                        .addEntry("tusklin",
+                                                "Tusklin",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/zoglinned.png")
+                                                                        .withText("Tusklin can be turned to zoglins with lightning")
+                                                                        .withTitle("Zoglinned");
+                                                            });
+                                                })
+                                        .addEntry("void_worm",
+                                                "Void Worm",
+                                                new ResourceLocation("paper"),
+                                                new ResourceLocation(AlexsMobsInteraction.MODID, "mobs"),
+                                                entry -> {
+                                                    entry.withSortnum(1)
+                                                            .addImagePage(page -> {
+                                                                page.addImage("textures/gui/wiki/mobs/dimensional_lodestone.png")
+                                                                        .withText("Dimensional Carver with a lodestone compass offhand," +
+                                                                                "can carve a portal to the lodestone at the cost of the compass")
+                                                                        .withTitle("Dimensional Lodestone");
+                                                            })
+                                                            .addSpotlightPage(
+                                                                    itemIconGiver(AMItemRegistry.DIMENSIONAL_CARVER),
+                                                                    page -> page
+                                                                            .withText("Dimensional Carver can be sped up with haste")
+                                                                            .withTitle("Hasty Carving")
+                                                            );
+                                                })
                                 ;
                             });
 
@@ -477,6 +822,11 @@ public class AMInBookProvider extends PGenBookProvider {
     public Consumer<PGenSpotlightPageBuilder.ItemBuilder> itemIconGiver(RegistryObject itemIcon){
         return item -> {
             item.addItem(itemIcon.getKey() != null ? itemIcon.getKey().location() : new ResourceLocation("error"));
+        };
+    }
+    public Consumer<PGenSpotlightPageBuilder.ItemBuilder> itemIconGiver(ResourceLocation resourceLocation){
+        return item -> {
+            item.addItem(resourceLocation != null ? resourceLocation : new ResourceLocation("error"));
         };
     }
 

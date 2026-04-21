@@ -19,6 +19,7 @@ public class AMIAddTargetsConfig {
     public final ForgeConfigSpec.BooleanValue FRILLED_SHARK_ENABLED;
     public final ForgeConfigSpec.BooleanValue GELADA_MONKEY_ENABLED;
     public final ForgeConfigSpec.BooleanValue GORILLA_ENABLED;
+    public final ForgeConfigSpec.BooleanValue GRIZZLY_BEAR_ENABLED;
     public final ForgeConfigSpec.BooleanValue HAMMERHEAD_ENABLED;
     public final ForgeConfigSpec.BooleanValue MUDSKIPPER_ENABLED;
     public final ForgeConfigSpec.BooleanValue ORCA_ENABLED;
@@ -52,6 +53,7 @@ public class AMIAddTargetsConfig {
         this.FRILLED_SHARK_ENABLED = buildMob(builder, "FRILLED_SHARK_ENABLED");
         this.GELADA_MONKEY_ENABLED = buildMob(builder, "GELADA_MONKEY_ENABLED");
         this.GORILLA_ENABLED = buildMob(builder, "GORILLA_ENABLED");
+        this.GRIZZLY_BEAR_ENABLED = buildMob(builder, "GRIZZLY_BEAR_ENABLED");
         this.HAMMERHEAD_ENABLED = buildMob(builder, "HAMMERHEAD_ENABLED");
         this.MUDSKIPPER_ENABLED = buildMob(builder, "MUDSKIPPER_ENABLED");
         this.ORCA_ENABLED = buildMob(builder, "ORCA_ENABLED");

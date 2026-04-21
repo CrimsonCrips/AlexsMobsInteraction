@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import snownee.jade.JadeClient;
 import snownee.jade.addon.vanilla.VanillaPlugin;
 import snownee.jade.api.Accessor;

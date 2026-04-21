@@ -92,7 +92,7 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBasicI
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (AlexsMobsInteraction.COMMON_CONFIG.MOSS_PROPOGATION_ENABLED.get() && itemStack.getItem() instanceof BoneMealItem) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.MOSS_PROPOGATION_ENABLED.get() && itemStack.getItem() instanceof BoneMealItem && isInWater()) {
             if (!pPlayer.isCreative()) {
                 itemStack.shrink(1);
             }
@@ -107,7 +107,7 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBasicI
             if (randomSource.nextDouble() < 0.05) {
                 this.setMoss(this.getMoss() + 1);
             }
-            AMIUtils.awardAdvancement(pPlayer,"moss_propogation","propogate");
+            AMIUtils.awardAdvancement(pPlayer,"moss_propagation","propagate");
         }
         
         return super.mobInteract(pPlayer, pHand);
@@ -163,7 +163,7 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBasicI
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (pSource.getEntity() instanceof Player player){
-            AMIUtils.awardAdvancement(player,"interupt_dormancy","interupt");
+            AMIUtils.awardAdvancement(player,"interrupt_dormancy","interrupt");
         }
         return super.hurt(pSource, pAmount);
     }

@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Skreecher",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/skreecher_ward.png"
+      ],
+      "text": "Skreecher Souls can be applied to sculk shriekers to allow them to spawn wardens",
+      "title": "Skreecher Ward"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:skreecher_soul",
+      "text": "A new effect made from skreecher souls, that spawns a warden when the effect ends naturally",
+      "title": "Skreech Your Last"
+    }
+  ],
+  "sortnum": 1
+}

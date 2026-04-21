@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Guster",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/gusting.png"
+      ],
+      "text": "Gusters ability to lift players is determined by their armor value",
+      "title": "Gusting"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:guster_eye",
+      "text": "Introduces a new effect, 'Gusting'. It allows mobs to resist gusters and gusts lifting,increasing movement speed, and players spawn gusts around them",
+      "title": " "
+    }
+  ],
+  "sortnum": 1
+}

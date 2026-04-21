@@ -1,5 +1,5 @@
 {
-  "parent": "alexsmobsinteraction:withered",
+  "parent": "alexsmobsinteraction:root",
   "criteria": {
     "flutter": {
       "trigger": "minecraft:impossible"

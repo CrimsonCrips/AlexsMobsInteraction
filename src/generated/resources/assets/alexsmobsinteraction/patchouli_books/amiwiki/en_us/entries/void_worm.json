@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Void Worm",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/dimensional_lodestone.png"
+      ],
+      "text": "Dimensional Carver with a lodestone compass offhand,can carve a portal to the lodestone at the cost of the compass",
+      "title": "Dimensional Lodestone"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:dimensional_carver",
+      "text": "Dimensional Carver can be sped up with haste",
+      "title": "Hasty Carving"
+    }
+  ],
+  "sortnum": 1
+}
