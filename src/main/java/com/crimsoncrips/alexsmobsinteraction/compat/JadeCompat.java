@@ -13,8 +13,6 @@ import net.minecraft.world.item.ItemStack;
 
 public class JadeCompat {
 
-    public static boolean falconBomb(ItemStack itemStack){
-        return itemStack.is(ACBlockRegistry.NUCLEAR_BOMB.get().asItem().getDefaultInstance().getItem());
-    }
+
 
 }
