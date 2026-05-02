@@ -1,0 +1,21 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Багровый комар",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/hemogenicism.png"
+      ],
+      "text": "Окровавление накладывается при попадании кровавых снарядов, а жидкую кровь из 'Biomes Of Plenty' можно смыть водой.",
+      "title": "Гемогенизм"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Цель с окровавлением становится целью багровых комаров с вдвое большего расстояния. Эффект замедляет, снижает броню и урон носителя.",
+      "title": " "
+    }
+  ],
+  "sortnum": 1
+}

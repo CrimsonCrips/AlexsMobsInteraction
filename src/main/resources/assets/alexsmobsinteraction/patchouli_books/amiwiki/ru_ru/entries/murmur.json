@@ -1,0 +1,28 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Шёпот",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/murmur_regrow.png"
+      ],
+      "text": "Тело и голова шёпота разделены, и его голова будет отрастать заново до тех пор, пока тело не умрёт.",
+      "title": "Шепчущий отросток"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:tendon_whip",
+      "text": "С новым зачарованием «Эластичное накопление», которое можно найти в заброшенных шахтах, сухожильный кнут может забирать предметы и опыт по мере движения.",
+      "title": "Захват сухожилия"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:unsettling_kimono",
+      "text": "При ношении зловещего кимоно вас будут атаковать железные и снежные големы.",
+      "title": "Тревожная ответка"
+    }
+  ],
+  "sortnum": 1
+}

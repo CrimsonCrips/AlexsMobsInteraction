@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Орёл",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/bird_bombing.png"
+      ],
+      "text": "Орлы могут подбирать динамит и бросать его, нажав клавишу «красться».",
+      "title": "Птичья бомбардировка"
+    }
+  ],
+  "sortnum": 1
+}

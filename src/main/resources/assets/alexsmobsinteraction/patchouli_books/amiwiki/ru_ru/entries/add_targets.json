@@ -1,0 +1,23 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Добавление целей",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/add_targets.png"
+      ],
+      "text": "Добавляет дополнительные цели для мобов для улучшения погружения.",
+      "title": "Добавление целей"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/cannibalism.png"
+      ],
+      "text": "Добавляет мобам каннибализм.",
+      "title": "Каннибализм"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Банановый слизняк",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/banana_shear.png"
+      ],
+      "text": "Банановые слизняки могут быть смертельно порезаны для связанных с бананами предметов.",
+      "title": "Резка бананов"
+    }
+  ],
+  "sortnum": 1
+}

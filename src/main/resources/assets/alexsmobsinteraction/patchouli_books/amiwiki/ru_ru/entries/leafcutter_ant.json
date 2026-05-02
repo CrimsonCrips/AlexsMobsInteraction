@@ -1,0 +1,30 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Муравей",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/cockroach_chamber.png"
+      ],
+      "text": "Туннели муравейника с большим количеством гонгилидии при разрушении могут привести к появлению тараканов.",
+      "title": "Тараканьи туннели"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:leafcutter_ant_pupa",
+      "text": "Куколки муравья могут быть брошены как метательное оружие и при приземлении на подходящую местность создают муравейники.",
+      "title": "Бросаемая куколка"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/ant_war.png"
+      ],
+      "text": "Появляются муравьиные разновидности, вызывающие соперничество между колониями муравьёв.",
+      "title": "Муравьиная война"
+    }
+  ],
+  "sortnum": 1
+}

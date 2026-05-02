@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Карпозубик",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/devils_fishing_industry.png"
+      ],
+      "text": "Добавлены взаимодействия и сделки, позволяющие вылавливать карпозубиков в пределах своего чанка и торговать с рыбаками.",
+      "title": "Карпозубиковая торговля"
+    }
+  ],
+  "sortnum": 1
+}

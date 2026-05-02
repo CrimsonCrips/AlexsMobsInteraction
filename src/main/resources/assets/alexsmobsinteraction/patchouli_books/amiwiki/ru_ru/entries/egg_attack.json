@@ -1,0 +1,15 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Яичная атака",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/egg_attack.png"
+      ],
+      "text": "Животные нападают на тех, кого видят со своими яйцами в руках.",
+      "title": "Яичная атака"
+    }
+  ]
+}

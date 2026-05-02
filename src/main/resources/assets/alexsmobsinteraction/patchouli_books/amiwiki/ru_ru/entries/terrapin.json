@@ -1,0 +1,14 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Бугорчатая черепаха",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "alexsmobs:terrapin",
+      "name": "Топот бугорчатой черепахи",
+      "text": "Бугорчатые черепахи получают урон, когда на них наступают."
+    }
+  ],
+  "sortnum": 1
+}

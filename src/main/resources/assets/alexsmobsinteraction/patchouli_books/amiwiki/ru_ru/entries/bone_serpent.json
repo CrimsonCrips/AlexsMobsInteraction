@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Костяной змей",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/body_shielding.png"
+      ],
+      "text": "Костяной змей получает 1 единицу урона при потере сегмента тела, а голова получает обычный урон, когда сегментов остается мало.",
+      "title": "Телесный щит"
+    }
+  ],
+  "sortnum": 1
+}

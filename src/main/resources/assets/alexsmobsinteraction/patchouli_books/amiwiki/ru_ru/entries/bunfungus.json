@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Грибной кролик",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/crop_farming.png"
+      ],
+      "text": "Грибной кролик в течение дня собирает урожай с близлежащих культур, немного восстанавливаясь.",
+      "title": "Растениеводство"
+    }
+  ],
+  "sortnum": 1
+}

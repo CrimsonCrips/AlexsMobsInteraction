@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Жар-птица",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/judgemental_returns.png"
+      ],
+      "text": "Даёт дополнительные эффекты: благословение сжигает и ослабляет нежить поблизости, а проклятие усиливает.",
+      "title": "Субъективная отдача"
+    }
+  ],
+  "sortnum": 1
+}

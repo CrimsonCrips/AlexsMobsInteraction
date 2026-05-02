@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Лавиафан",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/obsidian_extract.png"
+      ],
+      "text": "Обсидиановые лавиафаны могут быть добыты для получения обсидиана, но это причинит им незначительный вред и необходимость в повторном нагреве.",
+      "title": "Добыча обсидиана"
+    }
+  ],
+  "sortnum": 1
+}

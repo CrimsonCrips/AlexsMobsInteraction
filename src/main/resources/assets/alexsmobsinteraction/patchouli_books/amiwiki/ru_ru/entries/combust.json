@@ -1,0 +1,15 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Горение",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/combust.png"
+      ],
+      "text": "Мобы, облитые маслом, загораются (совместимо с модом Soul Fire).",
+      "title": "Горение"
+    }
+  ]
+}

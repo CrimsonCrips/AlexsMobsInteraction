@@ -1,0 +1,14 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Кенгуру",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:totem_of_undying",
+      "text": "Позволяет снабдить кенгуру тотемами, а также делает неразрушаемое оружие разрушаемым при передаче кенгуру.",
+      "title": "Вооружение"
+    }
+  ],
+  "sortnum": 1
+}

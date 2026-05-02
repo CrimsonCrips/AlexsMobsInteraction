@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Плащеносная акула",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/bleeding_hunger.png"
+      ],
+      "text": "Плащеносные акулы нападают на игроков с окровавлением или низким уровнем здоровья.",
+      "title": "Кровавый голод"
+    }
+  ],
+  "sortnum": 1
+}

@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Эндерград",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/unavoidable.png"
+      ],
+      "text": "Эндерграды и их наездники неуязвимы к урону пустоты.",
+      "title": "Непустотность"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:chorus_on_a_stick",
+      "text": "Эндерградов можно подтолкнуть вперёд удочкой с плодом хоруса.",
+      "title": "Эндер-ускорение"
+    }
+  ],
+  "sortnum": 1
+}

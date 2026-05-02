@@ -1,0 +1,24 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Грифовая черепаха",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/snapping_dormancy.png"
+      ],
+      "text": "Грифовые черепахи будут активны только ночью или во время дождя, если их не потревожат.",
+      "title": "Грифовая спячка"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/moss_propagation.png"
+      ],
+      "text": "Грифовая черепаха редко обрастает мхом во время дождя или в воде, а также при применении костной муки.",
+      "title": "Грифовый мох"
+    }
+  ],
+  "sortnum": 1
+}

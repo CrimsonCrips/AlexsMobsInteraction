@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Червь пустоты",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/dimensional_lodestone.png"
+      ],
+      "text": "Пространственный резак можно использовать для создания портала к связанному магнетиту, ценой намагниченного компаса во второй руке.",
+      "title": "Пространственный магнетит"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:dimensional_carver",
+      "text": "Пространственный резак может быть ускорен эффектом спешки.",
+      "title": "Поспешная резьба"
+    }
+  ],
+  "sortnum": 1
+}
