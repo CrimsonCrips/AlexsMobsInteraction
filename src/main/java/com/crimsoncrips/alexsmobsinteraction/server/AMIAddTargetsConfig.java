@@ -5,7 +5,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class AMIAddTargetsConfig {
 
     public final ForgeConfigSpec.BooleanValue CANNIBALISM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ADD_TARGETS_ENABLED;
 
     public final ForgeConfigSpec.BooleanValue SPIDER_ENABLED;
     public final ForgeConfigSpec.BooleanValue ANACONDA_ENABLED;
@@ -34,7 +33,6 @@ public class AMIAddTargetsConfig {
 
     public AMIAddTargetsConfig(final ForgeConfigSpec.Builder builder) {
         builder.comment();
-        this.ADD_TARGETS_ENABLED = buildBoolean(builder, "ADD_TARGETS_ENABLED",  true, "Add targets for mobs,including cannibalism");
         this.CANNIBALISM_ENABLED = buildBoolean(builder, "CANNIBALISM_ENABLED",  true, " ");
 
         builder.push("Vanilla Mobs");
