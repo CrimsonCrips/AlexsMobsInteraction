@@ -20,7 +20,6 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.function.BiConsumer;
 
-@SuppressWarnings("deprecation")
 public class AMIChestLootTables implements LootTableSubProvider {
 
 	@Override
