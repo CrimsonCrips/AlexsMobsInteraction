@@ -1,0 +1,15 @@
+{
+  "category": "alexsmobsinteraction:general",
+  "icon": "minecraft:paper",
+  "name": "Прирученные товарищи",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/general/tamed_friendlies.png"
+      ],
+      "text": "Некоторые приручаемые животные из мода становятся пассивными при приручении.",
+      "title": "Прирученные товарищи"
+    }
+  ]
+}

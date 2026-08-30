@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Снежный барс",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/snow_luck.png"
+      ],
+      "text": "Из убитых снежными барсами мобов выпадает 1-2 целой добычи.",
+      "title": "Снежная удача"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:moose_headgear",
+      "text": "Снежные барсы будут охотиться на ослабленных лосей, а также нападать на игроков в головных уборах лося.",
+      "title": "Барсовы желания"
+    }
+  ],
+  "sortnum": 1
+}

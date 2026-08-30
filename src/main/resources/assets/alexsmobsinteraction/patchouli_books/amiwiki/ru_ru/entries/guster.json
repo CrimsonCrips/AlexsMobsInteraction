@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Вихрь",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/gusting.png"
+      ],
+      "text": "Способность вихрей поднимать игроков определяется уровнем их брони.",
+      "title": "Завихрение"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:guster_eye",
+      "text": "Завихрение — это новый эффект, который делает игрока невосприимчивым к вихрям, увеличивает скорость передвижения и призывает вихри вокруг.",
+      "title": " "
+    }
+  ],
+  "sortnum": 1
+}

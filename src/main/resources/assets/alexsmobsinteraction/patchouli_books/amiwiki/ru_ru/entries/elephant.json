@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Слон",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:acacia_blossom",
+      "text": "Слоны с бивнями нападают на игроков без цветков акации в руках.",
+      "title": "Слоновая территория"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/elephant_trample.png"
+      ],
+      "text": "При езде верхом прученные слоны будут топтать животных высотой менее 2 блоков.",
+      "title": "Слоновое топтание"
+    }
+  ],
+  "sortnum": 1
+}

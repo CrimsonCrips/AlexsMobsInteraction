@@ -1,0 +1,20 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Прозиратель",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/farseer_altering.png"
+      ],
+      "text": "Прозиратель сбивает с толку игроков при нападении, перемешивая их инвентарь и наводя на них иллюзии.",
+      "title": "Меняющее прозирание"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "С помощью зачарования «Стабилизатор», которое можно найти в останках огромного червя, эффекты сознания у прозирателей, древних стражей и смотрителей (при установленном моде Alex's Caves) аннулируются."
+    }
+  ],
+  "sortnum": 1
+}

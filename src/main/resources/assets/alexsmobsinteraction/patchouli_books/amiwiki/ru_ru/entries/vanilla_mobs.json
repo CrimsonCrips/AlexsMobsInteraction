@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Ванильные мобы",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/witch_additions.png"
+      ],
+      "text": "Ведьмы будут использовать зелье устойчивости к ядам при отравлении.",
+      "title": "Устойчивость к ядам"
+    }
+  ],
+  "sortnum": 0
+}

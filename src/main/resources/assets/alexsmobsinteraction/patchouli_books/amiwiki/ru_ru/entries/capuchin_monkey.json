@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Капуцин",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/dart_effects.png"
+      ],
+      "text": "Накладывайте на дротики, брошенные капуцинами, эффекты зелий, щёлкнув по ним ПКМ. Эффект будет ограничен действием выбранного зелья.",
+      "title": "Дротиковые эффекты"
+    }
+  ],
+  "sortnum": 1
+}

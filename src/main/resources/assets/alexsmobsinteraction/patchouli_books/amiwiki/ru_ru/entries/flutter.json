@@ -1,0 +1,24 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Пархун",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/flutter_shear.png"
+      ],
+      "text": "Пархуна можно подстригать для получения азалии, мха и спороцветов.",
+      "title": "Стрижка пархуна"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/flowering_attraction.png"
+      ],
+      "text": "Пархуны привлекают пчёл и колибри.",
+      "title": "Цветочное привлекание"
+    }
+  ],
+  "sortnum": 1
+}

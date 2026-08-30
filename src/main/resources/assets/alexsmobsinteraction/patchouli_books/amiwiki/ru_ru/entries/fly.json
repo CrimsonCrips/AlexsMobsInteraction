@@ -1,0 +1,28 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Муха",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/scented_interaction.png"
+      ],
+      "text": "Мух привлекают определённые животные, а свечи отпугивают их.",
+      "title": "Ароматическое взаимодействие"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Коровы, овцы, свиньи, ламы, нюхачи, лошади, разорители, слоны, носороги, тюлени и бизоны."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/maggot_fishing.png"
+      ],
+      "text": "Держа опарыша во второй руке, вы увеличиваете удачу при рыбалке.",
+      "title": "Ловля на опарыша"
+    }
+  ],
+  "sortnum": 1
+}

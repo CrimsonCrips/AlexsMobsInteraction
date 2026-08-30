@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Многоножка",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/light_fear.png"
+      ],
+      "text": "Многоножки боятся света и игроков, держащих свет, но будут отбиваться, если на них нападут (совместимо с модом Curios Lanterns).",
+      "title": "Боязнь света"
+    }
+  ],
+  "sortnum": 1
+}

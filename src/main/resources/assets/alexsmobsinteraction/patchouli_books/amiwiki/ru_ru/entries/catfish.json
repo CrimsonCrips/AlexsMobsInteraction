@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Сом",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/cat_venom.png"
+      ],
+      "text": "Сом выделяет яд при ранении.",
+      "title": "Сомий яд"
+    }
+  ],
+  "sortnum": 1
+}

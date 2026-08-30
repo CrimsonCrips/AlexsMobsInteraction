@@ -1,0 +1,29 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Таракан",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/asmongold.png"
+      ],
+      "text": "Тараканам можно вручить тараканью корону, и тогда они станут тараканьим королём, а соседние тараканы превратятся в их слуг.",
+      "title": "Asmongold"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "alexsmobsinteraction:asmon_crown",
+      "text": "Тараканы-слуги обращают в свою веру других тараканов и нападают на тех, кто причиняет вред королю."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/cockroach_mutation.png"
+      ],
+      "text": "Под воздействием радиации таракан превращается в гаммаракана (только при установленном моде Alex's Caves).",
+      "title": "Тараканья мутация"
+    }
+  ],
+  "sortnum": 1
+}

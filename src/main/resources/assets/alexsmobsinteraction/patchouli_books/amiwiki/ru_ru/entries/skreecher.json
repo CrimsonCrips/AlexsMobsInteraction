@@ -1,0 +1,22 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Визгун",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/skreecher_ward.png"
+      ],
+      "text": "Души визгунов можно использовать на блоке визгуна, чтобы он позволял призывать хранителей.",
+      "title": "Визгувательство"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "alexsmobs:skreecher_soul",
+      "text": "Новый эффект зелья, который приводит к появлению хранителя на позиции игрока при окончании действия эффекта.",
+      "title": "Последний визг"
+    }
+  ],
+  "sortnum": 1
+}

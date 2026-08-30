@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Тасклин",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/zoglinned.png"
+      ],
+      "text": "Тасклины превращаются в зоглинов при ударе молнии.",
+      "title": "Зоглинификация"
+    }
+  ],
+  "sortnum": 1
+}

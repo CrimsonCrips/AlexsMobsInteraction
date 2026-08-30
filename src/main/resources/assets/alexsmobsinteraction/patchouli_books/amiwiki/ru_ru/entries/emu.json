@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Эму",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/ranged_aggro.png"
+      ],
+      "text": "Эму нападают на любого, кого увидят с оружием дальнего боя.",
+      "title": "Дальнобойный триггер"
+    }
+  ],
+  "sortnum": 1
+}

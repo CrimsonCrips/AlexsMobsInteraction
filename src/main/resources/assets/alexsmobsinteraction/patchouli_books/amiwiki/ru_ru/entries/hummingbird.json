@@ -1,0 +1,16 @@
+{
+  "category": "alexsmobsinteraction:mobs",
+  "icon": "minecraft:paper",
+  "name": "Колибри",
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": [
+        "alexsmobsinteraction:textures/gui/wiki/mobs/day_pollination.png"
+      ],
+      "text": "Колибри опыляют растения только днём.",
+      "title": "Дневное опыление"
+    }
+  ],
+  "sortnum": 1
+}
