@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:gusting",
+  "criteria": {
+    "weave": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.sand_weaver.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:guster_eye"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.sand_weaver"
+    }
+  },
+  "requirements": [
+    [
+      "weave"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

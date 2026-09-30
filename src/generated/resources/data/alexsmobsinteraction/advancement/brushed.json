@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "brushed": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.brushed.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:brush"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.brushed"
+    }
+  },
+  "requirements": [
+    [
+      "brushed"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

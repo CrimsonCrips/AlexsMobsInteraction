@@ -19,11 +19,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AMIFrilledShark {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityFrilledShark frilledShark = (EntityFrilledShark)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.BLEEDING_HUNGER_ENABLED.get()){
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, Player.class, 50, true, true, (mob) -> {
-                return mob.hasEffect(AMEffectRegistry.EXSANGUINATION.get());
+                return mob.hasEffect(AMEffectRegistry.EXSANGUINATION);
             }));
             frilledShark.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(frilledShark, EntityGiantSquid.class, 300, false, true,(livingEntity) -> {
                 return livingEntity.getHealth() <= 0.25F * livingEntity.getMaxHealth();

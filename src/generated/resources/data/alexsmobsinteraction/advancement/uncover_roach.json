@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "uncover": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.uncover_roach.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:leafcutter_ant_chamber"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.uncover_roach"
+    }
+  },
+  "requirements": [
+    [
+      "uncover"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

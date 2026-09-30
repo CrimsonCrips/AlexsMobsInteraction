@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:reheaded",
+  "criteria": {
+    "stretch": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.stretchy_accumulation.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:tendon_whip"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.stretchy_accumulation"
+    }
+  },
+  "requirements": [
+    [
+      "stretch"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

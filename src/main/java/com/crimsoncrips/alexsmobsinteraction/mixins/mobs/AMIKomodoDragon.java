@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityKomodoDragon;
@@ -37,7 +38,7 @@ public abstract class AMIKomodoDragon extends TamableAnimal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityKomodoDragon komodoDragon = (EntityKomodoDragon)(Object)this;
         komodoDragon.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(komodoDragon, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.KOMODO_DRAGON_TARGETS)){
             @Override
@@ -66,28 +67,28 @@ public abstract class AMIKomodoDragon extends TamableAnimal {
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 15))
-    private boolean nearestTarget(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals1(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 16))
-    private boolean nearestTarget2(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 17))
-    private boolean target3D(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals3(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get();
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }

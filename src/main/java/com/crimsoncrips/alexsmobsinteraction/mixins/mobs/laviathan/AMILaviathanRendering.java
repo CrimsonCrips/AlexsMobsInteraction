@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.Mixin;
 
 public class AMILaviathanRendering extends MobRenderer<EntityLaviathan, ModelLaviathan> {
 
-    private static final ResourceLocation TEXTURE_RELAVA = new ResourceLocation("alexsmobsinteraction:textures/entity/laviathan_relava.png");
+    private static final ResourceLocation TEXTURE_RELAVA = ResourceLocation.parse("alexsmobsinteraction:textures/entity/laviathan_relava.png");
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation("alexsmobs:textures/entity/laviathan.png");
-    private static final ResourceLocation TEXTURE_OBSIDIAN = new ResourceLocation("alexsmobs:textures/entity/laviathan_obsidian.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.parse("alexsmobs:textures/entity/laviathan.png");
+    private static final ResourceLocation TEXTURE_OBSIDIAN = ResourceLocation.parse("alexsmobs:textures/entity/laviathan_obsidian.png");
 
 
     public AMILaviathanRendering(EntityRendererProvider.Context pContext, ModelLaviathan pModel, float pShadowRadius) {

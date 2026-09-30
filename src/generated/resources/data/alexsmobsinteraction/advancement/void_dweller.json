@@ -1,0 +1,33 @@
+{
+  "parent": "alexsmobsinteraction:ender_boost",
+  "criteria": {
+    "void": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.void_dweller.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/void_dweller.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.void_dweller"
+    }
+  },
+  "requirements": [
+    [
+      "void"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  },
+  "sends_telemetry_event": true
+}

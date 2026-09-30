@@ -43,7 +43,7 @@ public abstract class AMICatfish extends WaterAnimal {
     }
 
     @Inject(method = "hurt", at = @At(value = "HEAD"))
-    private void alexsmobsinteraction$hurt(DamageSource source, float f, CallbackInfoReturnable<Boolean> cir) {
+    private void alexsMobsInteraction$hurt(DamageSource source, float f, CallbackInfoReturnable<Boolean> cir) {
         boolean prev = super.hurt(source, f);
         if(prev && source.getDirectEntity() instanceof LivingEntity living && AlexsMobsInteraction.COMMON_CONFIG.CAT_VENOM_ENABLED.get() && getRandom().nextDouble() < 0.4){
             living.addEffect(new MobEffectInstance(MobEffects.POISON, 100 * getCatfishSize()));
@@ -52,7 +52,7 @@ public abstract class AMICatfish extends WaterAnimal {
     }
 
     @Inject(method = "tick", at = @At(value = "TAIL"))
-    private void alexsmobsinteraction$tick(CallbackInfo ci) {
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
         for (int i = 0; i < catfishInventory.getContainerSize(); i++) {
             if (catfishInventory.getItem(i).is(AMIItemTagGenerator.HOT) && AlexsMobsInteraction.COMMON_CONFIG.GOOFY_HOT_POCKET_ENABLED.get()){
                 setSpitTime(100);

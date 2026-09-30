@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:altered",
+  "criteria": {
+    "repel": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.repel.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/repel.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.repel"
+    }
+  },
+  "requirements": [
+    [
+      "repel"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

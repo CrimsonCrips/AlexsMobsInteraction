@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.datagen;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -32,7 +32,7 @@ public class AMInDamageTypes {
         return new DamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(type), attacker, indirectAttacker);
     }
             
-    public static void bootstrap(BootstapContext<DamageType> context) {
+    public static void bootstrap(BootstrapContext<DamageType> context) {
 
         context.register(BANANA_SLIP, new DamageType("banana_slip", 0.0F));
     }

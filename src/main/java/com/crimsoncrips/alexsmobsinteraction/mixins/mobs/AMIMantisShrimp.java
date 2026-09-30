@@ -24,7 +24,7 @@ public abstract class AMIMantisShrimp extends TamableAnimal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityMantisShrimp mantisShrimp = (EntityMantisShrimp)(Object)this;
         if(AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             mantisShrimp.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(mantisShrimp, EntityMantisShrimp.class, 200, true, false, (livingEntity) -> {

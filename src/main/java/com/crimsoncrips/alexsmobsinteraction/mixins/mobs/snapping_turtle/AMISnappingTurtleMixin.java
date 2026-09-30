@@ -75,12 +75,12 @@ public abstract class AMISnappingTurtleMixin extends Animal implements AMIBasicI
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void define(CallbackInfo ci) {
-        this.entityData.define(DAY_SLEEPING, false);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(DAY_SLEEPING, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void add(CompoundTag compound, CallbackInfo ci) {
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
         compound.putBoolean("DaySleeping", isDaySleeping());
     }
 

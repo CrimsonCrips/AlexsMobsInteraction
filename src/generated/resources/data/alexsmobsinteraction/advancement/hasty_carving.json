@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:dimensional_lodestone",
+  "criteria": {
+    "haste": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.hasty_carving.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:dimensional_carver"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.hasty_carving"
+    }
+  },
+  "requirements": [
+    [
+      "haste"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cockroach;
 
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -33,7 +34,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -70,12 +71,12 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void alexsMobsInteraction$getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }
@@ -97,14 +98,14 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(WORSHIPING_UUID, Optional.empty());
-        this.entityData.define(IS_GOD, false);
-        this.entityData.define(WORSHIPING_ID, -1);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(WORSHIPING_UUID, Optional.empty());
+        builder.define(IS_GOD, false);
+        builder.define(WORSHIPING_ID, -1);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         compound.putBoolean("RoachGod", isGod());
 
         if (this.getWorshipingUUID() != null) {
@@ -112,7 +113,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
         }
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         this.setGod(compound.getBoolean("RoachGod"));
 
         if (compound.hasUUID("WorshipingUUID")) {
@@ -228,7 +229,7 @@ public abstract class AMICockroach extends Mob implements AsmonRoach {
 
 
     @Override
-    public boolean canBeLeashed(Player pPlayer) {
-        return super.canBeLeashed(pPlayer) && !isGod() && getWorshiping() == null;
+    public boolean canBeLeashed() {
+        return super.canBeLeashed() && !isGod() && getWorshiping() == null;
     }
 }

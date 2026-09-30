@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.laviathan;
 
+import net.minecraft.world.entity.EquipmentSlot;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -57,16 +58,16 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
     private static final EntityDataAccessor<Boolean> RELAVA;
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(RELAVA, false);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(RELAVA, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         compound.putBoolean("Relava", this.isRelava());
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         this.setRelava(compound.getBoolean("Relava"));
 
     }
@@ -85,21 +86,21 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
     }
 
     @Inject(method = "mobInteract", at = @At("TAIL"))
-    private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
+    private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         EntityLaviathan laviathan = (EntityLaviathan)(Object)this;
         if (player.getMainHandItem().getItem() instanceof PickaxeItem && laviathan.isObsidian()){
             setRelava(true);
             laviathan.setObsidian(false);
             this.playSound(SoundEvents.WITHER_BREAK_BLOCK, 2, this.getVoicePitch());
             AMIUtils.spawnLoot(AMILootTables.OBSIDIAN_EXTRACT,laviathan,player,0);
-            player.getMainHandItem().hurtAndBreak(1, this, (p_233654_0_) -> {});
+            player.getMainHandItem().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
             this.hurt(laviathan.damageSources().generic(),10);
             AMIUtils.awardAdvancement(player,"obsidian_extract","extract");
         }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tick(CallbackInfo ci){
+    private void alexsMobsInteraction$tick(CallbackInfo ci){
         EntityLaviathan laviathan = (EntityLaviathan)(Object)this;
         if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && isRelava() && AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get()) {
             if (getPersistentData().getInt("RelavaTicks") < 6000) {
@@ -127,7 +128,7 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
 
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLaviathan;isObsidian()Z",ordinal = 1), cancellable = true)
-    private void alter1(CallbackInfo ci) {
+    private void alexsMobsInteraction$tick1(CallbackInfo ci) {
         if (AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() && this.isRelava()){
             ci.cancel();
         }

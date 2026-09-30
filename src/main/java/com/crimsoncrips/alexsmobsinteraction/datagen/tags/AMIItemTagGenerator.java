@@ -14,8 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,6 +23,8 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 	public static final TagKey<Item> LIGHT_FEAR = create("light_fear");
 	public static final TagKey<Item> EMU_TRIGGER = create("emu_trigger");
 	public static final TagKey<Item> HOT = create("hot");
+	public static final TagKey<Item> ROLLING_THUNDER_ENCHANTABLE = create("enchantable/rolling_thunder");
+	public static final TagKey<Item> STRETCHY_ACCUMULATION_ENCHANTABLE = create("enchantable/stretchy_accumulation");
 
     public AMIItemTagGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> future, CompletableFuture<TagLookup<Block>> provider, ExistingFileHelper helper) {
         super(output, future, provider, AlexsMobsInteraction.MODID, helper);
@@ -54,6 +56,14 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 				Items.SOUL_TORCH
 		);
 
+		tag(ROLLING_THUNDER_ENCHANTABLE).add(
+				AMItemRegistry.ROCKY_CHESTPLATE.get()
+		);
+
+		tag(STRETCHY_ACCUMULATION_ENCHANTABLE).add(
+				AMItemRegistry.TENDON_WHIP.get()
+		);
+
 		tag(HOT).add(
 				Items.FIRE_CHARGE,
 				Items.LAVA_BUCKET,
@@ -75,6 +85,6 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 	}
 
 	public static TagKey<Item> makeForgeTag(String tagName) {
-		return ItemTags.create(new ResourceLocation("forge", tagName));
+		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", tagName));
 	}
 }

@@ -1,0 +1,27 @@
+{
+  "parent": "alexsmobsinteraction:maggot_fishing",
+  "criteria": {
+    "fish": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.devil_fish.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:devils_hole_pupfish_bucket"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.devil_fish"
+    }
+  },
+  "requirements": [
+    [
+      "fish"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

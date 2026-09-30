@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
@@ -42,19 +43,19 @@ public abstract class AMITiger extends Mob {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityTiger tiger = (EntityTiger)(Object)this;
         tiger.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(tiger, Pillager.class, true));
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }

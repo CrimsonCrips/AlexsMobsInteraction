@@ -1,5 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
+import net.minecraft.world.item.component.LodestoneTracker;
+import net.minecraft.core.component.DataComponents;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
@@ -39,17 +41,17 @@ public abstract class AMIDimensionalCarverMixin extends Item {
     }
 
     @Inject(method = "onPortalOpen", at = @At("HEAD"),cancellable = true,remap = false)
-    private void onPortalOpen(Level worldIn, LivingEntity player, EntityVoidPortal portal, Direction dir, CallbackInfo ci) {
+    private void alexsMobsInteraction$onPortalOpen(Level worldIn, LivingEntity player, EntityVoidPortal portal, Direction dir, CallbackInfo ci) {
         ci.cancel();
         portal.setLifespan(1200);
         ItemStack itemStack = player.getOffhandItem();
         if (player instanceof ServerPlayer serverPlayer && itemStack.getItem() instanceof CompassItem && AlexsMobsInteraction.COMMON_CONFIG.DIMENSIONAL_LODESTONE_ENABLED.get()){
-            CompoundTag lodestoneTag = itemStack.getTag();
-            if (lodestoneTag != null && CompassItem.getLodestonePosition(lodestoneTag) != null){
+            LodestoneTracker lodestoneTracker = itemStack.get(DataComponents.LODESTONE_TRACKER);
+            if (lodestoneTracker != null && lodestoneTracker.target().isPresent()){
                 if(!serverPlayer.isCreative() && AlexsMobsInteraction.COMMON_CONFIG.CONSUME_COMPASS_ENABLED.get()){
                     itemStack.shrink(1);
                 }
-                GlobalPos globalLodestone = CompassItem.getLodestonePosition(lodestoneTag);
+                GlobalPos globalLodestone = lodestoneTracker.target().get();
                 portal.exitDimension = globalLodestone.dimension();
                 portal.setDestination(globalLodestone.pos().above(3));
                 if (globalLodestone.dimension() != player.level().dimension()){
@@ -81,7 +83,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
     }
 
     @ModifyConstant(method = "onUseTick",constant = @Constant(intValue = 1))
-    private int modifyAmount(int amount, @Local(ordinal = 0, argsOnly = true) LivingEntity player) {
+    private int alexsMobsInteraction$onUseTick(int amount, @Local(ordinal = 0, argsOnly = true) LivingEntity player) {
         MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
         if (AlexsMobsInteraction.COMMON_CONFIG.HASTY_CARVING_ENABLED.get()) {
             AMIUtils.awardAdvancement(player, "hasty_carving", "haste");

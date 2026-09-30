@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "vision": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.potoo_vision.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/potoo_vision.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.potoo_vision"
+    }
+  },
+  "requirements": [
+    [
+      "vision"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

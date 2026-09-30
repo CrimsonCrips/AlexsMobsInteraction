@@ -2,8 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.crimsoncrips.alexsmobsinteraction.mixins",
-  "compatibilityLevel": "JAVA_8",
-  "refmap": "alexsmobsinteraction.refmap.json",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "external_mobs.ac.AMIWatcher",
     "external_mobs.vanilla.AMIBeeMixin",
@@ -19,8 +18,6 @@
     "misc.AMIAnthillFeatureMixin",
     "misc.AMIDimensionalCarverMixin",
     "misc.AMIFlyingFishBootsMixin",
-    "misc.AMIGuiMixin",
-    "misc.AMIJadeRendering",
     "misc.AMILeafcutterPupaItemMixin",
     "misc.AMITendonWhip",
     "misc.AMITileCapsid",
@@ -98,16 +95,16 @@
     "mobs.kangaroo.AMIKangaroo",
     "mobs.laviathan.AMILaviathan",
     "mobs.leafcutter.AMILeafcutterAntMixin",
-    "mobs.leafcutter.AMILeafcutterAntRenderMixin",
     "mobs.portal.AMIVoidPortalMixin",
     "mobs.skelewag.AMISkelewag",
     "mobs.snapping_turtle.AMISnappingTurtleMixin",
-    "mobs.snapping_turtle.AMISnappingTurtleRenderMixin",
     "mobs.terrapin.AMITerrapinMixin"
   ],
   "client": [
     "external_mobs.vanilla.player.AMIPlayerRenderMixin",
     "misc.AMIEffectRenderingInventoryScreenMixin",
+    "misc.AMIGuiMixin",
+    "misc.AMIJadeRendering",
     "misc.AMIParticleInvertDigMixin",
     "mobs.bald_eagle.AMIBaldEagleRenderMixin",
     "mobs.capuchin.AMILayerCapuchinItem",
@@ -119,15 +116,13 @@
     "mobs.kangaroo.AMIKangarooRenderMixin",
     "mobs.laviathan.AMILaviathanLayerRenderingMixin",
     "mobs.laviathan.AMILaviathanRendering",
+    "mobs.leafcutter.AMILeafcutterAntRenderMixin",
     "mobs.portal.AMIVoidPortalRenderMixin",
     "mobs.skelewag.AMISkelewagRenderMixin",
-    "mobs.terrapin.AMITerrapinMixin",
+    "mobs.snapping_turtle.AMISnappingTurtleRenderMixin",
     "mobs.terrapin.AMITerrapinRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixinextras": {
-    "minVersion": "0.5.4"
   }
 }

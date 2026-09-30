@@ -34,24 +34,24 @@ public abstract class AMILivingEntity extends Entity implements GrizzlyExtras {
 
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(SWIPES, 0);
-        this.entityData.define(SWIPES_DELAY, 0);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(SWIPES, 0);
+        builder.define(SWIPES_DELAY, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         compound.putInt("Swipes", this.getSwipes());
         compound.putInt("SwipeDelay", this.getSwipeDelay());
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         this.setSwipes(compound.getInt("Swipes"));
         this.setSwipeDelay(compound.getInt("SwipeDelay"));
     }
 
-    @ModifyExpressionValue(method = "actuallyHurt", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/common/ForgeHooks;onLivingHurt(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/damagesource/DamageSource;F)F"))
-    private float alexsMobsInteraction$actuallyHurt(float original, @Local DamageSource source){
+    @ModifyExpressionValue(method = "actuallyHurt", at = @At(value = "INVOKE", target = "Lnet/neoforged/neoforge/common/CommonHooks;onLivingDamagePre(Lnet/minecraft/world/entity/LivingEntity;Lnet/neoforged/neoforge/common/damagesource/DamageContainer;)F"))
+    private float alexsMobsInteraction$actuallyHurt(float original, @Local(argsOnly = true) DamageSource source){
         if (source.getEntity() instanceof EntityGrizzlyBear grizzlyBear && ((GrizzlyExtras)grizzlyBear).isUrsa()){
             return original * (1.10F * getSwipes());
         }

@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import net.minecraft.world.entity.LivingEntity;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -33,8 +34,7 @@ public abstract class AMIBananaSlug extends Animal {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if (AlexsMobsInteraction.COMMON_CONFIG.BANANA_SHEAR_ENABLED.get() && itemStack.getItem() instanceof ShearsItem && !pPlayer.level().isClientSide) {
             if (!pPlayer.isCreative()) {
-                itemStack.hurtAndBreak(1, pPlayer, (p_233654_0_) -> {
-                });
+                itemStack.hurtAndBreak(1, pPlayer, LivingEntity.getSlotForHand(pHand));
             }
             pPlayer.swing(pHand,true);
             AMIUtils.spawnLoot(AMILootTables.BANANA_SHEAR,this,pPlayer,0);

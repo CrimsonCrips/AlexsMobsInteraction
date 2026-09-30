@@ -29,7 +29,7 @@ public abstract class AMIParticleInvertDigMixin extends SimpleAnimatedParticle {
 
 
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(III)I"))
-    private int bypassExpensiveCalculationIfNecessary(int pValue, int pMin, int pMax, Operation<Integer> original) {
+    private int alexsMobsInteraction$tick(int pValue, int pMin, int pMax, Operation<Integer> original) {
         if (AlexsMobsInteraction.COMMON_CONFIG.HASTY_CARVING_ENABLED.get() && creator instanceof Player player){
             MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
             return original.call(pValue,pMin,pMax) * (haste != null ? (haste.getAmplifier() == 0 ? 2 : 4) : 1);

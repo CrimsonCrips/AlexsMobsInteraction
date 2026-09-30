@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityTriops;
 import com.mojang.datafixers.util.Pair;
@@ -26,13 +27,13 @@ public abstract class AMITriops extends WaterAnimal {
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }

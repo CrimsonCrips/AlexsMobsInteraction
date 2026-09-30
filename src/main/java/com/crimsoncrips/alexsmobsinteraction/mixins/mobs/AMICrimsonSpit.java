@@ -45,7 +45,7 @@ public abstract class AMICrimsonSpit extends Entity {
         if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
             if (p_213868_1_.getEntity() instanceof LivingEntity livingHitEntity){
                 if (!(livingHitEntity instanceof EntityCrimsonMosquito || livingHitEntity instanceof EntityWarpedMosco)){
-                    livingHitEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 240, 0));
+                    livingHitEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED, 240, 0));
                 }
 
                 if (spitOwner instanceof EntityCrimsonMosquito || spitOwner instanceof EntityWarpedMosco) {

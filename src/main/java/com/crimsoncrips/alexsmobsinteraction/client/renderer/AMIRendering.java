@@ -4,22 +4,23 @@ import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIShaders;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import static com.github.alexthe666.alexsmobs.client.event.ClientEvents.renderStaticScreenFor;
 import static java.lang.Math.abs;
 
-@Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = AlexsMobsInteraction.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class AMIRendering {
 	private static final ResourceLocation FARSEER_TEXT = AlexsMobsInteraction.prefix("textures/gui/farseer_text.png");
 
@@ -34,9 +35,11 @@ public class AMIRendering {
 	public static float STALK_PROGRESS = 0.0F;
 
 	@SubscribeEvent
-	public static void registerOverlays(RegisterGuiOverlaysEvent event) {
+	public static void registerOverlays(RegisterGuiLayersEvent event) {
 		Minecraft minecraft = Minecraft.getInstance();
-		event.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "farseer_text", (gui, graphics, partialTick, screenWidth, screenHeight) -> {
+		event.registerAbove(VanillaGuiLayers.CROSSHAIR, AlexsMobsInteraction.prefix("farseer_text"), (graphics, deltaTracker) -> {
+			int screenWidth = graphics.guiWidth();
+			int screenHeight = graphics.guiHeight();
 			if (minecraft.player == null)
 				return;
 			if (!AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get())
@@ -54,7 +57,9 @@ public class AMIRendering {
 
 		//Thanks Drullkus for cooking
 		final ResourceLocation farseerNoise = AlexsMobsInteraction.prefix("textures/gui/farseer_static.png");
-		event.registerAbove(VanillaGuiOverlay.VIGNETTE.id(), "farseer_effects", (gui, graphics, partialTick, screenWidth, screenHeight) -> {
+		event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, AlexsMobsInteraction.prefix("farseer_effects"), (graphics, deltaTracker) -> {
+			int screenWidth = graphics.guiWidth();
+			int screenHeight = graphics.guiHeight();
 			if (minecraft.player == null)
 				return;
 			if (!AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get())
@@ -74,15 +79,12 @@ public class AMIRendering {
 			RenderSystem.setShader(() -> AMIShaders.FARSEER_EFFECTS);
 			AMIShaders.FARSEER_EFFECTS.GAME_TIME.set(RenderSystem.getShaderGameTime());
 
-			Tesselator tesselator = Tesselator.getInstance();
-			BufferBuilder bufferbuilder = tesselator.getBuilder();
-			bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-			bufferbuilder.vertex(0.0D, screenHeight, -90.0D).uv(0.0F, 1.0F).endVertex();
-			bufferbuilder.vertex(screenWidth, screenHeight, -90.0D).uv(1.0F, 1.0F).endVertex();
-			bufferbuilder.vertex(screenWidth, 0.0D, -90.0D).uv(1.0F, 0.0F).endVertex();
-			bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(0.0F, 0.0F).endVertex();
-
-			tesselator.end();
+			BufferBuilder bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			bufferbuilder.addVertex(0.0F, screenHeight, -90.0F).setUv(0.0F, 1.0F);
+			bufferbuilder.addVertex(screenWidth, screenHeight, -90.0F).setUv(1.0F, 1.0F);
+			bufferbuilder.addVertex(screenWidth, 0.0F, -90.0F).setUv(1.0F, 0.0F);
+			bufferbuilder.addVertex(0.0F, 0.0F, -90.0F).setUv(0.0F, 0.0F);
+			BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
 			RenderSystem.depthMask(true);
 			RenderSystem.enableDepthTest();
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

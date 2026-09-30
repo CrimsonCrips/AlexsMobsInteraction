@@ -4,21 +4,21 @@ import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RenderFrameEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import static com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering.ALTER_PROGRESS;
 import static com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering.STALK_PROGRESS;
 
-@Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = AlexsMobsInteraction.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
 public class AMIRenderTiming {
     private static long LAST_TIME = 0;
 
     @SubscribeEvent
-    public static void onRenderTick(TickEvent.RenderTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
+    public static void onRenderTick(RenderFrameEvent.Pre event) {
+        {
             final long time = Util.getNanos();
             final double deltaTime = (time - LAST_TIME) / 1.0E9D;
             LAST_TIME = time;

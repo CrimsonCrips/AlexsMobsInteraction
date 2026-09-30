@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "ender_boost": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.ender_boost.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:chorus_on_a_stick"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.ender_boost"
+    }
+  },
+  "requirements": [
+    [
+      "ender_boost"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

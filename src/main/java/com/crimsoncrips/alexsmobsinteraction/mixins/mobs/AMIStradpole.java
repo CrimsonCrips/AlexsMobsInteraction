@@ -32,16 +32,16 @@ public abstract class AMIStradpole extends Mob {
     private static final EntityDataAccessor<Integer> HOPUPTICK;
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(HOPUPTICK, 0);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(HOPUPTICK, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         compound.putInt("HopUpTick", this.getHopUpTick());
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         this.setHopUpTick(compound.getInt("HopUpTick"));
 
     }
@@ -61,7 +61,7 @@ public abstract class AMIStradpole extends Mob {
     double y2;
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(CallbackInfo ci) {
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get() && isDespawnSoon()){
             int x = this.getBlockX();
             int y = this.getBlockY();

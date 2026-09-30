@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.grizzly_bear;
 
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
@@ -129,12 +130,12 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }
@@ -156,8 +157,7 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
 
         if (AlexsMobsInteraction.COMMON_CONFIG.BRUSHED_ENABLED.get() && itemStack.getItem() instanceof BrushItem && !this.level().isClientSide && this.isHoneyed() && !isUrsa()) {
             if (!player.isCreative()) {
-                itemStack.hurtAndBreak(15, player, (p_233654_0_) -> {
-                });
+                itemStack.hurtAndBreak(15, player, LivingEntity.getSlotForHand(hand));
             }
             AMIUtils.spawnLoot(AMILootTables.GRIZZLY_BRUSH,this,player,0);
             this.playSound(SoundEvents.BRUSH_GENERIC, 1, this.getVoicePitch());
@@ -168,7 +168,7 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
             String freddy = "Freddy Fazbear";
             if (grizzlyBear.getName().getString().equals(freddy)) {
                 grizzlyBear.setAprilFoolsFlag(2);
-                grizzlyBear.setTame(false);
+                grizzlyBear.setTame(false, true);
                 grizzlyBear.setOwnerUUID(null);
             }
         }
@@ -197,13 +197,13 @@ public abstract class AMIGrizzlyBear extends Animal implements GrizzlyExtras {
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void define(CallbackInfo ci) {
-        this.entityData.define(NO_HONEY, 0);
-        this.entityData.define(URSA, false);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(NO_HONEY, 0);
+        builder.define(URSA, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void add(CompoundTag compound, CallbackInfo ci) {
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
         compound.putInt("NoHoney", getNoHoney());
         compound.putBoolean("Ursa", isUrsa());
     }

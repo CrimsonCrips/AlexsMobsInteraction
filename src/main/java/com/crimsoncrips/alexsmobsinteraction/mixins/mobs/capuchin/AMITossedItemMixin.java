@@ -21,7 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,9 +47,9 @@ public abstract class AMITossedItemMixin extends ThrowableItemProjectile impleme
     }
 
     @Inject(method = "defineSynchedData", at = @At(value = "TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(APPLIED_POTION, "");
-        this.entityData.define(POTION_LEVEL, 0);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(APPLIED_POTION, "");
+        builder.define(POTION_LEVEL, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
@@ -107,7 +107,7 @@ public abstract class AMITossedItemMixin extends ThrowableItemProjectile impleme
 
     public MobEffect getPotionEffect() {
         if (getPotionId() != null) {
-            return ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(this.getPotionId()));
+            return BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(this.getPotionId()));
         } else return null;
     }
 
@@ -126,7 +126,7 @@ public abstract class AMITossedItemMixin extends ThrowableItemProjectile impleme
         MobEffect potion = getPotionEffect();
 
         if(potion != null && p_213868_1_.getEntity() instanceof LivingEntity livingEntity && AlexsMobsInteraction.COMMON_CONFIG.DART_EFFECTS_ENABLED.get()){
-            MobEffectInstance instance = new MobEffectInstance(potion, 100, getPotionLevel());
+            MobEffectInstance instance = new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(potion), 100, getPotionLevel());
             livingEntity.addEffect(instance);
         }
     }

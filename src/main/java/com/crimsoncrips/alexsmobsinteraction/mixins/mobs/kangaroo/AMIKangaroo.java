@@ -64,7 +64,7 @@ public abstract class AMIKangaroo extends TamableAnimal {
     }
 
     @Inject(method = "resetKangarooSlots", at = @At("TAIL"),remap = false)
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$resetKangarooSlots(CallbackInfo ci) {
         if (!this.level().isClientSide && AlexsMobsInteraction.COMMON_CONFIG.ARMAMENTS_ENABLED.get()) {
             int totemIndex = -1;
             for (int i = 0; i < this.kangarooInventory.getContainerSize(); ++i) {
@@ -83,22 +83,22 @@ public abstract class AMIKangaroo extends TamableAnimal {
 
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void define(CallbackInfo ci) {
-        this.entityData.define(TOTEM_INDEX, Integer.valueOf(-1));
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(TOTEM_INDEX, Integer.valueOf(-1));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void add(CompoundTag compound, CallbackInfo ci) {
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
         compound.putInt("TotemIndex", this.entityData.get(TOTEM_INDEX));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void read(CompoundTag compound, CallbackInfo ci) {
+    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
         this.entityData.set(TOTEM_INDEX, compound.getInt("TotemInvIndex"));
     }
 
     @WrapWithCondition(method = "doHurtTarget", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityKangaroo;damageItem(Lnet/minecraft/world/item/ItemStack;)V"))
-    private boolean aiStep(EntityKangaroo instance, ItemStack stack) {
+    private boolean alexsMobsInteraction$doHurtTarget(EntityKangaroo instance, ItemStack stack) {
         return !AlexsMobsInteraction.COMMON_CONFIG.ARMAMENTS_ENABLED.get() || stack.isDamageableItem();
     }
 

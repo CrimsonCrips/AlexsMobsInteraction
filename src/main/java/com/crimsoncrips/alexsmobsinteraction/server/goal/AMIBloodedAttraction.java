@@ -32,6 +32,6 @@ public class AMIBloodedAttraction extends EntityAINearestTarget3D {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && target.hasEffect(AMIEffects.BLOODED.get());
+        return super.canUse() && target.hasEffect(AMIEffects.BLOODED);
     }
 }

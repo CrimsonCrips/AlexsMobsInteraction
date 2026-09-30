@@ -31,7 +31,7 @@ public abstract class AMIRoadrunner extends Animal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityRoadrunner roadrunner = (EntityRoadrunner)(Object)this;
         if (AlexsMobsInteraction.TARGETS_CONFIG.ROADRUNNER_ENABLED.get()){
             roadrunner.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(roadrunner, LivingEntity.class, 200, true, true, livingEntity -> {

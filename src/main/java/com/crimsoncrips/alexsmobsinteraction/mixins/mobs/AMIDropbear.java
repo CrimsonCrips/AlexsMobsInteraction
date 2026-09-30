@@ -29,7 +29,7 @@ public abstract class AMIDropbear extends Monster {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityDropBear dropBear = (EntityDropBear)(Object)this;
         if (AlexsMobsInteraction.TARGETS_CONFIG.DROPBEAR_ENABLED.get()) {
             dropBear.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(dropBear, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.NETHER_KILL)) {

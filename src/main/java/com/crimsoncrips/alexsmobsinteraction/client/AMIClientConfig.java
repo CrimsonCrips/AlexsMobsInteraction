@@ -1,16 +1,16 @@
 package com.crimsoncrips.alexsmobsinteraction.client;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class AMIClientConfig {
 
-    public final ForgeConfigSpec.BooleanValue FARSEER_EFFECTS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EFFECTS_REMINDER_ENABLED;
-    public final ForgeConfigSpec.IntValue NETHER_PORTAL_VARIANT;
-    public final ForgeConfigSpec.IntValue END_PORTAL_VARIANT;
+    public final ModConfigSpec.BooleanValue FARSEER_EFFECTS_ENABLED;
+    public final ModConfigSpec.BooleanValue EFFECTS_REMINDER_ENABLED;
+    public final ModConfigSpec.IntValue NETHER_PORTAL_VARIANT;
+    public final ModConfigSpec.IntValue END_PORTAL_VARIANT;
 
 
-    public AMIClientConfig(final ForgeConfigSpec.Builder builder) {
+    public AMIClientConfig(final ModConfigSpec.Builder builder) {
         builder.push("visuals");
         this.FARSEER_EFFECTS_ENABLED = buildBoolean(builder, "FARSEER_EFFECTS_ENABLED", " ", true, "Whether Farseer's effects are enabled (this is for sensitive types like photosensitivity)");
         this.EFFECTS_REMINDER_ENABLED = buildBoolean(builder, "EFFECTS_REMINDER_ENABLED", " ", true, "Whether Farseer's effects reminder is enabled in login");
@@ -23,11 +23,11 @@ public class AMIClientConfig {
 
     }
 
-    private static ForgeConfigSpec.BooleanValue buildBoolean(ForgeConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment){
+    private static ModConfigSpec.BooleanValue buildBoolean(ModConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment){
         return builder.comment(comment).translation(name).define(name, defaultValue);
     }
 
-    private static ForgeConfigSpec.IntValue buildInt(ForgeConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment){
+    private static ModConfigSpec.IntValue buildInt(ModConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment){
         return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
     }
 }

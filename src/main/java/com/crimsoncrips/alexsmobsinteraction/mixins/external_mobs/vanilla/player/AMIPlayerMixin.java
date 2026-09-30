@@ -1,10 +1,10 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla.player;
 
+import net.minecraft.world.entity.EquipmentSlot;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
-import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
 import com.crimsoncrips.alexsmobsinteraction.networking.AlterPacket;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
@@ -33,7 +33,7 @@ import net.minecraft.world.item.SpyglassItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -50,7 +50,7 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
     @Override
     public boolean canStandOnFluid(FluidState pFluidState) {
         ItemStack chestItem = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (AlexsMobsInteraction.COMMON_CONFIG.ROLLING_THUNDER_ENABLED.get() && chestItem.is(AMItemRegistry.ROCKY_CHESTPLATE.get()) && chestItem.getEnchantmentLevel(AMIEnchantmentRegistry.ROLLING_THUNDER.get()) > 0) {
+        if (AlexsMobsInteraction.COMMON_CONFIG.ROLLING_THUNDER_ENABLED.get() && chestItem.is(AMItemRegistry.ROCKY_CHESTPLATE.get()) && AMIEnchantmentRegistry.getLevel(level(), chestItem, AMIEnchantmentRegistry.ROLLING_THUNDER) > 0) {
             BlockState blockState = getBlockStateOn();
             double z = this.getLookAngle().z;
             double x = this.getLookAngle().x;
@@ -59,8 +59,7 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
                 ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
                 if (random.nextDouble() < 0.1) this.level().addParticle(particle, this.getRandomX(0.1), this.getY() + 0.5, this.getRandomZ(0.1), x * -2 * this.getRandom().nextInt(2), 0.1 + d1, z * -2 * this.getRandom().nextInt(2));
                 if (random.nextDouble() < 0.001) {
-                    chestItem.hurtAndBreak(2, this, (p_233654_0_) -> {
-                    });
+                    chestItem.hurtAndBreak(2, this, EquipmentSlot.CHEST);
                 }
                 AMIUtils.awardAdvancement(this,"rolling_thunder","roll");
                 return true;
@@ -78,10 +77,10 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
         Player player = (Player)(Object)this;
 
         if (AlexsMobsInteraction.COMMON_CONFIG.FARSEER_ALTERING_ENABLED.get()) {
-            if (!(getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0) && getStalkTime() >= 1.5 && !level().isClientSide && getAlterTime() <= 0) {
+            if (!(AMIEnchantmentRegistry.getLevel(level(), getItemBySlot(EquipmentSlot.HEAD), AMIEnchantmentRegistry.STABILIZER) > 0) && getStalkTime() >= 1.5 && !level().isClientSide && getAlterTime() <= 0) {
                 setStalkDelay(-500);
                 setAlterTime(100);
-                AMIPacketHandler.FARSEER_ALTER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new AlterPacket());
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new AlterPacket());
                 addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
                 AMIUtils.awardAdvancement(player,"altered","alter");
             }
@@ -141,20 +140,20 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
 
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(FARSEER_ALTERRING_TIME, 0);
-        this.entityData.define(FARSEER_STALKING_TIME, 0F);
-        this.entityData.define(FARSEER_STALKING_DELAY, 0);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(FARSEER_ALTERRING_TIME, 0);
+        builder.define(FARSEER_STALKING_TIME, 0F);
+        builder.define(FARSEER_STALKING_DELAY, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         compound.putInt("FarseerAlterringTime", this.getAlterTime());
         compound.putFloat("FarseerStalkingTime", this.getStalkTime());
         compound.putInt("FarseerStalkingDelay", this.getStalkDelay());
     }
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditional(CompoundTag compound, CallbackInfo ci){
+    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
         this.setAlterTime(compound.getInt("FarseerAlterringTime"));
         this.setStalkTime(compound.getInt("FarseerStalkingTime"));
         this.setStalkDelay(compound.getInt("FarseerStalkingDelay"));

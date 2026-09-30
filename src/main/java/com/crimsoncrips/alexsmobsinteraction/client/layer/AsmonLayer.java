@@ -18,12 +18,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 
 public class AsmonLayer extends RenderLayer<EntityCockroach, ModelCockroach> {
 
     //Copy of AM crown layer
-    private static final ResourceLocation TEXTURE_CROWN = new ResourceLocation("alexsmobsinteraction:textures/entity/asmon_crown.png");
+    private static final ResourceLocation TEXTURE_CROWN = ResourceLocation.parse("alexsmobsinteraction:textures/entity/asmon_crown.png");
 
 
     public AsmonLayer(RenderLayerParent<EntityCockroach, ModelCockroach> pRenderer) {
@@ -38,7 +38,7 @@ public class AsmonLayer extends RenderLayer<EntityCockroach, ModelCockroach> {
             pPoseStack.translate(0.080F, 1.5F, -2.2F);
             pPoseStack.mulPose(Axis.XP.rotationDegrees(90F));
             pPoseStack.scale(1.3F, 1.3F, 1.3F);
-            this.getParentModel().renderToBuffer(pPoseStack, crown, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.getParentModel().renderToBuffer(pPoseStack, crown, pPackedLight, OverlayTexture.NO_OVERLAY);
             pPoseStack.popPose();
 
             float cameraY = Minecraft.getInstance().getEntityRenderDispatcher().camera.getYRot();

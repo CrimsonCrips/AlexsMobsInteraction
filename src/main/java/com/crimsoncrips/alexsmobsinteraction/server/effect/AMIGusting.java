@@ -21,21 +21,13 @@ public class AMIGusting extends MobEffect {
 
     public AMIGusting() {
         super(MobEffectCategory.BENEFICIAL, 0Xfae6af);
-        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "9015e1e9-ce4f-4bfa-ad17-b64d01056aa6", 0.35000000596046448, AttributeModifier.Operation.MULTIPLY_BASE);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, AlexsMobsInteraction.prefix("effect.gusting.movement_speed"), 0.35000000596046448, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 
-    public void removeAttributeModifiers(LivingEntity entityLivingBaseIn, AttributeMap attributeMapIn, int amplifier) {
-        super.removeAttributeModifiers(entityLivingBaseIn, attributeMapIn, amplifier);
-    }
-
-    public void addAttributeModifiers(LivingEntity entityLivingBaseIn, AttributeMap attributeMapIn, int amplifier) {
-        super.addAttributeModifiers(entityLivingBaseIn, attributeMapIn, amplifier);
-    }
-
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
         if (!AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get())
-            return;
+            return true;
         AMIUtils.awardAdvancement(entity,"gusting","gusting");
         if (entity.getRandom().nextDouble() < 0.5){
             for (int j = 0; j < 4; ++j) {
@@ -49,7 +41,7 @@ public class AMIGusting extends MobEffect {
         }
         timer--;
         if (level.isClientSide)
-            return;
+            return true;
         if(timer == 39 && entity instanceof Player){
             int z = 1;
             for (int x = -2; x != 2; x ++) {
@@ -64,9 +56,10 @@ public class AMIGusting extends MobEffect {
                 }
             }
         }
+        return true;
     }
 
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return duration > 0;
     }
 

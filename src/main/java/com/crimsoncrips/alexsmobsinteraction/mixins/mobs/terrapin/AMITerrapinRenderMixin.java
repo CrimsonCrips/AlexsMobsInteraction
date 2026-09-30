@@ -18,8 +18,8 @@ public abstract class AMITerrapinRenderMixin extends MobRenderer<EntityTerrapin,
         super(pContext, pModel, pShadowRadius);
     }
 
-    private static final ResourceLocation BLUE_SHELL = new ResourceLocation("alexsmobsinteraction:textures/entity/terrapin/blue_shell.png");
-    private static final ResourceLocation MINE_TURTLE = new ResourceLocation("alexsmobsinteraction:textures/entity/terrapin/mine_turtle.png");
+    private static final ResourceLocation BLUE_SHELL = ResourceLocation.parse("alexsmobsinteraction:textures/entity/terrapin/blue_shell.png");
+    private static final ResourceLocation MINE_TURTLE = ResourceLocation.parse("alexsmobsinteraction:textures/entity/terrapin/mine_turtle.png");
 
     public ResourceLocation getTextureLocation(EntityTerrapin entity) {
         AMIBasicInterfaces amiBaseInterfaces = (AMIBasicInterfaces)entity;

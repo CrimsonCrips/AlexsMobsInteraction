@@ -13,7 +13,7 @@ public abstract class AMIFlyingFishBootsMixin {
 
 
     @ModifyArg(method = "tickFlyingFishBoots", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V"), index = 1)
-    private static double adjustY(double y,@Local(ordinal = 0, argsOnly = true) LivingEntity wearer) {
+    private static double alexsMobsInteraction$tickFlyingFishBoots(double y,@Local(ordinal = 0, argsOnly = true) LivingEntity wearer) {
         if(AlexsMobsInteraction.COMMON_CONFIG.WEAVING_WATERS_ENABLED.get()){
             double speed = 0;
             double lookAngle = 0;
@@ -30,7 +30,7 @@ public abstract class AMIFlyingFishBootsMixin {
     }
 
     @ModifyArg(method = "tickFlyingFishBoots", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V"), index = 0)
-    private static double adjustX(double x,@Local(ordinal = 0, argsOnly = true) LivingEntity wearer) {
+    private static double alexsMobsInteraction$tickFlyingFishBoots1(double x,@Local(ordinal = 0, argsOnly = true) LivingEntity wearer) {
         if(AlexsMobsInteraction.COMMON_CONFIG.WEAVING_WATERS_ENABLED.get()){
             double speed = 0;
             if (wearer.getDeltaMovement().horizontalDistance() != 0) {

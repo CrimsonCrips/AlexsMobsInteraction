@@ -42,13 +42,13 @@ public class AMIFrog extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(TRANFORMING, false);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(TRANFORMING, false);
     }
 
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void AlexInteraction$tick(CallbackInfo ci) {
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
             if (isTransforming()){
                 frogWarped++;
                 if (frogWarped > 160 && !this.level().isClientSide) {

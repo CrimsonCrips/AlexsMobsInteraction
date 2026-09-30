@@ -1,92 +1,90 @@
 package com.crimsoncrips.alexsmobsinteraction.server;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class AMIServerConfig {
-    public final ForgeConfigSpec.BooleanValue AMI_WIKI_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DART_EFFECTS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue HEMOGENICISM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BOXING_GLOVES_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BRUSHED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EGG_ATTACK_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SCENTED_INTERACTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue COMBUSTIBLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DEVILS_FISHING_INDUSTRY;
-    public final ForgeConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TUSKED_TERRITORIAL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ENDERIOPHAGE_ADAPTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FLOWERING_ATTRACTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TRANSFORMATION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FOOD_FX_ENABLED;
-    public final ForgeConfigSpec.BooleanValue FREDDYABLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TAMED_FRIENDLIES_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GOOFY_CAPUCHIN_BOMB_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GOOFY_CRIMSON_MULTIPLY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GOOFY_RAINFROG_SPAWNAGE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GOOFY_STRADDLER_SHOTGUN_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GUSTING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue HELD_FOOD_ENABLED;
-    public final ForgeConfigSpec.BooleanValue INFECT_INTERACTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ANT_WAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
-    public final ForgeConfigSpec.BooleanValue LIGHT_FEAR_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MIMICKRY_ENABLED;
-    //public final ForgeConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
-    public final ForgeConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
-    public final ForgeConfigSpec.BooleanValue DAY_POLINATION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue VISIONARY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue RANGED_AGGRO_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ROLLING_THUNDER_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SNATCH_INTERACTION_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BODY_SHIELDING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SKREECHER_WARD_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SKREECH_YOUR_LAST_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SNAPPING_DORMANCY_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SNOW_LUCK_ENABLED;
-    public final ForgeConfigSpec.BooleanValue HONEYLESS_HUNTING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue JUDGEMENTAL_RETURNS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TENDON_GRAB_ENABLED;
-    public final ForgeConfigSpec.BooleanValue TERRAPIN_STOMP_ENABLED;
-    public final ForgeConfigSpec.BooleanValue THROWABLE_PUPI_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ZOGLINNED_ENABLED;
-    public final ForgeConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue UNAVOIDABLE_ENABLED;
-    public final ForgeConfigSpec.BooleanValue SOUL_STEAL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue WITHERED_SKELEWAG_ENABLED;
-    public final ForgeConfigSpec.DoubleValue BLOODED_CHANCE;
-    public final ForgeConfigSpec.IntValue STRADDLER_SHOTS_AMOUNT;
-    public final ForgeConfigSpec.BooleanValue CAT_VENOM_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CROP_FARMING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue BLUE_SHELL_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ASMONGOLD_ENABLED;
-    public final ForgeConfigSpec.BooleanValue GOOFY_HOT_POCKET_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ARMAMENTS_ENABLED;
-    public final ForgeConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
-    public final ForgeConfigSpec.BooleanValue CONSUME_COMPASS_ENABLED;
+    public final ModConfigSpec.BooleanValue DART_EFFECTS_ENABLED;
+    public final ModConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
+    public final ModConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
+    public final ModConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
+    public final ModConfigSpec.BooleanValue HEMOGENICISM_ENABLED;
+    public final ModConfigSpec.BooleanValue BOXING_GLOVES_ENABLED;
+    public final ModConfigSpec.BooleanValue BRUSHED_ENABLED;
+    public final ModConfigSpec.BooleanValue BURROW_AWAY_ENABLED;
+    public final ModConfigSpec.BooleanValue EGG_ATTACK_ENABLED;
+    public final ModConfigSpec.BooleanValue SCENTED_INTERACTION_ENABLED;
+    public final ModConfigSpec.BooleanValue COCKROACH_CHAMBER_ENABLED;
+    public final ModConfigSpec.BooleanValue COCKROACH_MUTATION_ENABLED;
+    public final ModConfigSpec.BooleanValue COMBUSTIBLE_ENABLED;
+    public final ModConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
+    public final ModConfigSpec.BooleanValue DEVILS_FISHING_INDUSTRY;
+    public final ModConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
+    public final ModConfigSpec.BooleanValue TUSKED_TERRITORIAL_ENABLED;
+    public final ModConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
+    public final ModConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
+    public final ModConfigSpec.BooleanValue ENDERIOPHAGE_ADAPTION_ENABLED;
+    public final ModConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
+    public final ModConfigSpec.BooleanValue FLOWERING_ATTRACTION_ENABLED;
+    public final ModConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
+    public final ModConfigSpec.BooleanValue TRANSFORMATION_ENABLED;
+    public final ModConfigSpec.BooleanValue FOOD_FX_ENABLED;
+    public final ModConfigSpec.BooleanValue FREDDYABLE_ENABLED;
+    public final ModConfigSpec.BooleanValue TAMED_FRIENDLIES_ENABLED;
+    public final ModConfigSpec.BooleanValue GOOFY_BANANA_SLIP_ENABLED;
+    public final ModConfigSpec.BooleanValue GOOFY_CAPUCHIN_BOMB_ENABLED;
+    public final ModConfigSpec.BooleanValue GOOFY_CRIMSON_MULTIPLY_ENABLED;
+    public final ModConfigSpec.BooleanValue GOOFY_RAINFROG_SPAWNAGE_ENABLED;
+    public final ModConfigSpec.BooleanValue GOOFY_STRADDLER_SHOTGUN_ENABLED;
+    public final ModConfigSpec.BooleanValue GUSTING_ENABLED;
+    public final ModConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
+    public final ModConfigSpec.BooleanValue HELD_FOOD_ENABLED;
+    public final ModConfigSpec.BooleanValue INFECT_INTERACTION_ENABLED;
+    public final ModConfigSpec.BooleanValue ANT_WAR_ENABLED;
+    public final ModConfigSpec.BooleanValue LEOPARD_DESIRES_ENABLED;
+    public final ModConfigSpec.BooleanValue LIGHT_FEAR_ENABLED;
+    public final ModConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
+    public final ModConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
+    public final ModConfigSpec.BooleanValue MIMICKRY_ENABLED;
+    //public final ModConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
+    public final ModConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
+    public final ModConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
+    public final ModConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
+    public final ModConfigSpec.BooleanValue DAY_POLINATION_ENABLED;
+    public final ModConfigSpec.BooleanValue VISIONARY_ENABLED;
+    public final ModConfigSpec.BooleanValue RANGED_AGGRO_ENABLED;
+    public final ModConfigSpec.BooleanValue ROLLING_THUNDER_ENABLED;
+    public final ModConfigSpec.BooleanValue SNATCH_INTERACTION_ENABLED;
+    public final ModConfigSpec.BooleanValue BODY_SHIELDING_ENABLED;
+    public final ModConfigSpec.BooleanValue SKREECHER_WARD_ENABLED;
+    public final ModConfigSpec.BooleanValue SKREECH_YOUR_LAST_ENABLED;
+    public final ModConfigSpec.BooleanValue SNAPPING_DORMANCY_ENABLED;
+    public final ModConfigSpec.BooleanValue SNOW_LUCK_ENABLED;
+    public final ModConfigSpec.BooleanValue HONEYLESS_HUNTING_ENABLED;
+    public final ModConfigSpec.BooleanValue STRADDLE_SCAVENGE_ENABLED;
+    public final ModConfigSpec.BooleanValue JUDGEMENTAL_RETURNS_ENABLED;
+    public final ModConfigSpec.BooleanValue TENDON_GRAB_ENABLED;
+    public final ModConfigSpec.BooleanValue TERRAPIN_STOMP_ENABLED;
+    public final ModConfigSpec.BooleanValue THROWABLE_PUPI_ENABLED;
+    public final ModConfigSpec.BooleanValue ZOGLINNED_ENABLED;
+    public final ModConfigSpec.BooleanValue UNSETTLING_BACKFIRE_ENABLED;
+    public final ModConfigSpec.BooleanValue UNAVOIDABLE_ENABLED;
+    public final ModConfigSpec.BooleanValue SOUL_STEAL_ENABLED;
+    public final ModConfigSpec.BooleanValue WEAVING_WATERS_ENABLED;
+    public final ModConfigSpec.BooleanValue WITCH_ADDITIONS_ENABLED;
+    public final ModConfigSpec.BooleanValue WITHERED_SKELEWAG_ENABLED;
+    public final ModConfigSpec.DoubleValue BLOODED_CHANCE;
+    public final ModConfigSpec.IntValue STRADDLER_SHOTS_AMOUNT;
+    public final ModConfigSpec.BooleanValue CAT_VENOM_ENABLED;
+    public final ModConfigSpec.BooleanValue CROP_FARMING_ENABLED;
+    public final ModConfigSpec.BooleanValue BLUE_SHELL_ENABLED;
+    public final ModConfigSpec.BooleanValue ASMONGOLD_ENABLED;
+    public final ModConfigSpec.BooleanValue GOOFY_HOT_POCKET_ENABLED;
+    public final ModConfigSpec.BooleanValue ARMAMENTS_ENABLED;
+    public final ModConfigSpec.BooleanValue ENDERBOOSTING_ENABLED;
+    public final ModConfigSpec.BooleanValue CONSUME_COMPASS_ENABLED;
 
-    public AMIServerConfig(final ForgeConfigSpec.Builder builder) {
+    public AMIServerConfig(final ModConfigSpec.Builder builder) {
         builder.push("General");
-        this.AMI_WIKI_ENABLED = buildBoolean(builder, "AMI_WIKI_ENABLED", " ", true, "Gives you the ami wiki book at start");
         this.FOOD_FX_ENABLED = buildBoolean(builder, "FOOD_FX_ENABLED", " ", true, "Whether animals that target food recieve the effects of the food they grab");
         this.EGG_ATTACK_ENABLED = buildBoolean(builder, "EGG_ATTACK_ENABLED", " ", true, "Animals with eggs will be hostile to those seen holding their eggs");
         this.TRANSFORMATION_ENABLED = buildBoolean(builder, "TRANSFORMATION_ENABLED", " ", true, "Mob Transformation");
@@ -286,15 +284,15 @@ public class AMIServerConfig {
         builder.pop();
     }
 
-    private static ForgeConfigSpec.BooleanValue buildBoolean(ForgeConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment){
+    private static ModConfigSpec.BooleanValue buildBoolean(ModConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment){
         return builder.comment(comment).translation(name).define(name, defaultValue);
     }
 
-    private static ForgeConfigSpec.IntValue buildInt(ForgeConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment){
+    private static ModConfigSpec.IntValue buildInt(ModConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment){
         return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
     }
 
-    private static ForgeConfigSpec.DoubleValue buildDouble(ForgeConfigSpec.Builder builder, String name, String catagory, double defaultValue, double min, double max, String comment){
+    private static ModConfigSpec.DoubleValue buildDouble(ModConfigSpec.Builder builder, String name, String catagory, double defaultValue, double min, double max, String comment){
         return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
     }
 }

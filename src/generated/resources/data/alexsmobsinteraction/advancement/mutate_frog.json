@@ -1,0 +1,32 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "mutate": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.mutate_frog.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/mutate_frog.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.mutate_frog"
+    }
+  },
+  "requirements": [
+    [
+      "mutate"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

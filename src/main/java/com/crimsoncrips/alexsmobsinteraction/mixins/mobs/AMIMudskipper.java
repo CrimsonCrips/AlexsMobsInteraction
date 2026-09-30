@@ -25,7 +25,7 @@ public abstract class AMIMudskipper extends TamableAnimal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityMudskipper mudskipper = (EntityMudskipper)(Object)this;
         if (AlexsMobsInteraction.TARGETS_CONFIG.MUDSKIPPER_ENABLED.get()) {
             mudskipper.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(mudskipper, LivingEntity.class, 200, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.MUDSKIPPER_KILL)));

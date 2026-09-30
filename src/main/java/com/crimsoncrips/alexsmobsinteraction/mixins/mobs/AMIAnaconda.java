@@ -41,7 +41,7 @@ public abstract class AMIAnaconda extends Animal implements AntiChildCanibalism 
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityAnaconda anaconda = (EntityAnaconda)(Object)this;
         if (AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get()) {
             anaconda.targetSelector.addGoal(3, new HurtByTargetGoal(this, EntityAnaconda.class));
@@ -61,8 +61,8 @@ public abstract class AMIAnaconda extends Animal implements AntiChildCanibalism 
 
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(ORIGIN_ID, 0);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(ORIGIN_ID, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
@@ -85,7 +85,7 @@ public abstract class AMIAnaconda extends Animal implements AntiChildCanibalism 
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 13))
-    private boolean hurtByTarget(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals1(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get();
     }
 

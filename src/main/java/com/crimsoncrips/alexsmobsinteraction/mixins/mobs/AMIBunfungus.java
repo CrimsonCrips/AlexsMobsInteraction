@@ -26,7 +26,7 @@ public abstract class AMIBunfungus extends PathfinderMob {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityBunfungus bunfungus = (EntityBunfungus)(Object)this;
 
         if(AlexsMobsInteraction.COMMON_CONFIG.UNSETTLING_BACKFIRE_ENABLED.get()) {

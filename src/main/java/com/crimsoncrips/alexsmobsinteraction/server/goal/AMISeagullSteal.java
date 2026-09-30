@@ -5,6 +5,7 @@
 
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
+import net.minecraft.core.component.DataComponents;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.EntitySeagull;
@@ -24,7 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 public class AMISeagullSteal extends Goal {
     private final EntitySeagull seagull;
@@ -88,7 +89,7 @@ public class AMISeagullSteal extends Goal {
                     this.fleeTime = 60;
                     this.seagull.stealCooldown = 1500 + this.seagull.getRandom().nextInt(1500);
                     if (this.target instanceof ServerPlayer) {
-                        AMAdvancementTriggerRegistry.SEAGULL_STEAL.trigger((ServerPlayer)this.target);
+                        AMAdvancementTriggerRegistry.SEAGULL_STEAL.get().trigger((ServerPlayer)this.target);
                     }
                 } else {
                     this.stop();
@@ -145,11 +146,11 @@ public class AMISeagullSteal extends Goal {
         if(AlexsMobsInteraction.COMMON_CONFIG.HELD_FOOD_ENABLED.get()){
             ItemStack offHand = player.getOffhandItem();
             ItemStack mainHand = player.getMainHandItem();
-            return (mainHand.isEdible() && !this.isBlacklisted(mainHand)) || (offHand.isEdible() && !this.isBlacklisted(offHand));
+            return (mainHand.has(DataComponents.FOOD) && !this.isBlacklisted(mainHand)) || (offHand.has(DataComponents.FOOD) && !this.isBlacklisted(offHand));
         } else {
             for (int i = 0; i < 9; ++i){
                 ItemStack stackIn = player.getInventory().items.get(i);
-                if (stackIn.isEdible() && !this.isBlacklisted(stackIn)){
+                if (stackIn.has(DataComponents.FOOD) && !this.isBlacklisted(stackIn)){
                     return true;
                 }
             }
@@ -159,7 +160,7 @@ public class AMISeagullSteal extends Goal {
     }
 
     private boolean isBlacklisted(ItemStack stack) {
-        ResourceLocation loc = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        ResourceLocation loc = BuiltInRegistries.ITEM.getKey(stack.getItem());
         if (loc != null) {
             Iterator var3 = AMConfig.seagullStealingBlacklist.iterator();
 
@@ -180,15 +181,15 @@ public class AMISeagullSteal extends Goal {
         if(AlexsMobsInteraction.COMMON_CONFIG.HELD_FOOD_ENABLED.get()){
             ItemStack offHand = player.getOffhandItem();
             ItemStack mainHand = player.getMainHandItem();
-            if (offHand.isEdible() && !this.isBlacklisted(offHand)) {
+            if (offHand.has(DataComponents.FOOD) && !this.isBlacklisted(offHand)) {
                 foods.add(offHand);
-            } else if (mainHand.isEdible() && !this.isBlacklisted(mainHand)) {
+            } else if (mainHand.has(DataComponents.FOOD) && !this.isBlacklisted(mainHand)) {
                 foods.add(mainHand);
             }
         } else {
             for (int i = 0; i < 9; ++i) {
                 ItemStack stackIn = player.getInventory().items.get(i);
-                if (stackIn.isEdible() && !this.isBlacklisted(stackIn)) {
+                if (stackIn.has(DataComponents.FOOD) && !this.isBlacklisted(stackIn)) {
                     foods.add(stackIn);
                 }
             }

@@ -17,9 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RenderGrizzlyBear.class)
 public abstract class AMIGrizzlyBearRenderer extends MobRenderer<EntityGrizzlyBear, ModelGrizzlyBear> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation("alexsmobs:textures/entity/grizzly_bear.png");
-    private static final ResourceLocation TEXTURE_FREDDY = new ResourceLocation("alexsmobs:textures/entity/grizzly_bear_freddy.png");
-    private static final ResourceLocation TEXTURE_URSA = new ResourceLocation("alexsmobsinteraction:textures/entity/grizzly_bear/ursa.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.parse("alexsmobs:textures/entity/grizzly_bear.png");
+    private static final ResourceLocation TEXTURE_FREDDY = ResourceLocation.parse("alexsmobs:textures/entity/grizzly_bear_freddy.png");
+    private static final ResourceLocation TEXTURE_URSA = ResourceLocation.parse("alexsmobsinteraction:textures/entity/grizzly_bear/ursa.png");
 
 
     public AMIGrizzlyBearRenderer(EntityRendererProvider.Context pContext, ModelGrizzlyBear pModel, float pShadowRadius) {

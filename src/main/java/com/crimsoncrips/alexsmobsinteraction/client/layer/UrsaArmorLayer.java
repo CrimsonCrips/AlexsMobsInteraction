@@ -19,7 +19,7 @@ public class UrsaArmorLayer extends RenderLayer<EntityGrizzlyBear, ModelGrizzlyB
         super(pRenderer);
     }
 
-    private static final ResourceLocation TEXTURE_URSA_ARMOR = new ResourceLocation("alexsmobsinteraction:textures/entity/grizzly_bear/ursa_armor.png");
+    private static final ResourceLocation TEXTURE_URSA_ARMOR = ResourceLocation.parse("alexsmobsinteraction:textures/entity/grizzly_bear/ursa_armor.png");
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, EntityGrizzlyBear entityGrizzlyBear, float v, float v1, float v2, float v3, float v4, float v5) {
@@ -32,7 +32,7 @@ public class UrsaArmorLayer extends RenderLayer<EntityGrizzlyBear, ModelGrizzlyB
             VertexConsumer vertexconsumer = multiBufferSource.getBuffer(getParentModel().renderType(TEXTURE_URSA_ARMOR));
             entitymodel.setupAnim(entityGrizzlyBear, v, v1, v3, v4, v5);
             poseStack.scale(1.1F,1.2F,1.02F);
-            entitymodel.renderToBuffer(poseStack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
+            entitymodel.renderToBuffer(poseStack, vertexconsumer, i, OverlayTexture.NO_OVERLAY);
         }
     }
 }

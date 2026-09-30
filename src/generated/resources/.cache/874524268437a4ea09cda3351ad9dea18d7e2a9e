@@ -1,5 +1,7 @@
-// 1.20.1	2025-08-27T02:52:19.282802596	AMI Item Tags
-ed812d11a070d92ca88d1d889a167aa4dcda4159 data/alexsmobs/tags/items/komodo_dragon_tameables.json
-3586a12f698cc4f5bf1e60c00db83e6fdb395f4d data/alexsmobsinteraction/tags/items/emu_trigger.json
-479f9a8ddc6d6b6a2d1c211135c7c9486b0845cc data/alexsmobsinteraction/tags/items/hot.json
-0b3604eb586b87b1849c5f585b9eec1692356061 data/alexsmobsinteraction/tags/items/light_fear.json
+// 1.21.1	2026-09-30T08:59:23.404569621	AMI Item Tags
+ed812d11a070d92ca88d1d889a167aa4dcda4159 data/alexsmobs/tags/item/komodo_dragon_tameables.json
+3586a12f698cc4f5bf1e60c00db83e6fdb395f4d data/alexsmobsinteraction/tags/item/emu_trigger.json
+71f3e4aac64e2b97b37318f71ed5b981b04b2476 data/alexsmobsinteraction/tags/item/enchantable/rolling_thunder.json
+4660aa24812a39c568e7446d4743de83d85fe700 data/alexsmobsinteraction/tags/item/enchantable/stretchy_accumulation.json
+479f9a8ddc6d6b6a2d1c211135c7c9486b0845cc data/alexsmobsinteraction/tags/item/hot.json
+0b3604eb586b87b1849c5f585b9eec1692356061 data/alexsmobsinteraction/tags/item/light_fear.json

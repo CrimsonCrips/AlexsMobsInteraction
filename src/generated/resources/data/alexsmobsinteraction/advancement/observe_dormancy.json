@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "observe": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.observe_dormancy.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/observe_dormancy.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.observe_dormancy"
+    }
+  },
+  "requirements": [
+    [
+      "observe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

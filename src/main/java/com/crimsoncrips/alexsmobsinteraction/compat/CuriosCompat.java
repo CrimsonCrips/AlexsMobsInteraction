@@ -3,7 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.compat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 

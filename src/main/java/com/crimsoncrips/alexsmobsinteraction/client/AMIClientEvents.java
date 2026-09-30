@@ -12,20 +12,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.frog.Frog;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
+import net.neoforged.neoforge.client.event.RenderLivingEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class AMIClientEvents {
 
 
     private double vibrate;
-    private static final ResourceLocation BOSS_BAR_HUD_OVERLAYS = new ResourceLocation(AlexsCaves.MODID, "textures/misc/boss_bar_hud_overlays.png");
+    private static final ResourceLocation BOSS_BAR_HUD_OVERLAYS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MODID, "textures/misc/boss_bar_hud_overlays.png");
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void renderBossOverlay(CustomizeGuiOverlayEvent.BossEventProgress event) {

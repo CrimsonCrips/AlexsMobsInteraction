@@ -1,5 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server;
 
+import net.minecraft.tags.EntityTypeTags;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.compat.BOPCompat;
@@ -45,29 +47,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.ServerChatEvent;
-import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import vazkii.patchouli.common.item.PatchouliItems;
+import net.neoforged.neoforge.event.ServerChatEvent;
+import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
+import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.Mod;
 
 import java.util.Iterator;
 
 import static com.github.alexthe666.alexsmobs.block.BlockLeafcutterAntChamber.FUNGUS;
 import static net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON;
 
-@Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AMInteractionEvents {
 
     @SubscribeEvent
-    public void onEntityFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
+    public void onEntityFinalizeSpawn(FinalizeSpawnEvent event) {
         final var entity = event.getEntity();
 
         if (entity instanceof EntityCrimsonMosquito crimsonMosquito){
@@ -94,27 +94,28 @@ public class AMInteractionEvents {
     }
 
     @SubscribeEvent
-    public void mobTickEvents(LivingEvent.LivingTickEvent livingTickEvent){
-        LivingEntity livingEntity = livingTickEvent.getEntity();
-        Level level = livingTickEvent.getEntity().level();
+    public void mobTickEvents(EntityTickEvent.Pre entityTickEvent){
+        if (!(entityTickEvent.getEntity() instanceof LivingEntity livingEntity))
+            return;
+        Level level = livingEntity.level();
 
 
 
 
         if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
-            if (ModList.get().isLoaded("biomesoplenty") && livingEntity.getFeetBlockState().is(BOPCompat.getBOPBlock())) {
-                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 400, 0));
+            if (ModList.get().isLoaded("biomesoplenty") && livingEntity.getInBlockState().is(BOPCompat.getBOPBlock())) {
+                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED, 400, 0));
             }
 
-            MobEffectInstance blooded = livingEntity.getEffect(AMIEffects.BLOODED.get());
+            MobEffectInstance blooded = livingEntity.getEffect(AMIEffects.BLOODED);
             if (livingEntity.isInWaterRainOrBubble() && blooded != null){
-                livingEntity.removeEffect(AMIEffects.BLOODED.get());
-                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), blooded.getDuration() - 300, blooded.getAmplifier()));
+                livingEntity.removeEffect(AMIEffects.BLOODED);
+                livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED, blooded.getDuration() - 300, blooded.getAmplifier()));
             }
 
             for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(1.2))) {
-                if (entity != livingEntity && livingEntity.getRandom().nextDouble() < 0.01 && livingEntity.hasEffect(AMEffectRegistry.EXSANGUINATION.get())) {
-                    livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), 300, 1));
+                if (entity != livingEntity && livingEntity.getRandom().nextDouble() < 0.01 && livingEntity.hasEffect(AMEffectRegistry.EXSANGUINATION)) {
+                    livingEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED, 300, 1));
                 }
             }
         }
@@ -141,16 +142,16 @@ public class AMInteractionEvents {
 
             BlockState feetBlockstate = player.getBlockStateOn();
 
-            if (AlexsMobsInteraction.COMMON_CONFIG.COMBUSTIBLE_ENABLED.get() && player.hasEffect(AMEffectRegistry.OILED.get())){
+            if (AlexsMobsInteraction.COMMON_CONFIG.COMBUSTIBLE_ENABLED.get() && player.hasEffect(AMEffectRegistry.OILED)){
                 if (feetBlockstate.is(Blocks.MAGMA_BLOCK) || feetBlockstate.is(Blocks.CAMPFIRE)) {
-                    player.setSecondsOnFire(20);
+                    player.igniteForSeconds(20);
                     AMIUtils.awardAdvancement(player,"combustible","combust");
                 }
 
                 if (feetBlockstate.is(Blocks.SOUL_CAMPFIRE)){
-                    if (ModList.get().isLoaded("soulfired")) {
+                    if (ModList.get().isLoaded("soul_fire_d")) {
                         SoulFiredCompat.setOnFire(player,20);
-                    } else player.setSecondsOnFire(20);
+                    } else player.igniteForSeconds(20);
                     AMIUtils.awardAdvancement(player,"combustible","combust");
                 }
 
@@ -168,13 +169,12 @@ public class AMInteractionEvents {
             if(AlexsMobsInteraction.COMMON_CONFIG.JUDGEMENTAL_RETURNS_ENABLED.get()){
 
                 for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7, 4, 7))) {
-                    MobType entityType = entity.getMobType();
-                    if (entityType == MobType.UNDEAD && !entity.isInWater()) {
-                        if (player.hasEffect(AMEffectRegistry.SUNBIRD_BLESSING.get())) {
+                    if (entity.getType().is(EntityTypeTags.UNDEAD) && !entity.isInWater()) {
+                        if (player.hasEffect(AMEffectRegistry.SUNBIRD_BLESSING)) {
                             entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 0));
-                            entity.setSecondsOnFire(3);
+                            entity.igniteForSeconds(3);
                         }
-                        if (player.hasEffect(AMEffectRegistry.SUNBIRD_CURSE.get())) {
+                        if (player.hasEffect(AMEffectRegistry.SUNBIRD_CURSE)) {
                             entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 350, 2));
                             entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 0));
                         }
@@ -222,26 +222,6 @@ public class AMInteractionEvents {
             ((AMIBasicInterfaces)entityEndergrade).boost();
         }
     }
-
-    @SubscribeEvent
-    public static void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (ModList.get().isLoaded("patchouli")){
-            Player player = event.getEntity();
-            CompoundTag playerData = event.getEntity().getPersistentData();
-            CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-
-            ItemStack book = new ItemStack(PatchouliItems.BOOK);
-            book.getOrCreateTag().putString("patchouli:book", "alexsmobsinteraction:amiwiki");
-
-            if (!data.getBoolean("ami_book") && AlexsMobsInteraction.COMMON_CONFIG.AMI_WIKI_ENABLED.get()) {
-                player.addItem(book);
-                data.putBoolean("ami_book", true);
-                playerData.put(Player.PERSISTED_NBT_TAG, data);
-            }
-        }
-    }
-
-
 
     @SubscribeEvent
     public void onUseItemOnBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -306,7 +286,7 @@ public class AMInteractionEvents {
     }
 
     @SubscribeEvent
-    public void mobAttack(LivingAttackEvent attackEvent){
+    public void mobAttack(LivingIncomingDamageEvent attackEvent){
         if(attackEvent.getSource().getDirectEntity() instanceof EntitySoulVulture soulVulture && AlexsMobsInteraction.COMMON_CONFIG.SOUL_STEAL_ENABLED.get()){
             soulVulture.setSoulLevel(soulVulture.getSoulLevel() + 1);
         }

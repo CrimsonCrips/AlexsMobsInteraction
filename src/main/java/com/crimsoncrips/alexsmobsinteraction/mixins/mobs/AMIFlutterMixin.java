@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import net.minecraft.world.entity.LivingEntity;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -40,7 +41,7 @@ public abstract class AMIFlutterMixin extends TamableAnimal {
                 player.drop(Items.FLOWER_POT.asItem().getDefaultInstance(), false);
             }
             player.swing(hand,true);
-            if (!player.isCreative()) itemStack.hurtAndBreak(3, flutter, (p_233654_0_) -> {});
+            if (!player.isCreative()) itemStack.hurtAndBreak(3, player, LivingEntity.getSlotForHand(hand));
             this.playSound(SoundEvents.SHEEP_SHEAR, 1, this.getVoicePitch());
             flutter.discard();
             AMIUtils.awardAdvancement(player,"flutter_shear","flutter");

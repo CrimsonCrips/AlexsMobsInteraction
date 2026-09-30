@@ -2,23 +2,23 @@ package com.crimsoncrips.alexsmobsinteraction.datagen.recipe;
 
 import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
-import vazkii.patchouli.common.item.PatchouliItems;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class AMIRecipeGenerator extends AMIRecipeHelper {
-	public AMIRecipeGenerator(PackOutput output) {
-		super(output);
+	public AMIRecipeGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	@Override
-	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	protected void buildRecipes(RecipeOutput consumer) {
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMIItemRegistry.ASMON_CROWN.get(), 1)
 				.pattern("w w")

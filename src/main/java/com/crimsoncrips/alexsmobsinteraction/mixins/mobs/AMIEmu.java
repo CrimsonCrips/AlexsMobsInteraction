@@ -29,7 +29,7 @@ public abstract class AMIEmu extends Animal {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityEmu emu = (EntityEmu)(Object)this;
 
         if (AlexsMobsInteraction.COMMON_CONFIG.EGG_ATTACK_ENABLED.get()){

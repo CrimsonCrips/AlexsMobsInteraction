@@ -15,9 +15,9 @@ public class AMIBlooded extends MobEffect {
 
     public AMIBlooded() {
         super(MobEffectCategory.HARMFUL, 0Xff0000);
-        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "44d3ee68-a7cb-4da4-b7dc-c17d1746f950", -0.35000000596046448, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, "2a4b471b-402c-464e-b1e6-d1c2ca9e9095", -0.17000000596046448, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        this.addAttributeModifier(Attributes.ARMOR, "403aaa63-5659-426d-aa33-7b98c171da91", -3, AttributeModifier.Operation.ADDITION);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, AlexsMobsInteraction.prefix("effect.blooded.movement_speed"), -0.35000000596046448, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, AlexsMobsInteraction.prefix("effect.blooded.attack_damage"), -0.17000000596046448, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        this.addAttributeModifier(Attributes.ARMOR, AlexsMobsInteraction.prefix("effect.blooded.armor"), -3, AttributeModifier.Operation.ADD_VALUE);
 
     }
 
@@ -29,13 +29,14 @@ public class AMIBlooded extends MobEffect {
         }
     }
 
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
             AMIUtils.awardAdvancement(entity, "blooded", "blood");
         }
+        return true;
     }
 
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return duration > 0;
     }
 

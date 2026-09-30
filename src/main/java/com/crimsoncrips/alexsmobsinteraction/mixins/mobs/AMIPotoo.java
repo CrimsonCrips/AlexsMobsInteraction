@@ -35,7 +35,7 @@ public abstract class AMIPotoo extends Animal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityPotoo potoo = (EntityPotoo)(Object)this;
         if (AlexsMobsInteraction.TARGETS_CONFIG.POTOO_ENABLED.get()){
             potoo.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(potoo, EntityFly.class, 600, true, false, LivingEntity::isAlive));
@@ -43,7 +43,7 @@ public abstract class AMIPotoo extends Animal {
 
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityPotoo;gameEvent(Lnet/minecraft/world/level/gameevent/GameEvent;)V"))
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityPotoo;gameEvent(Lnet/minecraft/core/Holder;)V"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         EntityPotoo potoo = (EntityPotoo)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.VISIONARY_ENABLED.get()){

@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "alexsmobsinteraction:textures/gui/ami_bg.png",
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.root.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/ami_adv_icon.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.root"
+    }
+  },
+  "requirements": [
+    [
+      "tick"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

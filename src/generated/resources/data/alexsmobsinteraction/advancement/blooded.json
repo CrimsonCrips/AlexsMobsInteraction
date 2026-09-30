@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "blood": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.blooded.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/mob_effect/blooded.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.blooded"
+    }
+  },
+  "requirements": [
+    [
+      "blood"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

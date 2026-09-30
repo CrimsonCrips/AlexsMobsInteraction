@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "stomp": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.stomp.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/stomp.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.stomp"
+    }
+  },
+  "requirements": [
+    [
+      "stomp"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

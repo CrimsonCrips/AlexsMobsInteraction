@@ -14,15 +14,15 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(RenderLeafcutterAnt.class)
 public abstract class AMILeafcutterAntRenderMixin extends MobRenderer<EntityLeafcutterAnt, AdvancedEntityModel<EntityLeafcutterAnt>> {
 
-    private static final ResourceLocation BROWN_TEXTURE = new ResourceLocation("alexsmobs:textures/entity/leafcutter_ant.png");
-    private static final ResourceLocation BROWN_TEXTURE_QUEEN = new ResourceLocation("alexsmobs:textures/entity/leafcutter_ant_queen.png");
-    private static final ResourceLocation BROWN_TEXTURE_ANGRY = new ResourceLocation("alexsmobs:textures/entity/leafcutter_ant_angry.png");
-    private static final ResourceLocation BROWN_TEXTURE_QUEEN_ANGRY = new ResourceLocation("alexsmobs:textures/entity/leafcutter_ant_queen_angry.png");
+    private static final ResourceLocation BROWN_TEXTURE = ResourceLocation.parse("alexsmobs:textures/entity/leafcutter_ant.png");
+    private static final ResourceLocation BROWN_TEXTURE_QUEEN = ResourceLocation.parse("alexsmobs:textures/entity/leafcutter_ant_queen.png");
+    private static final ResourceLocation BROWN_TEXTURE_ANGRY = ResourceLocation.parse("alexsmobs:textures/entity/leafcutter_ant_angry.png");
+    private static final ResourceLocation BROWN_TEXTURE_QUEEN_ANGRY = ResourceLocation.parse("alexsmobs:textures/entity/leafcutter_ant_queen_angry.png");
 
-    private static final ResourceLocation BLACK_TEXTURE = new ResourceLocation("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant.png");
-    private static final ResourceLocation BLACK_TEXTURE_QUEEN = new ResourceLocation("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant_queen.png");
-    private static final ResourceLocation BLACK_TEXTURE_ANGRY = new ResourceLocation("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant_angry.png");
-    private static final ResourceLocation BLACK_TEXTURE_QUEEN_ANGRY = new ResourceLocation("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant_queen_angry.png");
+    private static final ResourceLocation BLACK_TEXTURE = ResourceLocation.parse("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant.png");
+    private static final ResourceLocation BLACK_TEXTURE_QUEEN = ResourceLocation.parse("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant_queen.png");
+    private static final ResourceLocation BLACK_TEXTURE_ANGRY = ResourceLocation.parse("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant_angry.png");
+    private static final ResourceLocation BLACK_TEXTURE_QUEEN_ANGRY = ResourceLocation.parse("alexsmobsinteraction:textures/entity/leafcutter/black_leafcutter_ant_queen_angry.png");
 
 
     public AMILeafcutterAntRenderMixin(EntityRendererProvider.Context pContext, AdvancedEntityModel<EntityLeafcutterAnt> pModel, float pShadowRadius) {

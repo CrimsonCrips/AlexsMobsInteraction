@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
@@ -32,7 +33,7 @@ public abstract class AMITasmanianDevil extends Animal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityTasmanianDevil tasmanianDevil = (EntityTasmanianDevil)(Object)this;
 
         if (AlexsMobsInteraction.TARGETS_CONFIG.TASMANIAN_DEVIL_ENABLED.get()) {
@@ -41,13 +42,13 @@ public abstract class AMITasmanianDevil extends Animal {
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }

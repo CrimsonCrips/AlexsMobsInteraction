@@ -20,8 +20,8 @@ public abstract class AMISnappingTurtleRenderMixin extends MobRenderer<EntityAll
 
 
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation("alexsmobs:textures/entity/alligator_snapping_turtle.png");
-    private static final ResourceLocation TEXTURE_SLEEPING = new ResourceLocation("alexsmobsinteraction:textures/entity/alligator_sleeping_turtle.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.parse("alexsmobs:textures/entity/alligator_snapping_turtle.png");
+    private static final ResourceLocation TEXTURE_SLEEPING = ResourceLocation.parse("alexsmobsinteraction:textures/entity/alligator_sleeping_turtle.png");
 
     @Override
     public ResourceLocation getTextureLocation(EntityAlligatorSnappingTurtle entity) {

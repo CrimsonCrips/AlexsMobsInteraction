@@ -46,7 +46,7 @@ public abstract class AMIFarseer extends Mob {
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (getTarget() instanceof Player player && this.canUseLaser()){
             FarseerFx fEffects = ((FarseerFx)player);
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0){
+            if (AMIEnchantmentRegistry.getLevel(player.level(), player.getItemBySlot(EquipmentSlot.HEAD), AMIEnchantmentRegistry.STABILIZER) > 0){
                 AMIUtils.awardAdvancement(player,"repel","repel");
             } else if (fEffects.getStalkDelay() >= 0) {
                 fEffects.setStalkDelay(100);

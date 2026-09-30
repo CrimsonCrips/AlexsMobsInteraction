@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:uncover_roach",
+  "criteria": {
+    "throw": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.throw_pupi.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:leafcutter_ant_pupa"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.throw_pupi"
+    }
+  },
+  "requirements": [
+    [
+      "throw"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

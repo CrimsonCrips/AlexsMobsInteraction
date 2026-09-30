@@ -27,14 +27,14 @@ import java.util.function.Predicate;
 @Mixin(EntityEnderiophage.class)
 public abstract class AMIEnderiophage extends Animal {
 
-    private static final Predicate<LivingEntity> ENDERGRADE_OR_INFECTED = (entity) -> !entity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && (entity instanceof EntityEndergrade || entity.hasEffect(AMEffectRegistry.ENDER_FLU.get()));
+    private static final Predicate<LivingEntity> ENDERGRADE_OR_INFECTED = (entity) -> !entity.hasEffect(MobEffects.DAMAGE_RESISTANCE) && (entity instanceof EntityEndergrade || entity.hasEffect(AMEffectRegistry.ENDER_FLU));
 
     protected AMIEnderiophage(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityEnderiophage enderiophage = (EntityEnderiophage)(Object)this;
 
         if (AlexsMobsInteraction.COMMON_CONFIG.INFECT_INTERACTION_ENABLED.get()){
@@ -67,11 +67,11 @@ public abstract class AMIEnderiophage extends Animal {
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 3))
-    private boolean target(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals1(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.INFECT_INTERACTION_ENABLED.get();
     }
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 4))
-    private boolean target2(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.INFECT_INTERACTION_ENABLED.get();
     }
 

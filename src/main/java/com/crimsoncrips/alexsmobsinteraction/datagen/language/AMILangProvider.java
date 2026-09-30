@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.datagen.language;
 
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public abstract class AMILangProvider extends LanguageProvider {
 

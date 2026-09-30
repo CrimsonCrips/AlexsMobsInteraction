@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.datagen.sounds;
 
 import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 
 public class AMISoundGenerator extends AMISoundProvider {

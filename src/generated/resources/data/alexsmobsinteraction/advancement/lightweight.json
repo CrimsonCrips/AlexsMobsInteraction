@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:heavy_carriage",
+  "criteria": {
+    "lightweight": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.lightweight.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:feather"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.lightweight"
+    }
+  },
+  "requirements": [
+    [
+      "lightweight"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

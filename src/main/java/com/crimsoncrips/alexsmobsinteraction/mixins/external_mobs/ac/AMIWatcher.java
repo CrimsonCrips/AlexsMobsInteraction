@@ -8,7 +8,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -17,9 +17,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class AMIWatcher {
 
     @WrapOperation(method = "attemptPossession", at = @At(value = "INVOKE", target = "Lcom/github/alexmodguy/alexscaves/server/entity/living/WatcherEntity;canPossessTargetEntity(Lnet/minecraft/world/entity/Entity;)Z"),remap = false)
-    private boolean attemptPossesion(WatcherEntity instance, Entity playerData, Operation<Boolean> original) {
+    private boolean alexsMobsInteraction$attemptPossession(WatcherEntity instance, Entity playerData, Operation<Boolean> original) {
 
-        return !(playerData instanceof Player player) || player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) <= 0;
+        return !(playerData instanceof Player player) || AMIEnchantmentRegistry.getLevel(player.level(), player.getItemBySlot(EquipmentSlot.HEAD), AMIEnchantmentRegistry.STABILIZER) <= 0;
     }
 
 

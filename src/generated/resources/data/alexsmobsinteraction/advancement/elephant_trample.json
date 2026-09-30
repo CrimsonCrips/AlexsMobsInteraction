@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "trample": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.elephant_trample.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:acacia_blossom"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.elephant_trample"
+    }
+  },
+  "requirements": [
+    [
+      "trample"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -45,8 +46,8 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
 
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(TRANFORMING, false);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(TRANFORMING, false);
     }
 
 
@@ -55,7 +56,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void AlexInteraction$tick(CallbackInfo ci) {
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (isTransforming()){
             frogWarped++;
             if (frogWarped > 160 && !this.level().isClientSide) {
@@ -71,7 +72,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityRainFrog rainFrog = (EntityRainFrog)(Object)this;
 
         if (AlexsMobsInteraction.COMMON_CONFIG.BURROW_AWAY_ENABLED.get()){
@@ -98,7 +99,7 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "changeWeather", at = @At("HEAD"),cancellable = true,remap = false)
-    private void weatherChange(CallbackInfo ci) {
+    private void alexsMobsInteraction$changeWeather(CallbackInfo ci) {
             ci.cancel();
             EntityRainFrog rainFrog = (EntityRainFrog) (Object) this;
             int time = 24000 + 1200 * this.random.nextInt(10);
@@ -146,13 +147,13 @@ public class AMIRainfrog extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void getItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }

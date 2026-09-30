@@ -1,5 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.capuchin;
 
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.food.FoodProperties;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -32,12 +35,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -89,12 +91,12 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
 
     @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
     private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().isEdible() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
+        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
             this.heal(5);
-            List<Pair<MobEffectInstance, Float>> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).getEffects();
+            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
             if (!test.isEmpty()){
                 for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).getFirst()));
+                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
                 }
             }
         }
@@ -104,14 +106,14 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
     private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.getItem() instanceof PotionItem && this.hasDart() && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
-            Potion contained = PotionUtils.getPotion(itemStack);
+            PotionContents contained = itemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
             if(applyPotion(contained)){
                 this.gameEvent(GameEvent.ENTITY_INTERACT);
                 this.playSound(SoundEvents.BOTTLE_EMPTY);
                 this.usePlayerItem(player, hand, itemStack);
                 ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
                 if(!player.addItem(bottle) && !player.isCreative()){
-                    itemStack.hurtAndBreak(1, player, (p_233654_0_) -> {});
+                    itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
                     player.drop(bottle, false);
                 }
                 player.swing(hand);
@@ -130,14 +132,14 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
         this.setPotionLevel(0);
     }
 
-    public boolean applyPotion(Potion potion){
-        if(potion == null || potion == Potions.WATER){
+    public boolean applyPotion(PotionContents potion){
+        if(potion.is(Potions.WATER)){
             resetPotion();
             return true;
         }else{
-            if(!potion.getEffects().isEmpty()){
-                MobEffectInstance fx = potion.getEffects().get(0);
-                ResourceLocation potionId = ForgeRegistries.MOB_EFFECTS.getKey(fx.getEffect());
+            if(potion.hasEffects()){
+                MobEffectInstance fx = potion.getAllEffects().iterator().next();
+                ResourceLocation potionId = BuiltInRegistries.MOB_EFFECT.getKey(fx.getEffect().value());
                 if(potionId != null){
                     this.setPotionId(potionId.toString());
                     this.setPotionLevel(fx.getAmplifier());
@@ -149,9 +151,9 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DART_POTION, "");
-        this.entityData.define(DART_POTION_LEVEL, 0);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(DART_POTION, "");
+        builder.define(DART_POTION_LEVEL, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
@@ -189,7 +191,7 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
     }
 
     public MobEffect getPotionEffect() {
-        return ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(this.getPotionId()));
+        return BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(this.getPotionId()));
     }
 
     @Override

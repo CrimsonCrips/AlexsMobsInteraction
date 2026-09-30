@@ -41,8 +41,8 @@ public class AMIFly extends Mob implements TransformingEntities {
     private static final EntityDataAccessor<Boolean> TRANSFORMING = SynchedEntityData.defineId(EntityFly.class, EntityDataSerializers.BOOLEAN);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(TRANSFORMING, false);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(TRANSFORMING, false);
     }
 
     int flyConvert;
@@ -52,7 +52,7 @@ public class AMIFly extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "mobInteract", at = @At("HEAD"))
-    private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
+    private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack itemstack = player.getItemInHand(hand);
         if (AlexsMobsInteraction.COMMON_CONFIG.TRANSFORMATION_ENABLED.get()) {
             if (itemstack.getItem() == AMItemRegistry.BLOOD_SAC.get() && this.hasEffect(MobEffects.WEAKNESS)){
@@ -70,7 +70,7 @@ public class AMIFly extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void Test(CallbackInfo ci) {
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (isTransforming()) {
             flyConvert++;
 
@@ -88,7 +88,7 @@ public class AMIFly extends Mob implements TransformingEntities {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityFly fly = (EntityFly)(Object)this;
 
         if(AlexsMobsInteraction.COMMON_CONFIG.SCENTED_INTERACTION_ENABLED.get()){

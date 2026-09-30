@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.compat;
 
-import it.crystalnest.soul_fire_d.api.FireManager;
+import it.crystalnest.prometheus.api.FireManager;
 import net.minecraft.world.entity.Entity;
 
 public class SoulFiredCompat {

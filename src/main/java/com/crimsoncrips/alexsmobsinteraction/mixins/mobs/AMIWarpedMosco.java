@@ -22,7 +22,7 @@ public abstract class AMIWarpedMosco extends Monster {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityWarpedMosco warpedMosco = (EntityWarpedMosco)(Object)this;
         if (!AlexsMobsInteraction.TARGETS_CONFIG.CANNIBALISM_ENABLED.get())
             return;

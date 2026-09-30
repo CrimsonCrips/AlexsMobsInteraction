@@ -22,7 +22,7 @@ public class AMIHarvestCrop extends MoveToBlockGoal {
 
     public boolean canUse() {
         if (this.nextStartTick <= 0) {
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(bunfungus.level(), bunfungus)) {
+            if (!net.neoforged.neoforge.event.EventHooks.canEntityGrief(bunfungus.level(), bunfungus)) {
                 return false;
             }
 

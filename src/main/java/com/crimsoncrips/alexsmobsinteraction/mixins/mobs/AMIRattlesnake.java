@@ -30,7 +30,7 @@ public abstract class AMIRattlesnake extends Animal implements AMIBasicInterface
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityRattlesnake rattlesnake = (EntityRattlesnake)(Object)this;
         if (AlexsMobsInteraction.TARGETS_CONFIG.RATTLESNAKE_ENABLED.get()) {
             rattlesnake.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(rattlesnake, LivingEntity.class, 300, true, true, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.WEAK_PREY)) {
@@ -51,8 +51,8 @@ public abstract class AMIRattlesnake extends Animal implements AMIBasicInterface
     private static final EntityDataAccessor<Boolean> WARDING = SynchedEntityData.defineId(EntityRattlesnake.class, EntityDataSerializers.BOOLEAN);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineSynched(CallbackInfo ci){
-        this.entityData.define(WARDING, false);
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(WARDING, false);
     }
 
     @Override

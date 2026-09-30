@@ -15,7 +15,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.EnumSet;
 

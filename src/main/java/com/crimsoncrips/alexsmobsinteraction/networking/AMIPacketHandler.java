@@ -1,20 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.networking;
 
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import com.crimsoncrips.alexsmobsinteraction.message.UrsaUpdateBossBarMessage;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 public class AMIPacketHandler {
-    private static final String PROTOCOL_VERSION = "1";
-    private static final String PROTOCOL_VERSION_2 = "2";
-    public static final SimpleChannel FARSEER_ALTER = NetworkRegistry.newSimpleChannel(
-            AlexsMobsInteraction.prefix("farseer_alter"),
-            () -> PROTOCOL_VERSION,
-            PROTOCOL_VERSION::equals,
-            PROTOCOL_VERSION::equals
-    );
 
-    public static void init() {
-        FARSEER_ALTER.registerMessage(0, AlterPacket.class, AlterPacket::encode, AlterPacket::decode, AlterPacket::handle);
+    public static void register(RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar("1");
+        registrar.playToClient(AlterPacket.TYPE, AlterPacket.STREAM_CODEC, AlterPacket::handle);
+        registrar.playToClient(UrsaUpdateBossBarMessage.TYPE, UrsaUpdateBossBarMessage.STREAM_CODEC, UrsaUpdateBossBarMessage::handle);
     }
 }

@@ -1,0 +1,31 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "wally": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.wally.desc"
+    },
+    "hidden": true,
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/wally.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.wally"
+    }
+  },
+  "requirements": [
+    [
+      "wally"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

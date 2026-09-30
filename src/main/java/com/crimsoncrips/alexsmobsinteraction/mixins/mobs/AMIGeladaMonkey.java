@@ -25,7 +25,7 @@ public abstract class AMIGeladaMonkey extends Animal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityGeladaMonkey geladaMonkey = (EntityGeladaMonkey)(Object)this;
         if(AlexsMobsInteraction.TARGETS_CONFIG.GELADA_MONKEY_ENABLED.get()){
             geladaMonkey.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(geladaMonkey, LivingEntity.class, 1, true, false, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.INSECTS)));

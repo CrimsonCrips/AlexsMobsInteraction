@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:ranged_aggro",
+  "criteria": {
+    "egg_steal": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.egg_steal.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobsinteraction:eggs"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.egg_steal"
+    }
+  },
+  "requirements": [
+    [
+      "egg_steal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

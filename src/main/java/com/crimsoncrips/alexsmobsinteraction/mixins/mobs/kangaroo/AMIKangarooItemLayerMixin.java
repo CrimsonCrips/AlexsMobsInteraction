@@ -44,7 +44,7 @@ public abstract class AMIKangarooItemLayerMixin extends RenderLayer<EntityKangar
     }
 
     @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/github/alexthe666/alexsmobs/entity/EntityKangaroo;FFFFFF)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", ordinal = 1))
-    private void registerGoals(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityKangaroo entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci, @Local boolean left, @Local ItemInHandRenderer renderer) {
+    private void alexsMobsInteraction$render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityKangaroo entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci, @Local boolean left, @Local ItemInHandRenderer renderer) {
         ItemStack itemstackOF = entitylivingbaseIn.getItemBySlot(EquipmentSlot.OFFHAND);
         this.translateToHand(matrixStackIn, !left);
         matrixStackIn.translate(0F, 0.75F, -0.125F);

@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "banana": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.banana_shear.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:banana"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.banana_shear"
+    }
+  },
+  "requirements": [
+    [
+      "banana"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "burrow": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.burrow_away.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/burrow_away.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.burrow_away"
+    }
+  },
+  "requirements": [
+    [
+      "burrow"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -37,8 +37,8 @@ public abstract class AMIVoidPortalMixin extends Entity implements AMIBasicInter
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$define(CallbackInfo ci) {
-        this.entityData.define(VARIANT, 0);
+    private void alexsMobsInteraction$define(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(VARIANT, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))

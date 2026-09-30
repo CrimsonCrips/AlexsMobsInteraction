@@ -1,53 +1,62 @@
 package com.crimsoncrips.alexsmobsinteraction.server.enchantment;
 
-
-import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.alexsmobs.item.ItemShieldOfTheDeep;
-import com.github.alexthe666.alexsmobs.item.ItemTendonWhip;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ShieldItem;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 
 public class AMIEnchantmentRegistry {
 
+    public static final ResourceKey<Enchantment> STABILIZER = create("stabilizer");
+    public static final ResourceKey<Enchantment> LIGHTWEIGHT = create("lightweight");
+    public static final ResourceKey<Enchantment> ROLLING_THUNDER = create("rolling_thunder");
+    public static final ResourceKey<Enchantment> STRETCHY_ACCUMULATION = create("stretchy_accumulation");
 
-    public static final DeferredRegister<Enchantment> DEF_REG;
-
-    public static final EnchantmentCategory TENDON_WHIP;
-
-    public static final EnchantmentCategory ROLLER;
-
-
-    public static final RegistryObject<Enchantment> STABILIZER;
-
-    public static final RegistryObject<Enchantment> LIGHTWEIGHT;
-
-    public static final RegistryObject<Enchantment> ROLLING_THUNDER;
-
-    public static final RegistryObject<Enchantment> STRETCHY_ACCUMULATION;
-
-    public AMIEnchantmentRegistry() {
+    private static ResourceKey<Enchantment> create(String name) {
+        return ResourceKey.create(Registries.ENCHANTMENT, AlexsMobsInteraction.prefix(name));
     }
 
+    public static int getLevel(Level level, ItemStack stack, ResourceKey<Enchantment> enchantment) {
+        if (stack.isEmpty()) return 0;
+        return level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolder(enchantment)
+                .map(holder -> EnchantmentHelper.getItemEnchantmentLevel(holder, stack))
+                .orElse(0);
+    }
 
-    static {
-        DEF_REG = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, "alexsmobsinteraction");
-        TENDON_WHIP = EnchantmentCategory.create("tendon_whip", (item) -> {
-            return item instanceof ItemTendonWhip;
-        });
+    public static boolean has(Level level, ItemStack stack, ResourceKey<Enchantment> enchantment) {
+        return getLevel(level, stack, enchantment) > 0;
+    }
 
-        ROLLER  = EnchantmentCategory.create("rocky_chestplate", item -> item == AMItemRegistry.ROCKY_CHESTPLATE.get());
+    public static void bootstrap(BootstrapContext<Enchantment> context) {
+        HolderGetter<Item> items = context.lookup(Registries.ITEM);
 
-        LIGHTWEIGHT = DEF_REG.register("lightweight", () -> new AMIBasicEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST,EquipmentSlot.CHEST));
-        ROLLING_THUNDER = DEF_REG.register("rolling_thunder", () -> new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, ROLLER,EquipmentSlot.CHEST));
+        register(context, LIGHTWEIGHT, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE), 5, 1,
+                Enchantment.dynamicCost(13, 3), Enchantment.dynamicCost(24, 10), 2, EquipmentSlotGroup.CHEST)));
 
-        STABILIZER = DEF_REG.register("stabilizer", () -> new AMIStabilizerEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD,EquipmentSlot.HEAD));
-        STRETCHY_ACCUMULATION = DEF_REG.register("stretchy_accumulation", () -> {
-            return new AMIBasicEnchantment(Enchantment.Rarity.VERY_RARE, TENDON_WHIP, EquipmentSlot.MAINHAND);
-        });
+        register(context, ROLLING_THUNDER, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(AMIItemTagGenerator.ROLLING_THUNDER_ENCHANTABLE), 1, 1,
+                Enchantment.dynamicCost(13, 3), Enchantment.dynamicCost(24, 10), 8, EquipmentSlotGroup.CHEST)));
+
+        register(context, STABILIZER, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.HEAD_ARMOR_ENCHANTABLE), 2, 1,
+                Enchantment.dynamicCost(13, 3), Enchantment.dynamicCost(24, 10), 4, EquipmentSlotGroup.HEAD)));
+
+        register(context, STRETCHY_ACCUMULATION, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(AMIItemTagGenerator.STRETCHY_ACCUMULATION_ENCHANTABLE), 1, 1,
+                Enchantment.dynamicCost(13, 3), Enchantment.dynamicCost(24, 10), 8, EquipmentSlotGroup.MAINHAND)));
+    }
+
+    private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
+        context.register(key, builder.build(key.location()));
     }
 }

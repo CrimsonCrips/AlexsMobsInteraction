@@ -22,7 +22,7 @@ public class KangarooBoxingGloves extends RenderLayer<EntityKangaroo, ModelKanga
         super(pRenderer);
     }
 
-    private static final ResourceLocation LAYER = new ResourceLocation(AlexsMobsInteraction.MODID, "textures/entity/boxing_gloves.png");
+    private static final ResourceLocation LAYER = ResourceLocation.fromNamespaceAndPath(AlexsMobsInteraction.MODID, "textures/entity/boxing_gloves.png");
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, EntityKangaroo entityKangaroo, float v, float v1, float v2, float v3, float v4, float v5) {
@@ -33,7 +33,7 @@ public class KangarooBoxingGloves extends RenderLayer<EntityKangaroo, ModelKanga
 
             VertexConsumer vertexconsumer = multiBufferSource.getBuffer(getParentModel().renderType(LAYER));
             entitymodel.setupAnim(entityKangaroo, v, v1, v3, v4, v5);
-            entitymodel.renderToBuffer(poseStack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
+            entitymodel.renderToBuffer(poseStack, vertexconsumer, i, OverlayTexture.NO_OVERLAY);
         }
     }
 

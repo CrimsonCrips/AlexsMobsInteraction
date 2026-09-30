@@ -25,7 +25,7 @@ public abstract class AMISoulVulture extends Monster {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntitySoulVulture soulVulture = (EntitySoulVulture)(Object)this;
         soulVulture.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(soulVulture, Hoglin.class, true));
         soulVulture.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(soulVulture, EntityDropBear.class, true));

@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.capuchin;
 
+import net.minecraft.util.FastColor;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AncientDartPotion;
 import com.github.alexthe666.alexsmobs.client.model.ModelAncientDart;
@@ -34,7 +35,7 @@ public abstract class AMIRenderTossedItemMixin extends EntityRenderer<EntityToss
 
     @Shadow @Final public static ModelAncientDart DART_MODEL;
     @Unique
-    private static final ResourceLocation TEXTURE_POTION = new ResourceLocation("alexsmobsinteraction:textures/entity/ancient_dart_potion.png");
+    private static final ResourceLocation TEXTURE_POTION = ResourceLocation.parse("alexsmobsinteraction:textures/entity/ancient_dart_potion.png");
 
     protected AMIRenderTossedItemMixin(EntityRendererProvider.Context pContext) {
         super(pContext);
@@ -47,7 +48,7 @@ public abstract class AMIRenderTossedItemMixin extends EntityRenderer<EntityToss
             float r = (float) (color >> 16 & 255) / 255.0F;
             float g = (float) (color >> 8 & 255) / 255.0F;
             float b = (float) (color & 255) / 255.0F;
-            DART_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(AMRenderTypes.entityCutoutNoCull(TEXTURE_POTION)), packedLightIn, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
+            DART_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(AMRenderTypes.entityCutoutNoCull(TEXTURE_POTION)), packedLightIn, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1.0F, r, g, b));
         }
     }
 

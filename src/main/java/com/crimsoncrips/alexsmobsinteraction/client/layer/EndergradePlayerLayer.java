@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.client.layer;
 
+import net.minecraft.util.FastColor;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
@@ -31,10 +32,10 @@ public class EndergradePlayerLayer extends RenderLayer<AbstractClientPlayer, Pla
             VertexConsumer vertexconsumer = multiBufferSource.getBuffer(getParentModel().renderType(ENDEGRADE_LAYER));
             entitymodel.setupAnim(abstractClientPlayer, v, v1, v3, v4, v5);
             poseStack.scale(1.1F,1.1F,1.1F);
-            entitymodel.renderToBuffer(poseStack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 0.4F);
+            entitymodel.renderToBuffer(poseStack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(0.4F, 1F, 1F, 1F));
         }
     }
 
-    private static final ResourceLocation ENDEGRADE_LAYER = new ResourceLocation(AlexsMobsInteraction.MODID, "textures/entity/endergrade_player_layer.png");
+    private static final ResourceLocation ENDEGRADE_LAYER = ResourceLocation.fromNamespaceAndPath(AlexsMobsInteraction.MODID, "textures/entity/endergrade_player_layer.png");
 
 }

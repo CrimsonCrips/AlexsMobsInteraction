@@ -1,0 +1,30 @@
+{
+  "parent": "alexsmobsinteraction:asmongold",
+  "criteria": {
+    "vassalize": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.vassalized.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "alexsmobs:cockroach_ootheca"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.vassalized"
+    }
+  },
+  "requirements": [
+    [
+      "vassalize"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  },
+  "sends_telemetry_event": true
+}

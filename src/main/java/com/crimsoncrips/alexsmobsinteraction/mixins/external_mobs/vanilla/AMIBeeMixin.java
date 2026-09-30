@@ -23,7 +23,7 @@ public abstract class AMIBeeMixin extends Animal {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         Bee bee = (Bee)(Object)this;
 
         if(AlexsMobsInteraction.COMMON_CONFIG.FLOWERING_ATTRACTION_ENABLED.get()) {

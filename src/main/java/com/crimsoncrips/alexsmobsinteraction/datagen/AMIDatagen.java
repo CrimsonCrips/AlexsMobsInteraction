@@ -5,39 +5,36 @@ import com.crimsoncrips.alexsmobsinteraction.datagen.advancement.AMIAdvancementP
 import com.crimsoncrips.alexsmobsinteraction.datagen.language.AMILangGen;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMIGlobalLootModifierGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootGenerator;
-import com.crimsoncrips.alexsmobsinteraction.datagen.patchouli.AMInBookProvider;
 import com.crimsoncrips.alexsmobsinteraction.datagen.recipe.AMIRecipeGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.sounds.AMISoundGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIBlockTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
+import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEnchantmentTagGenerator;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIItemTagGenerator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
 
 
-@Mod.EventBusSubscriber(modid = AlexsMobsInteraction.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AMIDatagen {
     //Giga Props to Drull and TF for assistance (and code yoinking)//
     public static void generateData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-        CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
+        AMInRegistryDataGenerator registryData = generator.addProvider(event.includeServer(), new AMInRegistryDataGenerator(output, event.getLookupProvider()));
+        CompletableFuture<HolderLookup.Provider> provider = registryData.getRegistryProvider();
         ExistingFileHelper helper = event.getExistingFileHelper();
 
         generator.addProvider(event.includeClient(), new AMISoundGenerator(output, helper));
         generator.addProvider(event.includeServer(), new AMIAdvancementProvider(output, provider, helper));
-        generator.addProvider(event.includeServer(), new AMILootGenerator(output));
-        generator.addProvider(event.includeServer(), new AMIGlobalLootModifierGenerator(output));
-        generator.addProvider(event.includeServer(), new AMInRegistryDataGenerator(output, provider));
-        generator.addProvider(event.includeServer(), new AMInBookProvider("alexsmobsinteraction",provider,output));
-        generator.addProvider(event.includeServer(), new AMIRecipeGenerator(output));
+        generator.addProvider(event.includeServer(), new AMILootGenerator(output, provider));
+        generator.addProvider(event.includeServer(), new AMIGlobalLootModifierGenerator(output, provider));
+        generator.addProvider(event.includeServer(), new AMIRecipeGenerator(output, provider));
         //Lang
         generator.addProvider(event.includeClient(), new AMILangGen(output));
 
@@ -47,6 +44,7 @@ public class AMIDatagen {
         AMIBlockTagGenerator blocktags = new AMIBlockTagGenerator(output, provider, helper);
         generator.addProvider(event.includeServer(), blocktags);
         generator.addProvider(event.includeServer(), new AMIItemTagGenerator(output, provider, blocktags.contentsGetter(), helper));
+        generator.addProvider(event.includeServer(), new AMIEnchantmentTagGenerator(output, provider, helper));
 
     }
 

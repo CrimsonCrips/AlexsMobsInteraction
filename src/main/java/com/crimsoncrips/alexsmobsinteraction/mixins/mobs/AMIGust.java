@@ -18,23 +18,23 @@ public abstract class AMIGust extends Entity {
     }
 
     @WrapWithCondition(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V",ordinal = 1))
-    private boolean e(Entity instance, Vec3 pDeltaMovement) {
+    private boolean alexsMobsInteraction$tick(Entity instance, Vec3 pDeltaMovement) {
         if (instance instanceof LivingEntity livingEntity) {
-            return !livingEntity.hasEffect(AMIEffects.GUSTING.get());
+            return !livingEntity.hasEffect(AMIEffects.GUSTING);
         } else return true;
     }
 
     @WrapWithCondition(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V",ordinal = 0))
-    private boolean pushedEntity(Entity instance, Vec3 pDeltaMovement) {
+    private boolean alexsMobsInteraction$tick1(Entity instance, Vec3 pDeltaMovement) {
         if (instance instanceof LivingEntity livingEntity) {
-            return !livingEntity.hasEffect(AMIEffects.GUSTING.get());
+            return !livingEntity.hasEffect(AMIEffects.GUSTING);
         } else return true;
     }
 
     @WrapWithCondition(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V",ordinal = 2))
-    private boolean ifE(Entity instance, Vec3 pDeltaMovement) {
+    private boolean alexsMobsInteraction$tick2(Entity instance, Vec3 pDeltaMovement) {
         if (instance instanceof LivingEntity livingEntity) {
-            return !livingEntity.hasEffect(AMIEffects.GUSTING.get());
+            return !livingEntity.hasEffect(AMIEffects.GUSTING);
         } else return true;
     }
 

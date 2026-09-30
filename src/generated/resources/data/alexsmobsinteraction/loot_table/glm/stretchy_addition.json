@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": "alexsmobsinteraction:stretchy_accumulation"
+            }
+          ],
+          "name": "minecraft:book"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "alexsmobsinteraction:glm/stretchy_addition"
+}

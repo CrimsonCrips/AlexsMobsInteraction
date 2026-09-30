@@ -3,7 +3,10 @@ package com.crimsoncrips.alexsmobsinteraction.datagen.loottables;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.data.loot.LootTableSubProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -18,9 +21,17 @@ import java.util.function.BiConsumer;
 
 public class AMILoot implements LootTableSubProvider {
 
+    private final HolderLookup.Provider registries;
+
+    public AMILoot(HolderLookup.Provider registries) {
+        this.registries = registries;
+    }
+
     //Props to Drull and TF for assistance//
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+
+        HolderLookup.RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
         consumer.accept(AMILootTables.FLUTTER_SHEAR, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -62,22 +73,22 @@ public class AMILoot implements LootTableSubProvider {
         //Book Loottables
         consumer.accept(AMILootTables.STABILIZER_ADDITION, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(AMIEnchantmentRegistry.STABILIZER.get())))
+                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(enchantments.getOrThrow(AMIEnchantmentRegistry.STABILIZER))))
                 ));
 
         consumer.accept(AMILootTables.LIGHTWEIGHT_ADDITION, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(AMIEnchantmentRegistry.LIGHTWEIGHT.get())))
+                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(enchantments.getOrThrow(AMIEnchantmentRegistry.LIGHTWEIGHT))))
                 ));
 
         consumer.accept(AMILootTables.ROLLING_ADDITION, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(AMIEnchantmentRegistry.ROLLING_THUNDER.get())))
+                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(enchantments.getOrThrow(AMIEnchantmentRegistry.ROLLING_THUNDER))))
                 ));
 
         consumer.accept(AMILootTables.STRETCHY_ADDITION, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(AMIEnchantmentRegistry.STRETCHY_ACCUMULATION.get())))
+                        .add(LootItem.lootTableItem(Items.BOOK).apply(new EnchantRandomlyFunction.Builder().withEnchantment(enchantments.getOrThrow(AMIEnchantmentRegistry.STRETCHY_ACCUMULATION))))
                 ));
     }
 

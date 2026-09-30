@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "asmon": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.asmongold.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "alexsmobsinteraction:asmon_crown"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.asmongold"
+    }
+  },
+  "requirements": [
+    [
+      "asmon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

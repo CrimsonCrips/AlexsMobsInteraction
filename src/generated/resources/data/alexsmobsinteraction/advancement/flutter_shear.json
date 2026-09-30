@@ -1,0 +1,26 @@
+{
+  "parent": "alexsmobsinteraction:root",
+  "criteria": {
+    "flutter": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.flutter_shear.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:spore_blossom"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.flutter_shear"
+    }
+  },
+  "requirements": [
+    [
+      "flutter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

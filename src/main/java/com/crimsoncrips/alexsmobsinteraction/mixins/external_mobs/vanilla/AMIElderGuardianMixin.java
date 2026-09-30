@@ -43,7 +43,7 @@ public abstract class AMIElderGuardianMixin extends Guardian {
             MobEffectInstance mobeffectinstance = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 6000, 2);
             List<ServerPlayer> list = MobEffectUtil.addEffectToPlayersAround((ServerLevel)this.level(), this, this.position(), 50.0D, mobeffectinstance, 1200);
             list.forEach((p_289459_) -> {
-                if (p_289459_.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(AMIEnchantmentRegistry.STABILIZER.get()) > 0) {
+                if (AMIEnchantmentRegistry.getLevel(p_289459_.level(), p_289459_.getItemBySlot(EquipmentSlot.HEAD), AMIEnchantmentRegistry.STABILIZER) > 0) {
                     p_289459_.removeEffect(mobeffectinstance.getEffect());
                 } else {
                     p_289459_.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.GUARDIAN_ELDER_EFFECT, this.isSilent() ? 0.0F : 1.0F));

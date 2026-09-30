@@ -30,14 +30,14 @@ public class SkelewagGlow extends RenderLayer<EntitySkelewag, ModelSkelewag> {
         super(render);
     }
 
-    private static final ResourceLocation TEXTURE_GLOW = new ResourceLocation("alexsmobsinteraction:textures/entity/skelewag/wither_skelewag_glow.png");
+    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.parse("alexsmobsinteraction:textures/entity/skelewag/wither_skelewag_glow.png");
 
 
     @Override
     public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, EntitySkelewag pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         if (pLivingEntity.getVariant() == 2 || pLivingEntity.getVariant() == 3) {
             VertexConsumer magmaGlow = pBuffer.getBuffer(ACRenderTypes.getEyesAlphaEnabled(TEXTURE_GLOW));
-            this.getParentModel().renderToBuffer(pPoseStack, magmaGlow, pPackedLight, LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 1.0F, 1.0F, 1.0F, 1.0F);
+            this.getParentModel().renderToBuffer(pPoseStack, magmaGlow, pPackedLight, LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
 
 
         }

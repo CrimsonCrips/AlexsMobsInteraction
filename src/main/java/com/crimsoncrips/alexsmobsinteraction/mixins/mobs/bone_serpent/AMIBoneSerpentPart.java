@@ -40,8 +40,8 @@ public abstract class AMIBoneSerpentPart extends LivingEntity implements BonePar
     private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(EntityBoneSerpentPart.class, EntityDataSerializers.OPTIONAL_UUID);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(CHILD_UUID, Optional.empty());
+    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(CHILD_UUID, Optional.empty());
     }
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {

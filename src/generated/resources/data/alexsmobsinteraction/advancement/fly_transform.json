@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:blooded",
+  "criteria": {
+    "fly": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.fly_transform.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/fly_transform.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.fly_transform"
+    }
+  },
+  "requirements": [
+    [
+      "fly"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

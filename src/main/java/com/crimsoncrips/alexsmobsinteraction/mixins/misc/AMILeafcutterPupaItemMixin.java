@@ -59,12 +59,12 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
     }
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/context/UseOnContext;getLevel()Lnet/minecraft/world/level/Level;"))
-    private void variableAddition(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir){
+    private void alexsMobsInteraction$useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir){
         variant = context.getLevel().random.nextBoolean() ? 1 : 2;
     }
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"))
-    private void variable(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local EntityLeafcutterAnt beeentity){
+    private void alexsMobsInteraction$useOn1(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local EntityLeafcutterAnt beeentity){
         if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){
             ((AMIBasicInterfaces) beeentity).setVariant(variant);
         } else {

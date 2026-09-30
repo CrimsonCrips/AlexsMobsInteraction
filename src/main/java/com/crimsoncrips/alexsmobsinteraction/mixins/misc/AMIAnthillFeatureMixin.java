@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import com.llamalad7.mixinextras.sugar.Local;
 
 import java.util.Random;
 
@@ -26,12 +26,12 @@ public abstract class AMIAnthillFeatureMixin {
 
 
     @Inject(method = "place", at = @At(value = "HEAD"))
-    private void variableAddition(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir){
+    private void alexsMobsInteraction$place(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir){
         variant = context.level().getRandom().nextBoolean() ? 1 : 2;
     }
 
-    @Inject(method = "place", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"),locals = LocalCapture.CAPTURE_FAILSOFT)
-    private void variable(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir, int x, int z, BlockPos pos, int y, BlockPos heightPos, int outOfGround, Random chunkSeedRandom, BlockEntity tileentity, TileEntityLeafcutterAnthill beehivetileentity, int j, int k, EntityLeafcutterAnt beeentity){
+    @Inject(method = "place", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"))
+    private void alexsMobsInteraction$place1(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir, @Local EntityLeafcutterAnt beeentity){
         if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){
             ((AMIBasicInterfaces) beeentity).setVariant(variant);
         } else {

@@ -39,12 +39,12 @@ public class AMISkreeching extends MobEffect {
     }
 
 
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         Level level = entity.level();
         if (!AlexsMobsInteraction.COMMON_CONFIG.SKREECH_YOUR_LAST_ENABLED.get())
-            return;
+            return true;
         if (!(entity instanceof Player))
-            return;
+            return true;
 
         if (lastDuration == 100 || lastDuration == 95 || lastDuration == 90 || lastDuration == 85) {
             entity.playSound(AMSoundRegistry.SKREECHER_CALL.get(),1 * 3F,1);
@@ -67,8 +67,8 @@ public class AMISkreeching extends MobEffect {
                 entity.hurt(entity.damageSources().generic(),damage);
                 damage = damage * 1.1F;
                 AMIUtils.addParticlesAroundSelf(ParticleTypes.SCULK_SOUL,entity,50,0.1);
-                entity.removeEffect(AMIEffects.SKREECHING.get());
-                entity.addEffect(new MobEffectInstance(AMIEffects.SKREECHING.get(), 200, 0));
+                entity.removeEffect(AMIEffects.SKREECHING);
+                entity.addEffect(new MobEffectInstance(AMIEffects.SKREECHING, 200, 0));
             } else {
                 RandomSource random = entity.getRandom();
                 for (int x = 0; x < 5; x++){
@@ -89,7 +89,7 @@ public class AMISkreeching extends MobEffect {
                     LivingEntity entityToSpawn;
                     entityToSpawn = EntityType.WARDEN.spawn((ServerLevel) level, BlockPos.containing(entity.getX() + 0.5, entity.getY() + 1.0, entity.getZ() + 0.5), MobSpawnType.TRIGGERED);
                     if (entityToSpawn instanceof Warden warden) {
-                        entity.removeEffect(AMIEffects.SKREECHING.get());
+                        entity.removeEffect(AMIEffects.SKREECHING);
                         warden.setTarget(entity);
                         final CompoundTag emptyNbt = new CompoundTag();
                         warden.addAdditionalSaveData(emptyNbt);
@@ -100,10 +100,10 @@ public class AMISkreeching extends MobEffect {
                 }
             }
         }
-
+        return true;
     }
 
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         lastDuration = duration;
         return duration > 0;
     }

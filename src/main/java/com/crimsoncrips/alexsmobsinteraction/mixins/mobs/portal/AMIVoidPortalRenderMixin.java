@@ -32,29 +32,29 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
     @Shadow @Final private static ResourceLocation TEXTURE_SHATTERED_2;
     @Shadow @Final private static ResourceLocation[] TEXTURE_SHATTERED_PROGRESS;
 
-    private static final ResourceLocation OVERWORLD_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_0.png");
-    private static final ResourceLocation OVERWORLD_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_1.png");
-    private static final ResourceLocation OVERWORLD_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_2.png");
+    private static final ResourceLocation OVERWORLD_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_0.png");
+    private static final ResourceLocation OVERWORLD_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_1.png");
+    private static final ResourceLocation OVERWORLD_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_2.png");
     private static final ResourceLocation[] OVERWORLD_PROGRESS = new ResourceLocation[10];
 
-    private static final ResourceLocation NETHER_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_0.png");
-    private static final ResourceLocation NETHER_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_1.png");
-    private static final ResourceLocation NETHER_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_2.png");
+    private static final ResourceLocation NETHER_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_0.png");
+    private static final ResourceLocation NETHER_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_1.png");
+    private static final ResourceLocation NETHER_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_2.png");
     private static final ResourceLocation[] NETHER_PROGRESS = new ResourceLocation[10];
 
-    private static final ResourceLocation THE_END_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_idle_0.png");
-    private static final ResourceLocation THE_END_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_idle_1.png");
-    private static final ResourceLocation THE_END_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_idle_2.png");
+    private static final ResourceLocation THE_END_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_idle_0.png");
+    private static final ResourceLocation THE_END_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_idle_1.png");
+    private static final ResourceLocation THE_END_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_idle_2.png");
     private static final ResourceLocation[] THE_END_PROGRESS = new ResourceLocation[10];
 
-    private static final ResourceLocation BETTER_END_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_0.png");
-    private static final ResourceLocation BETTER_END_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_1.png");
-    private static final ResourceLocation BETTER_END_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_2.png");
+    private static final ResourceLocation BETTER_END_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_0.png");
+    private static final ResourceLocation BETTER_END_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_1.png");
+    private static final ResourceLocation BETTER_END_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_2.png");
     private static final ResourceLocation[] BETTER_END_PROGRESS = new ResourceLocation[10];
 
-    private static final ResourceLocation BETTER_NETHER_0 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_0.png");
-    private static final ResourceLocation BETTER_NETHER_1 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_1.png");
-    private static final ResourceLocation BETTER_NETHER_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_2.png");
+    private static final ResourceLocation BETTER_NETHER_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_0.png");
+    private static final ResourceLocation BETTER_NETHER_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_1.png");
+    private static final ResourceLocation BETTER_NETHER_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_2.png");
     private static final ResourceLocation[] BETTER_NETHER_PROGRESS = new ResourceLocation[10];
 
 
@@ -75,11 +75,11 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
     @Inject(method = "<init>", at = @At(value = "TAIL"))
     private void alexsMobsInteraction$init(EntityRendererProvider.Context renderManagerIn, CallbackInfo ci){
         for(int i = 0; i < 10; ++i) {
-            OVERWORLD_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/overworld/overworld_grow_" + i + ".png");
-            NETHER_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/nether/nether_grow_" + i + ".png");
-            THE_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/end/end_grow_" + i + ".png");
-            BETTER_END_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_end/better_end_grow_" + i + ".png");
-            BETTER_NETHER_PROGRESS[i] = new ResourceLocation("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_grow_" + i + ".png");
+            OVERWORLD_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_grow_" + i + ".png");
+            NETHER_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_grow_" + i + ".png");
+            THE_END_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_grow_" + i + ".png");
+            BETTER_END_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_grow_" + i + ".png");
+            BETTER_NETHER_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_grow_" + i + ".png");
         }
     }
 

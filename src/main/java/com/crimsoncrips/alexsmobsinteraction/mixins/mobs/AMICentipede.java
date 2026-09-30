@@ -66,17 +66,17 @@ public class AMICentipede extends Monster {
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 7))
-    private boolean nearestAttack(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals1(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 8))
-    private boolean nearestAttack2(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals2(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get();
     }
 
     @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 9))
-    private boolean nearestAttack3(GoalSelector instance, int pPriority, Goal pGoal) {
+    private boolean alexsMobsInteraction$registerGoals3(GoalSelector instance, int pPriority, Goal pGoal) {
         return !AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get();
     }
 

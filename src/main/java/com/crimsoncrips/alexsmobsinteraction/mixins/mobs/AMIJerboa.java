@@ -20,7 +20,7 @@ public abstract class AMIJerboa extends Animal {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityJerboa jerboa = (EntityJerboa)(Object)this;
     }
 

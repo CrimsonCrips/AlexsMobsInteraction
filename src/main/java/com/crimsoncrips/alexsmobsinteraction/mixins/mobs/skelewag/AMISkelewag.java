@@ -1,5 +1,9 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.skelewag;
 
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.entity.LivingEntity;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -26,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -49,11 +52,11 @@ public abstract class AMISkelewag extends Monster {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void alexsMobsInteraction$init(EntityType monster, Level level, CallbackInfo ci) {
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
+        this.setPathfindingMalus(PathType.LAVA, 0.0F);
     }
 
     @Override
-    protected ResourceLocation getDefaultLootTable() {
+    protected ResourceKey<LootTable> getDefaultLootTable() {
         return getVariant() == 2 || getVariant() == 3 ? AMILootTables.WITHERED_SKELEWAG : super.getDefaultLootTable();
     }
 
@@ -72,7 +75,7 @@ public abstract class AMISkelewag extends Monster {
         EntitySkelewag skelewag = (EntitySkelewag)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.MIGHT_UPGRADE_ENABLED.get()){
             skelewag.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(skelewag, Player.class, 100, true, false, (livingEntity) -> {
-                return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT.get());
+                return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT);
             }));
         }
     }
@@ -117,8 +120,7 @@ public abstract class AMISkelewag extends Monster {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if (AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get() && (itemStack.is(Items.COAL) || itemStack.is(Items.CHARCOAL)) && getVariant() <= 2) {
             if (!pPlayer.isCreative()) {
-                itemStack.hurtAndBreak(1, pPlayer, (p_233654_0_) -> {
-                });
+                itemStack.hurtAndBreak(1, pPlayer, LivingEntity.getSlotForHand(pHand));
             }
             pPlayer.swing(pHand,true);
             pPlayer.playSound(SoundEvents.BRUSH_GENERIC, 3, this.getVoicePitch());

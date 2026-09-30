@@ -16,10 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RenderSkelewag.class)
 public abstract class AMISkelewagRenderMixin extends MobRenderer<EntitySkelewag, ModelSkelewag> {
 
-    private static final ResourceLocation TEXTURE_0 = new ResourceLocation("alexsmobs:textures/entity/skelewag_0.png");
-    private static final ResourceLocation TEXTURE_1 = new ResourceLocation("alexsmobs:textures/entity/skelewag_1.png");
-    private static final ResourceLocation TEXTURE_2 = new ResourceLocation("alexsmobsinteraction:textures/entity/skelewag/wither_skelewag_2.png");
-    private static final ResourceLocation TEXTURE_3 = new ResourceLocation("alexsmobsinteraction:textures/entity/skelewag/wither_skelewag_3.png");
+    private static final ResourceLocation TEXTURE_0 = ResourceLocation.parse("alexsmobs:textures/entity/skelewag_0.png");
+    private static final ResourceLocation TEXTURE_1 = ResourceLocation.parse("alexsmobs:textures/entity/skelewag_1.png");
+    private static final ResourceLocation TEXTURE_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/skelewag/wither_skelewag_2.png");
+    private static final ResourceLocation TEXTURE_3 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/skelewag/wither_skelewag_3.png");
 
 
     public AMISkelewagRenderMixin(EntityRendererProvider.Context pContext, ModelSkelewag pModel, float pShadowRadius) {

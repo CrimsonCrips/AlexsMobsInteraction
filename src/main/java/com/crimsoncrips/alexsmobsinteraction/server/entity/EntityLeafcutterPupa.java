@@ -25,14 +25,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class EntityLeafcutterPupa extends ThrowableItemProjectile {
 
-    public EntityLeafcutterPupa(EntityType p_i50154_1_, Level p_i50154_2_) {
+    public EntityLeafcutterPupa(EntityType<? extends EntityLeafcutterPupa> p_i50154_1_, Level p_i50154_2_) {
         super(p_i50154_1_, p_i50154_2_);
     }
 
@@ -42,15 +40,6 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
 
     public EntityLeafcutterPupa(Level worldIn, double x, double y, double z) {
         super(AMIEntityRegistry.LEAFCUTTER_PUPA.get(), x, y, z, worldIn);
-    }
-
-    public EntityLeafcutterPupa(PlayMessages.SpawnEntity spawnEntity, Level world) {
-        this(AMIEntityRegistry.LEAFCUTTER_PUPA.get(), world);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @OnlyIn(Dist.CLIENT)

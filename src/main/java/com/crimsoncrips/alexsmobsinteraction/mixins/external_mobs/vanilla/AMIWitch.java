@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla;
 
+import net.minecraft.core.Holder;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import net.minecraft.world.effect.MobEffects;
@@ -20,9 +21,9 @@ public abstract class AMIWitch extends Mob {
     }
 
     @ModifyVariable(method = "aiStep", at = @At(value = "STORE"), ordinal = 0)
-    private Potion modifyPotion(Potion original) {
-        if (this.hasEffect(MobEffects.POISON) && !this.hasEffect(AMEffectRegistry.POISON_RESISTANCE.get()) && AlexsMobsInteraction.COMMON_CONFIG.WITCH_ADDITIONS_ENABLED.get())
-            return AMEffectRegistry.POISON_RESISTANCE_POTION.get();
+    private Holder<Potion> alexsMobsInteraction$aiStep(Holder<Potion> original) {
+        if (this.hasEffect(MobEffects.POISON) && !this.hasEffect(AMEffectRegistry.POISON_RESISTANCE) && AlexsMobsInteraction.COMMON_CONFIG.WITCH_ADDITIONS_ENABLED.get())
+            return AMEffectRegistry.POISON_RESISTANCE_POTION;
         return original;
     }
 }

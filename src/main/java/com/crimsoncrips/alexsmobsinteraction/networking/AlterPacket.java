@@ -1,26 +1,23 @@
 package com.crimsoncrips.alexsmobsinteraction.networking;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.client.renderer.AMIRendering;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.function.Supplier;
+public record AlterPacket() implements CustomPacketPayload {
 
-public class AlterPacket {
+    public static final Type<AlterPacket> TYPE = new Type<>(AlexsMobsInteraction.prefix("farseer_alter"));
+    public static final StreamCodec<ByteBuf, AlterPacket> STREAM_CODEC = StreamCodec.unit(new AlterPacket());
 
-    public void encode(FriendlyByteBuf friendlyByteBuf) {
-        // Do nothing
+    public static void handle(AlterPacket packet, IPayloadContext context) {
+        context.enqueueWork(() -> AMIRendering.ALTER_PROGRESS = 1.0F);
     }
 
-    public static AlterPacket decode(FriendlyByteBuf friendlyByteBuf) {
-        return new AlterPacket();
-    }
-
-    public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> {
-            AMIRendering.ALTER_PROGRESS = 1.0F;
-        });
-        context.setPacketHandled(true);
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

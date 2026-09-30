@@ -27,7 +27,7 @@ public abstract class AMICaiman extends TamableAnimal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityCaiman caiman = (EntityCaiman)(Object)this;
 
         if (AlexsMobsInteraction.COMMON_CONFIG.EGG_ATTACK_ENABLED.get()) {

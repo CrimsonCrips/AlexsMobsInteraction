@@ -1,5 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.misc;
 
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.advancements.AdvancementHolder;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -27,8 +30,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 
@@ -40,7 +43,7 @@ public class AMIUtils {
 
     public static void awardAdvancement(Entity entity, String advancementName, String criteria){
         if(entity instanceof ServerPlayer serverPlayer){
-            Advancement advancement = serverPlayer.serverLevel().getServer().getAdvancements().getAdvancement(new ResourceLocation(AlexsMobsInteraction.MODID, advancementName));
+            AdvancementHolder advancement = serverPlayer.serverLevel().getServer().getAdvancements().get(ResourceLocation.fromNamespaceAndPath(AlexsMobsInteraction.MODID, advancementName));
             if (advancement != null) {
                 serverPlayer.getAdvancements().award(advancement, criteria);
             }
@@ -66,10 +69,10 @@ public class AMIUtils {
         return closestValid;
     }
 
-    public static void spawnLoot (ResourceLocation location, LivingEntity entity, Entity owner, int loop){
+    public static void spawnLoot (ResourceKey<LootTable> location, LivingEntity entity, Entity owner, int loop){
         if (!entity.level().isClientSide){
             LootParams ctx = new LootParams.Builder((ServerLevel) entity.level()).withParameter(LootContextParams.THIS_ENTITY, entity).create(LootContextParamSets.EMPTY);
-            ObjectArrayList<ItemStack> rewards = entity.level().getServer().getLootData().getLootTable(location).getRandomItems(ctx);
+            ObjectArrayList<ItemStack> rewards = entity.level().getServer().reloadableRegistries().getLootTable(location).getRandomItems(ctx);
             if (!rewards.isEmpty()) {
                 for (int i = 0; i <= loop; i++) {
                     rewards.forEach(stack -> BehaviorUtils.throwItem(entity, rewards.get(0), owner.position().add(0.0D, 1.0D, 0.0D)));

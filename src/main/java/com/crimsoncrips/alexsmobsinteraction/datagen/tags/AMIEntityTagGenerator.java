@@ -14,9 +14,8 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobType;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 

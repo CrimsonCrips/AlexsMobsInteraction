@@ -23,17 +23,17 @@ public abstract class AMIThrownPotion extends ThrowableItemProjectile {
     }
 
     @Inject(method = "applyWater", at = @At("TAIL"))
-    private void applyWater(CallbackInfo ci) {
+    private void alexsMobsInteraction$applyWater(CallbackInfo ci) {
 
         for (LivingEntity livingentity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D))) {
             double d0 = this.distanceToSqr(livingentity);
             if (d0 < 16.0D) {
 
                 if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
-                    MobEffectInstance blooded = livingentity.getEffect(AMIEffects.BLOODED.get());
+                    MobEffectInstance blooded = livingentity.getEffect(AMIEffects.BLOODED);
                     if (blooded != null){
-                        livingentity.removeEffect(AMIEffects.BLOODED.get());
-                        livingentity.addEffect(new MobEffectInstance(AMIEffects.BLOODED.get(), blooded.getDuration() - 300, blooded.getAmplifier()));
+                        livingentity.removeEffect(AMIEffects.BLOODED);
+                        livingentity.addEffect(new MobEffectInstance(AMIEffects.BLOODED, blooded.getDuration() - 300, blooded.getAmplifier()));
                     }
                 }
             }

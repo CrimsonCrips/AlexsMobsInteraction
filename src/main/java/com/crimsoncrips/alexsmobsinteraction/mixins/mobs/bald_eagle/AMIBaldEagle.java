@@ -23,7 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -78,7 +78,7 @@ public abstract class AMIBaldEagle  extends TamableAnimal {
     @ModifyReturnValue(method = "shouldHoodedReturn", at = @At("RETURN"),remap = false)
     private boolean alexsMobsInteraction$shouldShoot(boolean original) {
         if (AlexsMobsInteraction.COMMON_CONFIG.BIRD_BOMBING_ENABLED.get()){
-            boolean normal = !this.isAlive() || this.isInsidePortal || launchTime > 12000 || this.portalTime > 0 || this.isRemoved();
+            boolean normal = !this.isAlive() || (this.portalProcess != null && (this.portalProcess.isInsidePortalThisTick() || this.portalProcess.getPortalTime() > 0)) || launchTime > 12000 || this.isRemoved();
             ItemStack itemStack = getItemInHand(InteractionHand.MAIN_HAND);
 
             if (this.getOwner() != null) {

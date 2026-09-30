@@ -32,12 +32,12 @@ public abstract class AMITendonWhip extends Entity {
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tick(CallbackInfo ci) {
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
         EntityTendonSegment tendonSegment = (EntityTendonSegment)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.TENDON_GRAB_ENABLED.get()) {
             creator = tendonSegment.getCreatorEntity();
 
-            if (creator instanceof Player player && player.getMainHandItem().getEnchantmentLevel(AMIEnchantmentRegistry.STRETCHY_ACCUMULATION.get()) > 0) {
+            if (creator instanceof Player player && AMIEnchantmentRegistry.getLevel(player.level(), player.getMainHandItem(), AMIEnchantmentRegistry.STRETCHY_ACCUMULATION) > 0) {
 
                 Vec3 creatorPos = creator.position();
                 for (Entity entity : tendonSegment.level().getEntitiesOfClass(Entity.class, tendonSegment.getBoundingBox().inflate(2, 2, 2))) {

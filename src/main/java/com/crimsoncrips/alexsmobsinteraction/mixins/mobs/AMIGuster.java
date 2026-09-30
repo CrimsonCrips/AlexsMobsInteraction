@@ -37,9 +37,9 @@ public class AMIGuster extends Mob {
     }
 
     @WrapOperation(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(DDD)V"))
-    private void aiStep(Entity instance, double pX, double pY, double pZ, Operation<Void> original, @Local Entity lifted,@Local(ordinal = 1) float resist,@Local(ordinal = 2) double d0,@Local(ordinal = 3) double d1) {
+    private void alexsMobsInteraction$aiStep(Entity instance, double pX, double pY, double pZ, Operation<Void> original, @Local Entity lifted,@Local(ordinal = 1) float resist,@Local(ordinal = 2) double d0,@Local(ordinal = 3) double d1) {
         if (lifted instanceof LivingEntity living && AlexsMobsInteraction.COMMON_CONFIG.GUSTING_ENABLED.get()){
-            if (!living.hasEffect(AMIEffects.GUSTING.get()) && living instanceof Player player) {
+            if (!living.hasEffect(AMIEffects.GUSTING) && living instanceof Player player) {
                 int armor = player.getArmorValue();
                 lifted(armor, player, d0, d1, resist);
             } else {

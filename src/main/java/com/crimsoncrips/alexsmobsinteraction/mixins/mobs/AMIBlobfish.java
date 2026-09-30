@@ -26,7 +26,7 @@ public abstract class AMIBlobfish extends WaterAnimal {
 
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void registerGoals(CallbackInfo ci) {
+    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         EntityBlobfish blobfish = (EntityBlobfish)(Object)this;
     }
 

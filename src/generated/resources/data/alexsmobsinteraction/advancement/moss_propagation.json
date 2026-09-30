@@ -1,0 +1,29 @@
+{
+  "parent": "alexsmobsinteraction:interrupt_dormancy",
+  "criteria": {
+    "propagate": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.alexsmobsinteraction.moss_propagation.desc"
+    },
+    "icon": {
+      "components": {
+        "citadel:icon_location": "alexsmobsinteraction:textures/gui/adv_icon/moss_propagation.png"
+      },
+      "count": 1,
+      "id": "citadel:icon_item"
+    },
+    "title": {
+      "translate": "advancement.alexsmobsinteraction.moss_propagation"
+    }
+  },
+  "requirements": [
+    [
+      "propagate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

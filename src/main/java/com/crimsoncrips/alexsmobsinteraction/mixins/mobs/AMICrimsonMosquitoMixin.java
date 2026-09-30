@@ -59,7 +59,7 @@ public abstract class AMICrimsonMosquitoMixin extends Monster {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
         if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
-            this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, Player.class, 10, true, false, (mob) -> !mob.hasEffect(AMEffectRegistry.MOSQUITO_REPELLENT.get())));
+            this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, Player.class, 10, true, false, (mob) -> !mob.hasEffect(AMEffectRegistry.MOSQUITO_REPELLENT)));
             this.targetSelector.addGoal(2, new AMIBloodedAttraction(this, LivingEntity.class, 30, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.CRIMSON_MOSQUITO_TARGETS)));
         }
     }
