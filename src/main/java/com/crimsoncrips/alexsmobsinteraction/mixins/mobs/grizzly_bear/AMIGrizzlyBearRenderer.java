@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.grizzly_bear;
 
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.client.layer.UrsaArmorLayer;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.GrizzlyExtras;
 import com.github.alexthe666.alexsmobs.client.model.ModelGrizzlyBear;
 import com.github.alexthe666.alexsmobs.client.render.RenderGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
@@ -33,6 +33,6 @@ public abstract class AMIGrizzlyBearRenderer extends MobRenderer<EntityGrizzlyBe
     }
 
     public ResourceLocation getTextureLocation(EntityGrizzlyBear entity) {
-        return ((GrizzlyExtras)entity).isUrsa() ?  TEXTURE_URSA : (entity.isFreddy() ? TEXTURE_FREDDY : TEXTURE);
+        return entity.getData(AMIAttachments.URSA) ?  TEXTURE_URSA : (entity.isFreddy() ? TEXTURE_FREDDY : TEXTURE);
     }
 }

@@ -1,17 +1,16 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import net.minecraft.world.item.component.LodestoneTracker;
 import net.minecraft.core.component.DataComponents;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.github.alexthe666.alexsmobs.item.ItemDimensionalCarver;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -59,7 +58,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
                 }
                 AMIUtils.awardAdvancement(player, "dimensional_lodestone", "lodestone");
                 String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-                ((AMIBasicInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
+                portal.setData(AMIAttachments.VARIANT, AMIUtils.dimensionDeterminer(result));
 
                 //Used to determine string for dimension
                 System.out.println(result);
@@ -77,7 +76,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
             portal.exitDimension = respawnDimension;
             portal.setDestination(respawnPosition.above(2));
             String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-            ((AMIBasicInterfaces)portal).setVariant(AMIUtils.dimensionDeterminer(result));
+            portal.setData(AMIAttachments.VARIANT, AMIUtils.dimensionDeterminer(result));
         }
 
     }

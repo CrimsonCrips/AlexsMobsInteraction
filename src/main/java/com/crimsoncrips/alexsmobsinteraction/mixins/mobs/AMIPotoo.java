@@ -2,19 +2,12 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityFly;
 import com.github.alexthe666.alexsmobs.entity.EntityPotoo;
-import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
-import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -34,14 +27,6 @@ public abstract class AMIPotoo extends Animal {
     }
 
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
-        EntityPotoo potoo = (EntityPotoo)(Object)this;
-        if (AlexsMobsInteraction.TARGETS_CONFIG.POTOO_ENABLED.get()){
-            potoo.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(potoo, EntityFly.class, 600, true, false, LivingEntity::isAlive));
-        }
-
-    }
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityPotoo;gameEvent(Lnet/minecraft/core/Holder;)V"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {

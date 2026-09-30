@@ -2,16 +2,18 @@ package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
 import com.github.alexthe666.alexsmobs.entity.EntityFroststalker;
 import com.mojang.datafixers.DataFixUtils;
+import java.util.List;
+import java.util.function.Predicate;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.List;
-import java.util.function.Predicate;
+
 
 public class AMIFollowAsmon extends Goal {
 
@@ -31,7 +33,7 @@ public class AMIFollowAsmon extends Goal {
 
     public boolean canUse() {
         AsmonRoach myAccessor = (AsmonRoach) mob;
-        if (myAccessor.getWorshiping() instanceof EntityCockroach entityCockroach && !myAccessor.isGod() && entityCockroach.getLastHurtByMob() == null){
+        if (myAccessor.getWorshiping() instanceof EntityCockroach entityCockroach && !mob.getData(AMIAttachments.IS_GOD) && entityCockroach.getLastHurtByMob() == null){
             if (this.nextStartTick > 0) {
                 --this.nextStartTick;
                 return false;
@@ -44,7 +46,7 @@ public class AMIFollowAsmon extends Goal {
 
     public boolean canContinueToUse() {
         AsmonRoach myAccessor = (AsmonRoach) mob;
-        return myAccessor.getWorshiping() != null && !myAccessor.isGod();
+        return myAccessor.getWorshiping() != null && !mob.getData(AMIAttachments.IS_GOD);
     }
 
     public void start() {

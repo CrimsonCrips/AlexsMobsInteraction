@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.GrizzlyExtras;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
+
 public class AMIGrizzlyScavenge extends MoveToBlockGoal {
 
     EntityGrizzlyBear grizzlyBear;
@@ -31,8 +32,7 @@ public class AMIGrizzlyScavenge extends MoveToBlockGoal {
 
     @Override
     public boolean canContinueToUse() {
-        GrizzlyExtras beatInterface = (((GrizzlyExtras)grizzlyBear));
-        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && beatInterface.getNoHoney() >= 4000;
+        return this.isValidTarget(this.mob.level(), this.blockPos) && !grizzlyBear.isTame() && !grizzlyBear.isBaby() && !grizzlyBear.isHoneyed() && !grizzlyBear.isEating() && grizzlyBear.getData(AMIAttachments.NO_HONEY) >= 4000;
     }
 
     @Override

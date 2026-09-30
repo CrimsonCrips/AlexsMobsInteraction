@@ -1,34 +1,21 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.laviathan;
 
-import net.minecraft.world.entity.EquipmentSlot;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
-import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.github.alexthe666.alexsmobs.entity.*;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityLaviathan.class)
-public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerdPanic , AMIBasicInterfaces {
+public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerdPanic {
 
 
     @Shadow protected abstract float getXForPart(float yaw, float degree);
@@ -39,78 +26,39 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
         super(pEntityType, pLevel);
     }
 
-    static{
-        RELAVA = SynchedEntityData.defineId(EntityLaviathan.class, EntityDataSerializers.BOOLEAN);
-    }
-
     @Override
     public boolean shouldEnterWater() {
-        boolean relava = !AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() || isRelava();
+        boolean relava = !AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() || this.getData(AMIAttachments.RELAVA);
         return !this.isVehicle() && !relava;
     }
 
     @Override
     public boolean shouldLeaveWater() {
-        boolean relava = !AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() || isRelava();
+        boolean relava = !AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() || this.getData(AMIAttachments.RELAVA);
         return this.isVehicle() && relava;
     }
 
-    private static final EntityDataAccessor<Boolean> RELAVA;
 
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
-        builder.define(RELAVA, false);
-    }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
-        compound.putBoolean("Relava", this.isRelava());
-    }
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
-        this.setRelava(compound.getBoolean("Relava"));
 
-    }
-
-    public boolean isRelava() {
-        return this.entityData.get(RELAVA);
-    }
-
-    public void setRelava(boolean relava) {
-        this.entityData.set(RELAVA, relava);
-    }
 
     @Override
     public boolean isSensitiveToWater() {
-        return super.isSensitiveToWater() || isRelava();
-    }
-
-    @Inject(method = "mobInteract", at = @At("TAIL"))
-    private void alexsMobsInteraction$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
-        EntityLaviathan laviathan = (EntityLaviathan)(Object)this;
-        if (player.getMainHandItem().getItem() instanceof PickaxeItem && laviathan.isObsidian()){
-            setRelava(true);
-            laviathan.setObsidian(false);
-            this.playSound(SoundEvents.WITHER_BREAK_BLOCK, 2, this.getVoicePitch());
-            AMIUtils.spawnLoot(AMILootTables.OBSIDIAN_EXTRACT,laviathan,player,0);
-            player.getMainHandItem().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-            this.hurt(laviathan.damageSources().generic(),10);
-            AMIUtils.awardAdvancement(player,"obsidian_extract","extract");
-        }
+        return super.isSensitiveToWater() || this.getData(AMIAttachments.RELAVA);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void alexsMobsInteraction$tick(CallbackInfo ci){
         EntityLaviathan laviathan = (EntityLaviathan)(Object)this;
-        if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && isRelava() && AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get()) {
+        if (!laviathan.isObsidian() && !this.isInWaterOrBubble() && this.getData(AMIAttachments.RELAVA) && AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get()) {
             if (getPersistentData().getInt("RelavaTicks") < 6000) {
                 getPersistentData().putInt("RelavaTicks",getPersistentData().getInt("RelavaTicks") + 1);
             } else {
-                setRelava(false);
+                this.setData(AMIAttachments.RELAVA, false);
             }
         }
 
-        if (this.level().isClientSide && this.isRelava() && AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get()) {
+        if (this.level().isClientSide && this.getData(AMIAttachments.RELAVA) && AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get()) {
             float yaw = laviathan.getYRot() * 0.017453292F;
             if (!this.isBaby() ) {
                 if (random.nextDouble() < 0.1) {
@@ -129,7 +77,7 @@ public abstract class AMILaviathan extends Animal implements ISemiAquatic, IHerd
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLaviathan;isObsidian()Z",ordinal = 1), cancellable = true)
     private void alexsMobsInteraction$tick1(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() && this.isRelava()){
+        if (AlexsMobsInteraction.COMMON_CONFIG.OBSIDIAN_EXTRACT_ENABLED.get() && this.getData(AMIAttachments.RELAVA)){
             ci.cancel();
         }
     }

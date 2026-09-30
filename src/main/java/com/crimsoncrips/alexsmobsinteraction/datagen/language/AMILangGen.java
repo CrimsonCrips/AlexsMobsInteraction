@@ -18,7 +18,7 @@ public class AMILangGen extends AMILangProvider {
 		this.addAdvancementDesc("altered","§kEEERRORRR", "§k-§rGet altered by a farseer.§k-§r");
 		this.addAdvancementDesc("asmongold","The Roach King", "Give 'The Roach Crown' to a cockroach");
 		this.addAdvancementDesc("banana_shear","Banana Shearing", "Shear a banana slug for banana");
-		this.addAdvancementDesc("bird_bomb","Bomber Birds", "Drop an explosive, and have a controlled falcon pick it up. Sneak to drop it");
+		this.addAdvancementDesc("bird_bomb","Bomber Birds", "Drop an explosive, and have a controlled falcon pick it up. Press the drop bomb key to drop it");
 		this.addAdvancementDesc("blooded","Blood Stained Earth", "Be inflicted with Blooded effect");
 		this.addAdvancementDesc("blue_shell","Shell Of Death", "Launch a volatile blue shell terrapin");
 		this.addAdvancementDesc("brushed","Furryous Brushing", "Brush off some hair from a sated grizzly");
@@ -65,7 +65,6 @@ public class AMILangGen extends AMILangProvider {
 		this.addAdvancementDesc("wally","Emotional Support Alligator", "Name an alligator 'Wally', pacifying it");
 		this.addAdvancementDesc("weight_lifting","Weight Lifting", "Have a guster FAIL to lift you to even be lifted 1 block for being too heavy");
 		this.addAdvancementDesc("zoglinned","Undeadly Pork", "Convert a tusklin to a zoglin");
-		this.addDeathMessage("banana_slip",0,"%s f§kuc§rking slipped");
 		this.addEffect("blooded","Blooded","Reduces Speed, Armor and Strength");
 		this.addEffect("farseer_icon","§kERRORR$r","§k------------");
 		this.addEffect("gusting","Gusting","Immune to affection with gusts and spawns gusts simultaniously around the player");
@@ -83,7 +82,16 @@ public class AMILangGen extends AMILangProvider {
 		this.addMisc("feature_disabled", "Feature Disabled");
 		this.addItem(AMIItemRegistry.ASMON_CROWN, "The Roach Crown");
 		this.addItem(AMIItemRegistry.MUTATE_ITEMS, "Mutate Items");
+		this.add("key.alexsmobsinteraction.drop_bomb", "Falcon Drop Bomb");
+		this.add("key.categories.alexsmobsinteraction", "Alexs Mobs Interaction");
 
+		this.addMisc("welcome_toast_message", "Welcome to AMI, to see what is in store for AMI take a gander at the dictionary from Alex's Mobs");
+		this.addMisc("warning_message", "WARNING, Do note this mod has some photosensitive visuals, You can disable this warning at the client config");
+		this.addMisc("config_title", "Alex's Mobs Interaction Config");
+		this.addMisc("config_tab_client", "Client");
+		this.addMisc("config_tab_general", "General");
+		this.addMisc("config_tab_targets", "Targets");
+		this.addMisc("config_note_remote", "Connected to a server, these settings can only be changed on the server");
 
 	}
 }

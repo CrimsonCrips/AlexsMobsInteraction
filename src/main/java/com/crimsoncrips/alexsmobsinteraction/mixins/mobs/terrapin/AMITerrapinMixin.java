@@ -9,14 +9,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
 
 
 @Mixin(EntityTerrapin.class)
@@ -24,31 +22,6 @@ public abstract class AMITerrapinMixin extends Mob implements AMIBasicInterfaces
 
     protected AMITerrapinMixin(EntityType<? extends Mob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-    }
-
-    @Inject(method = "tick", at = @At(value = "TAIL"))
-    private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        EntityTerrapin terrapin = (EntityTerrapin)(Object)this;
-        if (!this.level().isClientSide && !isInWater() && !terrapin.hasRetreated() || !terrapin.isSpinning()) {
-            List<Player> list = this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(0, 0.15F, 0));
-            for (Player player : list) {
-                if ((player.jumping || !player.onGround()) && player.getY() > this.getEyeY()) {
-                    if (AlexsMobsInteraction.COMMON_CONFIG.TERRAPIN_STOMP_ENABLED.get()) {
-                        AMIUtils.awardAdvancement(player, "stomp", "stomp");
-                        terrapin.hurt(player.damageSources().generic(),2);
-                    }
-                   // if (AlexsMobsInteraction.COMMON_CONFIG.MINE_TURTLE_ENABLED.get()) {
-                    //    if (terrapin.getRandom().nextDouble() < 0.2 && ModList.get().isLoaded("alexscaves")) {
-                    //        ACCompat.summonNuke(player);
-                     //   } else {
-                     //       terrapin.level().explode(this, terrapin.getX() + 1,terrapin.getY() + 2,terrapin.getZ() + 1,3, Level.ExplosionInteraction.BLOCK);
-                      //  }
-                     //   discard();
-                    //}
-                }
-            }
-        }
-
     }
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityTerrapin;copySpinDelta(FLnet/minecraft/world/phys/Vec3;)V"))

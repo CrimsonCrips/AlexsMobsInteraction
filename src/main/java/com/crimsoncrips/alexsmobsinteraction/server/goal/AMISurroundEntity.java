@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -8,20 +9,21 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import org.w3c.dom.Entity;
 
+
 public class AMISurroundEntity extends AMIFollowNearestGoal {
 
 
 
     public AMISurroundEntity(EntityCockroach mob) {
         super(mob, LivingEntity.class, 15, 1.2,living -> {
-            return ((AsmonRoach)mob).getWorshiping() instanceof EntityCockroach asmon && (asmon.getLastHurtByMob() == living || (living instanceof EntityCockroach assimilateTarget && ((AsmonRoach)assimilateTarget).getWorshiping() == null && !(((AsmonRoach)assimilateTarget).isGod()) && asmon.getLastHurtByMob() == null));
+            return ((AsmonRoach)mob).getWorshiping() instanceof EntityCockroach asmon && (asmon.getLastHurtByMob() == living || (living instanceof EntityCockroach assimilateTarget && ((AsmonRoach)assimilateTarget).getWorshiping() == null && !(assimilateTarget.getData(AMIAttachments.IS_GOD)) && asmon.getLastHurtByMob() == null));
         });
     }
 
     @Override
     public boolean canUse() {
         AsmonRoach myAccessor = (AsmonRoach) mob;
-        return super.canUse() && !myAccessor.isGod() && myAccessor.getWorshiping() instanceof EntityCockroach;
+        return super.canUse() && !mob.getData(AMIAttachments.IS_GOD) && myAccessor.getWorshiping() instanceof EntityCockroach;
     }
 
     @Override
@@ -36,8 +38,8 @@ public class AMISurroundEntity extends AMIFollowNearestGoal {
                 }
                 target.knockback(0.3F, target.getX() - mob.getX(), target.getZ() - mob.getZ());
                 target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 0));
-                if (target instanceof EntityCockroach possibleAssimilate && ((AsmonRoach)possibleAssimilate).getWorshiping() == null && !(((AsmonRoach)possibleAssimilate).isGod())){
-                    ((AsmonRoach)possibleAssimilate).setWorshippingUUID(((AsmonRoach)mob).getWorshiping().getUUID());
+                if (target instanceof EntityCockroach possibleAssimilate && ((AsmonRoach)possibleAssimilate).getWorshiping() == null && !(possibleAssimilate.getData(AMIAttachments.IS_GOD))){
+                    AMIAttachments.setUUID(possibleAssimilate, AMIAttachments.WORSHIPING_UUID, ((AsmonRoach)mob).getWorshiping().getUUID());
                     possibleAssimilate.setCustomName(Component.nullToEmpty("Servant"));
                 }
             }

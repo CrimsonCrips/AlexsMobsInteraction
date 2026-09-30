@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cockroach;
 
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.client.layer.AsmonLayer;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.github.alexthe666.alexsmobs.client.model.ModelCockroach;
 import com.github.alexthe666.alexsmobs.client.render.RenderCockroach;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
@@ -29,7 +29,7 @@ public abstract class AMICockroachRenderMixin extends MobRenderer<EntityCockroac
     }
 
     protected void scale(EntityCockroach entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-        float scale = ((AsmonRoach)entitylivingbaseIn).isGod() ? 1.5F : 0.85F;
+        float scale = entitylivingbaseIn.getData(AMIAttachments.IS_GOD) ? 1.5F : 0.85F;
         matrixStackIn.scale(scale, scale, scale);
     }
 }

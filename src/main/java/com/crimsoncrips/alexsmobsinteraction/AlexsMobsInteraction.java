@@ -5,10 +5,7 @@ import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.datagen.AMIDatagen;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootModifiers;
 import com.crimsoncrips.alexsmobsinteraction.networking.AMIPacketHandler;
-import com.crimsoncrips.alexsmobsinteraction.server.AMIAddTargetsConfig;
-import com.crimsoncrips.alexsmobsinteraction.server.AMIModEvents;
-import com.crimsoncrips.alexsmobsinteraction.server.AMIServerConfig;
-import com.crimsoncrips.alexsmobsinteraction.server.AMInteractionEvents;
+import com.crimsoncrips.alexsmobsinteraction.server.*;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.AMIEntityRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
@@ -35,13 +32,13 @@ public class AlexsMobsInteraction {
     public static final AMICommonProxy PROXY = FMLEnvironment.dist.isClient() ? new AMIClientProxy() : new AMICommonProxy();
 
     public static final AMIServerConfig COMMON_CONFIG;
-    private static final ModConfigSpec COMMON_CONFIG_SPEC;
+    public static final ModConfigSpec COMMON_CONFIG_SPEC;
 
     public static final AMIAddTargetsConfig TARGETS_CONFIG;
-    private static final ModConfigSpec TARGETS_CONFIG_SPEC;
+    public static final ModConfigSpec TARGETS_CONFIG_SPEC;
 
     public static final AMIClientConfig CLIENT_CONFIG;
-    private static final ModConfigSpec CLIENT_CONFIG_SPEC;
+    public static final ModConfigSpec CLIENT_CONFIG_SPEC;
 
     static {
         final Pair<AMIServerConfig, ModConfigSpec> serverPair = new ModConfigSpec.Builder().configure(AMIServerConfig::new);
@@ -60,19 +57,28 @@ public class AlexsMobsInteraction {
         modContainer.registerConfig(ModConfig.Type.COMMON, TARGETS_CONFIG_SPEC, "alexsmobsinteraction-add_targets.toml");
         modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC, "alexsmobsinteraction-client.toml");
 
-        NeoForge.EVENT_BUS.register(new AMInteractionEvents());
+        NeoForge.EVENT_BUS.register(new AMIServerEvents());
         NeoForge.EVENT_BUS.addListener(AMIEffects::registerBrewingRecipes);
+        NeoForge.EVENT_BUS.addListener(AMIAddTargets::onEntityJoinLevel);
+        NeoForge.EVENT_BUS.addListener(AMIAddGoals::onEntityJoinLevel);
+
+
         AMIEffects.EFFECT_REGISTER.register(modEventBus);
         AMIEffects.POTION_REGISTER.register(modEventBus);
         AMIItemRegistry.DEF_REG.register(modEventBus);
         AMISoundRegistry.DEF_REG.register(modEventBus);
         AMILootModifiers.LOOT_MODIFIERS.register(modEventBus);
         AMIEntityRegistry.DEF_REG.register(modEventBus);
+        AMIAttachments.ATTACHMENT_TYPES.register(modEventBus);
         modEventBus.addListener(AMIDatagen::generateData);
         modEventBus.addListener(AMIModEvents::addCreativeTabs);
+        modEventBus.addListener(AMIModEvents::registerSpawnPlacements);
         modEventBus.addListener(AMIPacketHandler::register);
         modEventBus.addListener(this::setupClient);
         PROXY.init(modEventBus);
+        if (FMLEnvironment.dist.isClient()) {
+            AMIClientProxy.registerConfigScreen(modContainer);
+        }
     }
 
     private void setupClient(FMLClientSetupEvent event) {

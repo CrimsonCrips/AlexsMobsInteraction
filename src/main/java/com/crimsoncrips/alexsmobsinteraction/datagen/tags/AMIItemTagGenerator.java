@@ -7,14 +7,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
@@ -22,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 public class AMIItemTagGenerator extends ItemTagsProvider {
 	public static final TagKey<Item> LIGHT_FEAR = create("light_fear");
 	public static final TagKey<Item> EMU_TRIGGER = create("emu_trigger");
-	public static final TagKey<Item> HOT = create("hot");
 	public static final TagKey<Item> ROLLING_THUNDER_ENCHANTABLE = create("enchantable/rolling_thunder");
 	public static final TagKey<Item> STRETCHY_ACCUMULATION_ENCHANTABLE = create("enchantable/stretchy_accumulation");
 
@@ -62,14 +58,6 @@ public class AMIItemTagGenerator extends ItemTagsProvider {
 
 		tag(STRETCHY_ACCUMULATION_ENCHANTABLE).add(
 				AMItemRegistry.TENDON_WHIP.get()
-		);
-
-		tag(HOT).add(
-				Items.FIRE_CHARGE,
-				Items.LAVA_BUCKET,
-				Items.MAGMA_BLOCK,
-				AMItemRegistry.LAVA_BOTTLE.get(),
-				Items.MAGMA_CREAM
 		);
 
 	}

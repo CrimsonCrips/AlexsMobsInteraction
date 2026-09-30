@@ -1,9 +1,9 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import net.minecraft.core.Holder;
 import net.minecraft.client.DeltaTracker;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Minecraft;
@@ -169,7 +169,7 @@ public abstract class AMIGuiMixin {
 
 
     public boolean alterGui(boolean requireAlter){
-        return AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get() && (((FarseerFx)minecraft.player).getAlterTime() != 0 || !requireAlter);
+        return AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get() && (minecraft.player.getData(AMIAttachments.ALTER_TIME) != 0 || !requireAlter);
     }
 
     public double randomShake(){

@@ -3,6 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.server.entity;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+
 
 public class EntityLeafcutterPupa extends ThrowableItemProjectile {
 
@@ -71,9 +73,9 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
                     for(int k = 0; k < j; ++k) {
                         EntityLeafcutterAnt antentity = new EntityLeafcutterAnt(AMEntityRegistry.LEAFCUTTER_ANT.get(), world);
                         if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){
-                            ((AMIBasicInterfaces) antentity).setVariant(variant);
+                            antentity.setData(AMIAttachments.VARIANT, variant);
                         } else {
-                            ((AMIBasicInterfaces) antentity).setVariant(1);
+                            antentity.setData(AMIAttachments.VARIANT, 1);
                         }
                         antentity.setQueen(k == 0);
                         beehivetileentity.tryEnterHive(antentity, false, 100);

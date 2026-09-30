@@ -1,79 +1,53 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import net.minecraft.world.food.FoodProperties;
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
-import com.crimsoncrips.alexsmobsinteraction.server.goal.AMICosmawOwner;
 import com.github.alexthe666.alexsmobs.entity.EntityCosmaw;
-import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.GoalSelector;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
-import java.util.Objects;
 
 
-@Mixin(EntityCosmaw.class)
-public abstract class AMICosmaw extends Animal {
+@Mixin(targets = "com.github.alexthe666.alexsmobs.entity.EntityCosmaw$AIPickupOwner")
+public abstract class AMICosmaw extends Goal {
 
-    protected AMICosmaw(EntityType<? extends Animal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+
+    @Shadow
+    private LivingEntity owner;
+
+    @Shadow
+    @Final
+    private EntityCosmaw this$0;
+
+    @ModifyReturnValue(method = "canUse", at = @At("RETURN"))
+    private boolean alexsMobsInteraction$canUse(boolean original){
+        return original && !this$0.hasEffect(MobEffects.WEAKNESS);
     }
 
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
-        EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.COSMAW_WEAKENED_ENABLED.get()) {
-            cosmaw.goalSelector.addGoal(4, new AMICosmawOwner(cosmaw));
-        }
-    }
-
-    @WrapWithCondition(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 4))
-    private boolean alexsMobsInteraction$registerGoals1(GoalSelector instance, int pPriority, Goal pGoal) {
-        return !AlexsMobsInteraction.COMMON_CONFIG.COSMAW_WEAKENED_ENABLED.get();
-    }
-
-    @Inject(method = "onGetItem", at = @At("TAIL"),remap = false)
-    private void alexsMobsInteraction$onGetItem(ItemEntity e, CallbackInfo ci) {
-        if (e.getItem().getFoodProperties(this) != null && AlexsMobsInteraction.COMMON_CONFIG.FOOD_FX_ENABLED.get()) {
-            this.heal(5);
-            List<FoodProperties.PossibleEffect> test = Objects.requireNonNull(e.getItem().getFoodProperties(this)).effects();
-            if (!test.isEmpty()){
-                for (int i = 0; i < test.size(); i++){
-                    this.addEffect(new MobEffectInstance(test.get(i).effect()));
+        if (owner != null && (!owner.isFallFlying() || owner.getY() < -30.0)) {
+            if (this$0.hasPassenger(owner) && owner.getArmorValue() > 8){
+                if(!(AMIEnchantmentRegistry.getLevel(owner.level(), owner.getItemBySlot(EquipmentSlot.CHEST), AMIEnchantmentRegistry.LIGHTWEIGHT) > 0)){
+                    AMIUtils.awardAdvancement(owner, "heavy_carriage", "heavy");
+                    this$0.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, owner.getArmorValue() * 100, 0));
+                } else {
+                    AMIUtils.awardAdvancement(owner,"lightweight","lightweight");
                 }
             }
         }
-    }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityCosmaw;distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D"))
-    private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        EntityCosmaw cosmaw = (EntityCosmaw)(Object)this;
-        LivingEntity owner = cosmaw.getOwner();
-        if (owner != null && cosmaw.hasPassenger(owner) && owner.getArmorValue() > 8 && cosmaw.getRandom().nextDouble() < 0.3){
-            AMIUtils.addParticlesAroundSelf(ParticleTypes.SPLASH,cosmaw,1,0.2);
-        }
     }
 
 }

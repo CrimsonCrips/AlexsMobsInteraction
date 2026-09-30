@@ -1,19 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.kangaroo;
 
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.github.alexthe666.alexsmobs.entity.EntityKangaroo;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -41,8 +36,6 @@ public abstract class AMIKangaroo extends TamableAnimal {
     @Shadow protected abstract void updateClientInventory();
 
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slotIn);
-
-    private static final EntityDataAccessor<Integer> TOTEM_INDEX = SynchedEntityData.defineId(EntityKangaroo.class, EntityDataSerializers.INT);
 
 
     protected AMIKangaroo(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
@@ -75,27 +68,15 @@ public abstract class AMIKangaroo extends TamableAnimal {
                     }
                 }
             }
-            this.entityData.set(TOTEM_INDEX, totemIndex);
+            this.setData(AMIAttachments.TOTEM_INDEX, totemIndex);
             updateClientInventory();
         }
 
     }
 
 
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(TOTEM_INDEX, Integer.valueOf(-1));
-    }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
-        compound.putInt("TotemIndex", this.entityData.get(TOTEM_INDEX));
-    }
 
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
-        this.entityData.set(TOTEM_INDEX, compound.getInt("TotemInvIndex"));
-    }
 
     @WrapWithCondition(method = "doHurtTarget", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityKangaroo;damageItem(Lnet/minecraft/world/item/ItemStack;)V"))
     private boolean alexsMobsInteraction$doHurtTarget(EntityKangaroo instance, ItemStack stack) {
@@ -117,7 +98,7 @@ public abstract class AMIKangaroo extends TamableAnimal {
 
     @Unique
     private ItemStack getItemInOffHand(EquipmentSlot slot) {
-        int index = entityData.get(TOTEM_INDEX);
+        int index = this.getData(AMIAttachments.TOTEM_INDEX);
         return slot == EquipmentSlot.OFFHAND && index >= 0 ? kangarooInventory.getItem(index) : ItemStack.EMPTY;
     }
 

@@ -1,80 +1,27 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.*;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(EntityStradpole.class)
 public abstract class AMIStradpole extends Mob {
 
-     private int despawnTimer = 0;
 
-    @Shadow public abstract boolean isDespawnSoon();
 
-    static{
-        HOPUPTICK = SynchedEntityData.defineId(EntityStradpole.class, EntityDataSerializers.INT);
-    }
-    private static final EntityDataAccessor<Integer> HOPUPTICK;
 
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
-        builder.define(HOPUPTICK, 0);
-    }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
-        compound.putInt("HopUpTick", this.getHopUpTick());
-    }
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
-        this.setHopUpTick(compound.getInt("HopUpTick"));
 
-    }
-
-    public int getHopUpTick() {
-        return (Integer)this.entityData.get(HOPUPTICK);
-    }
-
-    public void setHopUpTick(int hopUpTick) {
-        this.entityData.set(HOPUPTICK, hopUpTick);
-    }
 
     protected AMIStradpole(EntityType<? extends Mob> p_21368_, Level p_21369_) {
         super(p_21368_, p_21369_);
     }
 
     double y2;
-
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.GOOFY_STRADDLER_SHOTGUN_ENABLED.get() && isDespawnSoon()){
-            int x = this.getBlockX();
-            int y = this.getBlockY();
-            int z = this.getBlockZ();
-                ++this.despawnTimer;
-                if (this.despawnTimer > 80) {
-                    this.despawnTimer = 0;
-                    this.spawnAnim();
-                    this.level().explode(this, x + 1,y + 2,z + 1,3, Level.ExplosionInteraction.NONE);
-                    this.remove(RemovalReason.DISCARDED);
-                }
-        }
-    }
 
     public boolean isInvulnerableTo(DamageSource damageSource) {
         return damageSource.is(DamageTypes.FALL);

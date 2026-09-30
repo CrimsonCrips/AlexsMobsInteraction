@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.client.renderer;
 
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -27,7 +27,7 @@ public class AMIRenderTiming {
             }
 
             if (Minecraft.getInstance().player != null){
-                STALK_PROGRESS = ((FarseerFx)Minecraft.getInstance().player).getStalkTime();
+                STALK_PROGRESS = Minecraft.getInstance().player.getData(AMIAttachments.STALK_TIME);
             }
         }
 

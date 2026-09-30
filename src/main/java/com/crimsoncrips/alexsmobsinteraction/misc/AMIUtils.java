@@ -4,10 +4,14 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.advancements.AdvancementHolder;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.networking.ToastPacket;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.BlockPos;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -40,6 +44,20 @@ import java.util.Random;
 
 public class AMIUtils {
 
+    public static final int TRANSFORM_DURATION = 160;
+
+    public static boolean isTransforming(LivingEntity livingEntity) {
+        return livingEntity.getData(AMIAttachments.TRANSFORMING_TIME) > 0;
+    }
+
+    public static boolean tickTransforming(LivingEntity livingEntity) {
+        int transformTime = livingEntity.getData(AMIAttachments.TRANSFORMING_TIME);
+        if (transformTime <= 0) {
+            return false;
+        }
+        livingEntity.setData(AMIAttachments.TRANSFORMING_TIME, transformTime - 1);
+        return transformTime == 1;
+    }
 
     public static void awardAdvancement(Entity entity, String advancementName, String criteria){
         if(entity instanceof ServerPlayer serverPlayer){
@@ -47,6 +65,12 @@ public class AMIUtils {
             if (advancement != null) {
                 serverPlayer.getAdvancements().award(advancement, criteria);
             }
+        }
+    }
+
+    public static void sendToast(Player player, Component message, long displayTimeMs) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            PacketDistributor.sendToPlayer(serverPlayer, new ToastPacket(message, displayTimeMs));
         }
     }
 

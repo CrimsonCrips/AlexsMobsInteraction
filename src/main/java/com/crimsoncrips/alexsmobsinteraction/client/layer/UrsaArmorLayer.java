@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.client.layer;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.GrizzlyExtras;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.client.model.ModelGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+
 
 public class UrsaArmorLayer extends RenderLayer<EntityGrizzlyBear, ModelGrizzlyBear> {
 
@@ -23,8 +24,7 @@ public class UrsaArmorLayer extends RenderLayer<EntityGrizzlyBear, ModelGrizzlyB
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, EntityGrizzlyBear entityGrizzlyBear, float v, float v1, float v2, float v3, float v4, float v5) {
-        GrizzlyExtras beatInterface = (((GrizzlyExtras)entityGrizzlyBear));
-        if (beatInterface.isUrsa()){
+        if (entityGrizzlyBear.getData(AMIAttachments.URSA)){
             ModelGrizzlyBear entitymodel = this.getParentModel();
             entitymodel.prepareMobModel(entityGrizzlyBear, v, v1, v2);
             this.getParentModel().copyPropertiesTo(entitymodel);

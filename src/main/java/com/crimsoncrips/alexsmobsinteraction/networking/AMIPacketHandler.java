@@ -10,5 +10,8 @@ public class AMIPacketHandler {
         PayloadRegistrar registrar = event.registrar("1");
         registrar.playToClient(AlterPacket.TYPE, AlterPacket.STREAM_CODEC, AlterPacket::handle);
         registrar.playToClient(UrsaUpdateBossBarMessage.TYPE, UrsaUpdateBossBarMessage.STREAM_CODEC, UrsaUpdateBossBarMessage::handle);
+        registrar.playToClient(ToastPacket.TYPE, ToastPacket.STREAM_CODEC, ToastPacket::handle);
+        registrar.playToServer(EagleBombPacket.TYPE, EagleBombPacket.STREAM_CODEC, EagleBombPacket::handle);
+        registrar.playToClient(WelcomeToastPacket.TYPE, WelcomeToastPacket.STREAM_CODEC, WelcomeToastPacket::handle);
     }
 }

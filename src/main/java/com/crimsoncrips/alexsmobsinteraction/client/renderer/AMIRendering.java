@@ -37,12 +37,13 @@ public class AMIRendering {
 	@SubscribeEvent
 	public static void registerOverlays(RegisterGuiLayersEvent event) {
 		Minecraft minecraft = Minecraft.getInstance();
+		event.registerBelow(VanillaGuiLayers.EXPERIENCE_BAR, AlexsMobsInteraction.prefix("ami_toasts"), (graphics, deltaTracker) -> AMIToastManager.render(graphics));
 		event.registerAbove(VanillaGuiLayers.CROSSHAIR, AlexsMobsInteraction.prefix("farseer_text"), (graphics, deltaTracker) -> {
 			int screenWidth = graphics.guiWidth();
 			int screenHeight = graphics.guiHeight();
 			if (minecraft.player == null)
 				return;
-			if (!AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get())
+			if (!AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get())
 				return;
 			renderFarseerTextEffects(graphics, screenWidth,screenHeight,  13 ,8,0.07,1,0,0,3);
 			renderFarseerTextEffects(graphics, screenWidth,screenHeight,  -10 ,13,0.17,1,0,0,3);
@@ -62,7 +63,7 @@ public class AMIRendering {
 			int screenHeight = graphics.guiHeight();
 			if (minecraft.player == null)
 				return;
-			if (!AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get())
+			if (!AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get())
 				return;
 
 			renderStaticScreenFor = (int) (30 * STALK_PROGRESS);

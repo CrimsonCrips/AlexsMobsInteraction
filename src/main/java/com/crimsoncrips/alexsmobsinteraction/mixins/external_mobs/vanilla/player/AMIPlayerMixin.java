@@ -3,11 +3,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla.playe
 import net.minecraft.world.entity.EquipmentSlot;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
-import com.crimsoncrips.alexsmobsinteraction.networking.AlterPacket;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
-import com.github.alexthe666.alexsmobs.entity.EntityAlligatorSnappingTurtle;
 import com.github.alexthe666.alexsmobs.entity.EntityEndergrade;
 import com.github.alexthe666.alexsmobs.entity.util.RockyChestplateUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -16,32 +12,20 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpyglassItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(Player.class)
-public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
+public abstract class AMIPlayerMixin extends LivingEntity {
 
     protected AMIPlayerMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -72,120 +56,12 @@ public abstract class AMIPlayerMixin extends LivingEntity implements FarseerFx {
         return original || pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && this.getVehicle() instanceof EntityEndergrade && AlexsMobsInteraction.COMMON_CONFIG.UNAVOIDABLE_ENABLED.get();
     }
 
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        Player player = (Player)(Object)this;
-
-        if (AlexsMobsInteraction.COMMON_CONFIG.FARSEER_ALTERING_ENABLED.get()) {
-            if (!(AMIEnchantmentRegistry.getLevel(level(), getItemBySlot(EquipmentSlot.HEAD), AMIEnchantmentRegistry.STABILIZER) > 0) && getStalkTime() >= 1.5 && !level().isClientSide && getAlterTime() <= 0) {
-                setStalkDelay(-500);
-                setAlterTime(100);
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new AlterPacket());
-                addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
-                AMIUtils.awardAdvancement(player,"altered","alter");
-            }
-
-            if (getAlterTime() > 0){
-                if (random.nextDouble() < 0.05 && !level().isClientSide) {
-                    //Thanks ItemmStack for the help
-                    for (int i = 0; i < 9; i++) {
-                        Inventory inv = player.getInventory();
-                        int j = this.getRandom().nextInt(0, 9);
-
-                        ItemStack a = inv.getItem(i).copy();
-                        ItemStack b = inv.getItem(j).copy();
-                        inv.setItem(j, a);
-                        inv.setItem(i, b);
-                    }
-                }
-                setAlterTime(getAlterTime() - 1);
-            }
-        }
 
 
-        if (getStalkDelay() == 0) {
-            if (getStalkTime() > 0){
-                setStalkTime(getStalkTime() - 0.01F);
-            } else {
-                setStalkTime(0);
-            }
-        } else {
-            if (getStalkDelay() < 0){
-                setStalkDelay(getStalkDelay() + 1);
-                if (getStalkTime() > 0 && getAlterTime() <= 0) {
-                    setStalkTime(getStalkTime() - 0.05F);
-                } else if (getAlterTime() <= 0) {
-                    setStalkTime(0);
-                }
-            } else {
-                setStalkDelay(getStalkDelay() - 1);
-            }
-        }
 
 
-        if (AlexsMobsInteraction.COMMON_CONFIG.SNAPPING_DORMANCY_ENABLED.get()){
-            if (player.getUseItem().getItem() instanceof SpyglassItem) {
-                Entity lookAt = AMIUtils.getClosestLookingAtEntityFor(player);
-                if (lookAt instanceof EntityAlligatorSnappingTurtle snappingTurtle && ((AMIBasicInterfaces) snappingTurtle).isDaySleeping()) {
-                    AMIUtils.awardAdvancement(player, "observe_dormancy", "observe");
-                }
-            }
-        }
-    }
 
 
-    private static final EntityDataAccessor<Integer> FARSEER_ALTERRING_TIME = SynchedEntityData.defineId(Player.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Float> FARSEER_STALKING_TIME = SynchedEntityData.defineId(Player.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Integer> FARSEER_STALKING_DELAY = SynchedEntityData.defineId(Player.class, EntityDataSerializers.INT);
 
 
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void alexsMobsInteraction$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
-        builder.define(FARSEER_ALTERRING_TIME, 0);
-        builder.define(FARSEER_STALKING_TIME, 0F);
-        builder.define(FARSEER_STALKING_DELAY, 0);
-    }
-
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$addAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
-        compound.putInt("FarseerAlterringTime", this.getAlterTime());
-        compound.putFloat("FarseerStalkingTime", this.getStalkTime());
-        compound.putInt("FarseerStalkingDelay", this.getStalkDelay());
-    }
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void alexsMobsInteraction$readAdditionalSaveData(CompoundTag compound, CallbackInfo ci){
-        this.setAlterTime(compound.getInt("FarseerAlterringTime"));
-        this.setStalkTime(compound.getInt("FarseerStalkingTime"));
-        this.setStalkDelay(compound.getInt("FarseerStalkingDelay"));
-    }
-
-    @Override
-    public int getStalkDelay() {
-        return this.entityData.get(FARSEER_STALKING_DELAY);
-    }
-
-    @Override
-    public void setStalkDelay(int time) {
-        this.entityData.set(FARSEER_STALKING_DELAY, time);
-    }
-
-    @Override
-    public float getStalkTime() {
-        return this.entityData.get(FARSEER_STALKING_TIME);
-    }
-
-    @Override
-    public void setStalkTime(float time) {
-        this.entityData.set(FARSEER_STALKING_TIME, time);
-    }
-
-    @Override
-    public int getAlterTime() {
-        return this.entityData.get(FARSEER_ALTERRING_TIME);
-    }
-
-    @Override
-    public void setAlterTime(int time) {
-        this.entityData.set(FARSEER_ALTERRING_TIME, time);
-    }
 }

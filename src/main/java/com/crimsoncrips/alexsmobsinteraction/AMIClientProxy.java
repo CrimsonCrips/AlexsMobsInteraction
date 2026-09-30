@@ -1,13 +1,17 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
 import com.crimsoncrips.alexsmobsinteraction.client.AMIClientEvents;
+import com.crimsoncrips.alexsmobsinteraction.client.AMIKeyMappings;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIShaders;
+import com.crimsoncrips.alexsmobsinteraction.client.screen.AMIConfigScreen;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.AMIEntityRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.HashMap;
@@ -21,6 +25,13 @@ public class AMIClientProxy extends AMICommonProxy {
     public void init(IEventBus modEventBus) {
         NeoForge.EVENT_BUS.register(new AMIClientEvents());
         AMIShaders.init(modEventBus);
+        modEventBus.addListener(AMIKeyMappings::register);
+        NeoForge.EVENT_BUS.addListener(AMIKeyMappings::onClientTick);
+    }
+
+    public static void registerConfigScreen(ModContainer modContainer) {
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class,
+                (IConfigScreenFactory) (container, modListScreen) -> new AMIConfigScreen(modListScreen));
     }
 
     public void clientInit() {

@@ -1,18 +1,13 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.FarseerFx;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityFarseer;
-import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,25 +27,16 @@ public abstract class AMIFarseer extends Mob {
     }
 
 
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void alexsMobsInteraction$registerGoals(CallbackInfo ci) {
-        EntityFarseer farseer = (EntityFarseer)(Object)this;
-        if(AlexsMobsInteraction.TARGETS_CONFIG.FARSEER_ENABLED.get()){
-            farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, Raider.class, 3, false, true, null));
-            farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, Villager.class, 3, false, true, null));
-            farseer.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(farseer, WanderingTrader.class, 3, false, true, null));
-        }
-    }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void alexsMobsInteraction$tick(CallbackInfo ci) {
         if (getTarget() instanceof Player player && this.canUseLaser()){
-            FarseerFx fEffects = ((FarseerFx)player);
             if (AMIEnchantmentRegistry.getLevel(player.level(), player.getItemBySlot(EquipmentSlot.HEAD), AMIEnchantmentRegistry.STABILIZER) > 0){
                 AMIUtils.awardAdvancement(player,"repel","repel");
-            } else if (fEffects.getStalkDelay() >= 0) {
-                fEffects.setStalkDelay(100);
-                fEffects.setStalkTime(fEffects.getStalkTime() <= 1.5 ? (float) (fEffects.getStalkTime() + 0.005) : fEffects.getStalkTime());
+            } else if (player.getData(AMIAttachments.STALK_DELAY) >= 0) {
+                float stalkTime = player.getData(AMIAttachments.STALK_TIME);
+                AMIAttachments.setIfChanged(player, AMIAttachments.STALK_DELAY, 100);
+                AMIAttachments.setIfChanged(player, AMIAttachments.STALK_TIME, stalkTime <= 1.5 ? stalkTime + 0.005F : stalkTime);
             }
         }
     }

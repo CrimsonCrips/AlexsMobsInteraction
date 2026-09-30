@@ -12,7 +12,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class AMInDamageTypes {
-    public static final ResourceKey<DamageType> BANANA_SLIP = create("banana_slip");
 
 
 
@@ -33,7 +32,5 @@ public class AMInDamageTypes {
     }
             
     public static void bootstrap(BootstrapContext<DamageType> context) {
-
-        context.register(BANANA_SLIP, new DamageType("banana_slip", 0.0F));
     }
 }

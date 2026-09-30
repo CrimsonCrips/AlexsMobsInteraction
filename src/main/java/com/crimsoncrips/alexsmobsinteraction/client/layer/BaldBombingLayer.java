@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.client.layer;
 
+import com.crimsoncrips.alexsmobsinteraction.mixins.mobs.bald_eagle.AMIBaldEagleModelAccessor;
 import com.github.alexthe666.alexsmobs.client.model.ModelBaldEagle;
 import com.github.alexthe666.alexsmobs.entity.EntityBaldEagle;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,14 +23,17 @@ public class BaldBombingLayer extends RenderLayer<EntityBaldEagle, ModelBaldEagl
 
     @Override
     public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, EntityBaldEagle pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        if (!pLivingEntity.isBaby() && pLivingEntity.flyProgress > 0.0F) {
+        ItemStack bombStack = pLivingEntity.getItemInHand(InteractionHand.MAIN_HAND);
+        if (!pLivingEntity.isBaby() && !bombStack.isEmpty()) {
             ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
-            ItemStack haloStack = pLivingEntity.getItemInHand(InteractionHand.MAIN_HAND);
+            AMIBaldEagleModelAccessor model = (AMIBaldEagleModelAccessor) this.getParentModel();
             pPoseStack.pushPose();
-            pPoseStack.translate(0.0F, 1.4F, 0F);
+            model.alexsMobsInteraction$getRoot().translateAndRotate(pPoseStack);
+            model.alexsMobsInteraction$getBody().translateAndRotate(pPoseStack);
+            pPoseStack.translate(0.0F, 3.5F / 16.0F, 5.6F / 16.0F);
             pPoseStack.mulPose(Axis.XP.rotationDegrees(90F));
-            pPoseStack.scale(1.3F, 1.3F, 1.3F);
-            renderer.renderItem(pLivingEntity, haloStack, ItemDisplayContext.GROUND, false, pPoseStack, pBuffer, pPackedLight);
+            pPoseStack.scale(0.3F, 0.3F, 0.3F);
+            renderer.renderItem(pLivingEntity, bombStack, ItemDisplayContext.NONE, false, pPoseStack, pBuffer, pPackedLight);
             pPoseStack.popPose();
         }
     }

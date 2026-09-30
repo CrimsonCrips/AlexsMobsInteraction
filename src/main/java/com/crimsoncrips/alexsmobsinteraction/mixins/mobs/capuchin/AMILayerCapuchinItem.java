@@ -7,35 +7,20 @@ import com.github.alexthe666.alexsmobs.client.model.ModelAncientDart;
 import com.github.alexthe666.alexsmobs.client.model.ModelCapuchinMonkey;
 import com.github.alexthe666.alexsmobs.client.render.AMRenderTypes;
 import com.github.alexthe666.alexsmobs.client.render.layer.LayerCapuchinItem;
-import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
-import com.github.alexthe666.alexsmobs.entity.AMEntityRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityCapuchinMonkey;
-import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(LayerCapuchinItem.class)
@@ -49,11 +34,6 @@ public abstract class AMILayerCapuchinItem extends RenderLayer<EntityCapuchinMon
 
     public AMILayerCapuchinItem(RenderLayerParent<EntityCapuchinMonkey, ModelCapuchinMonkey> pRenderer) {
         super(pRenderer);
-    }
-
-    @ModifyVariable(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/github/alexthe666/alexsmobs/entity/EntityCapuchinMonkey;FFFFFF)V", at = @At(value = "STORE"), ordinal = 0,remap = false)
-    private ItemStack alexsMobsInteraction$render(ItemStack itemStack) {
-        return AlexsMobsInteraction.COMMON_CONFIG.GOOFY_CAPUCHIN_BOMB_ENABLED.get() ? new ItemStack(Items.TNT) : new ItemStack(Items.COBBLESTONE);
     }
 
     @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/github/alexthe666/alexsmobs/entity/EntityCapuchinMonkey;FFFFFF)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V",ordinal = 0))

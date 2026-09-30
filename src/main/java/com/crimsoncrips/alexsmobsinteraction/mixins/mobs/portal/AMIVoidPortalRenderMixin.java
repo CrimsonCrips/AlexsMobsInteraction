@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.portal;
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.client.render.RenderVoidPortal;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -85,7 +85,7 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
 
 
     public ResourceLocation getModifiedIdleTexture(int age, boolean shattered,EntityVoidPortal entityVoidPortal) {
-        int portalVariant = shattered ? -1 : ((AMIBasicInterfaces)entityVoidPortal).getVariant();
+        int portalVariant = shattered ? -1 : entityVoidPortal.getData(AMIAttachments.VARIANT);
         if (age < 3) {
             return idlePortalDeterminer(portalVariant,0);
         } else if (age < 6) {
@@ -101,7 +101,7 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
     }
 
     public ResourceLocation getModifiedGrowingTexture(int age, boolean shattered, EntityVoidPortal entityVoidPortal) {
-        return portalDeterminer(((AMIBasicInterfaces)entityVoidPortal).getVariant())[Mth.clamp(age, 0, 9)];
+        return portalDeterminer(entityVoidPortal.getData(AMIAttachments.VARIANT))[Mth.clamp(age, 0, 9)];
     }
 
 

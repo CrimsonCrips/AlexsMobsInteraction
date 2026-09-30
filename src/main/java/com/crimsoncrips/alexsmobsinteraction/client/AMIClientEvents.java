@@ -1,10 +1,9 @@
 package com.crimsoncrips.alexsmobsinteraction.client;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AMIClientProxy;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.TransformingEntities;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
 import com.github.alexthe666.alexsmobs.entity.EntityRainFrog;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -56,24 +55,21 @@ public class AMIClientEvents {
     @OnlyIn(Dist.CLIENT)
     public void preRender(RenderLivingEvent.Pre preEvent) {
         if (preEvent.getEntity() instanceof EntityFly fly) {
-            TransformingEntities myAccessor = (TransformingEntities) fly;
-            if (myAccessor.isTransforming()) {
+            if (AMIUtils.isTransforming(fly)) {
                 preEvent.getPoseStack().pushPose();
                 vibrate = (fly.getRandom().nextFloat() - 0.5F) * (Math.sin((double) fly.tickCount / 50) * 0.5 + 0.5) * 0.1;
                 preEvent.getPoseStack().translate(vibrate,  vibrate, vibrate);
             }
         }
         if (preEvent.getEntity() instanceof Frog frog) {
-            TransformingEntities myAccessor = (TransformingEntities) frog;
-            if (myAccessor.isTransforming()) {
+            if (AMIUtils.isTransforming(frog)) {
                 preEvent.getPoseStack().pushPose();
                 vibrate = (frog.getRandom().nextFloat() - 0.5F) * (Math.sin((double) frog.tickCount / 50) * 0.5 + 0.5) * 0.1;
                 preEvent.getPoseStack().translate(vibrate,  vibrate, vibrate);
             }
         }
         if (preEvent.getEntity() instanceof EntityRainFrog rainFrog) {
-            TransformingEntities myAccessor = (TransformingEntities) rainFrog;
-            if (myAccessor.isTransforming()) {
+            if (AMIUtils.isTransforming(rainFrog)) {
                 preEvent.getPoseStack().pushPose();
                 vibrate = (rainFrog.getRandom().nextFloat() - 0.5F) * (Math.sin((double) rainFrog.tickCount / 50) * 0.5 + 0.5) * 0.1;
                 preEvent.getPoseStack().translate(vibrate,  vibrate, vibrate);
@@ -86,35 +82,21 @@ public class AMIClientEvents {
     public void postRender(RenderLivingEvent.Post postEvent) {
 
         if (postEvent.getEntity() instanceof EntityFly fly) {
-            TransformingEntities myAccessor = (TransformingEntities) fly;
-            if (myAccessor.isTransforming()) {
+            if (AMIUtils.isTransforming(fly)) {
                 postEvent.getPoseStack().popPose();
             }
         }
         if (postEvent.getEntity() instanceof Frog frog) {
-            TransformingEntities myAccessor = (TransformingEntities) frog;
-            if (myAccessor.isTransforming()) {
+            if (AMIUtils.isTransforming(frog)) {
                 postEvent.getPoseStack().popPose();
             }
         }
         if (postEvent.getEntity() instanceof EntityRainFrog rainFrog) {
-            TransformingEntities myAccessor = (TransformingEntities) rainFrog;
-            if (myAccessor.isTransforming()) {
+            if (AMIUtils.isTransforming(rainFrog)) {
                 postEvent.getPoseStack().popPose();
             }
         }
 
-    }
-
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public void logIn(ClientPlayerNetworkEvent.LoggingIn event) {
-        if (AlexsMobsInteraction.CLIENT_CONFIG.EFFECTS_REMINDER_ENABLED.get() && AlexsMobsInteraction.CLIENT_CONFIG.FARSEER_EFFECTS_ENABLED.get() && AlexsMobsInteraction.COMMON_CONFIG.FARSEER_ALTERING_ENABLED.get()) {
-            event.getPlayer().displayClientMessage(Component.nullToEmpty("BEWARE! BEWARE! BEWARE! BEWARE!"),false);
-            event.getPlayer().displayClientMessage(Component.nullToEmpty("THERE IS PHOTOSENSITIVE EFFECTS THE FARSEER DOES WHEN TARGETTING A PLAYER,IF YOU ARE PHOTOSENSITIVE PLEASE EITHER DISABLE THE ENTIRE FEATURE IN THE COMMON CONFIG, OR DISABLE THE PHOTOSENSITIVE EFFECTS IN THE CLIENT CONFIG SPECIFICALLY"),false);
-            event.getPlayer().displayClientMessage(Component.nullToEmpty("IF YOU DONT WISH TO SEE THIS MESSAGE ANYMORE DURING LOGIN, DISABLE IT IN CLIENT CONFIG"),false);
-
-        }
     }
 
 
