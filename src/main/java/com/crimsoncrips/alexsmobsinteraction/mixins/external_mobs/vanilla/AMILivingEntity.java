@@ -29,7 +29,7 @@ public abstract class AMILivingEntity extends Entity {
     @ModifyExpressionValue(method = "actuallyHurt", at = @At(value = "INVOKE", target = "Lnet/neoforged/neoforge/common/CommonHooks;onLivingDamagePre(Lnet/minecraft/world/entity/LivingEntity;Lnet/neoforged/neoforge/common/damagesource/DamageContainer;)F"))
     private float alexsMobsInteraction$actuallyHurt(float original, @Local(argsOnly = true) DamageSource source){
         if (source.getEntity() instanceof EntityGrizzlyBear grizzlyBear && grizzlyBear.getData(AMIAttachments.URSA)){
-            return original * (1.10F * this.getData(AMIAttachments.SWIPES));
+            return original * (1.0F + 0.10F * this.getData(AMIAttachments.SWIPES));
         }
         return original;
     }

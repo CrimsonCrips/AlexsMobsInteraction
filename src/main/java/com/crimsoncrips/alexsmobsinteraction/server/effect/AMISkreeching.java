@@ -58,7 +58,7 @@ public class AMISkreeching extends MobEffect {
                 default -> SoundEvents.WARDEN_NEARBY_CLOSEST;
             };
             level.playSound(null,entity.getOnPos(),soundEvents, SoundSource.AMBIENT, 1, -1);
-            entity.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 60, 0));
+            entity.addEffect(new MobEffectInstance(MobEffects.DARKNESS, AMIUtils.seconds(3), 0));
         }
 
         if (lastDuration <= 1){
@@ -68,7 +68,7 @@ public class AMISkreeching extends MobEffect {
                 damage = damage * 1.1F;
                 AMIUtils.addParticlesAroundSelf(ParticleTypes.SCULK_SOUL,entity,50,0.1);
                 entity.removeEffect(AMIEffects.SKREECHING);
-                entity.addEffect(new MobEffectInstance(AMIEffects.SKREECHING, 200, 0));
+                entity.addEffect(new MobEffectInstance(AMIEffects.SKREECHING, AMIUtils.seconds(10), 0));
             } else {
                 RandomSource random = entity.getRandom();
                 for (int x = 0; x < 5; x++){

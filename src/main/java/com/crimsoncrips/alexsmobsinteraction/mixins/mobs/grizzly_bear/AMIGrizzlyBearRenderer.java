@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.grizzly_bear;
 
+import com.crimsoncrips.alexsmobsinteraction.client.layer.UrsaEnrageLayer;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.client.layer.UrsaArmorLayer;
 import com.github.alexthe666.alexsmobs.client.model.ModelGrizzlyBear;
@@ -30,6 +31,7 @@ public abstract class AMIGrizzlyBearRenderer extends MobRenderer<EntityGrizzlyBe
     private void alexsMobsInteraction$init(EntityRendererProvider.Context renderManagerIn, CallbackInfo ci) {
         RenderGrizzlyBear renderGrizzlyBear = (RenderGrizzlyBear)(Object)this;
         this.addLayer(new UrsaArmorLayer(renderGrizzlyBear));
+        this.addLayer(new UrsaEnrageLayer(renderGrizzlyBear));
     }
 
     public ResourceLocation getTextureLocation(EntityGrizzlyBear entity) {

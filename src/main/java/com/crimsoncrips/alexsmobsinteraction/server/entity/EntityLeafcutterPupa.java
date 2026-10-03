@@ -2,7 +2,6 @@ package com.crimsoncrips.alexsmobsinteraction.server.entity;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
@@ -69,7 +68,7 @@ public class EntityLeafcutterPupa extends ThrowableItemProjectile {
                 if (tileentity instanceof TileEntityLeafcutterAnthill) {
                     TileEntityLeafcutterAnthill beehivetileentity = (TileEntityLeafcutterAnthill)tileentity;
                     int j = Math.min(3, AMConfig.leafcutterAntColonySize);
-                    int variant = world.random.nextBoolean() ? 1 : 2;
+                    int variant = AMIUtils.pickPupaVariant(this.getItem(), world.random);
                     for(int k = 0; k < j; ++k) {
                         EntityLeafcutterAnt antentity = new EntityLeafcutterAnt(AMEntityRegistry.LEAFCUTTER_ANT.get(), world);
                         if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){

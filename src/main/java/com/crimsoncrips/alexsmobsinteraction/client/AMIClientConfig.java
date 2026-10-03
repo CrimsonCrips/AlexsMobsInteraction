@@ -13,7 +13,7 @@ public class AMIClientConfig {
 
     public AMIClientConfig(final ModConfigSpec.Builder builder) {
         builder.push("visuals");
-        this.PHOTOSENSITIVITY_ENABLED = buildBoolean(builder, "PHOTOSENSITIVITY_ENABLED", true, "Whether Photosensitivity is enabled");
+        this.PHOTOSENSITIVITY_ENABLED = buildBoolean(builder, "PHOTOSENSITIVITY_ENABLED", false, "Photosensitivity mode, disables flashing visuals such as the farseer effects and turns the ascender static solid black");
         this.WELCOME_TOAST_SECONDS = buildInt(builder, "WELCOME_TOAST_SECONDS", 10, 1, Integer.MAX_VALUE, "How many seconds the welcome toast stays on screen before sliding out");
         this.WARNING_ENABLED = buildBoolean(builder, "WARNING_ENABLED",  true, "Whether Photosensitivity reminder is on on login");
 

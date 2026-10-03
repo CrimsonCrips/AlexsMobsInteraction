@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.terrapin;
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.client.model.ModelTerrapin;
 import com.github.alexthe666.alexsmobs.client.render.RenderTerrapin;
 import com.github.alexthe666.alexsmobs.entity.EntityTerrapin;
@@ -19,11 +19,9 @@ public abstract class AMITerrapinRenderMixin extends MobRenderer<EntityTerrapin,
     }
 
     private static final ResourceLocation BLUE_SHELL = ResourceLocation.parse("alexsmobsinteraction:textures/entity/terrapin/blue_shell.png");
-    private static final ResourceLocation MINE_TURTLE = ResourceLocation.parse("alexsmobsinteraction:textures/entity/terrapin/mine_turtle.png");
 
     public ResourceLocation getTextureLocation(EntityTerrapin entity) {
-        AMIBasicInterfaces amiBaseInterfaces = (AMIBasicInterfaces)entity;
-        return amiBaseInterfaces.isBlueKoopa() ? BLUE_SHELL : amiBaseInterfaces.isMineTurtle() ? MINE_TURTLE : entity.isKoopa() ? TerrapinTypes.KOOPA.getTexture() : entity.getTurtleType().getTexture();
+        return entity.getData(AMIAttachments.BLUE_KOOPA) ? BLUE_SHELL : entity.isKoopa() ? TerrapinTypes.KOOPA.getTexture() : entity.getTurtleType().getTexture();
     }
 
 }

@@ -1,8 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.bone_serpent;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.BonePartInterface;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.ChildnParent_Interface;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -21,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(EntityBoneSerpent.class)
-public abstract class AMIBoneSerpent extends Monster implements ChildnParent_Interface {
+public abstract class AMIBoneSerpent extends Monster {
 
 
     protected AMIBoneSerpent(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -43,10 +42,10 @@ public abstract class AMIBoneSerpent extends Monster implements ChildnParent_Int
     public boolean hurt(DamageSource source, float amount) {
         EntityBoneSerpent boneSerpent = (EntityBoneSerpent)(Object)this;
         boolean shielded = AlexsMobsInteraction.COMMON_CONFIG.BODY_SHIELDING_ENABLED.get() && amount > 0 && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
-                && boneSerpent.getChild() instanceof EntityBoneSerpentPart e1 && ((BonePartInterface)e1).getChild() instanceof EntityBoneSerpentPart e2 && !e2.isTail();
+                && boneSerpent.getChild() instanceof EntityBoneSerpentPart e1 && AMIUtils.getBoneChild(e1) instanceof EntityBoneSerpentPart e2 && !e2.isTail();
         boolean hurt = super.hurt(source, shielded ? 0 : amount);
-        if (shielded && hurt && boneSerpent.getChild() instanceof BonePartInterface firstPart) {
-            firstPart.detectChildLoop();
+        if (shielded && hurt && boneSerpent.getChild() instanceof EntityBoneSerpentPart firstPart) {
+            AMIUtils.detectBoneChildLoop(firstPart);
             this.playSound(SoundEvents.WITHER_BREAK_BLOCK, 0.2f, this.getVoicePitch());
         }
         return hurt;

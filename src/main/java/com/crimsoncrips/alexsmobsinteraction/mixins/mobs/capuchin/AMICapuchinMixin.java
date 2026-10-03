@@ -5,7 +5,6 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.core.component.DataComponents;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AncientDartPotion;
 import com.github.alexthe666.alexsmobs.entity.EntityCapuchinMonkey;
 import com.github.alexthe666.alexsmobs.entity.EntityTossedItem;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -39,7 +38,7 @@ import java.util.Objects;
 
 
 @Mixin(EntityCapuchinMonkey.class)
-public abstract class AMICapuchinMixin extends TamableAnimal implements AncientDartPotion {
+public abstract class AMICapuchinMixin extends TamableAnimal {
 
 
     protected AMICapuchinMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
@@ -47,16 +46,13 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
     }
 
     @Shadow public abstract boolean hasDart();
-    private static final Object2IntMap<String> potionToColor = new Object2IntOpenHashMap<>();
-
-
-
 
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityTossedItem;shoot(DDDFF)V"))
     private void alexsMobsInteraction$tick(CallbackInfo ci, @Local EntityTossedItem tossedItem) {
         if (!Objects.equals(this.getData(AMIAttachments.POTION_ID), "")){
             tossedItem.setData(AMIAttachments.POTION_ID, this.getData(AMIAttachments.POTION_ID));
+            tossedItem.setData(AMIAttachments.POTION_LEVEL, this.getData(AMIAttachments.POTION_LEVEL));
         }
     }
 
@@ -108,39 +104,4 @@ public abstract class AMICapuchinMixin extends TamableAnimal implements AncientD
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-
-    public MobEffect getPotionEffect() {
-        return BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(this.getData(AMIAttachments.POTION_ID)));
-    }
-
-    @Override
-    public int getPotionColor() {
-        String id = this.getData(AMIAttachments.POTION_ID);
-        if (id.isEmpty()) {
-            return -1;
-        } else {
-            if (!potionToColor.containsKey(id)) {
-                MobEffect effect = getPotionEffect();
-                if (effect != null) {
-                    int color = effect.getColor();
-                    potionToColor.put(id, color);
-                    return color;
-                }
-                return -1;
-            } else {
-                return potionToColor.getInt(id);
-            }
-        }
-    }
-
 }

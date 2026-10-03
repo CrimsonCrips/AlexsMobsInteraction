@@ -1,5 +1,11 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.portal;
 
+import java.util.Map;
+import java.util.HashMap;
+import javax.annotation.Nullable;
+import net.minecraft.world.level.Level;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIPortalTexture;
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.client.render.RenderVoidPortal;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
@@ -32,31 +38,9 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
     @Shadow @Final private static ResourceLocation TEXTURE_SHATTERED_2;
     @Shadow @Final private static ResourceLocation[] TEXTURE_SHATTERED_PROGRESS;
 
-    private static final ResourceLocation OVERWORLD_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_0.png");
-    private static final ResourceLocation OVERWORLD_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_1.png");
-    private static final ResourceLocation OVERWORLD_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_idle_2.png");
-    private static final ResourceLocation[] OVERWORLD_PROGRESS = new ResourceLocation[10];
+    private static final Map<ResourceLocation, ResourceLocation[]> IDLE_TEXTURES = new HashMap<>();
 
-    private static final ResourceLocation NETHER_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_0.png");
-    private static final ResourceLocation NETHER_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_1.png");
-    private static final ResourceLocation NETHER_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_idle_2.png");
-    private static final ResourceLocation[] NETHER_PROGRESS = new ResourceLocation[10];
-
-    private static final ResourceLocation THE_END_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_idle_0.png");
-    private static final ResourceLocation THE_END_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_idle_1.png");
-    private static final ResourceLocation THE_END_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_idle_2.png");
-    private static final ResourceLocation[] THE_END_PROGRESS = new ResourceLocation[10];
-
-    private static final ResourceLocation BETTER_END_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_0.png");
-    private static final ResourceLocation BETTER_END_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_1.png");
-    private static final ResourceLocation BETTER_END_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_idle_2.png");
-    private static final ResourceLocation[] BETTER_END_PROGRESS = new ResourceLocation[10];
-
-    private static final ResourceLocation BETTER_NETHER_0 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_0.png");
-    private static final ResourceLocation BETTER_NETHER_1 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_1.png");
-    private static final ResourceLocation BETTER_NETHER_2 = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_idle_2.png");
-    private static final ResourceLocation[] BETTER_NETHER_PROGRESS = new ResourceLocation[10];
-
+    private static final Map<ResourceLocation, ResourceLocation[]> GROW_TEXTURES = new HashMap<>();
 
     protected AMIVoidPortalRenderMixin(EntityRendererProvider.Context pContext) {
         super(pContext);
@@ -72,74 +56,44 @@ public abstract class AMIVoidPortalRenderMixin extends EntityRenderer<EntityVoid
         return getModifiedGrowingTexture(age,shattered,entityVoidPortal);
     }
 
-    @Inject(method = "<init>", at = @At(value = "TAIL"))
-    private void alexsMobsInteraction$init(EntityRendererProvider.Context renderManagerIn, CallbackInfo ci){
-        for(int i = 0; i < 10; ++i) {
-            OVERWORLD_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/overworld/overworld_grow_" + i + ".png");
-            NETHER_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/nether/nether_grow_" + i + ".png");
-            THE_END_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/end/end_grow_" + i + ".png");
-            BETTER_END_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_end/better_end_grow_" + i + ".png");
-            BETTER_NETHER_PROGRESS[i] = ResourceLocation.parse("alexsmobsinteraction:textures/entity/portal/better_nether/better_nether_grow_" + i + ".png");
-        }
-    }
-
-
-    public ResourceLocation getModifiedIdleTexture(int age, boolean shattered,EntityVoidPortal entityVoidPortal) {
-        int portalVariant = shattered ? -1 : entityVoidPortal.getData(AMIAttachments.VARIANT);
-        if (age < 3) {
-            return idlePortalDeterminer(portalVariant,0);
-        } else if (age < 6) {
-            return idlePortalDeterminer(portalVariant,1);
-        } else if (age < 10) {
-            return idlePortalDeterminer(portalVariant,2);
-        } else {
-            return idlePortalDeterminer(portalVariant,0);
-        }
-
-
-
+    public ResourceLocation getModifiedIdleTexture(int age, boolean shattered, EntityVoidPortal entityVoidPortal) {
+        int frame = age < 3 ? 0 : age < 6 ? 1 : age < 10 ? 2 : 0;
+        if (shattered)
+            return frame == 0 ? TEXTURE_SHATTERED_0 : frame == 1 ? TEXTURE_SHATTERED_1 : TEXTURE_SHATTERED_2;
+        AMIPortalTexture portalTexture = alexsMobsInteraction$portalTexture(entityVoidPortal);
+        if (portalTexture == null)
+            return frame == 0 ? TEXTURE_0 : frame == 1 ? TEXTURE_1 : TEXTURE_2;
+        return IDLE_TEXTURES.computeIfAbsent(portalTexture.texture(), texture -> {
+            ResourceLocation[] frames = new ResourceLocation[3];
+            for (int i = 0; i < frames.length; i++)
+                frames[i] = portalTexture.idleTexture(i);
+            return frames;
+        })[frame];
     }
 
     public ResourceLocation getModifiedGrowingTexture(int age, boolean shattered, EntityVoidPortal entityVoidPortal) {
-        return portalDeterminer(entityVoidPortal.getData(AMIAttachments.VARIANT))[Mth.clamp(age, 0, 9)];
+        int frame = Mth.clamp(age, 0, 9);
+        if (shattered)
+            return TEXTURE_SHATTERED_PROGRESS[frame];
+        AMIPortalTexture portalTexture = alexsMobsInteraction$portalTexture(entityVoidPortal);
+        if (portalTexture == null)
+            return TEXTURE_PROGRESS[frame];
+        return GROW_TEXTURES.computeIfAbsent(portalTexture.texture(), texture -> {
+            ResourceLocation[] frames = new ResourceLocation[10];
+            for (int i = 0; i < frames.length; i++)
+                frames[i] = portalTexture.growTexture(i);
+            return frames;
+        })[frame];
     }
 
-
-    public ResourceLocation[] portalDeterminer(int portalVar){
-        return switch (portalVar) {
-            case -1 -> TEXTURE_SHATTERED_PROGRESS;
-            case 1 -> OVERWORLD_PROGRESS;
-            case 2 -> NETHER_PROGRESS;
-            case 3 -> THE_END_PROGRESS;
-            case 4 -> BETTER_END_PROGRESS;
-            case 5 -> BETTER_NETHER_PROGRESS;
-            default -> TEXTURE_PROGRESS;
-        };
-    }
-
-    public ResourceLocation idlePortalDeterminer(int portalVar,int no){
-        switch (portalVar) {
-            case -1 -> {
-                return no == 0 ? TEXTURE_SHATTERED_0 : (no == 1 ? TEXTURE_SHATTERED_1 : TEXTURE_SHATTERED_2);
-            }
-            case 1 -> {
-                return no == 0 ? OVERWORLD_0 : (no == 1 ? OVERWORLD_1 : OVERWORLD_2);
-            }
-            case 2 -> {
-                return no == 0 ? NETHER_0 : (no == 1 ? NETHER_1 : NETHER_2);
-            }
-            case 3 -> {
-                return no == 0 ? THE_END_0 : (no == 1 ? THE_END_1 : THE_END_2);
-            }
-            case 4 -> {
-                return no == 0 ? BETTER_END_0 : (no == 1 ? BETTER_END_1 : BETTER_END_2);
-            }
-            case 5 -> {
-                return no == 0 ? BETTER_NETHER_0 : (no == 1 ? BETTER_NETHER_1 : BETTER_NETHER_2);
-            }
-            default -> {
-                return no == 0 ? TEXTURE_0 : (no == 1 ? TEXTURE_1 : TEXTURE_2);
-            }
-        }
+    @Nullable
+    private static AMIPortalTexture alexsMobsInteraction$portalTexture(EntityVoidPortal entityVoidPortal) {
+        ResourceLocation dimension = ResourceLocation.tryParse(entityVoidPortal.getData(AMIAttachments.PORTAL_DIMENSION));
+        if (dimension == null || entityVoidPortal.getData(AMIAttachments.PORTAL_DIMENSION).isEmpty())
+            return null;
+        int mode = dimension.equals(Level.NETHER.location()) ? AlexsMobsInteraction.CLIENT_CONFIG.NETHER_PORTAL_VARIANT.get()
+                : dimension.equals(Level.END.location()) ? AlexsMobsInteraction.CLIENT_CONFIG.END_PORTAL_VARIANT.get()
+                : AMIPortalTexture.MODE_AUTO;
+        return AMIPortalTexture.resolve(entityVoidPortal.level().registryAccess(), dimension, mode).orElse(null);
     }
 }

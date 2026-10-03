@@ -5,6 +5,7 @@
 
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import net.minecraft.core.component.DataComponents;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
@@ -39,7 +40,7 @@ public class AMISeagullSteal extends Goal {
     }
 
     public boolean canUse() {
-        long worldTime = this.seagull.level().getGameTime() % 10L;
+        long worldTime = this.seagull.level().getGameTime() % AMIUtils.seconds(0.5F);
         if ((this.seagull.getNoActionTime() < 100 || worldTime == 0L) && !this.seagull.isSitting() && AMConfig.seagullStealing) {
             if ((this.seagull.getRandom().nextInt(12) == 0 || worldTime == 0L) && this.seagull.stealCooldown <= 0) {
                 if (this.seagull.getMainHandItem().isEmpty()) {
@@ -87,7 +88,7 @@ public class AMISeagullSteal extends Goal {
                     this.seagull.peck();
                     this.seagull.setItemInHand(InteractionHand.MAIN_HAND, copy);
                     this.fleeTime = 60;
-                    this.seagull.stealCooldown = 1500 + this.seagull.getRandom().nextInt(1500);
+                    this.seagull.stealCooldown = AMIUtils.seconds(75) + this.seagull.getRandom().nextInt(AMIUtils.seconds(75));
                     if (this.target instanceof ServerPlayer) {
                         AMAdvancementTriggerRegistry.SEAGULL_STEAL.get().trigger((ServerPlayer)this.target);
                     }

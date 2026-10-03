@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityCatfish;
 import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
@@ -19,7 +20,7 @@ public class AMICatfishCannibalism extends Goal {
     private int eatCooldown = 0;
     private final EntityCatfish catfish;
     private Entity food;
-    private int executionCooldown = 50;
+    private int executionCooldown = AMIUtils.seconds(2.5F);
 
     public AMICatfishCannibalism(EntityCatfish catfish) {
         this.setFlags(EnumSet.of(Flag.MOVE));
@@ -31,7 +32,7 @@ public class AMICatfishCannibalism extends Goal {
             if (this.executionCooldown > 0) {
                 --this.executionCooldown;
             } else {
-                this.executionCooldown = 50 + catfish.getRandom().nextInt(50);
+                this.executionCooldown = AMIUtils.seconds(2.5F) + catfish.getRandom().nextInt(AMIUtils.seconds(2.5F));
                 if (!this.catfish.isFull()) {
                     List<Entity> list = this.catfish.level().getEntitiesOfClass(Entity.class, this.catfish.getBoundingBox().inflate(8.0, 8.0, 8.0), EntitySelector.NO_SPECTATORS.and((entity) -> {
                         return entity != this.catfish && isFood(entity);
@@ -57,7 +58,7 @@ public class AMICatfishCannibalism extends Goal {
     }
 
     public void stop() {
-        this.executionCooldown = 5;
+        this.executionCooldown = AMIUtils.seconds(0.25F);
     }
 
     public void tick() {

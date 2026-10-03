@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.datagen;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIPortalTexture;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -18,7 +19,8 @@ public class AMInRegistryDataGenerator extends DatapackBuiltinEntriesProvider {
 	public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
 			.add(Registries.DAMAGE_TYPE, AMInDamageTypes::bootstrap)
 			.add(Registries.ENCHANTMENT, AMIEnchantmentRegistry::bootstrap)
-			.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMIBiomeModifiers::bootstrap);
+			.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMIBiomeModifiers::bootstrap)
+			.add(AMIPortalTexture.REGISTRY_KEY, AMIPortalTextures::bootstrap);
 
 	public AMInRegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
 		super(output, provider, BUILDER, Set.of(AlexsMobsInteraction.MODID));

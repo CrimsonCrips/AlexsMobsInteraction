@@ -1,5 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.server;
 
+import com.crimsoncrips.alexsmobsinteraction.server.entity.EntityVoidWormDummy;
+import com.crimsoncrips.alexsmobsinteraction.server.entity.AMIEntityRegistry;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.datagen.loottables.AMILootTables;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
@@ -28,10 +31,20 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 public class AMIModEvents {
+
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(AMIEntityRegistry.VOID_WORM_DUMMY.get(), EntityVoidWormDummy.bakeAttributes().build());
+    }
+
+    public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
+        event.dataPackRegistry(AMIPortalTexture.REGISTRY_KEY, AMIPortalTexture.CODEC, AMIPortalTexture.CODEC);
+    }
+
 
     public static final SpawnPlacementType IN_WATER_OR_LAVA = (level, pos, type) -> {
         if (type == null || !level.getWorldBorder().isWithinBounds(pos))
@@ -56,6 +69,7 @@ public class AMIModEvents {
     public static void addCreativeTabs(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey().equals(AMCreativeTabRegistry.TAB.getKey())) {
             event.accept(AMIItemRegistry.ASMON_CROWN.get());
+            event.accept(AMIItemRegistry.ASCENDER.get());
         }
     }
 

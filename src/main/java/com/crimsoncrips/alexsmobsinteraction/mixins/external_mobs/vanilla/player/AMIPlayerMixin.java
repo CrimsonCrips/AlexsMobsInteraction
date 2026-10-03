@@ -55,13 +55,4 @@ public abstract class AMIPlayerMixin extends LivingEntity {
     private boolean alexsMobsInteraction$isInvulnerableTo(boolean original,@Local DamageSource pSource) {
         return original || pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && this.getVehicle() instanceof EntityEndergrade && AlexsMobsInteraction.COMMON_CONFIG.UNAVOIDABLE_ENABLED.get();
     }
-
-
-
-
-
-
-
-
-
 }

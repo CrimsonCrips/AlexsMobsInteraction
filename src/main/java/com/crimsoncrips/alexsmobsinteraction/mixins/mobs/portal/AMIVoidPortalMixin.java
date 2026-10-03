@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.portal;
 
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIVoidWormBoss;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -27,11 +28,22 @@ public abstract class AMIVoidPortalMixin extends Entity {
 
 
 
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void alexsMobsInteraction$tick(CallbackInfo ci) {
+        if (!this.level().isClientSide)
+            AMIVoidWormBoss.tickWormPortal((EntityVoidPortal) (Object) this);
+    }
+
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityVoidWorm;teleportTo(Lnet/minecraft/world/phys/Vec3;)V"), remap = false)
+    private void alexsMobsInteraction$tickTeleport(CallbackInfo ci) {
+        AMIVoidWormBoss.markPortalUsed((EntityVoidPortal) (Object) this);
+    }
+
     @Inject(method = "createAndSetSister", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityVoidPortal;setShattered(Z)V"),remap = false)
     private void alexsMobsInteraction$createAndSetSister(Level world, Direction dir, CallbackInfo ci, @Local EntityVoidPortal sister) {
-        sister.setData(AMIAttachments.VARIANT, this.getData(AMIAttachments.VARIANT));
-        String result = sister.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-        sister.setData(AMIAttachments.VARIANT, AMIUtils.dimensionDeterminer(result));
+        if (!this.getData(AMIAttachments.PORTAL_DIMENSION).isEmpty()) {
+            sister.setData(AMIAttachments.PORTAL_DIMENSION, sister.exitDimension.location().toString());
+        }
     }
 
 

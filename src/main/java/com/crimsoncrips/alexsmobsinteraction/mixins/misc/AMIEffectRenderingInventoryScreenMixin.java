@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import net.minecraft.core.Holder;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
@@ -44,7 +45,7 @@ public abstract class AMIEffectRenderingInventoryScreenMixin {
     @ModifyArg(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;renderTooltip(Lnet/minecraft/client/gui/Font;Ljava/util/List;Ljava/util/Optional;II)V"),index = 1)
     private List<Component> alexsMobsInteraction$renderEffects(List<Component> pTooltipLines){
         if (alterGui()) {
-            MobEffectInstance mobEffectInstance = new MobEffectInstance(AMIEffects.FARSEER_ICON, 300, 0);
+            MobEffectInstance mobEffectInstance = new MobEffectInstance(AMIEffects.FARSEER_ICON, AMIUtils.seconds(15), 0);
             List<Component> list = List.of(this.getEffectName(mobEffectInstance), MobEffectUtil.formatDuration(mobEffectInstance, 1.0F, 20.0F));
 
             return list;
@@ -55,7 +56,7 @@ public abstract class AMIEffectRenderingInventoryScreenMixin {
 
     public boolean alterGui(){
         if (Minecraft.getInstance().player != null) {
-            return (Minecraft.getInstance().player.getData(AMIAttachments.ALTER_TIME) != 0) && AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get();
+            return (Minecraft.getInstance().player.getData(AMIAttachments.ALTER_TIME) != 0) && !AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get();
         }
         return false;
     }

@@ -47,7 +47,7 @@ public class AMIHarvestCrop extends MoveToBlockGoal {
                 bunfungus.heal(2);
                 stop();
             }
-            this.nextStartTick = 10;
+            this.nextStartTick = AMIUtils.seconds(0.5F);
         }
 
     }

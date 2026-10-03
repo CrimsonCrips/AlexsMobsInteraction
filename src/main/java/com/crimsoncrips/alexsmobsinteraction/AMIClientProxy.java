@@ -1,7 +1,10 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
+import com.crimsoncrips.alexsmobsinteraction.client.renderer.RenderVoidWormDummy;
+import com.crimsoncrips.alexsmobsinteraction.client.renderer.RenderFarseerPortal;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIClientEvents;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIKeyMappings;
+import com.crimsoncrips.alexsmobsinteraction.client.renderer.AscenderItemRenderer;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIShaders;
 import com.crimsoncrips.alexsmobsinteraction.client.screen.AMIConfigScreen;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.AMIEntityRegistry;
@@ -26,6 +29,8 @@ public class AMIClientProxy extends AMICommonProxy {
         NeoForge.EVENT_BUS.register(new AMIClientEvents());
         AMIShaders.init(modEventBus);
         modEventBus.addListener(AMIKeyMappings::register);
+        modEventBus.addListener(AscenderItemRenderer::registerModels);
+        modEventBus.addListener(AscenderItemRenderer::registerClientExtensions);
         NeoForge.EVENT_BUS.addListener(AMIKeyMappings::onClientTick);
     }
 
@@ -35,6 +40,8 @@ public class AMIClientProxy extends AMICommonProxy {
     }
 
     public void clientInit() {
+        EntityRenderers.register(AMIEntityRegistry.FARSEER_PORTAL.get(), RenderFarseerPortal::new);
+        EntityRenderers.register(AMIEntityRegistry.VOID_WORM_DUMMY.get(), RenderVoidWormDummy::new);
         EntityRenderers.register(AMIEntityRegistry.LEAFCUTTER_PUPA.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });

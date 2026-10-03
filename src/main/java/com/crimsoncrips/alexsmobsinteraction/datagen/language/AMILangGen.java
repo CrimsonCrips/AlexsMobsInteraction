@@ -1,6 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.datagen.language;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.server.entity.AMIEntityRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import net.minecraft.data.PackOutput;
 
@@ -36,7 +37,7 @@ public class AMILangGen extends AMILangProvider {
 		this.addAdvancementDesc("interrupt_dormancy","Snapped", "Disturb a sleeping snapping turtle");
 		this.addAdvancementDesc("light_warding","Average Gamer", "Ward off a cave centipede with light in your hands");
 		this.addAdvancementDesc("lightweight","Sandbox Carry Weight", "Using the lightweight enchantment, have a cosmaw effortlessly carry you with heavy armor");
-		this.addAdvancementDesc("maggot_fishing","Master Baiter", "Increase your luck with a maggot on your offhand while fishing");
+		this.addAdvancementDesc("maggot_fishing","Master Baiter", "Increase your luck by baiting your fishing rod with a maggot");
 		this.addAdvancementDesc("mimickry","Mimickry", "Have a mimicube replicate your chat");
 		this.addAdvancementDesc("moss_propagation","Moss Farming", "Use bonemeal to propagate a snapping turtle's moss accumulation");
 		this.addAdvancementDesc("multidimensional_lodestone","Multi-Dimensional Lodestone", "Make a lodestone portal to go to a different dimension");
@@ -82,6 +83,10 @@ public class AMILangGen extends AMILangProvider {
 		this.addMisc("feature_disabled", "Feature Disabled");
 		this.addItem(AMIItemRegistry.ASMON_CROWN, "The Roach Crown");
 		this.addItem(AMIItemRegistry.MUTATE_ITEMS, "Mutate Items");
+		this.addItem(AMIItemRegistry.ASCENDER, "Ascender");
+		this.addEntityType(AMIEntityRegistry.FARSEER_PORTAL, "Ascender");
+		this.addEntityType(AMIEntityRegistry.LEAFCUTTER_PUPA, "Leafcutter Ant Pupa");
+		this.addEntityType(AMIEntityRegistry.VOID_WORM_DUMMY, "Void Worm Dummy");
 		this.add("key.alexsmobsinteraction.drop_bomb", "Falcon Drop Bomb");
 		this.add("key.categories.alexsmobsinteraction", "Alexs Mobs Interaction");
 
@@ -92,6 +97,44 @@ public class AMILangGen extends AMILangProvider {
 		this.addMisc("config_tab_general", "General");
 		this.addMisc("config_tab_targets", "Targets");
 		this.addMisc("config_note_remote", "Connected to a server, these settings can only be changed on the server");
+		this.addMisc("animal_interaction", "Animal Interaction");
+		this.addMisc("mimicked", "Mimicked");
+		this.addMisc("maggot_baited", "Baited with Maggot Amount: %s");
+		this.add("commands.alexsmobsinteraction.ursa.success", "Summoned Ursa");
+		this.add("boss.alexsmobsinteraction.void_worm.state", "%s: %s");
+		this.add("boss.alexsmobsinteraction.void_worm.idle", "Idle");
+		this.add("boss.alexsmobsinteraction.void_worm.portal", "Portal Charge");
+		this.add("boss.alexsmobsinteraction.void_worm.geyser", "Portal Geysers");
+		this.add("boss.alexsmobsinteraction.void_worm.surround", "Void Encirclement");
+		this.add("boss.alexsmobsinteraction.void_worm.barrage", "Split Barrage");
+		this.add("boss.alexsmobsinteraction.void_worm.recombine", "Recombining");
+		this.add("boss.alexsmobsinteraction.void_worm.shattering", "Shattering");
+		this.add("commands.alexsmobsinteraction.spinning_seal.success", "Summoned a spinning seal");
+		this.add("commands.alexsmobsinteraction.void_worm.success", "Made %s void worm(s) perform %s");
+		this.add("commands.alexsmobsinteraction.void_worm.none", "No nearby void worms with a target can perform that ability");
+		this.add("commands.alexsmobsinteraction.void_worm.unknown", "Unknown void worm ability: %s");
+		this.add("commands.alexsmobsinteraction.void_worm.disabled", "The void worm rework is disabled");
+		this.addMisc("pupa_variant_red", "Colony: Red");
+		this.addMisc("pupa_variant_black", "Colony: Black");
+		this.addMisc("jade.eagle_carrying", "Carrying %s");
+		this.addMisc("jade.bone_serpent_shielded", "Head shielded: %s more hits");
+		this.addMisc("jade.bone_serpent_exposed", "Head exposed");
+		this.addMisc("jade.holding", "Holding %s");
+		this.addMisc("jade.mantis_breaking", "Breaking a block");
+		this.addMisc("jade.mantis_cooldown", "Next break in %ss");
+		this.addMisc("jade.mantis_ready", "Ready to break");
+		this.addMisc("jade.capuchin_dart", "Dart: %s (%ss)");
+		this.addMisc("jade.straddler_ammo", "Ammo: %s/%s");
+		this.addMisc("jade.straddler_reloading", "Reloading: %ss");
+		this.addMisc("jade.flutter_pollination", "Pollen shot in %ss");
+		this.addMisc("jade.flutter_pollinating", "Looking for plants");
+		this.add("config.jade.plugin_alexsmobsinteraction.mantis_mining", "Mantis Shrimp Mining");
+		this.add("config.jade.plugin_alexsmobsinteraction.eagle_carrying", "Bald Eagle Cargo");
+		this.add("config.jade.plugin_alexsmobsinteraction.bone_serpent_shield", "Bone Serpent Shield");
+		this.add("config.jade.plugin_alexsmobsinteraction.capuchin_dart", "Capuchin Dart Effect");
+		this.add("config.jade.plugin_alexsmobsinteraction.straddler_ammo", "Straddler Ammo");
+		this.add("config.jade.plugin_alexsmobsinteraction.flutter_pollination", "Flutter Pollination");
+		this.addMisc("ascender_disabled", "Ascender Feature is disabled in config");
 
 	}
 }

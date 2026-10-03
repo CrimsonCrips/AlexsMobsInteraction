@@ -4,6 +4,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class AMIServerConfig {
     public final ModConfigSpec.BooleanValue DART_EFFECTS_ENABLED;
+    public final ModConfigSpec.BooleanValue ASCENDER_ENABLED;
     public final ModConfigSpec.BooleanValue BANANA_SHEAR_ENABLED;
     public final ModConfigSpec.BooleanValue BIRD_BOMBING_ENABLED;
     public final ModConfigSpec.BooleanValue BLEEDING_HUNGER_ENABLED;
@@ -18,6 +19,7 @@ public class AMIServerConfig {
     public final ModConfigSpec.BooleanValue COSMAW_WEAKENED_ENABLED;
     public final ModConfigSpec.BooleanValue DEVILS_FISHING_INDUSTRY;
     public final ModConfigSpec.BooleanValue DIMENSIONAL_LODESTONE_ENABLED;
+    public final ModConfigSpec.BooleanValue VOID_WORM_REWORK_ENABLED;
     public final ModConfigSpec.BooleanValue TUSKED_TERRITORIAL_ENABLED;
     public final ModConfigSpec.BooleanValue ELEPHANT_TRAMPLE_ENABLED;
     public final ModConfigSpec.BooleanValue EMOTIONAL_REMEMEMBRANCE_ENABLED;
@@ -25,11 +27,14 @@ public class AMIServerConfig {
     public final ModConfigSpec.BooleanValue FARSEER_ALTERING_ENABLED;
     public final ModConfigSpec.BooleanValue FLOWERING_ATTRACTION_ENABLED;
     public final ModConfigSpec.BooleanValue FLUTTER_SHEAR_ENABLED;
+    public final ModConfigSpec.BooleanValue FLUTTER_POLLINATION_ENABLED;
     public final ModConfigSpec.BooleanValue TRANSFORMATION_ENABLED;
     public final ModConfigSpec.BooleanValue FOOD_FX_ENABLED;
     public final ModConfigSpec.BooleanValue FREDDYABLE_ENABLED;
     public final ModConfigSpec.BooleanValue TAMED_FRIENDLIES_ENABLED;
     public final ModConfigSpec.BooleanValue GUSTING_ENABLED;
+    public final ModConfigSpec.BooleanValue GUSTER_REBOUND_ENABLED;
+    public final ModConfigSpec.BooleanValue MANTIS_MINING_ENABLED;
     public final ModConfigSpec.BooleanValue HASTY_CARVING_ENABLED;
     public final ModConfigSpec.BooleanValue HELD_FOOD_ENABLED;
     public final ModConfigSpec.BooleanValue INFECT_INTERACTION_ENABLED;
@@ -39,7 +44,6 @@ public class AMIServerConfig {
     public final ModConfigSpec.BooleanValue MAGGOT_FISHING_ENABLED;
     public final ModConfigSpec.BooleanValue MIGHT_UPGRADE_ENABLED;
     public final ModConfigSpec.BooleanValue MIMICKRY_ENABLED;
-    //public final ModConfigSpec.BooleanValue MINE_TURTLE_ENABLED;
     public final ModConfigSpec.BooleanValue MOSS_PROPOGATION_ENABLED;
     public final ModConfigSpec.BooleanValue MURMUR_REGROW_ENABLED;
     public final ModConfigSpec.BooleanValue OBSIDIAN_EXTRACT_ENABLED;
@@ -136,7 +140,7 @@ public class AMIServerConfig {
         this.HEMOGENICISM_ENABLED = buildBoolean(builder, "HEMOGENICISM_ENABLED", true, "New blood interactions with Crimson Mosquitoes and more");
         builder.pop();
         builder.push("Devils Hole Pupfish");
-        this.DEVILS_FISHING_INDUSTRY = buildBoolean(builder, "DEVILS_FISHING_INDUSTRY", true, "Added mechanics with Devil Hole Pupfish");
+        this.DEVILS_FISHING_INDUSTRY = buildBoolean(builder, "DEVILS_FISHING_INDUSTRY", true, "Added mechanics with Devil Hole Pupfish in terms of fishing");
         builder.pop();
         builder.push("Elephant");
         this.TUSKED_TERRITORIAL_ENABLED = buildBoolean(builder, "TUSKED_TERRITORIAL_ENABLED", true, "Tusked Elephants attack players when lingering long enough,unless holding Acacia Blossom");
@@ -156,17 +160,19 @@ public class AMIServerConfig {
 
         builder.pop();
         builder.push("Farseer");
+        this.ASCENDER_ENABLED = buildBoolean(builder, "ASCENDER_ENABLED", true, "Farseer parts can be turned into an Ascender, quickly putting you at the peak of where you place it");
         builder.comment("--Compatibility with Alexs Caves--");
         this.FARSEER_ALTERING_ENABLED = buildBoolean(builder, "FARSEER_ALTERING_ENABLED", true, "Farseer will discombobulate players when targeted,by scrambling their inventory and flashing them with illusions");
         builder.pop();
         builder.push("Flutter");
         this.FLUTTER_SHEAR_ENABLED = buildBoolean(builder, "FLUTTER_SHEAR_ENABLED", true, "Flutter can be sheared for azalea and related");
         this.FLOWERING_ATTRACTION_ENABLED = buildBoolean(builder, "FLOWERING_ATTRACTION_ENABLED", true, "Flutters attract bees and hummingbirds");
+        this.FLUTTER_POLLINATION_ENABLED = buildBoolean(builder, "FLUTTER_POLLINATION_ENABLED", true, "Tamed Flutters periodically shoot pollen at nearby plants, bonemealing them");
 
         builder.pop();
         builder.push("Fly");
         this.SCENTED_INTERACTION_ENABLED = buildBoolean(builder, "SCENTED_INTERACTION_ENABLED", true, "Added interactions with animals and blocks for the fly");
-        this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", true, "Hoflding a maggot while fishing will cause it to be consumed and increase luck for fishing");
+        this.MAGGOT_FISHING_ENABLED = buildBoolean(builder, "MAGGOT_FISHING_ENABLED", true, "Right clicking a maggot onto a fishing rod baits it, the bait is consumed on the next cast and increases luck for fishing");
 
         builder.pop();
         builder.push("Flying Fish");
@@ -182,6 +188,7 @@ public class AMIServerConfig {
         builder.pop();
         builder.push("Guster");
         this.GUSTING_ENABLED = buildBoolean(builder, "GUSTING_ENABLED", true, "New interactions from gusters, along with a new effect available");
+        this.GUSTER_REBOUND_ENABLED = buildBoolean(builder, "GUSTER_REBOUND_ENABLED", true, "Gusters are immune to arrows, catching them in their winds, spinning them around and flinging them back at whoever shot them");
 
         builder.pop();
         builder.push("Hummingbird");
@@ -197,6 +204,9 @@ public class AMIServerConfig {
         this.COCKROACH_CHAMBER_ENABLED = buildBoolean(builder, "COCKROACH_CHAMBER_ENABLED", true, "Leafcutter Chambers that are bustling with fungus can burst out cockroaches");
         this.THROWABLE_PUPI_ENABLED = buildBoolean(builder, "THROWABLE_PUPI_ENABLED", true, "Whether leafcutter pupi is throwable that places anthills like normal");
         this.ANT_WAR_ENABLED = buildBoolean(builder, "ANT_WAR_ENABLED", true, "Leafcutters have variants which also causes rivalry");
+        builder.pop();
+        builder.push("Mantis Shrimp");
+        this.MANTIS_MINING_ENABLED = buildBoolean(builder, "MANTIS_MINING_ENABLED", true, "Tamed mantis shrimp given a block will seek out and punch through nearby blocks of that type");
         builder.pop();
         builder.push("Mimicube");
         this.MIMICKRY_ENABLED = buildBoolean(builder, "MIMICKRY_ENABLED", true, "Mimicubes attempt to mimic targeted player chats");
@@ -224,6 +234,9 @@ public class AMIServerConfig {
         builder.comment("--Snatch Interaction--");
         this.HELD_FOOD_ENABLED = buildBoolean(builder,"HELD_FOOD_ENABLED", false, "Seagulls will only snatch food from your main or off hand");
         builder.pop();
+        builder.push("Skelewag");
+        this.WITHERED_SKELEWAG_ENABLED = buildBoolean(builder, "WITHERED_SKELEWAG_ENABLED", true, "Withered Variant of Skelewag that can spawn within the nether");
+        builder.pop();
         builder.push("Skreecher");
         this.SKREECHER_WARD_ENABLED = buildBoolean(builder, "SKREECHER_WARD_ENABLED", true, "Skreecher souls can be used on a Screacher block to allow it to spawn wardens");
         this.SKREECH_YOUR_LAST_ENABLED = buildBoolean(builder, "SKREECH_YOUR_LAST_ENABLED", true, "New potion effect that spawns a Warden on the player's position when it is about to ware off");
@@ -250,6 +263,7 @@ public class AMIServerConfig {
         this.ZOGLINNED_ENABLED = buildBoolean(builder, "ZOGLINNED_ENABLED", true, "Tusklin struck by lightning will be converted to zoglins");
         builder.pop();
         builder.push("Void Worm");
+        this.VOID_WORM_REWORK_ENABLED = buildBoolean(builder, "VOID_WORM_REWORK_ENABLED", true, "Reworks the Void Worm boss: longer and tougher, eased idle shots, portal charges, projectile walls, a split barrage below half health, rejoining splitters and locked elytras during the fight");
         this.DIMENSIONAL_LODESTONE_ENABLED = buildBoolean(builder, "DIMENSIONAL_LODESTONE_ENABLED", true, "Dimensional Carver can be used to make a portal to a linked lodestone when holding the compass off-hand");
         builder.comment("--Dimensional Lodestone--");
         this.CONSUME_COMPASS_ENABLED = buildBoolean(builder, "CONSUME_COMPASS_ENABLED", true, "The compass linked to a lodestone will be consumed when used to make a portal");
@@ -261,11 +275,9 @@ public class AMIServerConfig {
         this.FREDDYABLE_ENABLED = buildBoolean(builder, "FREDDYABLE_ENABLED", true, "Grizzlies will turn to Freddy Fazbear when named such");
         this.EMOTIONAL_REMEMEMBRANCE_ENABLED = buildBoolean(builder, "EMOTIONAL_REMEMEMBRANCE_ENABLED", true, "Crocodile has a halo when named 'Wally'");
         this.BLUE_SHELL_ENABLED = buildBoolean(builder, "BLUE_SHELL_ENABLED", true, "Blue Shell Terrapin");
-        this.WITHERED_SKELEWAG_ENABLED = buildBoolean(builder, "WITHERED_SKELEWAG_ENABLED", true, "Withered Variant of Skelewag that can be made with coal");
         builder.pop();
 
 
-//        this.MINE_TURTLE_ENABLED = buildBoolean(builder, "MINE_TURTLE_ENABLED", false, "Mine Turtle");
     }
 
     private static ModConfigSpec.BooleanValue buildBoolean(ModConfigSpec.Builder builder, String name, boolean defaultValue, String comment){

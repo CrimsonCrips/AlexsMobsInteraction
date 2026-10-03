@@ -2,7 +2,7 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.misc.fishing;
 
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
-import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
+import com.crimsoncrips.alexsmobsinteraction.server.item.AMIDataComponents;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -28,11 +28,10 @@ public abstract class AMIFishingRodMixin  {
 
 
     @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
-    private boolean alexsMobsInteraction$addFreshEntity(Level instance, Entity entity, Operation<Boolean> original, @Local Player player, @Local(ordinal = 0) int j, @Local(ordinal = 1) int k) {
-        if (player.getOffhandItem().is(AMItemRegistry.MAGGOT.get()) && AlexsMobsInteraction.COMMON_CONFIG.MAGGOT_FISHING_ENABLED.get()){
-            if (!player.isCreative()) {
-                player.getOffhandItem().shrink(1);
-            }
+    private boolean alexsMobsInteraction$addFreshEntity(Level instance, Entity entity, Operation<Boolean> original, @Local(argsOnly = true) Player player, @Local(argsOnly = true) InteractionHand hand, @Local(ordinal = 0) int j, @Local(ordinal = 1) int k) {
+        ItemStack rod = player.getItemInHand(hand);
+        if (rod.has(AMIDataComponents.MAGGOT_BAITED) && AlexsMobsInteraction.COMMON_CONFIG.MAGGOT_FISHING_ENABLED.get()){
+            rod.set(AMIDataComponents.MAGGOT_BAITED, rod.get(AMIDataComponents.MAGGOT_BAITED) - 1);
             AMIUtils.awardAdvancement(player,"maggot_fishing","fish");
             int luck = 30;
 

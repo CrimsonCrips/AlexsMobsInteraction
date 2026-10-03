@@ -1,5 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.client;
 
+import net.minecraft.util.Mth;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
+import com.mojang.math.Axis;
+import com.github.alexthe666.alexsmobs.entity.EntitySeal;
+import com.crimsoncrips.alexsmobsinteraction.server.item.AMIDataComponents;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.ChatFormatting;
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AMIClientProxy;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
@@ -52,8 +61,37 @@ public class AMIClientEvents {
     }
 
     @SubscribeEvent
+    public void itemTooltip(ItemTooltipEvent tooltipEvent) {
+        ItemStack stack = tooltipEvent.getItemStack();
+        if (stack.has(AMIDataComponents.MIMICKED)) {
+            tooltipEvent.getToolTip().add(Component.translatable("misc.alexsmobsinteraction.mimicked").withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+        if (stack.has(AMIDataComponents.MAGGOT_BAITED)) {
+            tooltipEvent.getToolTip().add(Component.translatable("misc.alexsmobsinteraction.maggot_baited", stack.get(AMIDataComponents.MAGGOT_BAITED)).withStyle(ChatFormatting.GRAY));
+        }
+        if (stack.is(AMItemRegistry.LEAFCUTTER_ANT_PUPA.get())) {
+            int variant = AMIUtils.getPupaVariant(stack);
+            if (variant == 1 || variant == 2) {
+                tooltipEvent.getToolTip().add(Component.translatable("misc.alexsmobsinteraction.pupa_variant_" + (variant == 1 ? "red" : "black")).withStyle(ChatFormatting.GRAY));
+            }
+        }
+    }
+
+    private static final float SEAL_SPIN_SPEED = 2.0F;
+
+    @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void preRender(RenderLivingEvent.Pre preEvent) {
+        if (preEvent.getEntity() instanceof EntitySeal seal && seal.getData(AMIAttachments.SPINNING_SEAL)) {
+            PoseStack poseStack = preEvent.getPoseStack();
+            float bodyRot = Mth.rotLerp(preEvent.getPartialTick(), seal.yBodyRotO, seal.yBodyRot);
+            poseStack.pushPose();
+            poseStack.translate(0.0F, seal.getBbWidth() / 2.0F, 0.0F);
+            poseStack.mulPose(Axis.YP.rotationDegrees((seal.tickCount + preEvent.getPartialTick()) * SEAL_SPIN_SPEED - bodyRot));
+            poseStack.translate(0.0F, 0.0F, seal.getBbHeight() / 2.0F);
+            poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+            poseStack.mulPose(Axis.YP.rotationDegrees(bodyRot));
+        }
         if (preEvent.getEntity() instanceof EntityFly fly) {
             if (AMIUtils.isTransforming(fly)) {
                 preEvent.getPoseStack().pushPose();
@@ -80,6 +118,9 @@ public class AMIClientEvents {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void postRender(RenderLivingEvent.Post postEvent) {
+        if (postEvent.getEntity() instanceof EntitySeal seal && seal.getData(AMIAttachments.SPINNING_SEAL)) {
+            postEvent.getPoseStack().popPose();
+        }
 
         if (postEvent.getEntity() instanceof EntityFly fly) {
             if (AMIUtils.isTransforming(fly)) {

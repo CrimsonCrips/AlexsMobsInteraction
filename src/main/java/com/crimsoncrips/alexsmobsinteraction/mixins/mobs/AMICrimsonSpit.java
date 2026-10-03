@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.effect.AMIEffects;
 import com.github.alexthe666.alexsmobs.entity.EntityCrimsonMosquito;
@@ -45,7 +46,7 @@ public abstract class AMICrimsonSpit extends Entity {
         if (AlexsMobsInteraction.COMMON_CONFIG.HEMOGENICISM_ENABLED.get()){
             if (p_213868_1_.getEntity() instanceof LivingEntity livingHitEntity){
                 if (!(livingHitEntity instanceof EntityCrimsonMosquito || livingHitEntity instanceof EntityWarpedMosco)){
-                    livingHitEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED, 240, 0));
+                    livingHitEntity.addEffect(new MobEffectInstance(AMIEffects.BLOODED, AMIUtils.seconds(12), 0));
                 }
 
                 if (spitOwner instanceof EntityCrimsonMosquito || spitOwner instanceof EntityWarpedMosco) {

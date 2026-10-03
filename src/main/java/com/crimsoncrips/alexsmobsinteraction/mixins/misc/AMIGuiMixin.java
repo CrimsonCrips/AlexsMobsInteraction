@@ -169,7 +169,7 @@ public abstract class AMIGuiMixin {
 
 
     public boolean alterGui(boolean requireAlter){
-        return AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get() && (minecraft.player.getData(AMIAttachments.ALTER_TIME) != 0 || !requireAlter);
+        return !AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get() && (minecraft.player.getData(AMIAttachments.ALTER_TIME) != 0 || !requireAlter);
     }
 
     public double randomShake(){

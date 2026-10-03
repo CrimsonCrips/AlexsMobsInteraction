@@ -42,7 +42,7 @@ public abstract class AMIDimensionalCarverMixin extends Item {
     @Inject(method = "onPortalOpen", at = @At("HEAD"),cancellable = true,remap = false)
     private void alexsMobsInteraction$onPortalOpen(Level worldIn, LivingEntity player, EntityVoidPortal portal, Direction dir, CallbackInfo ci) {
         ci.cancel();
-        portal.setLifespan(1200);
+        portal.setLifespan(AMIUtils.seconds(60));
         ItemStack itemStack = player.getOffhandItem();
         if (player instanceof ServerPlayer serverPlayer && itemStack.getItem() instanceof CompassItem && AlexsMobsInteraction.COMMON_CONFIG.DIMENSIONAL_LODESTONE_ENABLED.get()){
             LodestoneTracker lodestoneTracker = itemStack.get(DataComponents.LODESTONE_TRACKER);
@@ -52,13 +52,13 @@ public abstract class AMIDimensionalCarverMixin extends Item {
                 }
                 GlobalPos globalLodestone = lodestoneTracker.target().get();
                 portal.exitDimension = globalLodestone.dimension();
+                portal.setData(AMIAttachments.PORTAL_DIMENSION, portal.exitDimension.location().toString());
                 portal.setDestination(globalLodestone.pos().above(3));
                 if (globalLodestone.dimension() != player.level().dimension()){
                     AMIUtils.awardAdvancement(player, "multidimensional_lodestone", "dimension");
                 }
                 AMIUtils.awardAdvancement(player, "dimensional_lodestone", "lodestone");
-                String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-                portal.setData(AMIAttachments.VARIANT, AMIUtils.dimensionDeterminer(result));
+                String result = portal.exitDimension.location().toString();
 
                 //Used to determine string for dimension
                 System.out.println(result);
@@ -74,9 +74,8 @@ public abstract class AMIDimensionalCarverMixin extends Item {
             }
 
             portal.exitDimension = respawnDimension;
+            portal.setData(AMIAttachments.PORTAL_DIMENSION, portal.exitDimension.location().toString());
             portal.setDestination(respawnPosition.above(2));
-            String result = portal.exitDimension.toString().replaceAll("ResourceKey\\[minecraft:dimension / |\\]", "");
-            portal.setData(AMIAttachments.VARIANT, AMIUtils.dimensionDeterminer(result));
         }
 
     }

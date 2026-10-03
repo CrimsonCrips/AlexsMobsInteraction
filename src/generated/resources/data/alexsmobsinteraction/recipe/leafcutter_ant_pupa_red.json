@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "alexsmobs:leafcutter_ant_pupa"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "AMIAntVariant": 1
+      }
+    },
+    "count": 1,
+    "id": "alexsmobs:leafcutter_ant_pupa"
+  }
+}

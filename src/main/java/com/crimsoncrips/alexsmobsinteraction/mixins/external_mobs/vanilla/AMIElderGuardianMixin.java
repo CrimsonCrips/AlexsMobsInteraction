@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.external_mobs.vanilla;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.enchantment.AMIEnchantmentRegistry;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowNearestGoal;
@@ -40,7 +41,7 @@ public abstract class AMIElderGuardianMixin extends Guardian {
         ci.cancel();
         super.customServerAiStep();
         if ((this.tickCount + this.getId()) % 1200 == 0) {
-            MobEffectInstance mobeffectinstance = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 6000, 2);
+            MobEffectInstance mobeffectinstance = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, AMIUtils.seconds(300), 2);
             List<ServerPlayer> list = MobEffectUtil.addEffectToPlayersAround((ServerLevel)this.level(), this, this.position(), 50.0D, mobeffectinstance, 1200);
             list.forEach((p_289459_) -> {
                 if (AMIEnchantmentRegistry.getLevel(p_289459_.level(), p_289459_.getItemBySlot(EquipmentSlot.HEAD), AMIEnchantmentRegistry.STABILIZER) > 0) {

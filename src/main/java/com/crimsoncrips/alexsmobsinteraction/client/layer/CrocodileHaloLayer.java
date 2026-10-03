@@ -1,6 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.client.layer;
 
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AMIBasicInterfaces;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.client.model.ModelCrocodile;
 import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
@@ -23,7 +23,7 @@ public class CrocodileHaloLayer extends RenderLayer<EntityCrocodile, ModelCrocod
 
     @Override
     public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, EntityCrocodile pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        if (!pLivingEntity.isBaby() && ((AMIBasicInterfaces) pLivingEntity).isWally()) {
+        if (!pLivingEntity.isBaby() && pLivingEntity.getData(AMIAttachments.WALLY)) {
             ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
             ItemStack haloStack = new ItemStack(AMItemRegistry.HALO.get());
             pPoseStack.pushPose();

@@ -1,74 +1,53 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.cockroach;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
-import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.compat.ACCompat;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.ChatFormatting;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
-import net.neoforged.fml.ModList;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import javax.annotation.Nullable;
-import java.util.UUID;
-
 
 @Mixin(EntityCockroach.class)
-public abstract class AMICockroach extends Mob implements AsmonRoach {
+public abstract class AMICockroach extends Mob {
 
-    private int conversionTime;
+    private static final int SERVANT_GLOW_HOLD = 20;
 
-    @Shadow @Final protected static EntityDimensions STAND_SIZE;
+    private static final int SERVANT_GLOW_FADE = 40;
 
-    protected AMICockroach(EntityType<? extends Monster> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+    protected AMICockroach(EntityType<? extends Mob> entityType, Level level) {
+        super(entityType, level);
     }
-
-
-
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void alexsMobsInteraction$tick(CallbackInfo ci) {
-        EntityCockroach cockroach = (EntityCockroach)(Object)this;
-        if (AlexsMobsInteraction.COMMON_CONFIG.COCKROACH_MUTATION_ENABLED.get() && ModList.get().isLoaded("alexscaves")) {
-            if (ACCompat.toxicCaves(cockroach)){
-                ++conversionTime;
-            }
-            if (conversionTime > 360 && !this.level().isClientSide) {
-                ACCompat.gammaroach().spawn((ServerLevel) this.level(), BlockPos.containing(this.getPosition(1)), MobSpawnType.MOB_SUMMONED);
-                this.remove(RemovalReason.DISCARDED);
-            }
-        }
-
-    }
-
-
-
-
-    @Override
-    @Nullable
-    public Entity getWorshiping() {
-        if (!level().isClientSide) {
-            final UUID id = AMIAttachments.getUUID(this, AMIAttachments.WORSHIPING_UUID);
-            return id == null ? null : ((ServerLevel) level()).getEntity(id);
-        }
-        return null;
-    }
-
-
-
-
 
     @Override
     public boolean canBeLeashed() {
-        return super.canBeLeashed() && !this.getData(AMIAttachments.IS_GOD) && getWorshiping() == null;
+        return super.canBeLeashed() && !this.getData(AMIAttachments.IS_GOD) && AMIUtils.getWorshiping(this) == null;
+    }
+
+    @Override
+    public boolean isCurrentlyGlowing() {
+        return super.isCurrentlyGlowing() || (this.level().isClientSide && alexsMobsInteraction$servantGlow() > 0);
+    }
+
+    @Override
+    public int getTeamColor() {
+        float glow = alexsMobsInteraction$servantGlow();
+        if (glow > 0) {
+            int color = ChatFormatting.YELLOW.getColor();
+            return FastColor.ARGB32.color(0, (int) (FastColor.ARGB32.red(color) * glow), (int) (FastColor.ARGB32.green(color) * glow), (int) (FastColor.ARGB32.blue(color) * glow));
+        }
+        return super.getTeamColor();
+    }
+
+    private float alexsMobsInteraction$servantGlow() {
+        long start = this.getData(AMIAttachments.SERVANT_GLOW_START);
+        if (start <= 0)
+            return 0;
+        long elapsed = this.level().getGameTime() - start;
+        if (elapsed < 0 || elapsed >= SERVANT_GLOW_HOLD + SERVANT_GLOW_FADE)
+            return 0;
+        return elapsed < SERVANT_GLOW_HOLD ? 1F : 1F - (elapsed - SERVANT_GLOW_HOLD) / (float) SERVANT_GLOW_FADE;
     }
 }

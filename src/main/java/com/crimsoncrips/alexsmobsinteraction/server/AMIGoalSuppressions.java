@@ -1,6 +1,10 @@
 package com.crimsoncrips.alexsmobsinteraction.server;
 
+import com.github.alexthe666.alexsmobs.entity.ai.MantisShrimpAIBreakBlocks;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.Difficulty;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.entity.ai.EntityAINearestTarget3D;
@@ -42,6 +46,27 @@ public class AMIGoalSuppressions {
             remove(enderiophage.targetSelector, 1, "com.github.alexthe666.alexsmobs.entity.EntityEnderiophage$2");
         }
 
+        if (mob instanceof EntityCrocodile crocodile && common.EMOTIONAL_REMEMEMBRANCE_ENABLED.get()) {
+            remove(crocodile.targetSelector, 4, "com.github.alexthe666.alexsmobs.entity.EntityCrocodile$1");
+            remove(crocodile.targetSelector, 5, "com.github.alexthe666.alexsmobs.entity.EntityCrocodile$2");
+            remove(crocodile.targetSelector, 6, "com.github.alexthe666.alexsmobs.entity.EntityCrocodile$3");
+            crocodile.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(crocodile, Player.class, 80, false, true, null) {
+                public boolean canUse() {
+                    return !crocodile.isBaby() && !crocodile.isTame() && crocodile.level().getDifficulty() != Difficulty.PEACEFUL && super.canUse() && !crocodile.getData(AMIAttachments.WALLY);
+                }
+            });
+            crocodile.targetSelector.addGoal(5, new EntityAINearestTarget3D<>(crocodile, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.CROCODILE_TARGETS)) {
+                public boolean canUse() {
+                    return !crocodile.isBaby() && !crocodile.isTame() && super.canUse() && !crocodile.getData(AMIAttachments.WALLY);
+                }
+            });
+            crocodile.targetSelector.addGoal(6, new EntityAINearestTarget3D<>(crocodile, Monster.class, 180, false, true, EntityCrocodile.NOT_CREEPER::test) {
+                public boolean canUse() {
+                    return !crocodile.isBaby() && crocodile.isTame() && super.canUse() && !crocodile.getData(AMIAttachments.WALLY);
+                }
+            });
+        }
+
         if (mob instanceof EntityGrizzlyBear grizzlyBear && tamedFriendlies) {
             remove(grizzlyBear.targetSelector, 6, NearestAttackableTargetGoal.class);
             grizzlyBear.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(grizzlyBear, Player.class, 10, true, false, target -> {
@@ -76,6 +101,14 @@ public class AMIGoalSuppressions {
             skelewag.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(skelewag, Player.class, 100, true, false, (LivingEntity livingEntity) -> {
                 return !livingEntity.hasEffect(AMEffectRegistry.ORCAS_MIGHT);
             }));
+        }
+
+        if (mob instanceof EntityMantisShrimp mantisShrimp && common.MANTIS_MINING_ENABLED.get()) {
+            remove(mantisShrimp.goalSelector, 0, MantisShrimpAIBreakBlocks.class);
+        }
+
+        if (mob instanceof EntityVoidWorm voidWorm && common.VOID_WORM_REWORK_ENABLED.get()) {
+            remove(voidWorm.goalSelector, 2, "com.github.alexthe666.alexsmobs.entity.EntityVoidWorm$AIAttack");
         }
 
         if (mob instanceof EntityWarpedToad warpedToad && tamedFriendlies) {

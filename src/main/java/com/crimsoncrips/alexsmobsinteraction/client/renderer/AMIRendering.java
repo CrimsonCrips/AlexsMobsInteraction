@@ -1,7 +1,12 @@
 package com.crimsoncrips.alexsmobsinteraction.client.renderer;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.client.glint.AMIGlintRenderTypes;
+import net.neoforged.neoforge.client.event.RegisterRenderBuffersEvent;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIShaders;
+import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -9,7 +14,9 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -34,16 +41,37 @@ public class AMIRendering {
 
 	public static float STALK_PROGRESS = 0.0F;
 
+	private static final ResourceLocation VIGNETTE = ResourceLocation.withDefaultNamespace("textures/misc/vignette.png");
+	private static final float STABILIZED_VIGNETTE_TICKS = AMIUtils.seconds(1.5F);
+	private static long stabilizedVignetteStart = Long.MIN_VALUE;
+
+	public static void flashStabilizedVignette() {
+		Minecraft minecraft = Minecraft.getInstance();
+		if (minecraft.level != null) {
+			stabilizedVignetteStart = minecraft.level.getGameTime();
+		}
+	}
+
+	@SubscribeEvent
+	public static void registerRenderBuffers(RegisterRenderBuffersEvent event) {
+		event.registerRenderBuffer(AMIGlintRenderTypes.MIMIC_GLINT);
+		event.registerRenderBuffer(AMIGlintRenderTypes.MIMIC_GLINT_TRANSLUCENT);
+		event.registerRenderBuffer(AMIGlintRenderTypes.MIMIC_ENTITY_GLINT);
+		event.registerRenderBuffer(AMIGlintRenderTypes.MIMIC_ENTITY_GLINT_DIRECT);
+	}
+
 	@SubscribeEvent
 	public static void registerOverlays(RegisterGuiLayersEvent event) {
 		Minecraft minecraft = Minecraft.getInstance();
 		event.registerBelow(VanillaGuiLayers.EXPERIENCE_BAR, AlexsMobsInteraction.prefix("ami_toasts"), (graphics, deltaTracker) -> AMIToastManager.render(graphics));
+		event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, AlexsMobsInteraction.prefix("ursa_swipes"), (graphics, deltaTracker) -> renderSwipes(graphics, minecraft));
+		event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, AlexsMobsInteraction.prefix("stabilized_vignette"), (graphics, deltaTracker) -> renderStabilizedVignette(graphics, minecraft, deltaTracker.getGameTimeDeltaPartialTick(false)));
 		event.registerAbove(VanillaGuiLayers.CROSSHAIR, AlexsMobsInteraction.prefix("farseer_text"), (graphics, deltaTracker) -> {
 			int screenWidth = graphics.guiWidth();
 			int screenHeight = graphics.guiHeight();
 			if (minecraft.player == null)
 				return;
-			if (!AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get())
+			if (AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get())
 				return;
 			renderFarseerTextEffects(graphics, screenWidth,screenHeight,  13 ,8,0.07,1,0,0,3);
 			renderFarseerTextEffects(graphics, screenWidth,screenHeight,  -10 ,13,0.17,1,0,0,3);
@@ -63,7 +91,7 @@ public class AMIRendering {
 			int screenHeight = graphics.guiHeight();
 			if (minecraft.player == null)
 				return;
-			if (!AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get())
+			if (AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get())
 				return;
 
 			renderStaticScreenFor = (int) (30 * STALK_PROGRESS);
@@ -91,6 +119,44 @@ public class AMIRendering {
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		});
 
+	}
+
+	private static void renderSwipes(GuiGraphics graphics, Minecraft minecraft) {
+		LocalPlayer player = minecraft.player;
+		if (player == null || minecraft.options.hideGui)
+			return;
+		int swipes = player.getData(AMIAttachments.SWIPES);
+		if (swipes < 1)
+			return;
+		Font font = minecraft.font;
+		String text = String.valueOf(swipes);
+		int x = (graphics.guiWidth() - font.width(text)) / 2;
+		int y = graphics.guiHeight() - 35 - (player.experienceLevel > 0 ? font.lineHeight + 1 : 0);
+		graphics.drawString(font, text, x + 1, y, 0, false);
+		graphics.drawString(font, text, x - 1, y, 0, false);
+		graphics.drawString(font, text, x, y + 1, 0, false);
+		graphics.drawString(font, text, x, y - 1, 0, false);
+		graphics.drawString(font, text, x, y, 0xD1352B, false);
+	}
+
+	private static void renderStabilizedVignette(GuiGraphics graphics, Minecraft minecraft, float partialTick) {
+		if (minecraft.level == null || stabilizedVignetteStart == Long.MIN_VALUE)
+			return;
+		float elapsed = minecraft.level.getGameTime() - stabilizedVignetteStart + partialTick;
+		float strength = 1.0F - elapsed / STABILIZED_VIGNETTE_TICKS;
+		if (strength <= 0.0F)
+			return;
+		RenderSystem.disableDepthTest();
+		RenderSystem.depthMask(false);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR);
+		graphics.setColor(0.0F, strength, strength, 1.0F);
+		graphics.blit(VIGNETTE, 0, 0, -90, 0.0F, 0.0F, graphics.guiWidth(), graphics.guiHeight(), graphics.guiWidth(), graphics.guiHeight());
+		graphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.disableBlend();
+		RenderSystem.depthMask(true);
+		RenderSystem.enableDepthTest();
 	}
 
 	public static void renderFarseerText(GuiGraphics graphics, int screenWidth, int screenHeight) {

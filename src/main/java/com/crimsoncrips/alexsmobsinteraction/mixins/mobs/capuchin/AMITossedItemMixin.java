@@ -1,8 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.capuchin;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AncientDartPotion;
 import com.github.alexthe666.alexsmobs.entity.EntityTossedItem;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -23,48 +23,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(EntityTossedItem.class)
-public abstract class AMITossedItemMixin extends ThrowableItemProjectile implements AncientDartPotion {
+public abstract class AMITossedItemMixin extends ThrowableItemProjectile {
 
     @Shadow public abstract boolean isDart();
 
     public AMITossedItemMixin(EntityType<? extends ThrowableItemProjectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
-    private static final Object2IntMap<String> potionToColor = new Object2IntOpenHashMap<>();
-
-    @Override
-    public int getPotionColor() {
-        String id = this.getData(AMIAttachments.POTION_ID);
-        if (id.isEmpty()) {
-            return -1;
-        } else {
-            if (!potionToColor.containsKey(id)) {
-                MobEffect effect = getPotionEffect();
-                if (effect != null) {
-                    int color = effect.getColor();
-                    potionToColor.put(id, color);
-                    return color;
-                }
-                return -1;
-            } else {
-                return potionToColor.getInt(id);
-            }
-        }
-    }
-
-
-    public MobEffect getPotionEffect() {
-        if (this.getData(AMIAttachments.POTION_ID) != null) {
-            return BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(this.getData(AMIAttachments.POTION_ID)));
-        } else return null;
-    }
-
     @Inject(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private void alexsMobsInteraction$onHitEntity(EntityHitResult p_213868_1_, CallbackInfo ci) {
-        MobEffect potion = getPotionEffect();
+        MobEffect potion = AMIUtils.getPotionEffect(this);
 
         if(potion != null && p_213868_1_.getEntity() instanceof LivingEntity livingEntity && AlexsMobsInteraction.COMMON_CONFIG.DART_EFFECTS_ENABLED.get()){
-            MobEffectInstance instance = new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(potion), 100, this.getData(AMIAttachments.POTION_LEVEL));
+            MobEffectInstance instance = new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(potion), AMIUtils.seconds(5), this.getData(AMIAttachments.POTION_LEVEL));
             livingEntity.addEffect(instance);
         }
     }

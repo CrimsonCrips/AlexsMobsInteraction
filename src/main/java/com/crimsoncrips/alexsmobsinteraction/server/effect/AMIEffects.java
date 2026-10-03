@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction.server.effect;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.registries.Registries;
@@ -23,10 +24,10 @@ public class AMIEffects {
     public static final DeferredHolder<MobEffect, MobEffect> SKREECHING = EFFECT_REGISTER.register("skreeching", AMISkreeching::new);
     public static final DeferredHolder<MobEffect, MobEffect> BLOODED = EFFECT_REGISTER.register("blooded", AMIBlooded::new);
     public static final DeferredHolder<MobEffect, MobEffect> GUSTING = EFFECT_REGISTER.register("gusting", AMIGusting::new);
-    public static final DeferredHolder<Potion, Potion> SKREECHING_POTION = POTION_REGISTER.register("skreeching", () -> new Potion(new MobEffectInstance(SKREECHING, 72000)));
-    public static final DeferredHolder<Potion, Potion> GUSTING_POTION = POTION_REGISTER.register("gusting", () -> new Potion(new MobEffectInstance(GUSTING, 800)));
-    public static final DeferredHolder<Potion, Potion> LONGER_GUSTING_POTION = POTION_REGISTER.register("long_gusting", () -> new Potion("gusting", new MobEffectInstance(GUSTING, 1600)));
-    public static final DeferredHolder<Potion, Potion> HEALTH_BOOST_POTION = POTION_REGISTER.register("health_boost", () -> new Potion(new MobEffectInstance(MobEffects.HEALTH_BOOST, 1600, 1)));
+    public static final DeferredHolder<Potion, Potion> SKREECHING_POTION = POTION_REGISTER.register("skreeching", () -> new Potion(new MobEffectInstance(SKREECHING, AMIUtils.seconds(3600))));
+    public static final DeferredHolder<Potion, Potion> GUSTING_POTION = POTION_REGISTER.register("gusting", () -> new Potion(new MobEffectInstance(GUSTING, AMIUtils.seconds(40))));
+    public static final DeferredHolder<Potion, Potion> LONGER_GUSTING_POTION = POTION_REGISTER.register("long_gusting", () -> new Potion("gusting", new MobEffectInstance(GUSTING, AMIUtils.seconds(80))));
+    public static final DeferredHolder<Potion, Potion> HEALTH_BOOST_POTION = POTION_REGISTER.register("health_boost", () -> new Potion(new MobEffectInstance(MobEffects.HEALTH_BOOST, AMIUtils.seconds(80), 1)));
 
     public static void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
         PotionBrewing.Builder builder = event.getBuilder();

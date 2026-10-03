@@ -1,7 +1,7 @@
 package com.crimsoncrips.alexsmobsinteraction.server.goal;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import com.github.alexthe666.alexsmobs.entity.EntityFly;
@@ -32,8 +32,7 @@ public class AMIFollowAsmon extends Goal {
     }
 
     public boolean canUse() {
-        AsmonRoach myAccessor = (AsmonRoach) mob;
-        if (myAccessor.getWorshiping() instanceof EntityCockroach entityCockroach && !mob.getData(AMIAttachments.IS_GOD) && entityCockroach.getLastHurtByMob() == null){
+        if (AMIUtils.getWorshiping(mob) instanceof EntityCockroach entityCockroach && !mob.getData(AMIAttachments.IS_GOD) && entityCockroach.getLastHurtByMob() == null){
             if (this.nextStartTick > 0) {
                 --this.nextStartTick;
                 return false;
@@ -45,8 +44,7 @@ public class AMIFollowAsmon extends Goal {
     }
 
     public boolean canContinueToUse() {
-        AsmonRoach myAccessor = (AsmonRoach) mob;
-        return myAccessor.getWorshiping() != null && !mob.getData(AMIAttachments.IS_GOD);
+        return AMIUtils.getWorshiping(mob) != null && !mob.getData(AMIAttachments.IS_GOD);
     }
 
     public void start() {
@@ -54,8 +52,7 @@ public class AMIFollowAsmon extends Goal {
     }
 
     public void tick() {
-        AsmonRoach myAccessor = (AsmonRoach) mob;
-        Entity asmon = myAccessor.getWorshiping();
+        Entity asmon = AMIUtils.getWorshiping(mob);
         if (--this.timeToRecalcPath <= 0 && mob.distanceTo(asmon) > 6) {
             this.timeToRecalcPath = 10;
             mob.getNavigation().moveTo(asmon,1.1);

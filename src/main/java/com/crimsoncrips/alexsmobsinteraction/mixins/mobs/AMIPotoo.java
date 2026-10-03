@@ -33,7 +33,7 @@ public abstract class AMIPotoo extends Animal {
         EntityPotoo potoo = (EntityPotoo)(Object)this;
         if (AlexsMobsInteraction.COMMON_CONFIG.VISIONARY_ENABLED.get()){
             if (potoo.getVehicle() instanceof Player player && !player.hasEffect(MobEffects.NIGHT_VISION)){
-                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, AMIUtils.seconds(15), 0));
                 player.playSound(SoundEvents.BELL_RESONATE);
                 AMIUtils.addParticlesAroundSelf(ParticleTypes.END_ROD,player,6,1);
                 AMIUtils.awardAdvancement(player,"potoo_vision","vision");

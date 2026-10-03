@@ -25,7 +25,7 @@ public record WelcomeToastPacket() implements CustomPacketPayload {
                 AMIToastManager.addToast(Component.translatable("misc.alexsmobsinteraction.welcome_toast_message"), seconds * 1000L);
             }
 
-            if (AlexsMobsInteraction.CLIENT_CONFIG.WARNING_ENABLED.get() && AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get()) {
+            if (AlexsMobsInteraction.CLIENT_CONFIG.WARNING_ENABLED.get() && !AlexsMobsInteraction.CLIENT_CONFIG.PHOTOSENSITIVITY_ENABLED.get()) {
                 AMIToastManager.addToast(Component.translatable("misc.alexsmobsinteraction.warning_message"), 5 * 1000L);
             }
         });

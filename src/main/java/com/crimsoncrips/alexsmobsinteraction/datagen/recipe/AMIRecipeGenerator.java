@@ -1,5 +1,13 @@
 package com.crimsoncrips.alexsmobsinteraction.datagen.recipe;
 
+import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.ItemLike;
 import com.crimsoncrips.alexsmobsinteraction.server.item.AMIItemRegistry;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.core.HolderLookup;
@@ -29,10 +37,25 @@ public class AMIRecipeGenerator extends AMIRecipeHelper {
 				.unlockedBy("has_item", has(AMItemRegistry.COCKROACH_WING.get()))
 				.save(consumer);
 
+		pupaVariant(consumer, Items.SWEET_BERRIES, 1, "red");
+		pupaVariant(consumer, Items.COAL, 2, "black");
 
 
 
 
 
+
+	}
+
+	private static void pupaVariant(RecipeOutput consumer, ItemLike catalyst, int variant, String name) {
+		ItemStack result = new ItemStack(AMItemRegistry.LEAFCUTTER_ANT_PUPA.get());
+		CompoundTag tag = new CompoundTag();
+		tag.putInt(AMIUtils.PUPA_VARIANT, variant);
+		result.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result)
+				.requires(AMItemRegistry.LEAFCUTTER_ANT_PUPA.get())
+				.requires(catalyst)
+				.unlockedBy("has_item", has(AMItemRegistry.LEAFCUTTER_ANT_PUPA.get()))
+				.save(consumer, AlexsMobsInteraction.prefix("leafcutter_ant_pupa_" + name));
 	}
 }

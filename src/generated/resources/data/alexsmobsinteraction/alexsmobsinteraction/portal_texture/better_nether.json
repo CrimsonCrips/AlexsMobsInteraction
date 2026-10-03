@@ -1,0 +1,8 @@
+{
+  "dimension": "minecraft:the_nether",
+  "priority": 1,
+  "required_mods": [
+    "betternether"
+  ],
+  "texture": "alexsmobsinteraction:textures/entity/portal/better_nether/better_nether"
+}

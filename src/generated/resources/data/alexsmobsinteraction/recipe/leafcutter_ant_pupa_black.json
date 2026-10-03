@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "alexsmobs:leafcutter_ant_pupa"
+    },
+    {
+      "item": "minecraft:coal"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "AMIAntVariant": 2
+      }
+    },
+    "count": 1,
+    "id": "alexsmobs:leafcutter_ant_pupa"
+  }
+}

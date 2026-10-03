@@ -41,7 +41,7 @@ public abstract class AMICosmaw extends Goal {
             if (this$0.hasPassenger(owner) && owner.getArmorValue() > 8){
                 if(!(AMIEnchantmentRegistry.getLevel(owner.level(), owner.getItemBySlot(EquipmentSlot.CHEST), AMIEnchantmentRegistry.LIGHTWEIGHT) > 0)){
                     AMIUtils.awardAdvancement(owner, "heavy_carriage", "heavy");
-                    this$0.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, owner.getArmorValue() * 100, 0));
+                    this$0.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, owner.getArmorValue() * AMIUtils.seconds(5), 0));
                 } else {
                     AMIUtils.awardAdvancement(owner,"lightweight","lightweight");
                 }

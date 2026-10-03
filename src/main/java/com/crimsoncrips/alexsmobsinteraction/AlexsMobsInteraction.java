@@ -1,5 +1,6 @@
 package com.crimsoncrips.alexsmobsinteraction;
 
+import com.crimsoncrips.alexsmobsinteraction.server.item.AMIDataComponents;
 import com.crimsoncrips.alexsmobsinteraction.client.AMIClientConfig;
 import com.crimsoncrips.alexsmobsinteraction.client.AMISoundRegistry;
 import com.crimsoncrips.alexsmobsinteraction.datagen.AMIDatagen;
@@ -61,11 +62,13 @@ public class AlexsMobsInteraction {
         NeoForge.EVENT_BUS.addListener(AMIEffects::registerBrewingRecipes);
         NeoForge.EVENT_BUS.addListener(AMIAddTargets::onEntityJoinLevel);
         NeoForge.EVENT_BUS.addListener(AMIAddGoals::onEntityJoinLevel);
+        NeoForge.EVENT_BUS.addListener(AMICommands::register);
 
 
         AMIEffects.EFFECT_REGISTER.register(modEventBus);
         AMIEffects.POTION_REGISTER.register(modEventBus);
         AMIItemRegistry.DEF_REG.register(modEventBus);
+        AMIDataComponents.DEF_REG.register(modEventBus);
         AMISoundRegistry.DEF_REG.register(modEventBus);
         AMILootModifiers.LOOT_MODIFIERS.register(modEventBus);
         AMIEntityRegistry.DEF_REG.register(modEventBus);
@@ -73,6 +76,8 @@ public class AlexsMobsInteraction {
         modEventBus.addListener(AMIDatagen::generateData);
         modEventBus.addListener(AMIModEvents::addCreativeTabs);
         modEventBus.addListener(AMIModEvents::registerSpawnPlacements);
+        modEventBus.addListener(AMIModEvents::registerDatapackRegistries);
+        modEventBus.addListener(AMIModEvents::registerAttributes);
         modEventBus.addListener(AMIPacketHandler::register);
         modEventBus.addListener(this::setupClient);
         PROXY.init(modEventBus);

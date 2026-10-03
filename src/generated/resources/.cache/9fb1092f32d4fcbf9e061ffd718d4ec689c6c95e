@@ -1,3 +1,7 @@
-// 1.21.1	2026-09-30T08:59:23.405067878	Recipes
+// 1.21.1	2026-10-01T11:09:42.10959832	Recipes
 aa58f768569c1f36311a54a0b8dd306b996e1145 data/alexsmobsinteraction/advancement/recipes/misc/asmon_crown.json
+50db93765e39fee5610d6cecdbb839d1ae02fce1 data/alexsmobsinteraction/advancement/recipes/misc/leafcutter_ant_pupa_black.json
+34c6df7e45f2f34c1e1773598e30c800450f37d4 data/alexsmobsinteraction/advancement/recipes/misc/leafcutter_ant_pupa_red.json
 875c429495aec62045b15db0696c6f46a217e4c1 data/alexsmobsinteraction/recipe/asmon_crown.json
+9ad358b9c0407934ac06e409ff075244625481c5 data/alexsmobsinteraction/recipe/leafcutter_ant_pupa_black.json
+8f4a4794888d953e3dc7abd069acec4993612e82 data/alexsmobsinteraction/recipe/leafcutter_ant_pupa_red.json

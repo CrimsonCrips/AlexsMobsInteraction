@@ -1,5 +1,11 @@
 package com.crimsoncrips.alexsmobsinteraction.server;
 
+import com.crimsoncrips.alexsmobsinteraction.server.entity.EntityVoidWormDummy;
+import com.github.alexthe666.alexsmobs.entity.EntityVoidWorm;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIVoidWormRejoin;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIVoidWormAttack;
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
+import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIMantisMine;
 import com.crimsoncrips.alexsmobsinteraction.AMIReflectionUtil;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIBloodedAttraction;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIEmuRangedTrigger;
@@ -18,7 +24,6 @@ import java.util.function.Predicate;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.compat.CuriosCompat;
 import com.crimsoncrips.alexsmobsinteraction.datagen.tags.AMIEntityTagGenerator;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIAvoidBlockGoal;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIEggHeldAttack;
 import com.crimsoncrips.alexsmobsinteraction.server.goal.AMIFollowAsmon;
@@ -66,25 +71,25 @@ public class AMIAddGoals {
         Entity entity = event.getEntity();
 
         if(entity instanceof EntityBunfungus bunfungus){
-            if (AlexsMobsInteraction.COMMON_CONFIG.UNSETTLING_BACKFIRE_ENABLED.get()) {
+            if (common.UNSETTLING_BACKFIRE_ENABLED.get()) {
                 bunfungus.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(bunfungus, LivingEntity.class, 2, true, false, livingEntity -> {
                     return livingEntity.getItemBySlot(EquipmentSlot.CHEST).is(AMItemRegistry.UNSETTLING_KIMONO.get()) && !livingEntity.isAlliedTo(livingEntity);
                 }));
             }
-            if (AlexsMobsInteraction.COMMON_CONFIG.CROP_FARMING_ENABLED.get()) {
+            if (common.CROP_FARMING_ENABLED.get()) {
                 bunfungus.goalSelector.addGoal(2, new AMIHarvestCrop(bunfungus));
             }
         }
 
 
         if(entity instanceof EntityCaiman caiman){
-            if (AlexsMobsInteraction.COMMON_CONFIG.EGG_ATTACK_ENABLED.get()) {
+            if (common.EGG_ATTACK_ENABLED.get()) {
                 caiman.targetSelector.addGoal(8, new AMIEggHeldAttack<>(caiman, LivingEntity.class,true));
             }
         }
 
         if(entity instanceof EntityCentipedeHead centipede){
-            if (AlexsMobsInteraction.COMMON_CONFIG.LIGHT_FEAR_ENABLED.get()) {
+            if (common.LIGHT_FEAR_ENABLED.get()) {
                 centipede.targetSelector.addGoal(4, new EntityAINearestTarget3D<>(centipede, Player.class, 50, true, false, livingEntity -> {
                     return !CuriosCompat.hasLight(livingEntity) && centipede.getLastHurtByMob() != livingEntity ;
                 }));
@@ -95,7 +100,7 @@ public class AMIAddGoals {
             }
         }
 
-        if (entity instanceof Bee bee && AlexsMobsInteraction.COMMON_CONFIG.FLOWERING_ATTRACTION_ENABLED.get()) {
+        if (entity instanceof Bee bee && common.FLOWERING_ATTRACTION_ENABLED.get()) {
             bee.goalSelector.addGoal(4, new AMIFollowNearestGoal<>(bee, EntityFlutter.class, 10, 1) {
                 public boolean canContinueToUse() {
                     return bee.level().isDay();
@@ -104,14 +109,14 @@ public class AMIAddGoals {
         }
 
         if (entity instanceof EntityHummingbird hummingbird) {
-            if (AlexsMobsInteraction.COMMON_CONFIG.DAY_POLINATION_ENABLED.get()) {
+            if (common.DAY_POLINATION_ENABLED.get()) {
                 hummingbird.goalSelector.addGoal(4, new HummingbirdAIPollinate(hummingbird){
                     public boolean canUse() {
                         return super.canUse() && hummingbird.level().isDay();
                     }
                 });
             }
-            if (AlexsMobsInteraction.COMMON_CONFIG.FLOWERING_ATTRACTION_ENABLED.get()) {
+            if (common.FLOWERING_ATTRACTION_ENABLED.get()) {
                 hummingbird.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(hummingbird, EntityFlutter.class, 10, 1.2) {
                     public boolean canContinueToUse() {
                         return hummingbird.level().isDay();
@@ -120,11 +125,11 @@ public class AMIAddGoals {
             }
         }
 
-        if (entity instanceof EntityRainFrog rainFrog && AlexsMobsInteraction.COMMON_CONFIG.BURROW_AWAY_ENABLED.get()) {
+        if (entity instanceof EntityRainFrog rainFrog && common.BURROW_AWAY_ENABLED.get()) {
             rainFrog.goalSelector.addGoal(1, new AMIPanicBurrow(rainFrog, 1.25D));
         }
 
-        if (entity instanceof EntityFly fly && AlexsMobsInteraction.COMMON_CONFIG.SCENTED_INTERACTION_ENABLED.get()) {
+        if (entity instanceof EntityFly fly && common.SCENTED_INTERACTION_ENABLED.get()) {
             fly.goalSelector.addGoal(3, new AMIAvoidBlockGoal(fly, 4, 1.8, 2.3, (pos) -> {
                 BlockState state = fly.level().getBlockState(pos);
                 if (state.is(BlockTags.CANDLES) && state.getBlock() instanceof CandleBlock){
@@ -134,7 +139,24 @@ public class AMIAddGoals {
             fly.goalSelector.addGoal(8, new AMIFollowNearestGoal<>(fly, LivingEntity.class, 1, 0.8, AMEntityRegistry.buildPredicateFromTag(AMIEntityTagGenerator.FLY_PESTER)));
         }
 
-        if (entity instanceof EntityMurmur murmur && AlexsMobsInteraction.COMMON_CONFIG.MURMUR_REGROW_ENABLED.get()) {
+        if (entity instanceof EntityVoidWorm voidWorm) {
+            voidWorm.targetSelector.addGoal(1, new EntityAINearestTarget3D<>(voidWorm, EntityVoidWormDummy.class, 10, false, true, null));
+        }
+
+        if (entity instanceof EntityVoidWorm voidWorm && common.VOID_WORM_REWORK_ENABLED.get()) {
+            voidWorm.goalSelector.addGoal(0, new AMIVoidWormRejoin(voidWorm));
+            voidWorm.goalSelector.addGoal(2, new AMIVoidWormAttack(voidWorm));
+            if (voidWorm.getWormSpeed() <= 0.0F) {
+                voidWorm.setWormSpeed(1.0F);
+            }
+            if (voidWorm.getChildId() == null && !voidWorm.getData(AMIAttachments.BOSS_SCALED)) {
+                voidWorm.setSegmentCount(voidWorm.getSegmentCount() * AMIVoidWormBoss.SEGMENT_MULTIPLIER);
+                voidWorm.setBaseMaxHealth(voidWorm.getBaseMaxHealth() * AMIVoidWormBoss.HEALTH_MULTIPLIER, true);
+                voidWorm.setData(AMIAttachments.BOSS_SCALED, true);
+            }
+        }
+
+        if (entity instanceof EntityMurmur murmur && common.MURMUR_REGROW_ENABLED.get()) {
             murmur.goalSelector.addGoal(2, new AvoidEntityGoal<>(murmur, LivingEntity.class, 10.0F, 1.8, 2){
                 @Override
                 public boolean canContinueToUse() {
@@ -143,11 +165,11 @@ public class AMIAddGoals {
             });
         }
 
-        if (entity instanceof EntityGrizzlyBear grizzlyBear && AlexsMobsInteraction.COMMON_CONFIG.HONEYLESS_HUNTING_ENABLED.get()) {
+        if (entity instanceof EntityGrizzlyBear grizzlyBear && common.HONEYLESS_HUNTING_ENABLED.get()) {
             grizzlyBear.goalSelector.addGoal(6, new AMIGrizzlyScavenge(grizzlyBear,  1.2, 12));
         }
 
-        if (entity instanceof EntityAlligatorSnappingTurtle snappingTurtle && AlexsMobsInteraction.COMMON_CONFIG.SNAPPING_DORMANCY_ENABLED.get()) {
+        if (entity instanceof EntityAlligatorSnappingTurtle snappingTurtle && common.SNAPPING_DORMANCY_ENABLED.get()) {
             snappingTurtle.goalSelector.addGoal(5, new RandomLookAroundGoal(snappingTurtle){
                 @Override
                 public boolean canContinueToUse() {
@@ -162,21 +184,24 @@ public class AMIAddGoals {
             });
         }
 
+        if (entity instanceof EntityMantisShrimp mantisShrimp && common.MANTIS_MINING_ENABLED.get()) {
+            mantisShrimp.goalSelector.addGoal(0, new AMIMantisMine(mantisShrimp));
+        }
+
         if (entity instanceof EntityCockroach cockroach) {
-            AsmonRoach asmonRoach = (AsmonRoach) cockroach;
             cockroach.goalSelector.addGoal(1, new PanicGoal(cockroach, 1.1){
                 public boolean canUse() {
-                    return super.canUse() && !cockroach.getData(AMIAttachments.IS_GOD) && asmonRoach.getWorshiping() == null;
+                    return super.canUse() && !cockroach.getData(AMIAttachments.IS_GOD) && AMIUtils.getWorshiping(cockroach) == null;
                 }
             });
             cockroach.goalSelector.addGoal(4, new AvoidEntityGoal<>(cockroach, EntityCentipedeHead.class, 16.0F, 1.3, 1.0F){
                 public boolean canUse() {
-                    return super.canUse() && !cockroach.getData(AMIAttachments.IS_GOD) && asmonRoach.getWorshiping() == null;
+                    return super.canUse() && !cockroach.getData(AMIAttachments.IS_GOD) && AMIUtils.getWorshiping(cockroach) == null;
                 }
             });
             cockroach.goalSelector.addGoal(4, new AvoidEntityGoal<>(cockroach, Player.class, 8.0F, 1.3, 1.0F) {
                 public boolean canUse() {
-                    return !cockroach.isBreaded() && super.canUse() && !cockroach.getData(AMIAttachments.IS_GOD) && asmonRoach.getWorshiping() == null;
+                    return !cockroach.isBreaded() && super.canUse() && !cockroach.getData(AMIAttachments.IS_GOD) && AMIUtils.getWorshiping(cockroach) == null;
                 }
             });
             cockroach.goalSelector.addGoal(8, new AMISurroundEntity(cockroach));
@@ -240,7 +265,7 @@ public class AMIAddGoals {
             komodoDragon.targetSelector.addGoal(8, new EntityAINearestTarget3D<>(komodoDragon, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.KOMODO_DRAGON_TARGETS)){
                 @Override
                 public boolean canContinueToUse() {
-                    return super.canContinueToUse() && (!komodoDragon.isTame() || !AlexsMobsInteraction.COMMON_CONFIG.TAMED_FRIENDLIES_ENABLED.get());
+                    return super.canContinueToUse() && (!komodoDragon.isTame() || !common.TAMED_FRIENDLIES_ENABLED.get());
                 }
             });
             if (common.TAMED_FRIENDLIES_ENABLED.get()) {

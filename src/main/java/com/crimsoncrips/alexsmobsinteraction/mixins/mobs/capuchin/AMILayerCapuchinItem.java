@@ -1,8 +1,8 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.capuchin;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import net.minecraft.util.FastColor;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AncientDartPotion;
 import com.github.alexthe666.alexsmobs.client.model.ModelAncientDart;
 import com.github.alexthe666.alexsmobs.client.model.ModelCapuchinMonkey;
 import com.github.alexthe666.alexsmobs.client.render.AMRenderTypes;
@@ -38,7 +38,7 @@ public abstract class AMILayerCapuchinItem extends RenderLayer<EntityCapuchinMon
 
     @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/github/alexthe666/alexsmobs/entity/EntityCapuchinMonkey;FFFFFF)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V",ordinal = 0))
     private void alexsMobsInteraction$render2(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityCapuchinMonkey entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-        int color = ((AncientDartPotion) entitylivingbaseIn).getPotionColor();
+        int color = AMIUtils.getPotionColor(entitylivingbaseIn);
         if (color != -1 && AlexsMobsInteraction.COMMON_CONFIG.DART_EFFECTS_ENABLED.get()) {
             float r = (float) (color >> 16 & 255) / 255.0F;
             float g = (float) (color >> 8 & 255) / 255.0F;

@@ -4,6 +4,9 @@ import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import net.minecraft.world.DifficultyInstance;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -34,6 +37,14 @@ public abstract class AMILeafcutterAntMixin extends Animal {
         if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()) {
             this.setData(AMIAttachments.VARIANT, random.nextBoolean() ? 1 : 2);
         } else this.setData(AMIAttachments.VARIANT, 1);
+    }
+
+    @WrapOperation(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
+    private boolean alexsMobsInteraction$mobInteract(Level level, Entity entity, Operation<Boolean> original) {
+        if (entity instanceof EntityLeafcutterAnt baby) {
+            baby.setData(AMIAttachments.VARIANT, this.getData(AMIAttachments.VARIANT));
+        }
+        return original.call(level, entity);
     }
 
 

@@ -2,7 +2,6 @@ package com.crimsoncrips.alexsmobsinteraction.mixins.mobs.bald_eagle;
 
 import com.crimsoncrips.alexsmobsinteraction.client.layer.AsmonLayer;
 import com.crimsoncrips.alexsmobsinteraction.client.layer.BaldBombingLayer;
-import com.crimsoncrips.alexsmobsinteraction.misc.interfaces.AsmonRoach;
 import com.github.alexthe666.alexsmobs.client.model.ModelBaldEagle;
 import com.github.alexthe666.alexsmobs.client.model.ModelCockroach;
 import com.github.alexthe666.alexsmobs.client.render.RenderBaldEagle;

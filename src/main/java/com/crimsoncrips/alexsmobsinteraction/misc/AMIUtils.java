@@ -1,14 +1,33 @@
 package com.crimsoncrips.alexsmobsinteraction.misc;
 
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import java.util.UUID;
+import javax.annotation.Nullable;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffect;
+import com.github.alexthe666.alexsmobs.entity.EntityCrocodile;
+import com.github.alexthe666.alexsmobs.entity.EntityBoneSerpentPart;
+import com.github.alexthe666.alexsmobs.entity.EntityBoneSerpent;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.advancements.AdvancementHolder;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.networking.ToastPacket;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
+import net.minecraft.util.Mth;
+import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.Advancement;
+import com.github.alexthe666.alexsmobs.entity.EntityCockroach;
 import net.minecraft.core.BlockPos;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.minecraft.network.chat.Component;
@@ -26,6 +45,9 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
@@ -44,7 +66,11 @@ import java.util.Random;
 
 public class AMIUtils {
 
-    public static final int TRANSFORM_DURATION = 160;
+    public static final int TRANSFORM_DURATION = seconds(8);
+
+    public static int seconds(float seconds) {
+        return Math.round(seconds * 20.0F);
+    }
 
     public static boolean isTransforming(LivingEntity livingEntity) {
         return livingEntity.getData(AMIAttachments.TRANSFORMING_TIME) > 0;
@@ -74,6 +100,12 @@ public class AMIUtils {
         }
     }
 
+    public static void makeServant(EntityCockroach servant, Entity asmon) {
+        AMIAttachments.setUUID(servant, AMIAttachments.WORSHIPING_UUID, asmon.getUUID());
+        servant.setCustomName(Component.nullToEmpty("Servant"));
+        servant.setData(AMIAttachments.SERVANT_GLOW_START, servant.level().getGameTime());
+    }
+
     public static boolean chanceTrue(int level,int max) {
         if(level >= max) return true;   // 10 = 100%
         Random r = new Random();
@@ -91,6 +123,108 @@ public class AMIUtils {
             }
         }
         return closestValid;
+    }
+
+    private static final Object2IntMap<String> POTION_COLORS = new Object2IntOpenHashMap<>();
+
+    @Nullable
+    public static Entity getWorshiping(Entity entity) {
+        if (entity.level() instanceof ServerLevel serverLevel) {
+            UUID id = AMIAttachments.getUUID(entity, AMIAttachments.WORSHIPING_UUID);
+            return id == null ? null : serverLevel.getEntity(id);
+        }
+        return null;
+    }
+
+    @Nullable
+    public static Entity getBoneChild(Entity entity) {
+        if (entity instanceof EntityBoneSerpent head)
+            return head.getChild();
+        if (entity.level() instanceof ServerLevel serverLevel) {
+            UUID id = AMIAttachments.getUUID(entity, AMIAttachments.CHILD_UUID);
+            return id == null ? null : serverLevel.getEntity(id);
+        }
+        return null;
+    }
+
+    public static void detectBoneChildLoop(EntityBoneSerpentPart part) {
+        if (getBoneChild(part) instanceof EntityBoneSerpentPart child) {
+            if (child.isTail()) {
+                if (part.getParent() instanceof EntityBoneSerpent)
+                    return;
+                child.discard();
+                part.setTail(true);
+            } else {
+                detectBoneChildLoop(child);
+            }
+        }
+    }
+
+    @Nullable
+    public static MobEffect getPotionEffect(Entity entity) {
+        String id = entity.getData(AMIAttachments.POTION_ID);
+        return id == null || id.isEmpty() ? null : BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(id));
+    }
+
+    public static int getPotionColor(Entity entity) {
+        String id = entity.getData(AMIAttachments.POTION_ID);
+        if (id == null || id.isEmpty())
+            return -1;
+        if (!POTION_COLORS.containsKey(id)) {
+            MobEffect effect = getPotionEffect(entity);
+            if (effect == null)
+                return -1;
+            POTION_COLORS.put(id, effect.getColor());
+        }
+        return POTION_COLORS.getInt(id);
+    }
+
+    public static boolean isWally(Entity entity) {
+        return entity instanceof EntityCrocodile crocodile && crocodile.isTame() && crocodile.getName().getString().toLowerCase().contains("wally") && AlexsMobsInteraction.COMMON_CONFIG.EMOTIONAL_REMEMEMBRANCE_ENABLED.get();
+    }
+
+    public static boolean isBlueKoopa(Entity entity) {
+        String name = ChatFormatting.stripFormatting(entity.getName().getString());
+        if (name == null || !AlexsMobsInteraction.COMMON_CONFIG.BLUE_SHELL_ENABLED.get())
+            return false;
+        name = name.toLowerCase();
+        return name.contains("blue shell") || name.contains("blue koopa");
+    }
+
+    @Nullable
+    public static BlockPos findPollinatablePlant(Entity entity, int horizontalRange, int verticalRange) {
+        Level level = entity.level();
+        Vec3 eye = entity.getEyePosition();
+        BlockPos origin = entity.blockPosition();
+        BlockPos closest = null;
+        double closestDistance = Double.MAX_VALUE;
+        for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-horizontalRange, -verticalRange, -horizontalRange), origin.offset(horizontalRange, verticalRange, horizontalRange))) {
+            BlockState state = level.getBlockState(pos);
+            if (!(state.getBlock() instanceof BonemealableBlock bonemealable) || state.is(BlockTags.DIRT) || state.is(BlockTags.NYLIUM) || !level.getFluidState(pos).isEmpty() || !bonemealable.isValidBonemealTarget(level, pos, state))
+                continue;
+            double distance = pos.distToCenterSqr(eye);
+            if (distance >= closestDistance)
+                continue;
+            Vec3 center = Vec3.atCenterOf(pos);
+            BlockHitResult hit = level.clip(new ClipContext(eye, center, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+            if (hit.getType() == HitResult.Type.MISS || hit.getBlockPos().equals(pos)) {
+                closest = pos.immutable();
+                closestDistance = distance;
+            }
+        }
+        return closest;
+    }
+
+    public static void flingFromChamber(Entity entity) {
+        RandomSource random = entity.getRandom();
+        float angle = random.nextFloat() * Mth.TWO_PI;
+        double horizontal = 0.15 + random.nextDouble() * 0.15;
+        entity.setDeltaMovement(Mth.cos(angle) * horizontal, 0.45 + random.nextDouble() * 0.2, Mth.sin(angle) * horizontal);
+        entity.hurtMarked = true;
+    }
+
+    public static boolean canBrushGrizzly(EntityGrizzlyBear grizzlyBear, Player player) {
+        return AlexsMobsInteraction.COMMON_CONFIG.BRUSHED_ENABLED.get() && grizzlyBear.isAlive() && grizzlyBear.isHoneyed() && !grizzlyBear.getData(AMIAttachments.URSA) && !(grizzlyBear.isTame() && grizzlyBear.isOwnedBy(player));
     }
 
     public static void spawnLoot (ResourceKey<LootTable> location, LivingEntity entity, Entity owner, int loop){
@@ -152,32 +286,15 @@ public class AMIUtils {
     }
 
 
-    static public int dimensionDeterminer(String string){
-        return switch (string) {
-            case "minecraft:overworld" -> 1;
-            case "minecraft:the_nether" -> {
-                //5 means better nether texture. 2 means vanilla nether texture
 
-                int variantNo = AlexsMobsInteraction.CLIENT_CONFIG.NETHER_PORTAL_VARIANT.get();
-                if (variantNo == 0){
-                   yield ModList.get().isLoaded("betternether") ? 5 : 2;
-                } else {
-                   yield variantNo == 1 ? 2 : 5;
-                }
-            }
-            case "minecraft:the_end" -> {
-                //4 means better end texture. 3 means vanilla end texture
+    public static final String PUPA_VARIANT = "AMIAntVariant";
 
-                int variantNo = AlexsMobsInteraction.CLIENT_CONFIG.END_PORTAL_VARIANT.get();
-                if (variantNo == 0) {
-                    yield ModList.get().isLoaded("betterend") ? 4 : 3;
-                } else {
-                    yield variantNo == 1 ? 3 : 4;
-                }
-            }
-            default -> 0;
-        };
+    public static int getPupaVariant(ItemStack pupa) {
+        return pupa.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt(PUPA_VARIANT);
     }
 
-
+    public static int pickPupaVariant(ItemStack pupa, RandomSource random) {
+        int variant = getPupaVariant(pupa);
+        return variant == 1 || variant == 2 ? variant : (random.nextBoolean() ? 1 : 2);
+    }
 }

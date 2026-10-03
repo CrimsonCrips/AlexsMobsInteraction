@@ -101,21 +101,5 @@ public abstract class AMISkelewag extends Monster {
         return original;
     }
 
-    @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (AlexsMobsInteraction.COMMON_CONFIG.WITHERED_SKELEWAG_ENABLED.get() && (itemStack.is(Items.COAL) || itemStack.is(Items.CHARCOAL)) && getVariant() <= 2) {
-            if (!pPlayer.isCreative()) {
-                itemStack.hurtAndBreak(1, pPlayer, LivingEntity.getSlotForHand(pHand));
-            }
-            pPlayer.swing(pHand,true);
-            pPlayer.playSound(SoundEvents.BRUSH_GENERIC, 3, this.getVoicePitch());
-            setVariant(pPlayer.getRandom().nextInt(3,4));
-        }
-
-        return super.mobInteract(pPlayer, pHand);
-
-    }
-
 
 }

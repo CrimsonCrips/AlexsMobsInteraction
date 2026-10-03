@@ -1,11 +1,14 @@
 package com.crimsoncrips.alexsmobsinteraction.mixins.misc;
 
+import com.crimsoncrips.alexsmobsinteraction.misc.AMIUtils;
 import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.AlexsMobsInteraction;
 import com.crimsoncrips.alexsmobsinteraction.server.entity.EntityLeafcutterPupa;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.github.alexthe666.alexsmobs.item.ItemLeafcutterPupa;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -33,8 +36,6 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
         super(pProperties);
     }
 
-    int variant;
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
@@ -59,14 +60,14 @@ public abstract class AMILeafcutterPupaItemMixin  extends Item{
     }
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/context/UseOnContext;getLevel()Lnet/minecraft/world/level/Level;"))
-    private void alexsMobsInteraction$useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir){
-        variant = context.getLevel().random.nextBoolean() ? 1 : 2;
+    private void alexsMobsInteraction$useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Share("variant") LocalIntRef variant){
+        variant.set(AMIUtils.pickPupaVariant(context.getItemInHand(), context.getLevel().random));
     }
 
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityLeafcutterAnt;setQueen(Z)V"))
-    private void alexsMobsInteraction$useOn1(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local EntityLeafcutterAnt beeentity){
+    private void alexsMobsInteraction$useOn1(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local EntityLeafcutterAnt beeentity, @Share("variant") LocalIntRef variant){
         if (AlexsMobsInteraction.COMMON_CONFIG.ANT_WAR_ENABLED.get()){
-            beeentity.setData(AMIAttachments.VARIANT, variant);
+            beeentity.setData(AMIAttachments.VARIANT, variant.get());
         } else {
             beeentity.setData(AMIAttachments.VARIANT, 1);
         }

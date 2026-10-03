@@ -34,11 +34,4 @@ public abstract class AMIMurmur extends Mob {
         return original;
     }
 
-    @Override
-    public void die(DamageSource pDamageSource) {
-        if (AlexsMobsInteraction.COMMON_CONFIG.MURMUR_REGROW_ENABLED.get()){
-            AMIUtils.awardAdvancement(pDamageSource.getEntity(),"reheaded","reheaded");
-        }
-        super.die(pDamageSource);
-    }
 }

@@ -1,0 +1,8 @@
+{
+  "dimension": "minecraft:the_end",
+  "priority": 1,
+  "required_mods": [
+    "betterend"
+  ],
+  "texture": "alexsmobsinteraction:textures/entity/portal/better_end/better_end"
+}

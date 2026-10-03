@@ -4,12 +4,15 @@ import com.crimsoncrips.alexsmobsinteraction.server.AMIAttachments;
 import com.crimsoncrips.alexsmobsinteraction.misc.UrsaBossEvent;
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
+import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 
 
 
@@ -45,6 +48,11 @@ public abstract class AMIGrizzlyBear extends Animal {
         if (this.getData(AMIAttachments.URSA)) {
             this.bossEvent.removePlayer(serverPlayer);
         }
+    }
+
+    @WrapWithCondition(method = "tick", at = @At(value = "INVOKE", target = "Lcom/github/alexthe666/alexsmobs/entity/EntityGrizzlyBear;doHurtTarget(Lnet/minecraft/world/entity/Entity;)Z"))
+    private boolean alexsMobsInteraction$tick(EntityGrizzlyBear instance, Entity target) {
+        return !(this.getData(AMIAttachments.URSA) && this.getData(AMIAttachments.URSA_FLURRY_TIME) > 0);
     }
 
 
